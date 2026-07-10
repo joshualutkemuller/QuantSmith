@@ -31,3 +31,7 @@ jobs:
         run: |
           sh -n setup-hooks.sh
           for hook in .githooks/*; do sh -n "$hook"; done
+          for hook in hooks/stages/*.sh; do sh -n "$hook"; done
+      - name: Enforce spec-driven traceability
+        run: |
+          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh spec

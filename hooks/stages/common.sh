@@ -47,11 +47,12 @@ qf_changed_files() {
     git diff --name-only --diff-filter=ACMR "$base"...HEAD 2>/dev/null
     return
   fi
-  changed=$(git diff --name-only --diff-filter=ACMR 2>/dev/null)
-  if [ -z "$changed" ]; then
-    changed=$(git diff --name-only --cached --diff-filter=ACMR 2>/dev/null)
-  fi
-  printf '%s\n' "$changed"
+  # Union of unstaged and staged changes, deduplicated — a staged file must not be
+  # hidden just because some other file also has unstaged edits.
+  {
+    git diff --name-only --diff-filter=ACMR 2>/dev/null
+    git diff --name-only --cached --diff-filter=ACMR 2>/dev/null
+  } | sort -u
 }
 
 # Exit according to mode. Advisory (default) always exits 0.

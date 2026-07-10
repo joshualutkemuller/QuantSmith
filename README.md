@@ -72,7 +72,11 @@ Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
 - `agents/data_quality/`: reviews datasets, joins, timestamps, lineage, missingness, and leakage risks.
+- `agents/feature_engineering/`: documents and reviews feature transforms for point-in-time safety, normalization leakage, and stability.
+- `agents/modeling/`: model selection, leakage-free validation design, error analysis, and overfitting assessment.
 - `agents/backtest_review/`: reviews historical simulations for bias, execution realism, robustness, risk, and production-readiness.
+- `agents/risk/`: factor exposure, concentration, drawdown, tail/stress risk, and monitorable risk limits.
+- `agents/git_release/`: keeps commits, PRs, changelogs, and release records clean and traceable to the spec.
 
 Development-lifecycle agents (one per SDLC stage):
 
@@ -104,6 +108,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 
 - `instructions/engineering_principles.md` (the constitution)
 - `instructions/spec_driven_development.md` (the SDD method)
+- `instructions/point_in_time.md` (point-in-time & leakage checklist)
 - `instructions/quant_research.md`
 - `instructions/data_quality.md`
 - `instructions/backtesting.md`
@@ -123,16 +128,21 @@ Artifact prompts:
 
 - `prompts/research_plan.md`
 - `prompts/dataset_card.md`
+- `prompts/data_contract.md`
 - `prompts/model_card.md`
 - `prompts/backtest_review.md`
 - `prompts/experiment_summary.md`
+- `prompts/run_card.md`
+- `prompts/model_monitoring.md`
+- `prompts/postmortem.md`
 - `prompts/handoff_memo.md`
 - `prompts/pr_review_checklist.md`
 
 ## Templates And Examples
 
 - `templates/spec/`: spec-driven artifact templates — `spec.md`, `plan.md`, `tasks.md`.
-- `templates/docs/`: research memo, dataset card, model card, backtest report, experiment summary, handoff memo, and production readiness checklist.
+- `templates/docs/`: research memo, dataset card, model card, backtest report, experiment summary, run card, model monitoring plan, incident postmortem, handoff memo, and production readiness checklist.
+- `templates/data/`: data contract template.
 - `specs/0001-daily-momentum-signal/`: a filled-in spec/plan/tasks reference showing the ID scheme and traceability end to end.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 

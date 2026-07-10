@@ -4,6 +4,31 @@ QF Workflow SDK is an agentic workflow kit for quants, researchers, and data sci
 
 The SDK is intentionally practical: it should help teams document assumptions, review data quality, reduce avoidable modeling mistakes, enforce lightweight workflow standards, and produce artifacts that another researcher or engineer can pick up later.
 
+## Spec-Driven Development
+
+The SDK follows a **Spec-Driven Development (SDD)** model with a strong
+engineering focus: the specification is the source of truth, and every design
+decision, task, test, and release traces back to it.
+
+```
+Constitution → Specify → Plan → Tasks → Implement → Verify → Operate
+```
+
+- **Constitution** — `instructions/engineering_principles.md`: the non-negotiable
+  engineering rules every change is checked against.
+- **Method** — `instructions/spec_driven_development.md`: the flow, the ID scheme
+  (`REQ`/`NFR`/`AC`/`T`/`RISK`), and the traceability rules.
+- **Artifacts** — each feature lives in `specs/NNNN-slug/` with `spec.md` (WHAT/WHY),
+  `plan.md` (HOW), and `tasks.md` (traceable work). Templates are in
+  `templates/spec/`; a worked example is in `specs/0001-daily-momentum-signal/`.
+- **Commands** — `prompts/specify.md`, `prompts/plan.md`, `prompts/tasks.md`.
+- **Gate** — `hooks/stages/spec-check.sh` enforces the chain: no plan without a
+  spec, no task without a requirement, no acceptance criterion without a test, no
+  orphans.
+
+Each SDLC stage owns one spec artifact, so the six stage agents and hooks below
+are the SDD flow made operational.
+
 ## What This SDK Is For
 
 - Planning quant research from a hypothesis.
@@ -27,6 +52,7 @@ qf_workflow_sdk/
   hooks/
   instructions/
   prompts/
+  specs/
   templates/
   examples/
   docs/
@@ -42,9 +68,20 @@ Current state notes:
 
 ## Public Agents
 
+Domain agents:
+
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
 - `agents/data_quality/`: reviews datasets, joins, timestamps, lineage, missingness, and leakage risks.
 - `agents/backtest_review/`: reviews historical simulations for bias, execution realism, robustness, risk, and production-readiness.
+
+Development-lifecycle agents (one per SDLC stage):
+
+- `agents/planning_requirements/`: Stage 1 — scopes requests into testable requirements, scope, and acceptance criteria.
+- `agents/design_architecture/`: Stage 2 — turns requirements into interfaces, data flow, validation strategy, and trade-offs.
+- `agents/implementation/`: Stage 3 — turns a design into reproducible, reviewable code and notebooks.
+- `agents/testing_validation/`: Stage 4 — maps acceptance criteria to tests and validates model/backtest results.
+- `agents/deployment_release/`: Stage 5 — production-readiness, rollout, rollback, and release handoff.
+- `agents/maintenance_monitoring/`: Stage 6 — monitoring, drift/decay triage, incidents, and doc upkeep.
 
 Each public agent follows the same contract:
 
@@ -65,6 +102,8 @@ See `agentic_dictionary.md` for the shared vocabulary.
 
 ## Public Instructions
 
+- `instructions/engineering_principles.md` (the constitution)
+- `instructions/spec_driven_development.md` (the SDD method)
 - `instructions/quant_research.md`
 - `instructions/data_quality.md`
 - `instructions/backtesting.md`
@@ -73,6 +112,14 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/git_workflow.md`
 
 ## Prompt Library
+
+Spec-driven commands:
+
+- `prompts/specify.md` — author `spec.md`
+- `prompts/plan.md` — author `plan.md`
+- `prompts/tasks.md` — author `tasks.md`
+
+Artifact prompts:
 
 - `prompts/research_plan.md`
 - `prompts/dataset_card.md`
@@ -84,7 +131,9 @@ See `agentic_dictionary.md` for the shared vocabulary.
 
 ## Templates And Examples
 
+- `templates/spec/`: spec-driven artifact templates — `spec.md`, `plan.md`, `tasks.md`.
 - `templates/docs/`: research memo, dataset card, model card, backtest report, experiment summary, handoff memo, and production readiness checklist.
+- `specs/0001-daily-momentum-signal/`: a filled-in spec/plan/tasks reference showing the ID scheme and traceability end to end.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Suggested Quant Workflow
@@ -105,7 +154,22 @@ From inside `qf_workflow_sdk`, run:
 ./setup-hooks.sh
 ```
 
-The current hooks are seed examples and should be updated before relying on them for production quant workflows. In particular, the current pre-commit and pre-push hooks still assume an older app layout.
+The current Git hooks are seed examples and should be updated before relying on them for production quant workflows. In particular, the current pre-commit and pre-push hooks still assume an older app layout.
+
+### Development-Stage Hooks
+
+`hooks/stages/` adds one advisory quality gate per SDLC stage, each paired with
+its companion agent. They are advisory by default (print findings, exit `0`) and
+degrade gracefully when tools or files are missing.
+
+```sh
+hooks/stages/run-stage.sh                 # run all six stage checks
+hooks/stages/run-stage.sh testing         # run a single stage
+```
+
+Set `QF_STAGE_ENFORCE=1` to make findings blocking (for CI or a strict gate),
+`QF_RUN_TESTS=1` to let the testing stage run the suite, and `QF_DIFF_BASE=<ref>`
+to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 
 ## Documentation
 

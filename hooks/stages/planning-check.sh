@@ -13,6 +13,7 @@ cd "$QF_ROOT"
 
 # Look for any requirements / planning artifact in common locations.
 if qf_glob_exists \
+  "specs/*/spec.md" \
   "requirements*.md" "REQUIREMENTS*.md" \
   "docs/requirements*.md" "docs/planning*.md" \
   "research_plan*.md" "docs/research_plan*.md"; then
@@ -22,7 +23,7 @@ else
 fi
 
 if [ "$found_req" -eq 0 ]; then
-  qf_warn "No requirements/planning doc found (see templates and prompts/research_plan.md)."
+  qf_warn "No requirements/spec doc found (see specs/, prompts/specify.md, templates/spec/spec.md)."
 else
   qf_info "Requirements/planning artifact present."
   # If a requirements doc exists, nudge for acceptance criteria.

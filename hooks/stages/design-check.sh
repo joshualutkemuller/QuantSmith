@@ -12,6 +12,7 @@ qf_stage_header design "Design artifact & trade-off check"
 cd "$QF_ROOT"
 
 if qf_glob_exists \
+  "specs/*/plan.md" \
   "design*.md" "DESIGN*.md" \
   "docs/design*.md" "docs/architecture*.md" \
   "adr/*.md" "docs/adr/*.md" "rfc*.md" "docs/rfc*.md"; then
@@ -21,7 +22,7 @@ else
 fi
 
 if [ "$found_design" -eq 0 ]; then
-  qf_warn "No design/architecture doc found (see agents/design_architecture)."
+  qf_warn "No design/plan doc found (see specs/, prompts/plan.md, templates/spec/plan.md)."
 else
   qf_info "Design/architecture artifact present."
   if ! grep -riq -e "trade-off" -e "tradeoff" -e "alternatives considered" . --include="*.md" 2>/dev/null; then

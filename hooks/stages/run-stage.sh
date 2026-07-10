@@ -6,7 +6,8 @@
 #   hooks/stages/run-stage.sh testing         # run one stage
 #   hooks/stages/run-stage.sh planning design # run several
 #
-# Stages: planning design implementation testing deployment maintenance
+# Stages: spec planning design implementation testing deployment maintenance
+#   (spec is the cross-cutting spec-driven traceability check; it runs first)
 #
 # Environment:
 #   QF_STAGE_ENFORCE=1  make findings blocking (non-zero exit)
@@ -15,7 +16,7 @@
 
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
-ALL="planning design implementation testing deployment maintenance"
+ALL="spec planning design implementation testing deployment maintenance"
 stages="$*"
 [ -z "$stages" ] && stages="$ALL"
 

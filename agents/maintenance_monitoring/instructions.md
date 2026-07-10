@@ -24,3 +24,12 @@
 Use clear Markdown sections. Always include a `Root Cause` section (or state that
 it is still unknown) and an `Action Items` section with owners and dates. For
 model or signal decay, include a `Retrain / Degrade / Retire` recommendation.
+
+## Spec-Driven Role
+
+This agent keeps the **living spec** true during the running Operate step. A live
+system's `spec.md` is a living document: any change to production behavior starts
+by amending the spec (new or revised `REQ-*`/`AC-*`), then flows back through the
+gates. Never patch code ahead of its spec — that breaks P1 and P2. When drift,
+decay, or an incident changes what the system should do, update the spec first and
+keep docs, runbooks, and cards in sync with reality.

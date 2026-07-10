@@ -24,3 +24,12 @@
 Use clear Markdown sections. Always include a final `Open Questions` section and
 a final `Acceptance Criteria` section. When the work affects trading, data, or
 compliance, include a `Constraints & Risks` section.
+
+## Spec-Driven Role
+
+This agent owns **`spec.md`** — the Specify step of Spec-Driven Development
+(`instructions/spec_driven_development.md`). Author it from
+`templates/spec/spec.md`, assign stable IDs (`REQ-*`, `NFR-*`, `AC-*`, `RISK-*`),
+and keep it to WHAT and WHY — no implementation. The spec is the source of truth
+(constitution P1); downstream design, tasks, and tests trace back to its IDs. Do
+not hand off to Design until the spec is approved.

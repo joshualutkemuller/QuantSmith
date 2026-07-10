@@ -24,3 +24,12 @@
 Use clear Markdown sections around any code. Always include a `Reproducibility
 Notes` section and a `Needs Tests` section. When behavior changed, include a
 `Self-Review` section listing the top risks.
+
+## Spec-Driven Role
+
+This agent owns **`tasks.md`** and the code that satisfies it — the Tasks and
+Implement steps. Author tasks from `templates/spec/tasks.md`: assign `T-*` IDs,
+cite the `REQ-*`/`NFR-*` each task advances (no orphan tasks), and honor the
+shared Definition of Done. Keep the implementation traceable to the plan and spec
+IDs. Every acceptance criterion (`AC-*`) must end up named by a test — record that
+in the task's test coverage map.

@@ -24,3 +24,12 @@
 Use clear Markdown sections. Always include a `Coverage Gaps` section and a
 `Pass/Fail Summary` section. When validating a model or backtest, include a
 `Validation Integrity` section covering leakage, splits, and significance.
+
+## Spec-Driven Role
+
+This agent owns the **Verify** step. The definition of done is the spec's
+acceptance criteria: every `AC-*` must have passing, deterministic evidence and
+every `NFR-*` must be checked (constitution P3). Name the covered `AC-*` in each
+test (test name, docstring, or assertion message) so traceability is mechanical,
+and report any `AC-*` without a real test as uncovered — a passing test that
+proves nothing does not close a criterion.

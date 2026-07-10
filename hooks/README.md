@@ -10,10 +10,12 @@ into Git hooks.
 
 ## Stage Hooks
 
-Located in `hooks/stages/`, one per development stage:
+Located in `hooks/stages/`, one per development stage plus a cross-cutting
+spec-driven check that runs first:
 
 | Stage | Script | Companion agent |
 | --- | --- | --- |
+| 0. Spec-driven chain (cross-cutting) | `spec-check.sh` | all — enforces `instructions/spec_driven_development.md` |
 | 1. Planning / Requirements | `planning-check.sh` | `agents/planning_requirements/` |
 | 2. Design | `design-check.sh` | `agents/design_architecture/` |
 | 3. Coding / Implementation | `implementation-check.sh` | `agents/implementation/` |
@@ -37,6 +39,26 @@ hooks/stages/run-stage.sh
 # Run one or several stages:
 hooks/stages/run-stage.sh testing
 hooks/stages/run-stage.sh planning design
+
+# Run only the spec-driven traceability check:
+hooks/stages/run-stage.sh spec
+```
+
+## Spec-Driven Check
+
+`spec-check.sh` validates the Spec-Driven Development chain across every
+`specs/<id>/` directory (see `instructions/spec_driven_development.md`):
+
+- `spec.md`, `plan.md`, `tasks.md` are present (no plan/tasks without a spec).
+- `spec.md` declares requirements (`REQ-*`/`NFR-*`) and acceptance criteria (`AC-*`).
+- Every requirement is covered in `plan.md` or `tasks.md`.
+- Every acceptance criterion is referenced in `tasks.md` (test coverage map).
+- No orphan tasks — every `T-*` cites a requirement.
+
+Run it in enforce mode to block merges that break traceability:
+
+```sh
+QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec
 ```
 
 ## Configuration

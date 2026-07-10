@@ -24,3 +24,11 @@
 Use clear Markdown sections. Always include a `Readiness Gaps` section and a
 `Rollback Plan` section. When the release trades, serves models, or touches
 regulated data, include an `Approvals & Compliance` section.
+
+## Spec-Driven Role
+
+This agent owns the release gate of the **Operate** step. Do not sign off unless
+the spec chain is complete: every `AC-*` has passing evidence, every `NFR-*` is
+checked, and the plan's rollback and observability commitments are in place
+(constitution P5, P6). Record the release against the spec ID so a live system can
+always be traced back to the requirements it was built to meet.

@@ -42,9 +42,20 @@ Current state notes:
 
 ## Public Agents
 
+Domain agents:
+
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
 - `agents/data_quality/`: reviews datasets, joins, timestamps, lineage, missingness, and leakage risks.
 - `agents/backtest_review/`: reviews historical simulations for bias, execution realism, robustness, risk, and production-readiness.
+
+Development-lifecycle agents (one per SDLC stage):
+
+- `agents/planning_requirements/`: Stage 1 — scopes requests into testable requirements, scope, and acceptance criteria.
+- `agents/design_architecture/`: Stage 2 — turns requirements into interfaces, data flow, validation strategy, and trade-offs.
+- `agents/implementation/`: Stage 3 — turns a design into reproducible, reviewable code and notebooks.
+- `agents/testing_validation/`: Stage 4 — maps acceptance criteria to tests and validates model/backtest results.
+- `agents/deployment_release/`: Stage 5 — production-readiness, rollout, rollback, and release handoff.
+- `agents/maintenance_monitoring/`: Stage 6 — monitoring, drift/decay triage, incidents, and doc upkeep.
 
 Each public agent follows the same contract:
 
@@ -105,7 +116,22 @@ From inside `qf_workflow_sdk`, run:
 ./setup-hooks.sh
 ```
 
-The current hooks are seed examples and should be updated before relying on them for production quant workflows. In particular, the current pre-commit and pre-push hooks still assume an older app layout.
+The current Git hooks are seed examples and should be updated before relying on them for production quant workflows. In particular, the current pre-commit and pre-push hooks still assume an older app layout.
+
+### Development-Stage Hooks
+
+`hooks/stages/` adds one advisory quality gate per SDLC stage, each paired with
+its companion agent. They are advisory by default (print findings, exit `0`) and
+degrade gracefully when tools or files are missing.
+
+```sh
+hooks/stages/run-stage.sh                 # run all six stage checks
+hooks/stages/run-stage.sh testing         # run a single stage
+```
+
+Set `QF_STAGE_ENFORCE=1` to make findings blocking (for CI or a strict gate),
+`QF_RUN_TESTS=1` to let the testing stage run the suite, and `QF_DIFF_BASE=<ref>`
+to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 
 ## Documentation
 

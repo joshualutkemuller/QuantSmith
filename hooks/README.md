@@ -23,6 +23,18 @@ spec-driven check that runs first:
 | 5. Deployment | `deployment-check.sh` | `agents/deployment_release/` |
 | 6. Maintenance | `maintenance-check.sh` | `agents/maintenance_monitoring/` |
 
+### Quant Gates (cross-cutting)
+
+Quant-specific heuristic checks that run after the SDLC stages. Advisory and
+pattern-based; tune them to your repository.
+
+| Gate | Script | Companion |
+| --- | --- | --- |
+| Look-ahead & leakage | `leakage-check.sh` | `instructions/point_in_time.md`, `agents/feature_engineering/` |
+| Backtest integrity | `backtest-check.sh` | `agents/backtest_review/` |
+| Reproducibility | `repro-check.sh` | `templates/docs/run_card.md`, `agents/implementation/` |
+| Data contract | `data-contract-check.sh` | `templates/data/data_contract.md`, `agents/data_quality/` |
+
 Each script:
 
 - checks for the artifacts and hygiene that stage cares about;
@@ -42,7 +54,23 @@ hooks/stages/run-stage.sh planning design
 
 # Run only the spec-driven traceability check:
 hooks/stages/run-stage.sh spec
+
+# Run only the quant gates:
+hooks/stages/run-stage.sh leakage backtest repro data-contract
 ```
+
+## Quant Gates
+
+- **`leakage-check.sh`** scans changed Python/notebook files for high-signal
+  look-ahead and leakage smells (negative `shift`, `bfill`, unshuffled
+  `train_test_split`, whole-sample scaler fit) per `instructions/point_in_time.md`.
+  Heuristic — it points a reviewer at lines, it does not prove leakage.
+- **`backtest-check.sh`** verifies a backtest report artifact addresses transaction
+  costs, out-of-sample, benchmark, turnover/capacity, and multiple-testing.
+- **`repro-check.sh`** checks for a run manifest (`run_card`), a dependency
+  lockfile, and seeded randomness in changed code.
+- **`data-contract-check.sh`** verifies a data contract declares schema, keys,
+  point-in-time rules, and missingness rules.
 
 ## Spec-Driven Check
 

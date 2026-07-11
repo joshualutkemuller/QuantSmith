@@ -8,6 +8,8 @@
 #
 # Stages: spec planning design implementation testing deployment maintenance
 #   (spec is the cross-cutting spec-driven traceability check; it runs first)
+# Quant gates: leakage backtest repro data-contract
+#   (quant-specific checks; heuristic and advisory, run after the SDLC stages)
 #
 # Environment:
 #   QF_STAGE_ENFORCE=1  make findings blocking (non-zero exit)
@@ -16,7 +18,7 @@
 
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
-ALL="spec planning design implementation testing deployment maintenance"
+ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract"
 stages="$*"
 [ -z "$stages" ] && stages="$ALL"
 

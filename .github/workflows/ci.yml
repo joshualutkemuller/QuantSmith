@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - name: Validate required SDK docs
         run: |
           test -s README.md
@@ -35,3 +37,11 @@ jobs:
       - name: Enforce spec-driven traceability
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh spec
+      - name: Enforce backtest integrity (only when a report exists)
+        run: |
+          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh backtest
+      - name: Leakage smell scan (advisory)
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          [ -n "$BASE" ] || BASE="$(git rev-parse HEAD~1 2>/dev/null || true)"
+          QF_DIFF_BASE="$BASE" sh hooks/stages/run-stage.sh leakage

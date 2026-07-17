@@ -35,6 +35,14 @@ pattern-based; tune them to your repository.
 | Reproducibility | `repro-check.sh` | `templates/docs/run_card.md`, `agents/implementation/` |
 | Data contract | `data-contract-check.sh` | `templates/data/data_contract.md`, `agents/data_quality/` |
 
+### Repo Gates (security & docs integrity)
+
+| Gate | Script | Companion |
+| --- | --- | --- |
+| Secret leak scan | `secret-scan-check.sh` | `agents/secrets_management/` |
+| Markdown link check | `docs-link-check.sh` | all docs |
+| Agent catalog sync | `agent-catalog-check.sh` | `agents/README.md` |
+
 Each script:
 
 - checks for the artifacts and hygiene that stage cares about;
@@ -71,6 +79,18 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract
   lockfile, and seeded randomness in changed code.
 - **`data-contract-check.sh`** verifies a data contract declares schema, keys,
   point-in-time rules, and missingness rules.
+
+## Repo Gates
+
+- **`secret-scan-check.sh`** detects committed secrets. Uses `gitleaks` or
+  `detect-secrets` when installed; otherwise a high-signal regex fallback over
+  changed code/config files (docs and SDK scaffolding are skipped). Allowlist a
+  file via `.secretscanignore`, or a line with a trailing `qf:allow-secret`
+  marker. Enforced in CI.
+- **`docs-link-check.sh`** verifies relative Markdown links and image paths
+  resolve to existing files. External links and pure anchors are skipped.
+- **`agent-catalog-check.sh`** verifies every public agent (a directory with
+  `prompt.md`) is listed in `agents/README.md`.
 
 ## Spec-Driven Check
 

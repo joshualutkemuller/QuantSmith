@@ -56,10 +56,12 @@ syntax, spec traceability, and backtest integrity; it runs leakage advisory.
 
 ## Conventions
 
-- **Agents:** each `agents/<name>/` must have `README.md`, `prompt.md`,
-  `instructions.md`, `tasks.md` (enforced by pre-commit, pre-push, and CI). Keep
-  responsibilities narrow; add a `Spec-Driven Role` section to `instructions.md`
-  and a row to `agents/README.md`.
+- **Agents:** a public agent is any directory containing `prompt.md` (at any depth
+  under `agents/`) and must also have `README.md`, `instructions.md`, `tasks.md`
+  (enforced by pre-commit, pre-push, and CI). Related agents may be grouped in a
+  category folder (e.g. `agents/data_ingestion/`). Keep responsibilities narrow;
+  add a `Spec-Driven Role` section to `instructions.md` and a row to
+  `agents/README.md`.
 - **Commits:** Conventional Commits (`type(scope): description`) — enforced by the
   `commit-msg` hook. Run `./setup-hooks.sh` once to wire local Git hooks.
 - **Match the surrounding style** of whatever file you edit.

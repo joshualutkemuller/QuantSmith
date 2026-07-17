@@ -21,13 +21,13 @@ jobs:
           test -s docs/handoff.md
       - name: Validate public agent contracts
         run: |
-          for agent in agents/*; do
-            if [ -d "$agent" ]; then
-              test -s "$agent/README.md"
-              test -s "$agent/prompt.md"
-              test -s "$agent/instructions.md"
-              test -s "$agent/tasks.md"
-            fi
+          # A public agent is any directory containing prompt.md, at any depth
+          # under agents/ (allows category folders like agents/data_ingestion/).
+          for agent in $(find agents -type f -name prompt.md -exec dirname {} \; | sort -u); do
+            test -s "$agent/README.md"
+            test -s "$agent/prompt.md"
+            test -s "$agent/instructions.md"
+            test -s "$agent/tasks.md"
           done
       - name: Validate shell scripts
         run: |

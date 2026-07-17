@@ -2,158 +2,129 @@
 
 ## Snapshot
 
-This handoff describes the state of `qf_workflow_sdk` after the initial documentation and worktree cleanup pass. The SDK is intended to become an agentic workflow kit for quants and data scientists. It currently has a repo skeleton, hook examples, GitHub workflow templates, and seed agent files oriented around the SDK.
+The SDK now has a working v1: a **spec-driven engineering framework** layered over
+the **six software-development stages**, a catalog of **21 agents**, **14 quality
+gates**, and CI that enforces the deterministic ones. It remains a scaffold to be
+copied into quant repos, not a runnable app.
 
-## What Was Added
+- Branch of record for this build-out: `claude/dev-stages-hooks-agents-co1sjj`
+  (open as PR #4 into `main`). Earlier slices landed via PRs #2 and #3.
+- Root `CLAUDE.md` activates the framework by default for any agent in the repo.
 
-- `docs/sdk_plan.md`: roadmap, target users, SDK surfaces, phases, backlog, and success criteria.
-- `docs/handoff.md`: this continuation guide for the next implementer.
-- `README.md`: top-level SDK overview and usage orientation.
-- `agentic_dictionary.md`: shared vocabulary for agents, hooks, prompts, instructions, templates, and quant workflow artifacts.
+## What This Session Added
 
-## Existing Assets
+**Spec-Driven Development (the operating model)**
+
+- `instructions/engineering_principles.md` — the constitution (10 non-negotiable rules + exceptions).
+- `instructions/spec_driven_development.md` — flow, ID scheme (`REQ`/`NFR`/`AC`/`T`/`RISK`), gates.
+- `instructions/point_in_time.md` — point-in-time & leakage checklist.
+- `templates/spec/{spec,plan,tasks}.md` + `prompts/{specify,plan,tasks}.md`.
+- `specs/0001-daily-momentum-signal/` — a fully worked, traceable reference spec.
+
+**Agents (21 total, all on the four-file contract)**
+
+- Orchestrator: `workflow_orchestrator/` — drives the flow and enforces stage gates.
+- Six lifecycle agents (one per stage): `planning_requirements`, `design_architecture`,
+  `implementation`, `testing_validation`, `deployment_release`, `maintenance_monitoring`.
+- Domain agents: `research_analyst`, `data_quality`, `feature_engineering`, `modeling`,
+  `backtest_review`, `risk`, `git_release`.
+- `data_ingestion/` group: `database_connectivity`, `file_ingestion`, `api_ingestion`.
+- `secrets_management/` group: `secret_storage`, `credential_access`, `secret_rotation`, `secret_scanning`.
+- `agents/README.md` — the agent catalog and the orchestrator's routing table.
+
+**Quality gates (`hooks/stages/`, advisory by default, enforce with `QF_STAGE_ENFORCE=1`)**
+
+- Cross-cutting: `spec-check` (traceability chain).
+- Per stage: `planning`, `design`, `implementation`, `testing`, `deployment`, `maintenance`.
+- Quant gates: `leakage`, `backtest`, `repro`, `data-contract`.
+- Repo gates: `secret-scan`, `docs-link`, `agent-catalog`.
+- Driver `run-stage.sh`, shared `common.sh`, and `hooks/README.md`.
+
+**Templates & prompts**
+
+- `templates/docs/{run_card,model_monitoring_plan,incident_postmortem}.md`,
+  `templates/data/data_contract.md`, and matching prompts.
+
+**Enforcement plumbing**
+
+- `.githooks/pre-commit` and `pre-push` validate the agent contract recursively
+  (any directory containing `prompt.md`, so category folders work).
+- `.github/workflows/ci.yml` enforces required docs, the agent contract, shell
+  syntax, spec traceability, backtest integrity, secret-scan, docs-link, and
+  agent-catalog; runs leakage advisory. Uses `actions/checkout@v7` + `fetch-depth: 0`.
+
+## Current Surfaces
 
 ```text
 qf_workflow_sdk/
-  .agents/
-    general/
-    git/
-    design/
-  .githooks/
-    commit-msg
-    pre-commit
-    pre-push
-  .github/
-    workflows/ci.yml
-    PULL_REQUEST_TEMPLATE.md
-    GIT_GUIDELINES.md
-    ISSUE_TEMPLATE/
-    dependabot.yml
-  agents/
-  hooks/
-  instructions/
-  prompts/
-  setup-hooks.sh
+  CLAUDE.md                # repo guide; activates the framework by default
+  agents/                  # 21 agents + README.md catalog (some grouped in folders)
+  hooks/stages/            # 14 gates + run-stage.sh + common.sh
+  instructions/            # constitution, SDD method, point-in-time, quant standards
+  prompts/                 # spec commands + artifact prompts
+  specs/                   # per-feature spec dirs; 0001 is a worked example
+  templates/               # spec/, docs/, data/ artifact templates
+  examples/                # alpha_signal_handoff end-to-end example
+  docs/                    # sdk_plan, handoff, (architecture/adoption still TODO)
 ```
 
-The public folders now contain the first working SDK slice:
+## What's Next (prioritized)
 
-- `agents/`: Research Analyst, Data Quality, and Backtest Review agents.
-- `instructions/`: reusable standards for research, data quality, backtesting, model validation, documentation, and Git workflow.
-- `prompts/`: task-ready prompts for research plans, dataset cards, model cards, backtest reviews, experiment summaries, handoff memos, and PR review checklists.
-- `templates/docs/`: reusable document templates.
-- `examples/alpha_signal_handoff/`: a lightweight end-to-end example.
+1. **Adoption guide** (`docs/adoption_guide.md`): how to copy the SDK into an
+   existing quant repo — which folders to take, how to wire `setup-hooks.sh` and
+   the CI gates, and how to tune the heuristic gates' patterns to a repo's layout.
+2. **Packaging decision**: stays a copyable scaffold, or grows a CLI/copier that
+   installs selected agents, prompts, hooks, and templates. Open question below.
+3. **More worked examples**: only a momentum-signal spec and the alpha-signal
+   handoff exist. Add a risk-model or forecast-model spec end to end, and an
+   ingestion example that produces a data contract.
+4. **Refresh the roadmap and vocabulary**: `docs/sdk_plan.md` backlog still lists
+   agents/hooks that now exist; `agentic_dictionary.md` predates spec-driven terms
+   (constitution, gate, orchestrator, run card, data contract). Bring both current.
+5. **Optional gates** (deferred by design): an `ingestion-snapshot` gate (verify a
+   pull captures a snapshot/checksum) and a stricter notebook-output gate.
+   `leakage` is intentionally advisory (heuristic); revisit before enforcing it.
+6. **`CHANGELOG.md`**: the deployment gate flags its absence; add one and a
+   versioning policy if the SDK starts being consumed by other repos.
 
-The `hooks/` folder is still a placeholder for future public hook implementations. The active Git hooks live in `.githooks/`.
+## Quality Gates — Enforced vs Advisory
 
-## Important Context
+- **Enforced in CI:** required docs, agent contract, shell syntax, `spec`,
+  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`.
+- **Advisory (run locally or wire in later):** `leakage` (heuristic by design) and
+  the per-stage/quant gates not listed above. `QF_STAGE_ENFORCE=1` makes any gate
+  blocking; do this per gate as a repo's discipline matures.
 
-The current repo contains hidden agent files and hooks that act as seed examples. These should not be deleted blindly because they are useful examples of the intended structure. Promote them into quant/data-science equivalents in small steps:
+## Conventions To Preserve
 
-- Replace project-specific language with SDK language.
-- Preserve the pattern of `prompt.md`, `instructions.md`, and `tasks.md`.
-- Move public, reusable agent definitions into `agents/`.
-- Keep `.agents/` for tool-specific adapter files or internal metadata if needed.
-- Keep Git hooks independent from any downstream app directory unless a package-specific hook is introduced intentionally.
-
-## Recommended Next Move
-
-The first useful public agent slice has been added:
-
-```text
-agents/
-  research_analyst/
-    README.md
-    prompt.md
-    instructions.md
-    tasks.md
-  data_quality/
-    README.md
-    prompt.md
-    instructions.md
-    tasks.md
-  backtest_review/
-    README.md
-    prompt.md
-    instructions.md
-    tasks.md
-```
-
-These three agents cover the workflow from hypothesis to data inspection to simulation review, which is the center of gravity for most quant research work.
-
-## Suggested Implementation Order
-
-1. Add the next public agents: Feature Engineering, Modeling, Risk, Documentation, and Git/Release.
-2. Add public hook scripts under `hooks/` for notebooks, artifacts, secrets, and documentation freshness.
-3. Add an adoption guide for existing quant repos.
-4. Add stronger CI checks for Markdown, links, and public agent contracts.
-5. Decide whether the SDK remains a copyable scaffold or grows a CLI.
-
-## First Public Agent Acceptance Criteria
-
-Each public agent should include:
-
-- `README.md` with purpose, when to use it, inputs, outputs, and examples.
-- `prompt.md` with the durable role prompt.
-- `instructions.md` with behavioral rules and review standards.
-- `tasks.md` with common task requests and expected artifacts.
-
-Each agent should be narrow enough that a human or orchestrator can pick it without reading every file.
-
-## Documentation Standards
-
-Every reusable prompt or instruction should specify:
-
-- Purpose.
-- Required inputs.
-- Expected output.
-- Checks the agent should perform.
-- Assumptions that must be surfaced.
-- Failure modes or risks to watch for.
-
-For quant work, always make time alignment, data lineage, leakage risk, survivorship bias, overfitting, transaction costs, and reproducibility visible when relevant.
-
-## Hook Migration Notes
-
-Current hooks are SDK-friendly and intentionally lightweight:
-
-- `commit-msg`: keeps Conventional Commits and uses quant SDK examples.
-- `pre-commit`: validates required SDK docs and hook shell syntax.
-- `pre-push`: validates required SDK docs.
-
-Hooks should warn when optional tools are missing, unless the missing tool invalidates a required guarantee.
-
-## CI Migration Notes
-
-The current CI performs lightweight SDK validation. Future CI improvements could add:
-
-- Check Markdown links and formatting.
-- Validate shell scripts with `shellcheck` if available.
-- Run any Python tests if a package is added later.
-- Verify required files exist for every public agent folder.
-- Prevent reintroduction of old project-specific references after migration.
+- Every agent: `README.md`, `prompt.md`, `instructions.md`, `tasks.md`, plus a
+  `Spec-Driven Role` section and a catalog row. Group related agents in a category
+  folder (its own `README.md`, no `prompt.md`).
+- Specs are the source of truth; assign stable IDs and keep traceability intact.
+- Conventional Commits; do all work on the feature branch; a merged PR is finished
+  (start follow-ups fresh from `main`, rebasing any unmerged commits).
+- Gates degrade gracefully when optional tools are missing.
 
 ## Open Questions For The Owner
 
-- Should this SDK become a Python package, a CLI scaffold, or a copyable repo template?
-- Which agent runtime should be treated as the primary target?
-- Should hooks be strict by default, or advisory until a team opts into strict mode?
-- What quant artifact should be the first complete example: alpha signal, risk model, forecast model, optimizer, or execution model?
-- Should generated documentation follow a house style, such as model cards and dataset cards, or adapt per team?
+- Copyable scaffold, Python package, or CLI/copier?
+- Which agent runtime is the primary target (local Codex-style, general LLM, both)?
+- Which gates should graduate from advisory to enforced, and when?
+- Which quant artifact is the next complete example: risk model, forecast, optimizer?
+- Should downstream repos pin a version of the SDK, and how are updates delivered?
 
 ## Risks
 
-- The SDK may become too broad if agents are not kept role-specific.
-- Hooks may frustrate exploratory research if they block too much too early.
-- Prompts without output contracts will be hard to automate.
-- Quant workflow docs can look complete while hiding weak assumptions; every template should force assumptions and limitations into the open.
+- Breadth: 21 agents is useful only if each stays narrow and inspectable.
+- Heuristic gates (`leakage`, `backtest`, `secret-scan` fallback) can false-positive
+  or miss; keep them advisory unless a repo's layout makes them reliable.
+- Docs can drift from the code they describe; the `docs-link` and `agent-catalog`
+  gates help, but `sdk_plan.md`/`agentic_dictionary.md` still need a manual refresh.
+- Copied gates assume conventional artifact names; adopters must tune the patterns.
 
 ## Definition Of Done For The Next Slice
 
-The initial public build-out slice is complete when:
-
-- At least three quant-focused public agents exist.
-- No user-facing guidance points to obsolete app-specific workflows.
-- Hooks do not assume an app directory that does not exist.
-- README links to the new agents, instructions, prompts, and templates.
-- One end-to-end workflow example shows how a hypothesis becomes a reviewed handoff artifact.
+- `docs/adoption_guide.md` exists and a fresh repo can install the SDK from it.
+- `docs/sdk_plan.md` backlog and `agentic_dictionary.md` reflect the current build.
+- A second end-to-end worked example (beyond the momentum signal) exists.
+- The packaging decision is recorded, with a path (scaffold vs CLI) chosen.

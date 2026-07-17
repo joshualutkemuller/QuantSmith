@@ -1,0 +1,81 @@
+# CLAUDE.md
+
+Guidance for any agent (including Claude Code) working in this repository.
+
+## What this repo is
+
+QF Workflow SDK is an agentic workflow kit for quant research and model
+development — a catalog of agents, hooks, instructions, prompts, and templates.
+It is a **scaffold to be copied into quant repos**, not a runnable application.
+There is no app to launch and no package to import; the deliverables are Markdown
+and shell.
+
+## Operating model: Spec-Driven Development
+
+Work follows `Specify → Plan → Tasks → Implement → Verify → Operate`. The
+**spec is the source of truth**; design, code, tests, and releases trace back to
+it. Before non-trivial work:
+
+1. Read `instructions/engineering_principles.md` (the constitution — non-negotiable).
+2. Read `instructions/spec_driven_development.md` (the flow, ID scheme, gates).
+3. For a new feature, create `specs/NNNN-slug/` from `templates/spec/` and assign
+   IDs (`REQ-*`, `NFR-*`, `AC-*`, `RISK-*`, `T-*`).
+
+Use judgement on depth: trivial changes need no spec dir; standard changes need a
+`spec.md` + `tasks.md`; significant or risky changes need the full three-document
+spec. When in doubt, write the spec.
+
+The `workflow_orchestrator` agent drives this flow; `agents/README.md` is the
+agent catalog and routing table.
+
+## Non-negotiable rules (from the constitution)
+
+- The spec is the source of truth; code serves the spec.
+- Everything traces to a requirement; no orphan code, no orphan requirements.
+- Definition of Done is explicit and testable; every `AC-*` needs passing evidence.
+- Correct by construction: no look-ahead, no leakage, reproducible by default.
+- Reversibility, observability, and honest reporting are required, not optional.
+- No silent trade-offs — record them (with an exception entry if a rule is broken).
+
+## Quality gates
+
+Stage and quant checks live in `hooks/stages/`. Run them before finishing work:
+
+```sh
+hooks/stages/run-stage.sh              # all stages + quant gates (advisory)
+hooks/stages/run-stage.sh spec         # spec-driven traceability only
+QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec   # blocking (as CI runs it)
+```
+
+Quant gates: `leakage`, `backtest`, `repro`, `data-contract`. Leakage smells are
+covered in `instructions/point_in_time.md`. Advisory by default;
+`QF_STAGE_ENFORCE=1` makes findings blocking.
+
+CI (`.github/workflows/ci.yml`) enforces required docs, the agent contract, shell
+syntax, spec traceability, and backtest integrity; it runs leakage advisory.
+
+## Conventions
+
+- **Agents:** each `agents/<name>/` must have `README.md`, `prompt.md`,
+  `instructions.md`, `tasks.md` (enforced by pre-commit, pre-push, and CI). Keep
+  responsibilities narrow; add a `Spec-Driven Role` section to `instructions.md`
+  and a row to `agents/README.md`.
+- **Commits:** Conventional Commits (`type(scope): description`) — enforced by the
+  `commit-msg` hook. Run `./setup-hooks.sh` once to wire local Git hooks.
+- **Match the surrounding style** of whatever file you edit.
+
+## Git workflow
+
+- Do all work on the designated feature branch; never push to `main` directly.
+- Commit and push only when asked. Do not open a PR unless asked.
+- A merged PR is finished — start follow-up work fresh from the latest `main` on
+  the same branch name, rebasing any unmerged commits onto the new base.
+- See `.github/GIT_GUIDELINES.md` and `instructions/git_workflow.md`.
+
+## Key pointers
+
+- `README.md` — SDK overview and surfaces.
+- `agents/README.md` — agent catalog.
+- `agentic_dictionary.md` — shared vocabulary.
+- `docs/sdk_plan.md` — roadmap.
+- `specs/0001-daily-momentum-signal/` — a worked, fully traceable spec example.

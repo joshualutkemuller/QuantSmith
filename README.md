@@ -68,6 +68,13 @@ Current state notes:
 
 ## Public Agents
 
+See `agents/README.md` for the full catalog (orchestrator, lifecycle, and domain
+agents mapped to stages, spec artifacts, and hooks).
+
+Orchestrator:
+
+- `agents/workflow_orchestrator/`: drives a change through the spec-driven flow across all six stages, enforcing the gate between each. Uses the catalog as its routing table.
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.

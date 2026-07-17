@@ -21,13 +21,13 @@ jobs:
           test -s docs/handoff.md
       - name: Validate public agent contracts
         run: |
-          for agent in agents/*; do
-            if [ -d "$agent" ]; then
-              test -s "$agent/README.md"
-              test -s "$agent/prompt.md"
-              test -s "$agent/instructions.md"
-              test -s "$agent/tasks.md"
-            fi
+          # A public agent is any directory containing prompt.md, at any depth
+          # under agents/ (allows category folders like agents/data_ingestion/).
+          for agent in $(find agents -type f -name prompt.md -exec dirname {} \; | sort -u); do
+            test -s "$agent/README.md"
+            test -s "$agent/prompt.md"
+            test -s "$agent/instructions.md"
+            test -s "$agent/tasks.md"
           done
       - name: Validate shell scripts
         run: |
@@ -45,3 +45,11 @@ jobs:
           BASE="${{ github.event.pull_request.base.sha }}"
           [ -n "$BASE" ] || BASE="$(git rev-parse HEAD~1 2>/dev/null || true)"
           QF_DIFF_BASE="$BASE" sh hooks/stages/run-stage.sh leakage
+      - name: Enforce secret scan
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          [ -n "$BASE" ] || BASE="$(git rev-parse HEAD~1 2>/dev/null || true)"
+          QF_STAGE_ENFORCE=1 QF_DIFF_BASE="$BASE" sh hooks/stages/run-stage.sh secret-scan
+      - name: Enforce docs links and agent catalog
+        run: |
+          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh docs-link agent-catalog

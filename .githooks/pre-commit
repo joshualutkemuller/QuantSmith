@@ -18,15 +18,15 @@ for file in README.md agentic_dictionary.md docs/sdk_plan.md docs/handoff.md; do
   fi
 done
 
-for agent in agents/*; do
-  if [ -d "$agent" ]; then
-    for file in README.md prompt.md instructions.md tasks.md; do
-      if [ ! -f "$agent/$file" ]; then
-        echo "Public agent contract missing: $agent/$file"
-        exit 1
-      fi
-    done
-  fi
+# A public agent is any directory containing prompt.md, at any depth under agents/
+# (this allows grouping agents into category folders such as agents/data_ingestion/).
+for agent in $(find agents -type f -name prompt.md -exec dirname {} \; | sort -u); do
+  for file in README.md prompt.md instructions.md tasks.md; do
+    if [ ! -f "$agent/$file" ]; then
+      echo "Public agent contract missing: $agent/$file"
+      exit 1
+    fi
+  done
 done
 
 sh -n setup-hooks.sh

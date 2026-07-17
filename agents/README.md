@@ -40,6 +40,30 @@ stages.
 | `risk/` | Exposure, concentration, drawdown, tail/stress, risk limits | Testing, Deployment |
 | `git_release/` | Conventional commits, spec-traceable PRs, changelogs | Deployment |
 
+## Ingestion Agents (`data_ingestion/`)
+
+Grouped in the `data_ingestion/` category folder; they bring external data into a
+workflow as typed, validated, reproducible datasets with a data contract.
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `data_ingestion/database_connectivity/` | SQL databases & warehouses: connections, safe queries, point-in-time pulls, snapshots | Planning, Design |
+| `data_ingestion/file_ingestion/` | Files (CSV, Parquet, Excel, JSON, XML, fixed-width, …): typed loading, validation | Planning, Design |
+| `data_ingestion/api_ingestion/` | REST / streaming / vendor APIs: auth, pagination, retries, as-of capture | Planning, Design |
+
+## Secrets Management Agents (`secrets_management/`)
+
+Grouped in the `secrets_management/` category folder; they handle secret keys,
+credentials, and custom key/values safely across their lifecycle, enforcing
+constitution P9 (secrets never enter the repo).
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `secrets_management/secret_storage/` | Choosing/provisioning a secret store: naming, structure, access policy, encryption | Design, Deployment |
+| `secrets_management/credential_access/` | Reading secrets at runtime safely: least privilege, no logging, safe caching | Implementation |
+| `secrets_management/secret_rotation/` | Writing/updating/rotating and revoking credentials and custom keys | Deployment, Maintenance |
+| `secrets_management/secret_scanning/` | Detecting leaked secrets in code/history/logs; remediation and prevention | Implementation, Maintenance |
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.
@@ -50,8 +74,12 @@ stages.
 
 ## Adding An Agent
 
-- Create `agents/<name>/` with all four contract files (the pre-commit, pre-push,
-  and CI checks require them).
-- Give it a narrow, inspectable responsibility.
+- Create the agent directory with all four contract files (the pre-commit,
+  pre-push, and CI checks require them). A public agent is any directory
+  containing `prompt.md`, at any depth under `agents/`.
+- Related agents may be grouped in a **category folder** (e.g.
+  `agents/data_ingestion/`) with its own `README.md` describing the group; the
+  category folder itself is not an agent (it has no `prompt.md`).
+- Give each agent a narrow, inspectable responsibility.
 - Add a `Spec-Driven Role` section to its `instructions.md`.
 - Add a row to the relevant table above.

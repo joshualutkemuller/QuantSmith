@@ -51,6 +51,19 @@ workflow as typed, validated, reproducible datasets with a data contract.
 | `data_ingestion/file_ingestion/` | Files (CSV, Parquet, Excel, JSON, XML, fixed-width, …): typed loading, validation | Planning, Design |
 | `data_ingestion/api_ingestion/` | REST / streaming / vendor APIs: auth, pagination, retries, as-of capture | Planning, Design |
 
+## Secrets Management Agents (`secrets_management/`)
+
+Grouped in the `secrets_management/` category folder; they handle secret keys,
+credentials, and custom key/values safely across their lifecycle, enforcing
+constitution P9 (secrets never enter the repo).
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `secrets_management/secret_storage/` | Choosing/provisioning a secret store: naming, structure, access policy, encryption | Design, Deployment |
+| `secrets_management/credential_access/` | Reading secrets at runtime safely: least privilege, no logging, safe caching | Implementation |
+| `secrets_management/secret_rotation/` | Writing/updating/rotating and revoking credentials and custom keys | Deployment, Maintenance |
+| `secrets_management/secret_scanning/` | Detecting leaked secrets in code/history/logs; remediation and prevention | Implementation, Maintenance |
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.

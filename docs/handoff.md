@@ -73,8 +73,10 @@ qf_workflow_sdk/
 1. **Adoption guide** (`docs/adoption_guide.md`): how to copy the SDK into an
    existing quant repo — which folders to take, how to wire `setup-hooks.sh` and
    the CI gates, and how to tune the heuristic gates' patterns to a repo's layout.
-2. **Packaging decision**: stays a copyable scaffold, or grows a CLI/copier that
-   installs selected agents, prompts, hooks, and templates. Open question below.
+2. **Packaging decision**: recorded in `docs/packaging.md`. Direction: formalize
+   the copyable template now, add a Copier-style sync CLI when update pain is real,
+   and reach for a Python package only when there is real executable logic to ship.
+   The immediate deliverable that follows is the adoption guide (item 1).
 3. **More worked examples**: only a momentum-signal spec and the alpha-signal
    handoff exist. Add a risk-model or forecast-model spec end to end, and an
    ingestion example that produces a data contract.
@@ -107,7 +109,9 @@ qf_workflow_sdk/
 
 ## Open Questions For The Owner
 
-- Copyable scaffold, Python package, or CLI/copier?
+- Copyable scaffold, Python package, or CLI/copier? *(Answered directionally in
+  `docs/packaging.md`; revisit its decision criteria if the audience or update
+  cadence changes.)*
 - Which agent runtime is the primary target (local Codex-style, general LLM, both)?
 - Which gates should graduate from advisory to enforced, and when?
 - Which quant artifact is the next complete example: risk model, forecast, optimizer?

@@ -1,0 +1,61 @@
+agents:
+  - name: orchestrator-agent
+    purpose: Route user intents, produce execution plans, and coordinate specialist agents.
+    inputs:
+      - natural_language_intent
+      - system_context
+    outputs:
+      - execution_plan
+      - delegated_tasks
+    skills_path: skills_library/orchestrator-agent/SKILL.md
+
+  - name: data-prep-agent
+    purpose: Clean, profile, and transform datasets for downstream dashboarding.
+    inputs:
+      - raw_dataset
+      - transformation_requirements
+    outputs:
+      - transformed_dataset
+      - data_quality_report
+    skills_path: skills_library/data-prep-agent/SKILL.md
+
+  - name: sql-integration-agent
+    purpose: Manage SQL connectivity, schema introspection, and safe query execution.
+    inputs:
+      - query_intent
+      - database_config
+    outputs:
+      - query_results
+      - schema_summary
+    skills_path: skills_library/sql-integration-agent/SKILL.md
+
+  - name: tableau-dashboard-agent
+    purpose: Generate Tableau dashboard payloads using RAG context and strict validation.
+    inputs:
+      - semantic_dashboard_request
+      - prepared_dataset
+      - dashboard_knowledge_context
+    outputs:
+      - tableau_payload
+      - validation_status
+    skills_path: skills_library/tableau-dashboard-agent/SKILL.md
+
+  - name: reporting-agent
+    purpose: Convert validated analytics outputs into report-ready artifacts.
+    inputs:
+      - dashboard_metadata
+      - analytical_summary
+    outputs:
+      - report_artifacts
+      - distribution_manifest
+    skills_path: skills_library/reporting-agent/SKILL.md
+
+  - name: quality-guard-agent
+    purpose: Enforce data, schema, and API contract compliance across the workflow.
+    inputs:
+      - agent_outputs
+      - validation_policies
+    outputs:
+      - pass_fail_status
+      - remediation_instructions
+    skills_path: skills_library/quality-guard-agent/SKILL.md

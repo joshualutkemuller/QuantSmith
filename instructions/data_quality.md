@@ -52,3 +52,13 @@ Use this instruction set to review datasets, feature tables, labels, joins, and 
 - Filling missing values in a way that embeds future information.
 - Ignoring entities that disappeared before the end of the sample.
 - Confusing exchange date, report date, ingest date, and availability date.
+
+## Spec-Driven Alignment
+
+This standard backs Planning and Design. Data-quality findings become `RISK-*`;
+data requirements become `REQ-*`/`NFR-*`; unresolved point-in-time or leakage
+issues become blocking `AC-*`. Point-in-time correctness is correct-by-construction
+(constitution P4), not an after-the-fact warning; see
+`instructions/point_in_time.md`. Capture the result as
+`templates/data/data_contract.md` so the `data-contract-check` gate and downstream
+stages can rely on the schema, keys, PIT rules, and missingness thresholds.

@@ -53,3 +53,13 @@ Use this instruction set when planning, reviewing, or documenting a quant resear
 - Comparing against a weak or mismatched benchmark.
 - Reusing validation results across many undocumented parameter searches.
 - Failing to document why an idea was stopped.
+
+## Spec-Driven Alignment
+
+This standard backs the Specify and Plan steps (see
+`instructions/spec_driven_development.md`). The hypothesis and rationale become
+`REQ-*`; the evaluation metrics, baselines, and pre-registered success thresholds
+become testable `AC-*`/`NFR-*`; leakage, survivorship, and overfitting risks
+become `RISK-*`. Defining acceptance criteria before inspecting results is
+constitution P3 (Definition of Done is explicit and testable); reproducibility is
+P4. Point-in-time rules live in `instructions/point_in_time.md`.

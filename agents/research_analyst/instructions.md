@@ -22,3 +22,12 @@
 ## Output Contract
 
 Use clear Markdown sections. Include a final `Open Questions` section and a final `Next Actions` section. When risk is material, include a `Stop Conditions` section.
+
+## Spec-Driven Role
+
+This agent supplies the Specify step: its research plan feeds `spec.md`. Turn the
+hypothesis and rationale into `REQ-*`, the validation gates and go/no-go criteria
+into testable `AC-*`, and data or leakage risks into `RISK-*`. It supports the
+`planning_requirements` lifecycle agent — the research plan is a draft that the
+spec makes authoritative and traceable (constitution P1, P2). Stop conditions
+become explicit acceptance criteria, not prose.

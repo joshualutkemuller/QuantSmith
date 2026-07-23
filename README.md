@@ -87,6 +87,10 @@ Technology & tooling agents (`agents/tooling/`):
 
 - `excel/`, `power_bi/`, `tableau/`: bring reproducibility, point-in-time correctness, auditability, and secrets-safe connections to the spreadsheet and BI tools quants use. Built to grow across the quant stack (kdb+/q, MATLAB, R, Jupyter).
 
+Knowledge management agents (`agents/knowledge/`):
+
+- `knowledge_ingestion/`, `knowledge_curation/`, `knowledge_retrieval/`, `institutional_memory/`: absorb, organize, retrieve, and persist a company's institutional knowledge across domains — with grounded, cited answers, access control and information barriers, provenance, and durable memory of what the organization learns.
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.

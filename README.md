@@ -83,6 +83,10 @@ Secrets management agents (`agents/secrets_management/`):
 
 - `secret_storage/`, `credential_access/`, `secret_rotation/`, `secret_scanning/`: store, read, write/rotate, and scan for secret keys, credentials, and custom key/values — enforcing that secrets never enter the repo (constitution P9).
 
+Technology & tooling agents (`agents/tooling/`):
+
+- `excel/`, `power_bi/`, `tableau/`: bring reproducibility, point-in-time correctness, auditability, and secrets-safe connections to the spreadsheet and BI tools quants use. Built to grow across the quant stack (kdb+/q, MATLAB, R, Jupyter).
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.

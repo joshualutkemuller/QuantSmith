@@ -64,6 +64,18 @@ constitution P9 (secrets never enter the repo).
 | `secrets_management/secret_rotation/` | Writing/updating/rotating and revoking credentials and custom keys | Deployment, Maintenance |
 | `secrets_management/secret_scanning/` | Detecting leaked secrets in code/history/logs; remediation and prevention | Implementation, Maintenance |
 
+## Technology & Tooling Agents (`tooling/`)
+
+Grouped in the `tooling/` category folder; they bring the SDK's discipline to the
+platforms quants work in (spreadsheets, BI/reporting, and growing to compute/data
+stores).
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `tooling/excel/` | Excel models: structure, formula audit, reproducibility, model-risk, VBA safety | Implementation, Testing |
+| `tooling/power_bi/` | Power BI datasets/reports: data model, DAX, refresh, RLS, performance | Implementation, Maintenance |
+| `tooling/tableau/` | Tableau workbooks/data sources: LOD/table calcs, extracts, honest visuals, publishing | Implementation, Maintenance |
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.

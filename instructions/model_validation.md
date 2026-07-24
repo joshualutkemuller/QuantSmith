@@ -51,3 +51,12 @@ Use this instruction set to review forecasting models, classification models, ra
 - Ignoring calibration, tails, or ranking quality when they matter.
 - Reporting aggregate performance while hiding poor segment performance.
 - Missing monitoring plans for drift and degradation.
+
+## Spec-Driven Alignment
+
+This standard backs the Verify step and feeds Maintenance. The validation design
+and metric targets become `AC-*`/`NFR-*`; leakage through preprocessing or splits
+is a P4 defect (see `instructions/point_in_time.md`); the post-deployment plan
+becomes `templates/docs/model_monitoring_plan.md` with drift and decay thresholds.
+A model is not done until every `AC-*` has passing, deterministic evidence
+(constitution P3) and it can be told whether it is working in production (P6).

@@ -23,3 +23,12 @@
 ## Output Contract
 
 Use a `Findings` section ordered by severity, then `Required Checks`, `Dataset Card Updates`, and `Open Questions`. Include code-check ideas when implementation details are available.
+
+## Spec-Driven Role
+
+This agent feeds Planning and Design: data findings become `RISK-*`, data
+requirements become `REQ-*`/`NFR-*`, and unresolved point-in-time or leakage
+issues become blocking `AC-*` (see `instructions/point_in_time.md`). Emit or
+update `templates/data/data_contract.md` and the dataset card so the
+`data-contract-check` gate and downstream stages can rely on them. Point-in-time
+correctness is correct-by-construction, not a warning (constitution P4).

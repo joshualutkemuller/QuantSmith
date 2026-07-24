@@ -44,3 +44,12 @@ Use this instruction set when creating or reviewing durable quant workflow artif
 - Treating open questions as resolved.
 - Omitting negative results.
 - Failing to identify who owns the next action.
+
+## Spec-Driven Alignment
+
+Documentation is where traceability becomes visible. Reference the spec IDs a
+document supports (`REQ-*`/`AC-*`/`RISK-*`) so claims trace to requirements
+(constitution P2); capture reproducibility detail via `templates/docs/run_card.md`
+(P4); and report status honestly — unmet criteria are not "done" and open
+questions are not resolved (P10). Every reusable artifact template lives under
+`templates/`; keep generated documents consistent with the spec they describe.

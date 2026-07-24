@@ -42,3 +42,12 @@ Use this instruction set when making repository changes for quant workflow asset
 - Letting docs drift from folder structure.
 - Adding prompts without expected inputs and outputs.
 - Adding hooks that assume a downstream app structure.
+
+## Spec-Driven Alignment
+
+This standard supports the Operate step's release record. A pull request is where
+the spec chain is made visible to reviewers: list the `REQ-*`/`AC-*` the change
+satisfies and confirm the `spec-check` gate passes. Small, reviewable changes are
+constitution P7; no silent trade-offs (P8) means recording deviations in the spec,
+not the commit alone. Keep the agent contract intact (`README.md`, `prompt.md`,
+`instructions.md`, `tasks.md`) so the pre-commit, pre-push, and CI checks pass.

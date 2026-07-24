@@ -54,3 +54,13 @@ Use this instruction set to review historical strategy simulations, signal tests
 - Overfitting through repeated parameter search.
 - Weak benchmark selection.
 - Hidden exposure to market, sector, style, liquidity, or volatility factors.
+
+## Spec-Driven Alignment
+
+This standard backs the Verify step. Backtest findings become validation evidence
+mapped to the spec's `AC-*`; fragilities, exposures, and cost sensitivities become
+`RISK-*`; production blockers hold the deployment gate. It is enforced by the
+`backtest-check` gate (transaction costs, out-of-sample, benchmark,
+turnover/capacity, multiple-testing) and applies `instructions/point_in_time.md`.
+No performance `AC-*` is met without leakage-free, cost-aware, robust evidence
+(constitution P3, P4).

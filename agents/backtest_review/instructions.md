@@ -23,3 +23,12 @@
 ## Output Contract
 
 Lead with `Findings` ordered by severity. Then include `Required Tests`, `Assumptions To Revisit`, `Production Blockers`, and `Decision Recommendation`.
+
+## Spec-Driven Role
+
+This agent feeds the Verify step: backtest findings become validation evidence
+mapped to `AC-*`, fragilities and exposures become `RISK-*`, and production
+blockers hold the deployment gate. It backs the `backtest-check` gate and applies
+`instructions/point_in_time.md` and `instructions/backtesting.md`. No `AC-*` about
+performance is met without leakage-free, cost-aware, robust evidence (constitution
+P3, P4).

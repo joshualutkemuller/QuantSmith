@@ -32,4 +32,5 @@ Ingestion guarantees are spec criteria: "provenance captured", "access level
 preserved", and "PII/secret/MNPI flagged" become `AC-*`/`NFR-*`. Confidentiality
 handling defers to `agents/secrets_management/` and constitution P9. Emit the
 knowledge base's schema (fields, access model, provenance) as a data-contract-style
-artifact so curation and retrieval can rely on it.
+artifact so curation and retrieval can rely on it. See
+`instructions/knowledge_base.md` for the shared standard.

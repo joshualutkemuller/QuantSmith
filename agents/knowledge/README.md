@@ -43,6 +43,7 @@ institutional memory current). Curated knowledge and decisions can be cited by s
 
 ## Related
 
+- `instructions/knowledge_base.md` — the shared standard behind this group.
 - `agents/data_ingestion/` — structured data (this group is unstructured knowledge).
 - `agents/secrets_management/` — access, secrets, and confidentiality handling.
 - `instructions/documentation.md` — durable-artifact standards.

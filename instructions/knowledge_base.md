@@ -60,6 +60,26 @@ and defended.
 - Losing knowledge to chat and meetings instead of capturing it durably.
 - Indexing PII or secrets without detection or handling.
 
+## Configurable Sources
+
+The knowledge base is not limited to in-repo documents. Additional locations — a
+mounted share, a synced folder, or a sibling repository of valuable information,
+typically with subfolders — are declared in a manifest
+(`templates/knowledge/knowledge_sources.yml`, copied to `knowledge_sources.yml` at
+the repo root). Each source declares:
+
+- `path` — where the repository of information lives (absolute or repo-relative).
+- `domains_from_subfolders` — treat each immediate subfolder as a knowledge domain.
+- `access_level` — `public` / `internal` / `restricted`, governing who retrieval
+  may serve it to (restricted sources are subject to the access rules above).
+- `include` / `exclude` and `freshness_days` — file scope and staleness expectation.
+
+The `knowledge-check` hook resolves sources in order — `$QF_KNOWLEDGE_SOURCES`, then
+`knowledge_sources.yml`, then the ad-hoc `$QF_KNOWLEDGE_BASE` (colon-separated
+paths) — and verifies each location exists, is readable, and reports its subfolder
+domains. A source's declared `access_level` flows through ingestion to retrieval:
+adding a location never widens the access of what it contains.
+
 ## Spec-Driven Alignment
 
 This standard backs the `agents/knowledge/` group across the lifecycle. Grounding,

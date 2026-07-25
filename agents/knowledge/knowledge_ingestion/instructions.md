@@ -10,6 +10,8 @@
 - Make sync incremental and idempotent; de-duplicate re-ingested content.
 - Record a content hash and ingestion time so the index is reproducible.
 - Do not ingest a source you are not authorized to read.
+- Honor the source manifest (`knowledge_sources.yml`): use each source's declared
+  domains (subfolders), access level, and include/exclude scope.
 
 ## Checks
 

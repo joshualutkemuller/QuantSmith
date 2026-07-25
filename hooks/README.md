@@ -42,6 +42,7 @@ pattern-based; tune them to your repository.
 | Secret leak scan | `secret-scan-check.sh` | `agents/secrets_management/` |
 | Markdown link check | `docs-link-check.sh` | all docs |
 | Agent catalog sync | `agent-catalog-check.sh` | `agents/README.md` |
+| Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
 
 Each script:
 
@@ -91,6 +92,12 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract
   resolve to existing files. External links and pure anchors are skipped.
 - **`agent-catalog-check.sh`** verifies every public agent (a directory with
   `prompt.md`) is listed in `agents/README.md`.
+- **`knowledge-check.sh`** validates the configurable knowledge-base source
+  locations for `agents/knowledge/`: it resolves a manifest
+  (`$QF_KNOWLEDGE_SOURCES`, then `knowledge_sources.yml`, then the ad-hoc
+  `$QF_KNOWLEDGE_BASE` colon-separated paths), verifies each path exists and is
+  readable, and reports its subfolder domains and file counts. See
+  `templates/knowledge/knowledge_sources.yml`.
 
 ## Spec-Driven Check
 
@@ -118,6 +125,8 @@ Behavior is controlled by environment variables:
 | `QF_STAGE_ENFORCE=1` | Make findings blocking (non-zero exit). Use in CI or as a strict gate. |
 | `QF_RUN_TESTS=1` | Let the testing stage actually run the suite (`pytest`) when present. |
 | `QF_DIFF_BASE=<ref>` | Diff changed files against `<ref>` (e.g. `origin/main`) instead of the working tree. |
+| `QF_KNOWLEDGE_SOURCES=<path>` | Path to a knowledge-source manifest for the `knowledge` gate. |
+| `QF_KNOWLEDGE_BASE=<paths>` | Colon-separated knowledge-base locations for the `knowledge` gate (ad-hoc, no manifest). |
 
 ## Wiring Into Git
 

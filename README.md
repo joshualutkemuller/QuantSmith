@@ -137,6 +137,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/backtesting.md`
 - `instructions/model_validation.md`
 - `instructions/documentation.md`
+- `instructions/knowledge_base.md`
 - `instructions/git_workflow.md`
 
 ## Prompt Library

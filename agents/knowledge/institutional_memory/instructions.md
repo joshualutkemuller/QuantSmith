@@ -31,4 +31,5 @@ Decisions captured here often originate as spec choices: a decision record can c
 the `REQ-*`/`RISK-*` it resolved, and a superseding decision amends the spec first
 (constitution P1). Durable-artifact discipline is the SDK's "artifacts over memory"
 principle; honest scope is P10. Reuse `templates/spec/` and
-`templates/docs/incident_postmortem.md` where the artifact fits them.
+`templates/docs/incident_postmortem.md` where the artifact fits them. See
+`instructions/knowledge_base.md` for the shared standard.

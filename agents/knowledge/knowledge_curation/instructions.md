@@ -30,4 +30,5 @@ access level in the output.
 Curation decisions are traceable: canonical-source choices and conflict resolutions
 are recorded (with their basis) so an answer can be defended, and coverage gaps
 become `RISK-*` or backlog items. Honest handling of conflicts and staleness is
-constitution P8 (no silent trade-offs) and P10 (honest reporting).
+constitution P8 (no silent trade-offs) and P10 (honest reporting). See
+`instructions/knowledge_base.md` for the shared standard.

@@ -17,6 +17,8 @@ restricted material so nothing sensitive is absorbed carelessly.
 ## Inputs
 
 - The source system(s): wiki/Confluence/SharePoint/Notion, docs, tickets, chat, code.
+- Configured source locations from the manifest (`knowledge_sources.yml`) — mounted
+  shares, synced folders, or sibling repositories, each typically with subfolders.
 - Access model of each source (who can see what) and confidentiality levels.
 - The domains the knowledge spans and intended consumers.
 - Update cadence and volume.

@@ -10,6 +10,8 @@
 - Make sync incremental and idempotent; de-duplicate re-ingested content.
 - Record a content hash and ingestion time so the index is reproducible.
 - Do not ingest a source you are not authorized to read.
+- Honor the source manifest (`knowledge_sources.yml`): use each source's declared
+  domains (subfolders), access level, and include/exclude scope.
 
 ## Checks
 
@@ -32,4 +34,5 @@ Ingestion guarantees are spec criteria: "provenance captured", "access level
 preserved", and "PII/secret/MNPI flagged" become `AC-*`/`NFR-*`. Confidentiality
 handling defers to `agents/secrets_management/` and constitution P9. Emit the
 knowledge base's schema (fields, access model, provenance) as a data-contract-style
-artifact so curation and retrieval can rely on it.
+artifact so curation and retrieval can rely on it. See
+`instructions/knowledge_base.md` for the shared standard.

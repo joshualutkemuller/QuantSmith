@@ -1,0 +1,43 @@
+# Knowledge Base Sources
+#
+# Declares additional, configurable knowledge-base locations for the
+# agents/knowledge/ group. This is a template: copy it into your repository as
+# `knowledge_sources.yml` (repo root) and set real paths. The `knowledge-check`
+# hook validates the configured locations; the knowledge agents use the metadata
+# (domain, access level) when ingesting and retrieving.
+#
+# Each source is a repository of valuable information, typically with subfolders.
+# When `domains_from_subfolders: true`, each immediate subfolder is treated as a
+# knowledge domain.
+#
+# Resolution order used by the hook:
+#   1. $QF_KNOWLEDGE_SOURCES  (explicit path to a manifest like this one)
+#   2. ./knowledge_sources.yml at the repo root
+#   3. $QF_KNOWLEDGE_BASE      (colon-separated paths, ad-hoc, no metadata)
+
+sources:
+  - name: research_archive
+    # Absolute path, or a path relative to the repo root. May be a mounted share,
+    # a synced folder, or a sibling repository of documents.
+    path: /mnt/knowledge/research
+    # Treat each immediate subfolder as a domain (e.g. equities/, rates/, credit/).
+    domains_from_subfolders: true
+    # Access level governs who retrieval may serve this from.
+    access_level: internal        # public | internal | restricted
+    # File types to ingest and paths to skip.
+    include: ["*.md", "*.txt", "*.pdf", "*.docx", "*.html"]
+    exclude: ["**/drafts/**", "**/_archive/**"]
+    # Advisory freshness expectation (days); used for staleness signals.
+    freshness_days: 90
+
+  - name: shared_wiki_export
+    path: ./knowledge/wiki
+    domains_from_subfolders: true
+    access_level: internal
+    include: ["*.md"]
+
+  # - name: restricted_research
+  #   path: /mnt/knowledge/restricted
+  #   domains_from_subfolders: true
+  #   access_level: restricted     # only served to authorized askers (see knowledge_base.md)
+  #   freshness_days: 30

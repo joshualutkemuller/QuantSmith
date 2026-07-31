@@ -31,4 +31,5 @@ answer, return an explicit `Not Found` result with suggested next steps.
 Retrieval guarantees are testable `AC-*`: "every claim cited", "access-filtered",
 "barriers respected", "not-found when unsupported". Grounding and honest gaps are
 constitution P10; access and confidentiality defer to `agents/secrets_management/`
-and P9. An answer should be reproducible from its cited sources.
+and P9. An answer should be reproducible from its cited sources. See
+`instructions/knowledge_base.md` for the shared standard.

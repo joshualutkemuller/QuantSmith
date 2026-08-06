@@ -29,5 +29,6 @@ section, and a `Financing & Roll` section. Note conditioning/hedging where relev
 The carry definition and construction become `REQ-*`; carry-to-risk and cost
 thresholds become `AC-*`/`NFR-*`; unwind/tail and crowding become `RISK-*`.
 Financing detail links to dedicated financing agents where present; PIT curves
-to `instructions/point_in_time.md`. Hands off to `risk` for tail and exposure
+to `instructions/point_in_time.md`. See
+`instructions/trading_strategies.md` for the shared standard. Hands off to `risk` for tail and exposure
 sign-off and `backtest_review` for integrity.

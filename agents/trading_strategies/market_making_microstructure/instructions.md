@@ -29,5 +29,6 @@ Selection & Inventory` section, and a `Latency & Capacity` section.
 The quoting/execution logic becomes `REQ-*`; fill-realism and latency assumptions
 become `AC-*`/`NFR-*`; adverse-selection, inventory, and infrastructure become
 `RISK-*`. Same-tick look-ahead is a `leakage`/`instructions/point_in_time.md`
-concern; fill realism is a `backtest` gate concern. Hands off to `backtest_review`
+concern; fill realism is a `backtest` gate concern. See
+`instructions/trading_strategies.md` for the shared standard. Hands off to `backtest_review`
 and `risk`.

@@ -29,4 +29,6 @@ section, and a `Cost & Capacity` section. Note the multiple-testing control used
 The spread definition and thresholds become `REQ-*`; stationarity, out-of-sample,
 and net-of-cost thresholds become `AC-*`/`NFR-*`; regime-break and decay risk become
 `RISK-*`. Multiple-testing discipline is checked by the `backtest` gate; leakage/PIT
-by `instructions/point_in_time.md`. Hands off to `backtest_review` and `risk`.
+by `instructions/point_in_time.md`. See
+`instructions/trading_strategies.md` for the shared standard. Hands off to
+`backtest_review` and `risk`.

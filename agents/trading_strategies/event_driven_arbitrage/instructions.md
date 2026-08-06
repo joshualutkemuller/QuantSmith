@@ -29,4 +29,5 @@ section, and a `Sample & Crowding` section. Note borrow and cost treatment.
 Event definitions become `REQ-*`; point-in-time dating and net-edge thresholds
 become `AC-*`/`NFR-*`; deal-break, small-sample, and crowding become `RISK-*`.
 PIT event dating is enforced by `instructions/point_in_time.md`; sample adequacy by
-the `backtest` gate. Hands off to `backtest_review` and `risk`.
+the `backtest` gate. See `instructions/trading_strategies.md` for the shared
+standard. Hands off to `backtest_review` and `risk`.

@@ -30,5 +30,6 @@ state the basis.
 The momentum design becomes a spec: windows and ranking become `REQ-*`, robustness
 and cost thresholds become `AC-*`/`NFR-*`, and crash/crowding become `RISK-*`.
 No-look-ahead skip logic is enforced by `instructions/point_in_time.md` and the
-`leakage` gate; cost realism by the `backtest` gate. Hands off to `backtest_review`
+`leakage` gate; cost realism by the `backtest` gate. See `instructions/trading_strategies.md`
+for the shared standard. Hands off to `backtest_review`
 and `risk` for integrity and exposure sign-off.

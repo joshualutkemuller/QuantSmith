@@ -25,7 +25,8 @@ leakage/backtest gates before it is trusted.
 
 ## Shared Principles
 
-Every strategy agent upholds the constitution and the quant standards:
+Every strategy agent upholds the constitution and the shared standard
+`instructions/trading_strategies.md`:
 
 - **Economic rationale first.** State why the edge should exist and persist before
   any backtest; a pattern without a mechanism is a coincidence until proven.

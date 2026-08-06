@@ -120,6 +120,19 @@ costs and risks.
 | `securities_financing/collateral_management/` | Eligibility, haircuts, margin, collateral optimization, rehypothecation, regulatory impact | Deployment |
 | `securities_financing/financing_cost_analysis/` | All-in cost of carry, borrow/rebate/funding netting, financing-aware backtesting | Testing |
 
+## Formulaic Alpha Agents (`formulaic_alphas/`)
+
+Grouped in the `formulaic_alphas/` category folder; they operationalize the
+formulaic-alpha methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — building
+tradable signals as formulas from an operator library, combining them, and evaluating
+them.
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `formulaic_alphas/alpha_construction/` | Building alphas from the operator library, neutralization, point-in-time correctness | Research, Testing |
+| `formulaic_alphas/alpha_combination/` | Combining alphas: correlation, spanning, weighting, diversification | Research, Testing |
+| `formulaic_alphas/alpha_evaluation/` | Holding period, turnover, volatility dependence, correlation, capacity, decay | Testing |
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.

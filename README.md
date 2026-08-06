@@ -95,6 +95,10 @@ Trading strategy agents (`agents/trading_strategies/`):
 
 - `momentum_trend/`, `mean_reversion_statarb/`, `carry/`, `value_factor/`, `volatility_options/`, `event_driven_arbitrage/`, `macro_multi_asset/`, `market_making_microstructure/`: design-and-review roles for the strategy archetypes catalogued in *151 Trading Strategies* (Kakushadze & Serur), each applying economic rationale, point-in-time/leakage, cost/capacity, and risk discipline.
 
+Securities financing agents (`agents/securities_financing/`):
+
+- `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost and short rebate, repo/funding, collateral and margin — and make short/long-short backtests financing-aware.
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
@@ -140,6 +144,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/data_quality.md`
 - `instructions/backtesting.md`
 - `instructions/trading_strategies.md`
+- `instructions/securities_financing.md`
 - `instructions/model_validation.md`
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`

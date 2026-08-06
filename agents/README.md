@@ -107,6 +107,19 @@ risk concerns.
 | `trading_strategies/macro_multi_asset/` | Global macro, allocation, risk parity, tactical tilts |
 | `trading_strategies/market_making_microstructure/` | Liquidity provision, execution alpha, order-book strategies |
 
+## Securities Financing Agents (`securities_financing/`)
+
+Grouped in the `securities_financing/` category folder; they make financing a
+first-class part of a strategy's economics — borrow, funding, collateral, and their
+costs and risks.
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `securities_financing/securities_lending/` | Stock loan/borrow: locates, GC vs specials, rebate, recalls, buy-ins, corporate actions | Testing |
+| `securities_financing/repo_financing/` | Repo/reverse repo funding, rates, term, haircuts, roll and counterparty risk | Testing |
+| `securities_financing/collateral_management/` | Eligibility, haircuts, margin, collateral optimization, rehypothecation, regulatory impact | Deployment |
+| `securities_financing/financing_cost_analysis/` | All-in cost of carry, borrow/rebate/funding netting, financing-aware backtesting | Testing |
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.

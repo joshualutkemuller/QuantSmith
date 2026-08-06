@@ -89,6 +89,24 @@ grounding, citations, access control, and provenance.
 | `knowledge/knowledge_retrieval/` | Grounded, cited answers respecting the asker's access level and information barriers | Cross-cutting |
 | `knowledge/institutional_memory/` | Persisting decisions, lessons, glossary, and FAQs as durable, referenceable artifacts | Maintenance, cross-cutting |
 
+## Trading Strategy Agents (`trading_strategies/`)
+
+Grouped in the `trading_strategies/` category folder; they operationalize the
+strategy archetypes catalogued in *151 Trading Strategies* (Kakushadze & Serur) as
+design-and-review roles, each with its own economic rationale, leakage, cost, and
+risk concerns.
+
+| Agent | Archetype |
+| --- | --- |
+| `trading_strategies/momentum_trend/` | Cross-sectional & time-series momentum, trend-following |
+| `trading_strategies/mean_reversion_statarb/` | Mean reversion, pairs/stat-arb, index & ETF arbitrage |
+| `trading_strategies/carry/` | Carry and roll-down (FX, rates, commodity, dividend) |
+| `trading_strategies/value_factor/` | Value, quality, size, low-vol and other factor styles |
+| `trading_strategies/volatility_options/` | Variance risk premium, vol arbitrage, options overlays |
+| `trading_strategies/event_driven_arbitrage/` | Merger/risk arb, index rebalancing, earnings, convertibles |
+| `trading_strategies/macro_multi_asset/` | Global macro, allocation, risk parity, tactical tilts |
+| `trading_strategies/market_making_microstructure/` | Liquidity provision, execution alpha, order-book strategies |
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.

@@ -91,6 +91,10 @@ Knowledge management agents (`agents/knowledge/`):
 
 - `knowledge_ingestion/`, `knowledge_curation/`, `knowledge_retrieval/`, `institutional_memory/`: absorb, organize, retrieve, and persist a company's institutional knowledge across domains — with grounded, cited answers, access control and information barriers, provenance, and durable memory of what the organization learns.
 
+Trading strategy agents (`agents/trading_strategies/`):
+
+- `momentum_trend/`, `mean_reversion_statarb/`, `carry/`, `value_factor/`, `volatility_options/`, `event_driven_arbitrage/`, `macro_multi_asset/`, `market_making_microstructure/`: design-and-review roles for the strategy archetypes catalogued in *151 Trading Strategies* (Kakushadze & Serur), each applying economic rationale, point-in-time/leakage, cost/capacity, and risk discipline.
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.

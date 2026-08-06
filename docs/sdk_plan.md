@@ -8,16 +8,28 @@ The SDK should help a team move from idea to documented, reviewed, reproducible 
 
 ## Current State
 
-The repository already contains a useful skeleton:
+The SDK now has a working v1 built on a spec-driven engineering framework:
 
-- `.agents/` contains role-specific assistant files for general, Git, and design workflows.
-- `.githooks/` contains commit, pre-commit, and pre-push hooks.
-- `.github/` contains CI, PR, issue, Dependabot, and Git workflow templates.
-- `agents/`, `instructions/`, `prompts/`, `templates/`, and `examples/` contain the initial public SDK slice.
-- `hooks/` exists as the future public hook surface, while active local Git hooks live in `.githooks/`.
-- `setup-hooks.sh` wires local Git hooks into a checkout.
+- **Spec-Driven Development** is the operating model: a constitution
+  (`instructions/engineering_principles.md`), the SDD method
+  (`instructions/spec_driven_development.md`), per-feature specs under `specs/`, and
+  a worked example (`specs/0001-daily-momentum-signal/`).
+- **43 agents** in `agents/`, indexed by the catalog `agents/README.md`: an
+  orchestrator, six lifecycle agents (one per SDLC stage), core domain agents, and
+  grouped categories — `data_ingestion/`, `secrets_management/`, `tooling/`,
+  `knowledge/`, `trading_strategies/`, `securities_financing/`, `formulaic_alphas/`.
+- **15 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
+  gates) driven by `run-stage.sh`; advisory by default, blocking under
+  `QF_STAGE_ENFORCE=1`.
+- **13 instruction standards** and a prompt/template library covering specs, run
+  cards, data contracts, monitoring plans, and postmortems.
+- **CI** (`.github/workflows/ci.yml`) enforces required docs, the recursive agent
+  contract, shell syntax, spec traceability, backtest integrity, secret-scan,
+  docs-link, and agent-catalog; runs leakage advisory.
+- Root `CLAUDE.md` activates the framework by default for any agent in the repo.
+- `setup-hooks.sh` wires local Git hooks; `.githooks/` holds commit/pre-commit/pre-push.
 
-The working tree has been reshaped away from the older app layout and toward the SDK structure described here.
+The `hooks/` surface, once a placeholder, is now the public gate suite.
 
 ## Target Users
 
@@ -192,11 +204,19 @@ The hidden `.agents/` folder can remain as adapter-specific or internal agent me
 
 ## Near-Term Backlog
 
-- Add `agents/feature_engineering/`, `agents/modeling/`, `agents/risk/`, `agents/documentation/`, and `agents/git_release/`.
-- Add public hook scripts for notebook output, large artifacts, secrets, and stale docs.
-- Add richer examples for risk models, forecast models, and production handoff.
-- Add Markdown link checks and public agent contract validation in CI.
-- Add an adoption guide for using the SDK in an existing quant repo.
+Much of the original backlog is now built (the domain agents, the hook suite, CI
+link/contract checks). What remains:
+
+- Write and expand `docs/adoption_guide.md` (how to install the SDK into a repo).
+- Decide packaging (recorded in `docs/packaging.md`): formalize the template now,
+  add a Copier-style sync CLI when update pain is real, a package only with real code.
+- Add more worked examples: a risk-model or forecast spec end to end, and an
+  ingestion example that emits a data contract.
+- Add remaining backing instructions where a domain lacks one (e.g. risk_management,
+  data_ingestion, reproducibility, monitoring).
+- Add a `CHANGELOG.md` and a versioning policy once downstream repos consume the SDK.
+- Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
+  enforcing the heuristic `leakage` gate.
 
 ## Open Decisions
 

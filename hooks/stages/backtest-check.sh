@@ -4,7 +4,8 @@
 # When a backtest report artifact exists, verifies it addresses the integrity
 # themes that separate real edge from overfit: transaction costs, true
 # out-of-sample, benchmark, turnover/capacity, and multiple-testing correction.
-# Advisory by default; set QF_STAGE_ENFORCE=1 to block.
+# If the backtest involves short positions, it must also address financing
+# (borrow cost and short rebate). Advisory by default; QF_STAGE_ENFORCE=1 blocks.
 
 set -e
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
@@ -42,12 +43,22 @@ check_theme() { # file, label, regex
   fi
 }
 
+check_theme_if() { # file, trigger_regex, label, regex
+  if grep -riqE "$2" "$1" 2>/dev/null; then
+    check_theme "$1" "$3" "$4"
+  fi
+}
+
 for r in $reports; do
   check_theme "$r" "transaction costs" "transaction cost|slippage|commission|borrow"
   check_theme "$r" "out-of-sample"     "out.of.sample|oos|walk.forward|holdout"
   check_theme "$r" "benchmark"         "benchmark|baseline"
   check_theme "$r" "turnover/capacity" "turnover|capacity"
   check_theme "$r" "multiple testing"  "multiple.testing|deflated|probabilistic sharpe|psr|p.hack"
+  # Only required when the backtest involves shorts: financing must be accounted for.
+  check_theme_if "$r" "short.sell|short.selling|shorts?[^a-z]|long.short" \
+    "financing (borrow cost / short rebate)" \
+    "borrow|short rebate|rebate|stock loan|financing cost|hard.to.borrow"
 done
 
 qf_stage_result backtest

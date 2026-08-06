@@ -89,6 +89,50 @@ grounding, citations, access control, and provenance.
 | `knowledge/knowledge_retrieval/` | Grounded, cited answers respecting the asker's access level and information barriers | Cross-cutting |
 | `knowledge/institutional_memory/` | Persisting decisions, lessons, glossary, and FAQs as durable, referenceable artifacts | Maintenance, cross-cutting |
 
+## Trading Strategy Agents (`trading_strategies/`)
+
+Grouped in the `trading_strategies/` category folder; they operationalize the
+strategy archetypes catalogued in *151 Trading Strategies* (Kakushadze & Serur) as
+design-and-review roles, each with its own economic rationale, leakage, cost, and
+risk concerns.
+
+| Agent | Archetype |
+| --- | --- |
+| `trading_strategies/momentum_trend/` | Cross-sectional & time-series momentum, trend-following |
+| `trading_strategies/mean_reversion_statarb/` | Mean reversion, pairs/stat-arb, index & ETF arbitrage |
+| `trading_strategies/carry/` | Carry and roll-down (FX, rates, commodity, dividend) |
+| `trading_strategies/value_factor/` | Value, quality, size, low-vol and other factor styles |
+| `trading_strategies/volatility_options/` | Variance risk premium, vol arbitrage, options overlays |
+| `trading_strategies/event_driven_arbitrage/` | Merger/risk arb, index rebalancing, earnings, convertibles |
+| `trading_strategies/macro_multi_asset/` | Global macro, allocation, risk parity, tactical tilts |
+| `trading_strategies/market_making_microstructure/` | Liquidity provision, execution alpha, order-book strategies |
+
+## Securities Financing Agents (`securities_financing/`)
+
+Grouped in the `securities_financing/` category folder; they make financing a
+first-class part of a strategy's economics — borrow, funding, collateral, and their
+costs and risks.
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `securities_financing/securities_lending/` | Stock loan/borrow: locates, GC vs specials, rebate, recalls, buy-ins, corporate actions | Testing |
+| `securities_financing/repo_financing/` | Repo/reverse repo funding, rates, term, haircuts, roll and counterparty risk | Testing |
+| `securities_financing/collateral_management/` | Eligibility, haircuts, margin, collateral optimization, rehypothecation, regulatory impact | Deployment |
+| `securities_financing/financing_cost_analysis/` | All-in cost of carry, borrow/rebate/funding netting, financing-aware backtesting | Testing |
+
+## Formulaic Alpha Agents (`formulaic_alphas/`)
+
+Grouped in the `formulaic_alphas/` category folder; they operationalize the
+formulaic-alpha methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — building
+tradable signals as formulas from an operator library, combining them, and evaluating
+them.
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `formulaic_alphas/alpha_construction/` | Building alphas from the operator library, neutralization, point-in-time correctness | Research, Testing |
+| `formulaic_alphas/alpha_combination/` | Combining alphas: correlation, spanning, weighting, diversification | Research, Testing |
+| `formulaic_alphas/alpha_evaluation/` | Holding period, turnover, volatility dependence, correlation, capacity, decay | Testing |
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.

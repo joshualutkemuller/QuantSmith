@@ -224,6 +224,7 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 
 - `docs/sdk_plan.md`: roadmap and proposed SDK architecture.
 - `docs/handoff.md`: continuation guide for the next implementer.
+- `docs/adoption_guide.md`: how to install the SDK into an existing quant repo.
 - `docs/packaging.md`: packaging & distribution decision record.
 - `agentic_dictionary.md`: definitions for the SDK vocabulary.
 

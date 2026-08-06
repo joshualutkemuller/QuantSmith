@@ -29,5 +29,6 @@ Crowding` section, and a `Net Premium` section. State neutralizations explicitly
 Factor definitions become `REQ-*`; point-in-time construction and net-premium
 thresholds become `AC-*`/`NFR-*`; crowding and decay become `RISK-*`. Fundamental
 leakage is enforced by `instructions/point_in_time.md` and the `leakage` gate;
-data provenance via a data contract. Hands off to `feature_engineering` (construction),
+data provenance via a data contract. See `instructions/trading_strategies.md`
+for the shared standard. Hands off to `feature_engineering` (construction),
 `modeling` (validation), and `risk` (exposures).

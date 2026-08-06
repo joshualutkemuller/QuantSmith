@@ -139,6 +139,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/quant_research.md`
 - `instructions/data_quality.md`
 - `instructions/backtesting.md`
+- `instructions/trading_strategies.md`
 - `instructions/model_validation.md`
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`

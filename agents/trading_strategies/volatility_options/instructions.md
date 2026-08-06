@@ -28,5 +28,6 @@ section, and a `Tail & Model Risk` section. Note margin behavior under stress.
 
 The strategy and hedging rules become `REQ-*`; the captured premium and hedging-cost
 thresholds become `AC-*`/`NFR-*`; short-vol tail and model risk become `RISK-*`.
-PIT option/vol data is enforced by `instructions/point_in_time.md`. Hands off to
+PIT option/vol data is enforced by `instructions/point_in_time.md`. See
+`instructions/trading_strategies.md` for the shared standard. Hands off to
 `risk` for tail/greeks sign-off and `backtest_review` for execution realism.

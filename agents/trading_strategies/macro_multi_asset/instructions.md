@@ -28,5 +28,6 @@ section, and a `Leverage & Drawdown` section. Note regime dependence.
 
 The allocation logic becomes `REQ-*`; point-in-time data and drawdown/leverage
 limits become `AC-*`/`NFR-*`; correlation-breakdown and regime risk become `RISK-*`.
-Macro-data vintages are enforced by `instructions/point_in_time.md`. Hands off to
+Macro-data vintages are enforced by `instructions/point_in_time.md`. See
+`instructions/trading_strategies.md` for the shared standard. Hands off to
 `risk` for leverage/stress sign-off and `backtest_review` for integrity.

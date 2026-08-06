@@ -178,8 +178,78 @@ A workflow design where agents assist, draft, validate, or summarize, but import
 
 ## SDK Surface
 
-A public area of the SDK that downstream users are expected to rely on. For this repository, the main surfaces are `agents/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `docs/`.
+A public area of the SDK that downstream users are expected to rely on. For this repository, the main surfaces are `agents/`, `hooks/`, `instructions/`, `prompts/`, `specs/`, `templates/`, and `docs/`, with `CLAUDE.md` activating the framework by default.
 
 ## Seed Template
 
 An existing file that demonstrates a useful structure but is not yet final content. Seed templates are useful starting points, but they should be promoted into public SDK surfaces only after their purpose, inputs, outputs, and review contract are clear.
+
+# Spec-Driven Development Vocabulary
+
+## Spec-Driven Development (SDD)
+
+The SDK's operating model: the specification is the source of truth, and every design decision, task, test, and release traces back to it. The flow is `Constitution → Specify → Plan → Tasks → Implement → Verify → Operate`. See `instructions/spec_driven_development.md`.
+
+## Constitution
+
+The non-negotiable engineering principles every change is checked against, defined in `instructions/engineering_principles.md` (P1–P10). Deviations require a recorded, approved exception.
+
+## Spec / Plan / Tasks
+
+The three per-feature artifacts under `specs/NNNN-slug/`: `spec.md` (WHAT and WHY — requirements and acceptance criteria), `plan.md` (HOW — architecture, data contracts, trade-offs), and `tasks.md` (ordered, traceable work). Templates live in `templates/spec/`.
+
+## Identifier Scheme (REQ / NFR / AC / RISK / T)
+
+Stable IDs that make traceability mechanical: `REQ-*` functional requirement, `NFR-*` non-functional requirement, `AC-*` acceptance criterion, `RISK-*` risk, `T-*` task. Once assigned, an ID is never reused.
+
+## Traceability
+
+The property that every task, test, and behavior links to a requirement, and every requirement is covered — no orphan code, no orphan requirements. Enforced by the `spec` gate.
+
+## Gate (Quality Gate / Stage Gate)
+
+A checkpoint a stage must pass before work advances. The SDK's gates live in `hooks/stages/` and run via `run-stage.sh`; advisory by default, blocking under `QF_STAGE_ENFORCE=1`. Examples: `spec`, `leakage`, `backtest`, `secret-scan`, `data-contract`.
+
+## Stage
+
+One of the six development-lifecycle steps — Planning/Requirements, Design, Implementation, Testing, Deployment, Maintenance — each with an owning agent and a companion gate.
+
+## Orchestrator
+
+The `workflow_orchestrator` agent, which drives a change through the SDD flow and enforces the gate between each stage. It routes to the owning stage and domain agents using `agents/README.md` as its routing table.
+
+## Agent Group (Category Folder)
+
+A directory under `agents/` that groups related agents (e.g. `data_ingestion/`, `secrets_management/`, `trading_strategies/`). The folder has its own `README.md` and is not itself an agent; a public agent is any directory containing `prompt.md`, at any depth.
+
+## Spec-Driven Role
+
+A section in each agent's `instructions.md` that ties it to the framework: which spec artifact it owns or feeds, which IDs its outputs become, and which gates and instructions apply.
+
+## Run Card
+
+A record that makes an experiment or job reproducible: code version, data snapshot/hash, config, seed, environment, and the command to reproduce. Template: `templates/docs/run_card.md`.
+
+## Data Contract
+
+A checkable declaration of what a dataset guarantees: grain, keys, schema, point-in-time rules, and missingness thresholds. Template: `templates/data/data_contract.md`; checked by the `data-contract` gate.
+
+## Point-in-Time (PIT)
+
+The discipline of using each input only as of when it was actually knowable, including publication and revision lags. See `instructions/point_in_time.md`; a primary leakage surface.
+
+## Information Barrier
+
+An access boundary (e.g. MNPI, restricted lists, Chinese walls) that knowledge and data must respect. Enforced by the knowledge and secrets agents so restricted material is never surfaced to an unauthorized party.
+
+## Provenance
+
+The recorded origin of a knowledge item or dataset — source, author, date, version, and access level — so an answer or result can be traced and reproduced.
+
+## Formulaic Alpha
+
+A tradable signal expressed as an explicit formula over market inputs, composed from an operator library (`rank`, `ts_rank`, `correlation`, `delta`, `decay_linear`, `indneutralize`, …). See `instructions/formulaic_alphas.md`.
+
+## Financing-Aware Backtest
+
+A backtest that nets the cost of borrowing and funding — borrow fee, short rebate, repo/funding, margin — from returns. Short and long-short backtests that ignore financing overstate their edge; checked by the `backtest` gate's financing theme.

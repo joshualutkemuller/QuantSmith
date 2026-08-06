@@ -2,133 +2,113 @@
 
 ## Snapshot
 
-The SDK now has a working v1: a **spec-driven engineering framework** layered over
-the **six software-development stages**, a catalog of **21 agents**, **14 quality
-gates**, and CI that enforces the deterministic ones. It remains a scaffold to be
-copied into quant repos, not a runnable app.
+The SDK has a working v1: a **spec-driven engineering framework** over the six
+software-development stages, **43 agents**, **15 quality gates**, **13 instruction
+standards**, and CI that enforces the deterministic gates. It remains a scaffold to
+be copied into quant repos, not a runnable app.
 
-- Branch of record for this build-out: `claude/dev-stages-hooks-agents-co1sjj`
-  (open as PR #4 into `main`). Earlier slices landed via PRs #2 and #3.
+- Build-out branch: `claude/dev-stages-hooks-agents-co1sjj` (open as PR #4 into `main`).
 - Root `CLAUDE.md` activates the framework by default for any agent in the repo.
+- `agents/README.md` is the agent catalog and the orchestrator's routing table.
 
-## What This Session Added
+## Architecture
 
-**Spec-Driven Development (the operating model)**
+**Spec-Driven Development** — the spec is the source of truth; everything traces to
+it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
 
-- `instructions/engineering_principles.md` — the constitution (10 non-negotiable rules + exceptions).
-- `instructions/spec_driven_development.md` — flow, ID scheme (`REQ`/`NFR`/`AC`/`T`/`RISK`), gates.
-- `instructions/point_in_time.md` — point-in-time & leakage checklist.
-- `templates/spec/{spec,plan,tasks}.md` + `prompts/{specify,plan,tasks}.md`.
-- `specs/0001-daily-momentum-signal/` — a fully worked, traceable reference spec.
+- `instructions/engineering_principles.md` — the constitution (P1–P10).
+- `instructions/spec_driven_development.md` — flow, ID scheme, gates.
+- `specs/NNNN-slug/{spec,plan,tasks}.md` from `templates/spec/`; worked example at
+  `specs/0001-daily-momentum-signal/`.
 
-**Agents (21 total, all on the four-file contract)**
+**Agents (43)** — all on the four-file contract (`README`/`prompt`/`instructions`/
+`tasks`) with a `Spec-Driven Role`:
 
-- Orchestrator: `workflow_orchestrator/` — drives the flow and enforces stage gates.
-- Six lifecycle agents (one per stage): `planning_requirements`, `design_architecture`,
+- Orchestrator: `workflow_orchestrator/`.
+- Lifecycle (one per stage): `planning_requirements`, `design_architecture`,
   `implementation`, `testing_validation`, `deployment_release`, `maintenance_monitoring`.
-- Domain agents: `research_analyst`, `data_quality`, `feature_engineering`, `modeling`,
+- Core domain: `research_analyst`, `data_quality`, `feature_engineering`, `modeling`,
   `backtest_review`, `risk`, `git_release`.
-- `data_ingestion/` group: `database_connectivity`, `file_ingestion`, `api_ingestion`.
-- `secrets_management/` group: `secret_storage`, `credential_access`, `secret_rotation`, `secret_scanning`.
-- `agents/README.md` — the agent catalog and the orchestrator's routing table.
+- Groups: `data_ingestion/` (3), `secrets_management/` (4), `tooling/` (3 — Excel,
+  Power BI, Tableau), `knowledge/` (4), `trading_strategies/` (8 archetypes from
+  *151 Trading Strategies*), `securities_financing/` (4), `formulaic_alphas/` (3 —
+  from *101 Formulaic Alphas*).
 
-**Quality gates (`hooks/stages/`, advisory by default, enforce with `QF_STAGE_ENFORCE=1`)**
+**Gates (15)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
+`QF_STAGE_ENFORCE=1` blocks:
 
-- Cross-cutting: `spec-check` (traceability chain).
-- Per stage: `planning`, `design`, `implementation`, `testing`, `deployment`, `maintenance`.
-- Quant gates: `leakage`, `backtest`, `repro`, `data-contract`.
-- Repo gates: `secret-scan`, `docs-link`, `agent-catalog`.
-- Driver `run-stage.sh`, shared `common.sh`, and `hooks/README.md`.
+- Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
+  `testing`, `deployment`, `maintenance`.
+- Quant: `leakage`, `backtest` (incl. a financing theme for shorts), `repro`,
+  `data-contract`.
+- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `knowledge`.
 
-**Templates & prompts**
+**Instructions (13)** — constitution, SDD method, point-in-time, and the domain
+standards (quant_research, data_quality, backtesting, model_validation, documentation,
+git_workflow, knowledge_base, trading_strategies, securities_financing, formulaic_alphas).
 
-- `templates/docs/{run_card,model_monitoring_plan,incident_postmortem}.md`,
-  `templates/data/data_contract.md`, and matching prompts.
+**Templates & prompts** — `templates/spec/`, `templates/docs/` (research memo,
+dataset/model card, backtest report, run card, model monitoring plan, incident
+postmortem, handoff memo, production readiness), `templates/data/data_contract.md`,
+`templates/knowledge/knowledge_sources.yml`, and matching prompts.
 
-**Enforcement plumbing**
+**Configurable knowledge sources** — the knowledge agents plug into external
+repositories declared in `knowledge_sources.yml` (subfolders as domains), validated
+by the `knowledge` gate.
 
-- `.githooks/pre-commit` and `pre-push` validate the agent contract recursively
-  (any directory containing `prompt.md`, so category folders work).
-- `.github/workflows/ci.yml` enforces required docs, the agent contract, shell
-  syntax, spec traceability, backtest integrity, secret-scan, docs-link, and
-  agent-catalog; runs leakage advisory. Uses `actions/checkout@v7` + `fetch-depth: 0`.
+## Conventions To Preserve
 
-## Current Surfaces
-
-```text
-qf_workflow_sdk/
-  CLAUDE.md                # repo guide; activates the framework by default
-  agents/                  # 21 agents + README.md catalog (some grouped in folders)
-  hooks/stages/            # 14 gates + run-stage.sh + common.sh
-  instructions/            # constitution, SDD method, point-in-time, quant standards
-  prompts/                 # spec commands + artifact prompts
-  specs/                   # per-feature spec dirs; 0001 is a worked example
-  templates/               # spec/, docs/, data/ artifact templates
-  examples/                # alpha_signal_handoff end-to-end example
-  docs/                    # sdk_plan, handoff, (architecture/adoption still TODO)
-```
-
-## What's Next (prioritized)
-
-1. **Adoption guide** (`docs/adoption_guide.md`): how to copy the SDK into an
-   existing quant repo — which folders to take, how to wire `setup-hooks.sh` and
-   the CI gates, and how to tune the heuristic gates' patterns to a repo's layout.
-2. **Packaging decision**: recorded in `docs/packaging.md`. Direction: formalize
-   the copyable template now, add a Copier-style sync CLI when update pain is real,
-   and reach for a Python package only when there is real executable logic to ship.
-   The immediate deliverable that follows is the adoption guide (item 1).
-3. **More worked examples**: only a momentum-signal spec and the alpha-signal
-   handoff exist. Add a risk-model or forecast-model spec end to end, and an
-   ingestion example that produces a data contract.
-4. **Refresh the roadmap and vocabulary**: `docs/sdk_plan.md` backlog still lists
-   agents/hooks that now exist; `agentic_dictionary.md` predates spec-driven terms
-   (constitution, gate, orchestrator, run card, data contract). Bring both current.
-5. **Optional gates** (deferred by design): an `ingestion-snapshot` gate (verify a
-   pull captures a snapshot/checksum) and a stricter notebook-output gate.
-   `leakage` is intentionally advisory (heuristic); revisit before enforcing it.
-6. **`CHANGELOG.md`**: the deployment gate flags its absence; add one and a
-   versioning policy if the SDK starts being consumed by other repos.
+- A public agent is any directory containing `prompt.md` (any depth under `agents/`)
+  with all four contract files plus a `Spec-Driven Role`; group related agents in a
+  category folder (its own `README.md`, no `prompt.md`). Add a catalog row.
+- A domain gets a backing `instructions/*.md` standard when multiple agents/gates
+  share it.
+- Specs are the source of truth; assign stable IDs and keep traceability intact.
+- Conventional Commits; work on the feature branch; a merged PR is finished (start
+  follow-ups fresh from `main`, rebasing unmerged commits).
+- Gates degrade gracefully when optional tools are missing.
 
 ## Quality Gates — Enforced vs Advisory
 
 - **Enforced in CI:** required docs, agent contract, shell syntax, `spec`,
   `backtest`, `secret-scan`, `docs-link`, `agent-catalog`.
-- **Advisory (run locally or wire in later):** `leakage` (heuristic by design) and
-  the per-stage/quant gates not listed above. `QF_STAGE_ENFORCE=1` makes any gate
-  blocking; do this per gate as a repo's discipline matures.
+- **Advisory:** `leakage` (heuristic by design) and the per-stage/quant gates not
+  listed above. Graduate a gate to enforced per repo as discipline matures.
 
-## Conventions To Preserve
+## What's Next (prioritized)
 
-- Every agent: `README.md`, `prompt.md`, `instructions.md`, `tasks.md`, plus a
-  `Spec-Driven Role` section and a catalog row. Group related agents in a category
-  folder (its own `README.md`, no `prompt.md`).
-- Specs are the source of truth; assign stable IDs and keep traceability intact.
-- Conventional Commits; do all work on the feature branch; a merged PR is finished
-  (start follow-ups fresh from `main`, rebasing any unmerged commits).
-- Gates degrade gracefully when optional tools are missing.
+1. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
+   installing the SDK into an existing quant repo.
+2. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
+   CLI later, package only with real code).
+3. **More worked examples** — a risk/forecast spec end to end; an ingestion example
+   that emits a data contract.
+4. **Remaining backing instructions** — risk_management, data_ingestion,
+   reproducibility, monitoring.
+5. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
+6. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+   revisit enforcing `leakage`.
 
 ## Open Questions For The Owner
 
-- Copyable scaffold, Python package, or CLI/copier? *(Answered directionally in
-  `docs/packaging.md`; revisit its decision criteria if the audience or update
-  cadence changes.)*
-- Which agent runtime is the primary target (local Codex-style, general LLM, both)?
+- Copyable scaffold, Python package, or CLI/copier? (Directionally answered in
+  `docs/packaging.md`; revisit its criteria if audience or update cadence changes.)
+- Which agent runtime is the primary target (local, general LLM, both)?
 - Which gates should graduate from advisory to enforced, and when?
-- Which quant artifact is the next complete example: risk model, forecast, optimizer?
 - Should downstream repos pin a version of the SDK, and how are updates delivered?
 
 ## Risks
 
-- Breadth: 21 agents is useful only if each stays narrow and inspectable.
+- Breadth: 43 agents is useful only if each stays narrow and inspectable.
 - Heuristic gates (`leakage`, `backtest`, `secret-scan` fallback) can false-positive
   or miss; keep them advisory unless a repo's layout makes them reliable.
-- Docs can drift from the code they describe; the `docs-link` and `agent-catalog`
-  gates help, but `sdk_plan.md`/`agentic_dictionary.md` still need a manual refresh.
+- Docs can drift from the code; the `docs-link` and `agent-catalog` gates help, but
+  narrative docs (this file, `sdk_plan.md`, `agentic_dictionary.md`) need periodic
+  manual refresh.
 - Copied gates assume conventional artifact names; adopters must tune the patterns.
 
 ## Definition Of Done For The Next Slice
 
-- `docs/adoption_guide.md` exists and a fresh repo can install the SDK from it.
-- `docs/sdk_plan.md` backlog and `agentic_dictionary.md` reflect the current build.
-- A second end-to-end worked example (beyond the momentum signal) exists.
-- The packaging decision is recorded, with a path (scaffold vs CLI) chosen.
+- `docs/adoption_guide.md` is complete enough that a fresh repo can install the SDK.
+- The packaging decision has a chosen path with first steps taken.
+- A second end-to-end worked example exists beyond the momentum signal.

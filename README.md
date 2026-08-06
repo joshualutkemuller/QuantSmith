@@ -91,6 +91,18 @@ Knowledge management agents (`agents/knowledge/`):
 
 - `knowledge_ingestion/`, `knowledge_curation/`, `knowledge_retrieval/`, `institutional_memory/`: absorb, organize, retrieve, and persist a company's institutional knowledge across domains — with grounded, cited answers, access control and information barriers, provenance, and durable memory of what the organization learns.
 
+Trading strategy agents (`agents/trading_strategies/`):
+
+- `momentum_trend/`, `mean_reversion_statarb/`, `carry/`, `value_factor/`, `volatility_options/`, `event_driven_arbitrage/`, `macro_multi_asset/`, `market_making_microstructure/`: design-and-review roles for the strategy archetypes catalogued in *151 Trading Strategies* (Kakushadze & Serur), each applying economic rationale, point-in-time/leakage, cost/capacity, and risk discipline.
+
+Securities financing agents (`agents/securities_financing/`):
+
+- `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost and short rebate, repo/funding, collateral and margin — and make short/long-short backtests financing-aware.
+
+Formulaic alpha agents (`agents/formulaic_alphas/`):
+
+- `alpha_construction/`, `alpha_combination/`, `alpha_evaluation/`: operationalize the formulaic-alpha methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — build tradable signals from an operator library (`rank`, `ts_rank`, `correlation`, `delta`, `decay_linear`, `indneutralize`, …), combine many weakly-correlated alphas, and evaluate holding period, turnover, correlation, and capacity.
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
@@ -135,6 +147,9 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/quant_research.md`
 - `instructions/data_quality.md`
 - `instructions/backtesting.md`
+- `instructions/trading_strategies.md`
+- `instructions/securities_financing.md`
+- `instructions/formulaic_alphas.md`
 - `instructions/model_validation.md`
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
@@ -209,6 +224,7 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 
 - `docs/sdk_plan.md`: roadmap and proposed SDK architecture.
 - `docs/handoff.md`: continuation guide for the next implementer.
+- `docs/adoption_guide.md`: how to install the SDK into an existing quant repo.
 - `docs/packaging.md`: packaging & distribution decision record.
 - `agentic_dictionary.md`: definitions for the SDK vocabulary.
 

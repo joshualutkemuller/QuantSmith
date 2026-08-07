@@ -6,8 +6,9 @@ The SDK has a working v1: a **spec-driven engineering framework** over the six
 software-development stages, **105 agents** including the root evening-content
 workflow pack, **15 quality gates**, **13 instruction standards**, and CI that
 enforces the deterministic gates. It remains primarily a scaffold to be copied
-into quant repos, with `evening_quant_content_twitter/` now serving as the first
-runnable local workflow pack.
+into quant repos, with `evening_quant_content_twitter/` as the first runnable local
+workflow pack and `src/quantsmith/pipelines/` holding runnable, dependency-free
+reference pipelines that make specs `0006` and `0007` executable and tested.
 
 - Build-out branch: `claude/dev-stages-hooks-agents-co1sjj` (open as PR #4 into `main`).
 - Root `CLAUDE.md` activates the framework by default for any agent in the repo.
@@ -80,15 +81,17 @@ by the `knowledge` gate.
 
 ## What's Next (prioritized)
 
-1. **P0 optimizer-agent workflow expansion** — treat `agents/optimization/` as the
-   highest-priority handoff: use it to string together optimization specs and
-   workflows across finance, operations, and technology; promote the first runtime
-   optimizer workflow into `specs/0006-*` or the next available spec number.
+1. **P0 optimizer-agent workflow expansion** — the first runtime optimizer workflow
+   is shipped as `specs/0007-portfolio-construction/` (constrained mean-variance
+   allocation from the `0006` forecast, with a runnable reference pipeline and
+   acceptance tests). Next: extend `agents/optimization/` into more runtime workflows
+   across operations and technology (collateral/margin, execution, capacity,
+   routing/scheduling) as the desk needs them.
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
-   end with a DL challenger). Next: promote the first *optimization* runtime workflow
-   into `specs/0007-*`, and add more ML/DL worked examples (ranking, RL, forecasting
-   variants) as the desk needs them.
+   end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
+   more ML/DL worked examples (ranking, RL, forecasting variants) as the desk needs
+   them.
 3. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
 4. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync

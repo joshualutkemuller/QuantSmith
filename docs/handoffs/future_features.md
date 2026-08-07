@@ -10,7 +10,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
-| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. First runtime ML/DL workflow shipped as `specs/0006-ml-return-forecasting/`; optimizer runtime workflow (`specs/0007-*`) still open | P0 | in-progress |
+| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. First runtime workflows shipped: `specs/0006-ml-return-forecasting/` (ML/DL) and `specs/0007-portfolio-construction/` (optimization), both with runnable reference pipelines and tests. Remaining: more runtime workflows across operations/technology optimization and additional ML/DL examples | P0 | in-progress |
 | `agents/data_engineering/data_modeling/` | Dimensional/warehouse modeling: star/snowflake schemas, slowly-changing dimensions, grain | P1 | proposed |
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency | P1 | proposed |
 | `agents/data_engineering/pipeline_observability/` | Data freshness, SLAs, lineage, data-downtime detection | P2 | proposed |

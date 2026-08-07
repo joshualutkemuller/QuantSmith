@@ -188,15 +188,11 @@ Artifact prompts:
 - `specs/0001-daily-momentum-signal/`: a filled-in spec/plan/tasks reference showing the ID scheme and traceability end to end.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
-## Suggested Quant Workflow
+## Workflows
 
-1. Start with a hypothesis and use a Research Analyst Agent to draft the research plan.
-2. Use a Data Quality Agent to inspect source data, joins, timestamp alignment, coverage, and leakage risk.
-3. Use a Feature Engineering or Modeling Agent to document transformations, model choices, validation design, and assumptions.
-4. Use a Backtest Review Agent to inspect bias, costs, benchmarks, fragility, and robustness.
-5. Use a Risk Agent to summarize exposures, concentration, drawdowns, stress behavior, and monitoring needs.
-6. Use a Documentation Agent to produce a research memo, model card, dataset card, experiment summary, and handoff memo.
-7. Use Git hooks and PR templates to keep changes reviewable and reproducible.
+See `docs/workflows.md` for the workflow map — the Quant Researcher, Quant Model
+Build, Data Analyst, Data Engineer, and Analytics Pipeline workflows as ordered
+agent + gate chains, all on the Spec-Driven Development backbone.
 
 ## Local Hook Setup
 

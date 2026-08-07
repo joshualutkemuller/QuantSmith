@@ -110,6 +110,10 @@ Formulaic alpha agents (`agents/formulaic_alphas/`):
 
 - `alpha_construction/`, `alpha_combination/`, `alpha_evaluation/`: operationalize the formulaic-alpha methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — build tradable signals from an operator library (`rank`, `ts_rank`, `correlation`, `delta`, `decay_linear`, `indneutralize`, …), combine many weakly-correlated alphas, and evaluate holding period, turnover, correlation, and capacity.
 
+Content agents (`agents/content/`):
+
+- `content_orchestrator/`, `market_context_researcher/`, `quant_angle_generator/`, `x_post_packager/`, `visual_spec_agent/`, `meme_culture_agent/`, `claim_review_agent/`, `content_memory_agent/`: produce non-posting evening quant content draft packs with ranked ideas, posts, threads, visual specs, meme concepts, source notes, review findings, and memory updates.
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
@@ -244,6 +248,7 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 - `docs/workflows.md`: the workflow map — role and scenario workflows as agent + gate chains.
 - `docs/handoff.md`: continuation guide for the next implementer.
 - `docs/handoffs/`: work-stream handoffs, including `future_features.md` (the build backlog).
+- `specs/0003-evening-quant-content-workflow/`: configurable evening quant content workflow spec.
 - `docs/adoption_guide.md`: how to install the SDK into an existing quant repo.
 - `docs/packaging.md`: packaging & distribution decision record.
 - `agentic_dictionary.md`: definitions for the SDK vocabulary.

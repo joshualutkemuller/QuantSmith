@@ -1,0 +1,46 @@
+# Provenance for example_prices shared memory records.
+# Reference example. Every record carries source, dates, confidence, access, and
+# pit_scope. Metadata only — no credentials, connection strings, or data.
+
+dataset: example_prices
+access_level: internal
+
+records:
+  - id: MEM-0001
+    scope: field:security_id
+    type: schema
+    statement: "Join on security_id, not ticker; tickers are reused."
+    evidence:
+      source_run: run-2026-05-12-ingest-prices
+    confidence: high
+    corroboration_count: 4
+    first_seen: 2026-03-01
+    last_confirmed: 2026-07-30
+    status: active
+    pit_scope: "<= run date"
+
+  - id: MEM-0002
+    scope: field:close_adj
+    type: quirk
+    statement: "Adjusted close is restated; use original vintage for point-in-time work."
+    evidence:
+      source_run: run-2026-04-18-backtest-momentum
+    confidence: high
+    corroboration_count: 3
+    first_seen: 2026-04-18
+    last_confirmed: 2026-07-30
+    status: active
+    pit_scope: "original vintage only"
+
+  - id: MEM-0003
+    scope: field:volume
+    type: pitfall
+    statement: "volume = 0 means halted, not missing; do not impute."
+    evidence:
+      source_run: run-2026-06-02-liquidity-filter
+    confidence: medium
+    corroboration_count: 2
+    first_seen: 2026-06-02
+    last_confirmed: 2026-06-02
+    status: active
+    pit_scope: "<= run date"

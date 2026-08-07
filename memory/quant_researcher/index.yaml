@@ -1,0 +1,32 @@
+# Index of quant_researcher workflow memory records. Reference example.
+# Metadata only. Every record carries provenance, dates, confidence, access, pit_scope.
+
+workflow: quant_researcher
+access_level: internal
+
+records:
+  - id: MEM-QR-0001
+    scope: dataset:example_prices
+    type: pattern
+    statement: "12-1 momentum on example_prices needs original-vintage adjusted close and currency conversion first."
+    evidence:
+      source_run: run-2026-04-18-backtest-momentum
+    confidence: high
+    corroboration_count: 3
+    first_seen: 2026-04-18
+    last_confirmed: 2026-07-30
+    status: active
+    pit_scope: "<= decision date"
+
+  - id: MEM-QR-0002
+    scope: dataset:example_prices
+    type: decision
+    statement: "Liquidity filter uses 20-day median dollar volume, excluding halted (zero-volume) days."
+    evidence:
+      source_run: run-2026-06-02-liquidity-filter
+    confidence: medium
+    corroboration_count: 2
+    first_seen: 2026-06-02
+    last_confirmed: 2026-06-02
+    status: active
+    pit_scope: "<= decision date"

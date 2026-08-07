@@ -1,0 +1,30 @@
+# Workflow Memory Manifest
+#
+# Declares where workflow memory lives and how it is governed. This template ships
+# with committed, secret/PII-scanned memory by default. Sensitive deployments can
+# point a workflow's memory at an external, gitignored store instead.
+#
+# The memory-check gate reads this to know which stores to validate. See
+# instructions/workflow_memory.md and specs/0002-workflow-memory/.
+
+version: 1
+
+defaults:
+  persistence: committed        # committed | external
+  access_level: internal        # public | internal | restricted
+  freshness_days: 90            # advisory: records older than this are re-validated
+
+workflows:
+  - name: quant_researcher
+    path: quant_researcher       # relative to memory/, or an external absolute path
+    persistence: committed
+    access_level: internal
+
+  # - name: data_engineer
+  #   path: /mnt/memory/data_engineer   # external store for sensitive DB internals
+  #   persistence: external
+  #   access_level: restricted
+
+shared:
+  path: _shared                  # facts about sources, reused across workflows
+  access_level: internal

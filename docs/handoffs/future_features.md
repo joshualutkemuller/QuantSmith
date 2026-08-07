@@ -47,6 +47,8 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 
 ## Recently Shipped (for reference)
 
+- Persistent workflow memory (`memory/`, `instructions/workflow_memory.md`,
+  `memory-check` gate) — spec `specs/0002-workflow-memory/`.
 - Model-development standard (`instructions/model_development.md`) and the
   consolidated workflow map (`docs/workflows.md`).
 - Securities financing, formulaic alphas, trading strategies, tooling, knowledge,

@@ -32,4 +32,4 @@ the `REQ-*`/`RISK-*` it resolved, and a superseding decision amends the spec fir
 (constitution P1). Durable-artifact discipline is the SDK's "artifacts over memory"
 principle; honest scope is P10. Reuse `templates/spec/` and
 `templates/docs/incident_postmortem.md` where the artifact fits them. See
-`instructions/knowledge_base.md` for the shared standard.
+`instructions/knowledge_base.md` for the shared standard. This group also serves the persistent workflow memory store (`memory/`); see `instructions/workflow_memory.md`.

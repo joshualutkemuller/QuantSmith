@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantsmith"
+version = "0.1.0"
+description = "Spec-driven, agentic SDK for reproducible quantitative research."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+quant = [
+  "scipy>=1.10",
+]
+data = [
+  "pandas>=2.0",
+  "pandas-datareader>=0.10",
+]
+dev = [
+  "pytest>=8.0",
+]
+
+[project.scripts]
+quantsmith-agentic-quant = "quantsmith.quant.agentic_quant.main:main"
+quantsmith-sec-lending = "quantsmith.quant.agentic_quant.cli.sec_lending:main"
+quantsmith-rebalancer = "quantsmith.quant.agentic_quant.cli.rebalancer:main"
+quantsmith-sp500 = "quantsmith.quant.agentic_quant.cli.sp500:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

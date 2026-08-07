@@ -1,6 +1,6 @@
 # Adoption Guide
 
-How to install the QF Workflow SDK into an existing quant repository. The SDK is a
+How to install QuantSmith into an existing quant repository. The SDK is a
 scaffold of Markdown and shell — you copy the surfaces you want and wire the gates
 into your hooks and CI. See `docs/packaging.md` for the distribution model.
 
@@ -23,9 +23,9 @@ Adopt incrementally — the gates take named stages, so you can start with one.
 From the SDK repo, copy the directories you want into your repo root. At minimum:
 
 ```sh
-cp -R qf_workflow_sdk/instructions   your-repo/
-cp -R qf_workflow_sdk/hooks          your-repo/
-cp    qf_workflow_sdk/CLAUDE.md       your-repo/    # optional but recommended
+cp -R quantsmith/instructions   your-repo/
+cp -R quantsmith/hooks          your-repo/
+cp    quantsmith/CLAUDE.md       your-repo/    # optional but recommended
 # add agents/, templates/, prompts/, specs/ as needed
 ```
 
@@ -114,8 +114,8 @@ re-copy the reference surfaces and re-apply your local pattern tweaks.
 ## Minimal Adoption (the 5-minute version)
 
 ```sh
-cp -R qf_workflow_sdk/instructions your-repo/
-cp -R qf_workflow_sdk/hooks        your-repo/
+cp -R quantsmith/instructions your-repo/
+cp -R quantsmith/hooks        your-repo/
 # add to CI:
 #   QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh secret-scan
 #   sh hooks/stages/run-stage.sh        # everything else, advisory

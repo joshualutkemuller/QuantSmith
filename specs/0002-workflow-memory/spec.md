@@ -2,8 +2,8 @@
 
 - **ID:** 0002-workflow-memory
 - **Status:** Approved
-- **Author:** QF Workflow SDK
-- **Approver:** QF Workflow SDK
+- **Author:** QuantSmith
+- **Approver:** QuantSmith
 - **Last updated:** 2026-08-07
 
 > WHAT and WHY only. Implementation lives in `plan.md`.

@@ -1,4 +1,4 @@
-# QF Workflow SDK Git & GitHub Best Practices
+# QuantSmith Git & GitHub Best Practices
 
 ## Branching
 - Keep `main` clean and deployable.

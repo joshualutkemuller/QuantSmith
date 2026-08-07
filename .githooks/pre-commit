@@ -1,5 +1,5 @@
 #!/bin/sh
-# Pre-commit hook for QF Workflow SDK: run lightweight repository checks.
+# Pre-commit hook for QuantSmith: run lightweight repository checks.
 
 set -e
 
@@ -34,4 +34,4 @@ for hook in .githooks/*; do
   sh -n "$hook"
 done
 
-echo "QF Workflow SDK pre-commit checks passed."
+echo "QuantSmith pre-commit checks passed."

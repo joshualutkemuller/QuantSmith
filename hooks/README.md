@@ -1,4 +1,4 @@
-# QF Workflow SDK Hooks
+# QuantSmith Hooks
 
 This is the public hook surface of the SDK. It ships lightweight quality gates
 aligned to the six development stages, each paired with the agent that owns that

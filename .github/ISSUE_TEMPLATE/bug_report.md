@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a bug in QF Workflow SDK
+about: Report a bug in QuantSmith
 ---
 
 ## Steps to reproduce

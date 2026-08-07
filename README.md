@@ -1,6 +1,8 @@
-# QF Workflow SDK
+# QuantSmith
 
-QF Workflow SDK is an agentic workflow kit for quants, researchers, and data scientists. It is designed to organize agents, prompts, instructions, hooks, and documentation templates that make quantitative research and model development more reproducible, reviewable, and easier to hand off.
+> *Build quant models the way you'd defend them — spec-driven, agentic, reproducible.*
+
+QuantSmith is a spec-driven, agentic SDK for quant research and model development — specialist agents, quality gates, standards, and persistent memory that keep every signal and model reproducible, leakage-safe, and traceable to a spec.
 
 The SDK is intentionally practical: it should help teams document assumptions, review data quality, reduce avoidable modeling mistakes, enforce lightweight workflow standards, and produce artifacts that another researcher or engineer can pick up later.
 
@@ -41,7 +43,7 @@ are the SDD flow made operational.
 ## Current Repository Shape
 
 ```text
-qf_workflow_sdk/
+quantsmith/
   README.md
   agentic_dictionary.md
   setup-hooks.sh
@@ -196,7 +198,7 @@ agent + gate chains, all on the Spec-Driven Development backbone.
 
 ## Local Hook Setup
 
-From inside `qf_workflow_sdk`, run:
+From inside `quantsmith`, run:
 
 ```sh
 ./setup-hooks.sh

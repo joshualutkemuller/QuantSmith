@@ -1,5 +1,5 @@
 #!/bin/sh
-# Commit-msg hook for QF Workflow SDK: encourage Conventional Commit style.
+# Commit-msg hook for QuantSmith: encourage Conventional Commit style.
 
 commit_msg_file="$1"
 if [ ! -s "$commit_msg_file" ]; then

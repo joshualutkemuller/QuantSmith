@@ -4,7 +4,7 @@ Guidance for any agent (including Claude Code) working in this repository.
 
 ## What this repo is
 
-QF Workflow SDK is an agentic workflow kit for quant research and model
+QuantSmith is an agentic workflow kit for quant research and model
 development — a catalog of agents, hooks, instructions, prompts, and templates.
 It is a **scaffold to be copied into quant repos**, not a runnable application.
 There is no app to launch and no package to import; the deliverables are Markdown

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Pre-push hook for QF Workflow SDK: validate required SDK docs before pushing.
+# Pre-push hook for QuantSmith: validate required SDK docs before pushing.
 
 set -e
 
@@ -24,4 +24,4 @@ for agent in $(find agents -type f -name prompt.md -exec dirname {} \; | sort -u
   done
 done
 
-echo "QF Workflow SDK pre-push checks passed."
+echo "QuantSmith pre-push checks passed."

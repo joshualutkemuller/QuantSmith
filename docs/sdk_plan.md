@@ -1,8 +1,8 @@
-# QF Workflow SDK Plan
+# QuantSmith Plan
 
 ## Vision
 
-The QF Workflow SDK is a practical agentic workflow kit for quants, researchers, data scientists, and portfolio teams. Its job is to turn repeated research and model-development work into reliable, inspectable workflows made from agents, hooks, instructions, prompts, templates, and validation gates.
+QuantSmith is a practical agentic workflow kit for quants, researchers, data scientists, and portfolio teams. Its job is to turn repeated research and model-development work into reliable, inspectable workflows made from agents, hooks, instructions, prompts, templates, and validation gates.
 
 The SDK should help a team move from idea to documented, reviewed, reproducible quant artifact with less manual coordination and fewer hidden assumptions.
 
@@ -104,7 +104,7 @@ The SDK should include document and code templates:
 ## Proposed Directory Structure
 
 ```text
-qf_workflow_sdk/
+quantsmith/
   README.md
   agentic_dictionary.md
   setup-hooks.sh

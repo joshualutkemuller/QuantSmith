@@ -2,7 +2,7 @@
 
 - **Spec:** 0001-daily-momentum-signal (`spec.md`)
 - **Status:** Approved
-- **Author:** QF Workflow SDK
+- **Author:** QuantSmith
 - **Last updated:** 2026-07-10
 
 > Reference example. HOW. Requires the approved `spec.md`.

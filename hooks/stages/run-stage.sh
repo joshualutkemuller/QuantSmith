@@ -1,5 +1,5 @@
 #!/bin/sh
-# Run one or all QF Workflow SDK stage checks.
+# Run one or all QuantSmith stage checks.
 #
 # Usage:
 #   hooks/stages/run-stage.sh                 # run all stages

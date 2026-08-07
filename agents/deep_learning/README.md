@@ -8,6 +8,12 @@ The Deep Learning group covers neural architectures, training systems, transform
 dl_orchestrator -> training_systems -> specialist DL agent -> compression_serving -> model_selection_validation/mlops_monitoring
 ```
 
+For neural portfolio work, route through the general DL workflow first, then add the portfolio-specific review loop:
+
+```text
+dl_orchestrator -> deep_portfolio_optimization -> portfolio_volatility_costs -> portfolio_stress_explainability -> backtest_review/risk
+```
+
 ## Agents
 
 | Agent | Handles |
@@ -24,6 +30,9 @@ dl_orchestrator -> training_systems -> specialist DL agent -> compression_servin
 | `generative_models/` | Covers diffusion, VAEs, GANs, synthetic data, scenario generation, augmentation, and privacy/risk limits. |
 | `deep_time_series/` | Handles deep forecasting, temporal fusion, sequence-to-sequence models, regime conditioning, and probabilistic forecasts. |
 | `compression_serving/` | Owns distillation, quantization, pruning, batching, latency, memory, GPU utilization, and serving contracts. |
+| `deep_portfolio_optimization/` | Designs direct neural allocation systems that optimize portfolio-level objectives instead of proxy prediction losses. |
+| `portfolio_volatility_costs/` | Reviews volatility targeting, turnover, scaled positions, and transaction-cost robustness for neural portfolio strategies. |
+| `portfolio_stress_explainability/` | Explains neural allocation behavior across stress windows using weights, scaled exposure, returns, and feature attribution. |
 
 ## Inputs
 

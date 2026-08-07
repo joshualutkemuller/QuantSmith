@@ -3,7 +3,7 @@
 ## Snapshot
 
 The SDK has a working v1: a **spec-driven engineering framework** over the six
-software-development stages, **43 agents**, **15 quality gates**, **13 instruction
+software-development stages, **105 agents**, **15 quality gates**, **13 instruction
 standards**, and CI that enforces the deterministic gates. It remains a scaffold to
 be copied into quant repos, not a runnable app.
 
@@ -21,7 +21,7 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
 - `specs/NNNN-slug/{spec,plan,tasks}.md` from `templates/spec/`; worked example at
   `specs/0001-daily-momentum-signal/`.
 
-**Agents (43)** — all on the four-file contract (`README`/`prompt`/`instructions`/
+**Agents (105)** — all on the four-file contract (`README`/`prompt`/`instructions`/
 `tasks`) with a `Spec-Driven Role`:
 
 - Orchestrator: `workflow_orchestrator/`.
@@ -29,7 +29,7 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
   `implementation`, `testing_validation`, `deployment_release`, `maintenance_monitoring`.
 - Core domain: `research_analyst`, `data_quality`, `feature_engineering`, `modeling`,
   `backtest_review`, `risk`, `git_release`.
-- Groups: `data_ingestion/` (3), `secrets_management/` (4), `tooling/` (3 — Excel,
+- Groups: `optimization/` (21), `machine_learning/` (12), `deep_learning/` (12), `data_ingestion/` (3), `secrets_management/` (4), `tooling/` (3 — Excel,
   Power BI, Tableau), `knowledge/` (4), `trading_strategies/` (8 archetypes from
   *151 Trading Strategies*), `securities_financing/` (4), `formulaic_alphas/` (3 —
   from *101 Formulaic Alphas*).
@@ -77,16 +77,23 @@ by the `knowledge` gate.
 
 ## What's Next (prioritized)
 
-1. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
+1. **P0 optimizer-agent workflow expansion** — treat `agents/optimization/` as the
+   highest-priority handoff: use it to string together optimization specs and
+   workflows across finance, operations, and technology; promote the first runtime
+   optimizer workflow into `specs/0005-*`.
+2. **Machine-learning and deep-learning workflow expansion** — use
+   `agents/machine_learning/` and `agents/deep_learning/` to route model specs from
+   labeling/features through validation, MLOps, training systems, and serving.
+3. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
-2. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
+4. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
    CLI later, package only with real code).
-3. **More worked examples** — a risk/forecast spec end to end; an ingestion example
+5. **More worked examples** — a risk/forecast spec end to end; an ingestion example
    that emits a data contract.
-4. **Remaining backing instructions** — risk_management, data_ingestion,
+6. **Remaining backing instructions** — risk_management, data_ingestion,
    reproducibility, monitoring.
-5. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
-6. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+7. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
+8. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
 
 ## Open Questions For The Owner

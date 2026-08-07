@@ -126,6 +126,59 @@ content_orchestrator → market_context_researcher → quant_angle_generator
 - Platform limits, topic weights, tone, schedule, and delivery channels are config,
   not hard-coded agent behavior.
 
+
+### Optimization Problem Build
+
+Ambiguous constrained decision -> formulated optimization spec -> solver-ready design -> reviewed implementation.
+
+```text
+optimization_orchestrator -> problem_formulation -> optimization specialist
+  -> solver_diagnostics_sensitivity -> risk -> testing_validation
+  -> deployment_release -> maintenance_monitoring
+```
+
+- Standard: `instructions/optimization.md`.
+- Specialist families: LP, QP, conic, MIP, nonlinear, global, stochastic, robust,
+  dynamic programming, network flow, routing/scheduling, inventory/supply chain,
+  portfolio, collateral/margin, execution, capacity, pricing, simulation, and
+  solver diagnostics.
+- Gates: `spec`, `repro`, `data-contract`, `testing`; future runtime specs should
+  add solver-specific evidence for feasibility, objective value, slacks, duals,
+  sensitivity, and solve-time limits.
+- Runtime code belongs under `src/quantsmith/`; the agent contracts define routing
+  and review responsibilities.
+
+### Machine Learning Build
+
+Decision -> label/feature design -> validated model -> monitored production candidate.
+
+```text
+ml_orchestrator -> problem_framing_labeling -> feature_store_engineering
+  -> ML specialist -> model_selection_validation -> mlops_monitoring
+```
+
+- Standard: `instructions/machine_learning.md` plus `instructions/model_development.md`
+  and `instructions/model_validation.md`.
+- Specialists cover supervised learning, forecasting, ranking/recommendation,
+  causal/uplift, unsupervised/anomaly detection, AutoML, online learning/bandits,
+  validation, and MLOps.
+- Gates: `leakage`, `repro`, `backtest` where applicable, `testing`, `data-contract`.
+
+### Deep Learning Build
+
+Modality/problem -> architecture/training plan -> robust evaluation -> compression/serving plan.
+
+```text
+dl_orchestrator -> training_systems -> DL specialist
+  -> compression_serving -> model_selection_validation -> mlops_monitoring
+```
+
+- Standard: `instructions/deep_learning.md` plus model-development and validation
+  standards.
+- Specialists cover tabular neural nets, transformers/sequences, GNNs, RL, vision,
+  NLP/LLM, representation learning, generative models, deep time series, and serving.
+- Gates: `leakage`, `repro`, `testing`, model validation, and production monitoring.
+
 ### Analytics Pipeline (runtime)
 
 The consolidated multi-agent analytics copilot (full blueprint in

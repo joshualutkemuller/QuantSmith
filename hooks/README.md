@@ -34,7 +34,7 @@ pattern-based; tune them to your repository.
 | Backtest integrity | `backtest-check.sh` | `agents/backtest_review/` |
 | Reproducibility | `repro-check.sh` | `templates/docs/run_card.md`, `agents/implementation/` |
 | Data contract | `data-contract-check.sh` | `templates/data/data_contract.md`, `agents/data_quality/` |
-| Evening content draft pack | `content-draft-pack-check.sh` | `specs/0003-evening-quant-content-workflow/`, `agents/content/` |
+| Evening content draft pack | `content-draft-pack-check.sh` | `evening_quant_content_twitter/` |
 
 ### Repo Gates (security & docs integrity)
 
@@ -82,8 +82,9 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pac
   lockfile, and seeded randomness in changed code.
 - **`data-contract-check.sh`** verifies a data contract declares schema, keys,
   point-in-time rules, and missingness rules.
-- **`content-draft-pack-check.sh`** verifies the evening quant content config,
-  draft-pack template, sample fixture, memory scaffold, manual approval flag, and
+- **`content-draft-pack-check.sh`** verifies the evening quant content workflow
+  pack, including config, draft-pack template, sample fixture, content agent
+  contracts, scheduler profile, runtime smoke test, manual approval flag, and
   no-autopost boundary.
 
 ## Repo Gates

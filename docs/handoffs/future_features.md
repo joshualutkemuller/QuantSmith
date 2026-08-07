@@ -10,7 +10,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
-| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs | P0 | in-progress |
+| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. First runtime ML/DL workflow shipped as `specs/0006-ml-return-forecasting/`; optimizer runtime workflow (`specs/0007-*`) still open | P0 | in-progress |
 | `agents/data_engineering/data_modeling/` | Dimensional/warehouse modeling: star/snowflake schemas, slowly-changing dimensions, grain | P1 | proposed |
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency | P1 | proposed |
 | `agents/data_engineering/pipeline_observability/` | Data freshness, SLAs, lineage, data-downtime detection | P2 | proposed |
@@ -81,7 +81,7 @@ belong under profiles/adapters unless they require materially different behavior
 | --- | --- | --- | --- |
 | Expand `docs/adoption_guide.md` | Full walkthrough with per-project-type recipes | P1 | proposed |
 | Copier-style sync CLI | Selective install + update per `docs/packaging.md` | P2 | proposed |
-| More worked examples | A risk/forecast spec end to end; an ingestion example that emits a data contract | P2 | proposed |
+| More worked examples | Forecast spec shipped (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end and an ingestion example that emits a data contract | P2 | in-progress |
 | `CHANGELOG.md` + versioning policy | Once the SDK is consumed by other repos | P2 | proposed |
 | Visual workflow diagram | A rendered diagram of `docs/workflows.md` | P3 | proposed |
 

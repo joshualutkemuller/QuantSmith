@@ -94,8 +94,10 @@ roles without changing the current 43-agent count:
 | Alerting | `alerts/alert_policy`, `alerts/alert_router`, `alerts/incident_notification` | Separate detection and policy from vendor-neutral delivery adapters. |
 
 See [`alerts/README.md`](alerts/README.md#group-workflow) for the internal alert
-flow and [`docs/handoffs/future_features.md`](../docs/handoffs/future_features.md)
-for priorities and status.
+flow, [`../adapters/alert_delivery/README.md`](../adapters/alert_delivery/README.md)
+for channel adapters, and
+[`docs/handoffs/future_features.md`](../docs/handoffs/future_features.md) for
+priorities and status.
 
 ## Knowledge Management Agents (`knowledge/`)
 
@@ -183,6 +185,8 @@ pipeline; the SDK agents are design-and-review roles.
 3. That agent pulls in **domain agents** for the expertise it needs.
 4. The **hooks** verify the gate mechanically before the orchestrator advances.
 5. The **spec** carries state between stages as the single source of truth.
+6. The **adapters** connect approved payloads to providers without changing agent
+   logic.
 
 ## Adding An Agent
 

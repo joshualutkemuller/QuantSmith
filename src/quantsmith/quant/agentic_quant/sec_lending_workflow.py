@@ -10,14 +10,14 @@ Provides ready-made pipelines that combine:
 
 Quick start::
 
-    from agentic_quant import run_sec_lending_workflow
+    from quantsmith.quant.agentic_quant import run_sec_lending_workflow
 
     # Fully synthetic demo (no database required)
     report = run_sec_lending_workflow()
     print(report)
 
     # With a real database
-    from agentic_quant.sql_data import SQLiteDataSource
+    from quantsmith.quant.agentic_quant.sql_data import SQLiteDataSource
     src = SQLiteDataSource("path/to/lending.db")
     report = run_sec_lending_workflow(sql_source=src)
 """
@@ -58,7 +58,7 @@ def build_sec_lending_pipeline(
     Parameters
     ----------
     sql_source:
-        An :class:`~agentic_quant.sql_data.SQLDataSource` pointing at your
+        An :class:`~quantsmith.quant.agentic_quant.sql_data.SQLDataSource` pointing at your
         lending database.  When *None* the pipeline uses synthetic data so
         you can run the demo without any database.
     lookback_days:
@@ -74,9 +74,9 @@ def build_sec_lending_pipeline(
         Utilisation rate above which a security is flagged as a supply-squeeze
         candidate.
     include_ml_forecast:
-        Whether to append the :class:`~agentic_quant.sec_lending.BorrowDemandForecastAgent`.
+        Whether to append the :class:`~quantsmith.quant.agentic_quant.sec_lending.BorrowDemandForecastAgent`.
     include_anomaly_detection:
-        Whether to append the :class:`~agentic_quant.ml_agents.AnomalyDetectionAgent`.
+        Whether to append the :class:`~quantsmith.quant.agentic_quant.ml_agents.AnomalyDetectionAgent`.
     """
     agents: list[Agent] = []
 

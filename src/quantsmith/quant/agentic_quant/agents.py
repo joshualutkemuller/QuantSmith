@@ -9,7 +9,13 @@ from typing import Iterable, List, Sequence, TYPE_CHECKING
 import numpy as np
 
 from .framework import Blackboard
-from mean_variance import MeanVarianceOptimizer, PortfolioPerformance
+try:
+    from ..mean_variance import MeanVarianceOptimizer, PortfolioPerformance
+except ImportError:  # pragma: no cover - legacy agentic_quant alias path
+    from quantsmith.quant.mean_variance import (
+        MeanVarianceOptimizer,
+        PortfolioPerformance,
+    )
 
 if TYPE_CHECKING:  # pragma: no cover - import for type checking only
     from .rebalancing import RebalancingReport

@@ -15,6 +15,18 @@ archives, code comments, and decisions.
 | `knowledge_retrieval/` | Answering user questions grounded in the knowledge base, with citations, respecting the asker's access level and information barriers. |
 | `institutional_memory/` | Persisting what the organization learns: decision records, lessons learned, glossary, FAQs, runbooks — durable, referenceable artifacts, not conversational memory. |
 
+## Group Workflow
+
+```
+knowledge_ingestion → knowledge_curation → knowledge_retrieval
+                         ↘ institutional_memory (persist)
+```
+
+Ingest source material with provenance and access metadata, curate it into
+canonical and freshness-aware knowledge, then retrieve grounded answers or persist
+durable decisions, lessons, definitions, and runbooks. New durable artifacts return
+to ingestion so the knowledge base remains auditable.
+
 ## Shared Principles
 
 Every knowledge agent upholds the constitution (`instructions/engineering_principles.md`):

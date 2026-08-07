@@ -3,9 +3,11 @@
 ## Snapshot
 
 The SDK has a working v1: a **spec-driven engineering framework** over the six
-software-development stages, **105 agents**, **15 quality gates**, **13 instruction
-standards**, and CI that enforces the deterministic gates. It remains a scaffold to
-be copied into quant repos, not a runnable app.
+software-development stages, **105 agents** including the root evening-content
+workflow pack, **15 quality gates**, **13 instruction standards**, and CI that
+enforces the deterministic gates. It remains primarily a scaffold to be copied
+into quant repos, with `evening_quant_content_twitter/` now serving as the first
+runnable local workflow pack.
 
 - Build-out branch: `claude/dev-stages-hooks-agents-co1sjj` (open as PR #4 into `main`).
 - Root `CLAUDE.md` activates the framework by default for any agent in the repo.
@@ -32,15 +34,16 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
 - Groups: `optimization/` (21), `machine_learning/` (12), `deep_learning/` (12), `data_ingestion/` (3), `secrets_management/` (4), `tooling/` (3 — Excel,
   Power BI, Tableau), `knowledge/` (4), `trading_strategies/` (8 archetypes from
   *151 Trading Strategies*), `securities_financing/` (4), `formulaic_alphas/` (3 —
-  from *101 Formulaic Alphas*).
+  from *101 Formulaic Alphas*), and the root `evening_quant_content_twitter/`
+  pack (8 content agents plus runtime/scheduler).
 
 **Gates (15)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
 `QF_STAGE_ENFORCE=1` blocks:
 
 - Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
   `testing`, `deployment`, `maintenance`.
-- Quant: `leakage`, `backtest` (incl. a financing theme for shorts), `repro`,
-  `data-contract`.
+- Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
+  `repro`, `data-contract`, `content-draft-pack`.
 - Repo: `secret-scan`, `docs-link`, `agent-catalog`, `knowledge`.
 
 **Instructions (13)** — constitution, SDD method, point-in-time, and the domain
@@ -80,7 +83,7 @@ by the `knowledge` gate.
 1. **P0 optimizer-agent workflow expansion** — treat `agents/optimization/` as the
    highest-priority handoff: use it to string together optimization specs and
    workflows across finance, operations, and technology; promote the first runtime
-   optimizer workflow into `specs/0005-*`.
+   optimizer workflow into `specs/0006-*` or the next available spec number.
 2. **Machine-learning and deep-learning workflow expansion** — use
    `agents/machine_learning/` and `agents/deep_learning/` to route model specs from
    labeling/features through validation, MLOps, training systems, and serving.

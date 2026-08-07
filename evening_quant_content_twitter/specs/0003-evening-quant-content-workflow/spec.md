@@ -1,7 +1,7 @@
 # Spec: Evening Quant Content Workflow
 
 - **ID:** 0003-evening-quant-content-workflow
-- **Status:** Draft
+- **Status:** Implemented
 - **Author:** QuantSmith
 - **Approver:** TBD
 - **Last updated:** 2026-08-07
@@ -50,7 +50,7 @@ autoposter.
 | REQ-004 | Every factual claim shall reference a source note or be rejected/deferred. | must |
 | REQ-005 | Inferences, jokes, and speculative framing shall be labeled separately from sourced facts. | must |
 | REQ-006 | The workflow shall validate configured character limits and thread limits before delivery. | must |
-| REQ-007 | The workflow shall use `memory/evening_quant_content/` to track prior themes, hooks, formats, visual ideas, rejected framing, and style preferences. | should |
+| REQ-007 | The workflow shall use `evening_quant_content_twitter/memory/evening_quant_content/` to track prior themes, hooks, formats, visual ideas, rejected framing, and style preferences. | should |
 | REQ-008 | Delivery shall emit a draft pack through artifact/delivery adapters without implying automatic posting. | must |
 
 ## Non-Functional Requirements
@@ -66,7 +66,7 @@ autoposter.
 
 | ID | Given / When / Then | Covers |
 | --- | --- | --- |
-| AC-001 | Given `configs/evening_quant_content.yml`, when the workflow is initialized, then schedule, platform, content, source, review, memory, and delivery sections are present. | REQ-001 |
+| AC-001 | Given `evening_quant_content_twitter/configs/evening_quant_content.yml`, when the workflow is initialized, then schedule, platform, content, source, review, memory, and delivery sections are present. | REQ-001 |
 | AC-002 | Given a run, when ranked ideas are emitted, then 10-15 ideas include score, classification, risks, and next step fields. | REQ-002 |
 | AC-003 | Given configured deliverable counts, when the draft pack is assembled, then it includes posts, threads, memes, visual specs, source notes, review findings, and deferred ideas. | REQ-003 |
 | AC-004 | Given any factual claim, when claim review runs, then it has a source note ID or is marked deferred/rejected. | REQ-004 |
@@ -77,13 +77,17 @@ autoposter.
 
 ## Data & Dependencies
 
-- `configs/evening_quant_content.yml` defines run behavior.
-- `agents/content/*` define the workflow roles.
-- `templates/docs/evening_quant_draft_pack.md` defines the human-readable
+- `evening_quant_content_twitter/configs/evening_quant_content.yml` defines run behavior.
+- `evening_quant_content_twitter/agents/content/*` define the workflow roles.
+- `evening_quant_content_twitter/templates/docs/evening_quant_draft_pack.md` defines the human-readable
   delivery shape.
-- `examples/evening_quant_content/sample_draft_pack.yml` gives a deterministic
+- `evening_quant_content_twitter/examples/evening_quant_content/sample_draft_pack.yml` gives a deterministic
   no-live-data fixture.
-- `memory/evening_quant_content/` stores metadata-only style and repetition memory.
+- `evening_quant_content_twitter/memory/evening_quant_content/` stores metadata-only style and repetition memory.
+- `evening_quant_content_twitter/runtime/evening_quant_pipeline.py` provides the
+  runnable local draft-pack executor.
+- `evening_quant_content_twitter/scheduler/` provides the scheduler deployment
+  profile.
 - Data access uses `adapters/data_access/api.md` and provider profiles when live
   sources are enabled.
 - Delivery uses artifact and alert delivery adapters; platform posting is out of
@@ -101,11 +105,12 @@ autoposter.
 
 ## Assumptions & Open Questions
 
-- Assumption: first delivery targets local Markdown/YAML and optional email draft
-  handoff, not platform posting.
+- Assumption: first delivery targets local Markdown/YAML, not platform posting.
 - Assumption: live current-events research may be disabled for deterministic runs.
-- Open question: should scoring weights remain fixed or be adjusted from memory?
-- Open question: which sources are mandatory for current-events market claims?
+- Open question: should scoring weights remain fixed or be adjusted from memory in
+  a later adaptive scoring spec?
+- Open question: which live sources are mandatory for current-events market claims
+  once source adapters are added?
 
 ## Exceptions
 

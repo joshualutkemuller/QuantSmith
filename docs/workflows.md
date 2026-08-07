@@ -117,12 +117,15 @@ content_orchestrator → market_context_researcher → quant_angle_generator
   → claim_review_agent → content_memory_agent → delivery adapter
 ```
 
-- Handoff: `docs/handoffs/evening_quant_content_workflow.md`.
-- Spec: `specs/0003-evening-quant-content-workflow/`.
-- Config: `configs/evening_quant_content.yml`.
-- Content group map: `agents/content/README.md`.
-- Delivery produces a nightly draft pack; posting stays manual unless a future
-  spec adds explicit approval gates and platform write permissions.
+- Handoff: `evening_quant_content_twitter/docs/handoff.md`.
+- Spec: `evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`.
+- Runtime spec: `evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/`.
+- Config: `evening_quant_content_twitter/configs/evening_quant_content.yml`.
+- Runtime: `evening_quant_content_twitter/runtime/evening_quant_pipeline.py`.
+- Scheduler profile: `evening_quant_content_twitter/scheduler/cron.md`.
+- Content group map: `evening_quant_content_twitter/agents/content/README.md`.
+- Delivery produces local nightly draft-pack artifacts; posting stays manual unless
+  a future spec adds explicit approval gates and platform write permissions.
 - Platform limits, topic weights, tone, schedule, and delivery channels are config,
   not hard-coded agent behavior.
 
@@ -221,7 +224,7 @@ mini-map:
 | [Data Ingestion](../agents/data_ingestion/README.md#group-workflow) | Ingest → validate → emit data contract |
 | [Securities Financing](../agents/securities_financing/README.md#group-workflow) | Model financing inputs → all-in cost → backtest and risk |
 | [Secrets Management](../agents/secrets_management/README.md#group-workflow) | Store → access → rotate, with scanning throughout |
-| [Content](../agents/content/README.md#group-workflow) | Orchestrate → research context → generate angles → package posts/visuals/memes → review → update memory |
+| [Content](../evening_quant_content_twitter/agents/content/README.md#group-workflow) | Orchestrate → research context → generate angles → package posts/visuals/memes → review → update memory |
 
 Parallel catalogs such as `trading_strategies/` and `tooling/` intentionally do
 not have workflow maps: their members are alternatives, not ordered stages. The

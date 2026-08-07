@@ -1,7 +1,7 @@
 # Plan: Evening Quant Content Workflow
 
 - **Spec:** 0003-evening-quant-content-workflow (`spec.md`)
-- **Status:** Draft
+- **Status:** Implemented
 - **Author:** QuantSmith
 - **Last updated:** 2026-08-07
 
@@ -36,12 +36,14 @@ config + memory
 
 | Component | Responsibility |
 | --- | --- |
-| `configs/evening_quant_content.yml` | Run schedule, platform limits, topic weights, deliverable counts, sources, review, memory, and delivery. |
-| `agents/content/*` | Agent contracts for each content workflow stage. |
-| `templates/docs/evening_quant_draft_pack.md` | Human-readable draft-pack shape. |
-| `examples/evening_quant_content/sample_draft_pack.yml` | Deterministic fixture for validation and documentation. |
-| `memory/evening_quant_content/` | Metadata-only memory for style, repetition, prior outputs, and rejected framing. |
-| `hooks/stages/content-draft-pack-check.sh` | Advisory structural check for the config, template, and sample fixture. |
+| `evening_quant_content_twitter/configs/evening_quant_content.yml` | Run schedule, platform limits, topic weights, deliverable counts, sources, review, memory, and delivery. |
+| `evening_quant_content_twitter/agents/content/*` | Agent contracts for each content workflow stage. |
+| `evening_quant_content_twitter/templates/docs/evening_quant_draft_pack.md` | Human-readable draft-pack shape. |
+| `evening_quant_content_twitter/examples/evening_quant_content/sample_draft_pack.yml` | Deterministic fixture for validation and documentation. |
+| `evening_quant_content_twitter/memory/evening_quant_content/` | Metadata-only memory for style, repetition, prior outputs, and rejected framing. |
+| `evening_quant_content_twitter/runtime/evening_quant_pipeline.py` | Runnable local executor that emits YAML and Markdown draft packs. |
+| `evening_quant_content_twitter/scheduler/` | Cron deployment profile and example entry. |
+| `hooks/stages/content-draft-pack-check.sh` | Advisory structural and runtime smoke-test check for the pack. |
 
 ## Interfaces & Data Contracts
 
@@ -100,17 +102,19 @@ versioned draft pack with:
   labels for inferences/jokes/speculation.
 - AC-007: memory scaffold records prior themes, style preferences, rejected
   framing, and visual playbook.
-- AC-008: delivery config uses draft artifact delivery and `require_manual_approval`.
+- AC-008: delivery config uses draft artifact delivery and `require_manual_approval`;
+  the runtime writes only local draft artifacts.
 
 ## Rollout, Observability & Rollback
 
-Ship as documentation, contracts, config, sample artifacts, and an advisory hook.
-Runtime execution can be added later behind the same contracts. Rollback is simply
-reverting the additive files; no external state or posting side effects are created.
+Ship as a self-contained root workflow pack with documentation, contracts, config,
+sample artifacts, a runnable executor, a scheduler profile, and an advisory hook.
+Rollback is reverting the additive files or removing the local cron entry; no
+external state or posting side effects are created.
 
 ## Open Questions
 
-- Should the first runnable implementation be a pure Markdown/YAML generator or a
-  small Python package entrypoint?
+- Should a later runnable implementation become an installed package entrypoint or
+  remain a root-level workflow-pack script?
 - Should scoring weights be explicit in config or derived from memory?
 - Which delivery adapter should be the default after local-file output?

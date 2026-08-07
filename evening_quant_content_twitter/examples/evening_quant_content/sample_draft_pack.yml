@@ -1,6 +1,6 @@
 run_id: "2026-08-07-evening-quant-content-sample"
 generated_at: "2026-08-07T22:30:00-04:00"
-config_ref: "configs/evening_quant_content.yml"
+config_ref: "evening_quant_content_twitter/configs/evening_quant_content.yml"
 memory_version: "sample-fixture"
 status: draft
 manual_approval_required: true

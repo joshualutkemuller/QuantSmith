@@ -27,10 +27,10 @@ content_orchestrator -> market_context_researcher -> quant_angle_generator
 
 ## Inputs
 
-- `configs/evening_quant_content.yml`.
+- `evening_quant_content_twitter/configs/evening_quant_content.yml`.
 - Optional user-supplied links, screenshots, charts, or current-events context.
 - Source notes from web, API, market data, or user-provided material.
-- Prior workflow memory from `memory/evening_quant_content/`.
+- Prior workflow memory from `evening_quant_content_twitter/memory/evening_quant_content/`.
 
 ## Outputs
 

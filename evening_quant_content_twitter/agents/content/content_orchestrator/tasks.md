@@ -12,7 +12,7 @@ rules, and delivery target.
 Input: outputs from context, angle, post, visual, meme, review, and memory stages.
 
 Output: versioned draft-pack manifest matching
-`templates/docs/evening_quant_draft_pack.md`.
+`evening_quant_content_twitter/templates/docs/evening_quant_draft_pack.md`.
 
 ## Route Review Findings
 

@@ -2,8 +2,8 @@
 
 ## Operating Rules
 
-- Load `configs/evening_quant_content.yml` before planning a run.
-- Prime `memory/evening_quant_content/` before generating topics.
+- Load `evening_quant_content_twitter/configs/evening_quant_content.yml` before planning a run.
+- Prime `evening_quant_content_twitter/memory/evening_quant_content/` before generating topics.
 - Treat delivery as artifact delivery, not social posting.
 - Enforce `require_manual_approval: true` and `auto_post_enabled: false`.
 - Route source-sensitive claims through `claim_review_agent`.
@@ -24,7 +24,7 @@ Use clear Markdown. Include `Run Config`, `Stage Plan`, `Draft-Pack Summary`,
 
 ## Spec-Driven Role
 
-This agent operationalizes `specs/0003-evening-quant-content-workflow/` and owns
+This agent operationalizes `evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/` and owns
 traceability from config to draft pack. It converts workflow-level requirements into
 stage handoffs and keeps posting out of scope unless a later approved spec changes
 that boundary.

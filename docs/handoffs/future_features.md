@@ -25,6 +25,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/monitoring/pipeline_monitoring/` | DAG status, dependencies, freshness, latency, backlogs, retries, partial writes, idempotency, and SLOs | P1 | proposed |
 | `agents/monitoring/model_signal_monitoring/` | Quality, calibration, feature drift, alpha decay, turnover/capacity, and regime change | P1 | proposed |
 | `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails | P2 | proposed |
+| `agents/content/evening_quant_content/` | Configurable 10:30 PM ET quant content workflow that produces ranked X/Twitter ideas, threads, visual specs, meme concepts, source notes, and claim review without automatic posting; see `docs/handoffs/evening_quant_content_workflow.md` | P1 | proposed |
 | Normalize `agents/quant_analyst/` | Bring the consolidated `quant_analyst` (and `agentic_quant/` Python) into the four-file contract and catalog | P2 | proposed |
 
 ## Technology & Tooling

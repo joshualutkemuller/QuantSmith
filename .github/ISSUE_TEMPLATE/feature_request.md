@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest a new feature or improvement for QF Workflow SDK
+about: Suggest a new feature or improvement for QuantSmith
 ---
 
 ## Problem

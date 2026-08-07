@@ -1,6 +1,6 @@
-# QF Workflow SDK Agents
+# QuantSmith Agents
 
-This folder contains focused agent support files for the QF Workflow SDK repository.
+This folder contains focused agent support files for the QuantSmith repository.
 
 ## Structure
 - `prompt.md` — global repository assistant prompt

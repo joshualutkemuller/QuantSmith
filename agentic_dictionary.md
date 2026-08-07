@@ -1,6 +1,6 @@
 # Agentic Dictionary
 
-This dictionary defines the core terms used by QF Workflow SDK. The goal is to make agentic quant workflows easier to discuss, document, review, and automate.
+This dictionary defines the core terms used by QuantSmith. The goal is to make agentic quant workflows easier to discuss, document, review, and automate.
 
 ## Agent
 

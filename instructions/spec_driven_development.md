@@ -1,6 +1,6 @@
 # Spec-Driven Development
 
-Spec-Driven Development (SDD) is the operating model of the QF Workflow SDK. The
+Spec-Driven Development (SDD) is the operating model of the QuantSmith. The
 specification is the source of truth; every other artifact is derived from it and
 traces back to it. This document defines the workflow, the artifacts, the
 identifier scheme, and the gates that hold between stages.

@@ -2,8 +2,8 @@
 
 - **ID:** 0001-daily-momentum-signal
 - **Status:** Approved
-- **Author:** QF Workflow SDK
-- **Approver:** QF Workflow SDK
+- **Author:** QuantSmith
+- **Approver:** QuantSmith
 - **Last updated:** 2026-07-10
 
 > Reference example. WHAT and WHY only. Implementation lives in `plan.md`.

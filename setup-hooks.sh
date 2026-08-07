@@ -1,5 +1,5 @@
 #!/bin/sh
-# Setup local Git hooks for the QF Workflow SDK repo.
+# Setup local Git hooks for the QuantSmith repo.
 # Run this once after cloning the repository.
 
 set -e

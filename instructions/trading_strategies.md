@@ -67,4 +67,4 @@ crowding, and regime risks become `RISK-*`. Point-in-time and leakage are enforc
 by `instructions/point_in_time.md` and the `leakage` gate; cost, out-of-sample, and
 multiple-testing by the `backtest` gate (constitution P3, P4). Strategy agents hand
 off to `research_analyst`, `feature_engineering`, `modeling`, `backtest_review`, and
-`risk`.
+`risk`. Strategies are built to the standardized `instructions/model_development.md`.

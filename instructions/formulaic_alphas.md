@@ -71,4 +71,5 @@ The alpha formula and combination method become `REQ-*`; no-look-ahead, neutrali
 net-of-cost, and correlation/spanning thresholds become `AC-*`/`NFR-*`; over-fitting,
 crowding, and factor-mimicry become `RISK-*`. Point-in-time construction is enforced
 by `instructions/point_in_time.md` and the `leakage` gate; cost, out-of-sample, and
-multiple-testing by the `backtest` gate (constitution P3, P4).
+multiple-testing by the `backtest` gate (constitution P3, P4). Alphas are built to
+the standardized `instructions/model_development.md`.

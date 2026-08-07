@@ -21,7 +21,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules | P1 | proposed |
 | `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection | P1 | proposed |
 | `agents/alerts/incident_notification/` | Actionable notifications, acknowledgement/recovery lifecycle, evidence and runbook links | P1 | proposed |
-| Alert delivery adapters | Email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear without channel-specific agent duplication | P1 | proposed |
+| Provider implementations for `adapters/alert_delivery/` | Executable email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear integrations behind the adapter contract | P1 | proposed |
 | `agents/monitoring/pipeline_monitoring/` | DAG status, dependencies, freshness, latency, backlogs, retries, partial writes, idempotency, and SLOs | P1 | proposed |
 | `agents/monitoring/model_signal_monitoring/` | Quality, calibration, feature drift, alpha decay, turnover/capacity, and regime change | P1 | proposed |
 | `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails | P2 | proposed |
@@ -86,6 +86,8 @@ belong under profiles/adapters unless they require materially different behavior
 
 ## Recently Shipped (for reference)
 
+- Adapter catalog contracts (`adapters/`) for alert delivery, schedulers, artifact
+  delivery, data access, and LLM runtimes.
 - Persistent workflow memory (`memory/`, `instructions/workflow_memory.md`,
   `memory-check` gate) — spec `specs/0002-workflow-memory/`.
 - Model-development standard (`instructions/model_development.md`) and the

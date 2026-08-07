@@ -166,6 +166,9 @@ ml_orchestrator -> problem_framing_labeling -> feature_store_engineering
   causal/uplift, unsupervised/anomaly detection, AutoML, online learning/bandits,
   validation, and MLOps.
 - Gates: `leakage`, `repro`, `backtest` where applicable, `testing`, `data-contract`.
+- Worked example: `specs/0006-ml-return-forecasting/` runs this chain end to end
+  (labeling → PIT feature store → gradient-boosted baseline → purged/embargoed
+  validation → monitored candidate), with a deep-learning challenger.
 
 ### Deep Learning Build
 
@@ -181,6 +184,9 @@ dl_orchestrator -> training_systems -> DL specialist
 - Specialists cover tabular neural nets, transformers/sequences, GNNs, RL, vision,
   NLP/LLM, representation learning, generative models, deep time series, and serving.
 - Gates: `leakage`, `repro`, `testing`, model validation, and production monitoring.
+- Worked example: `specs/0006-ml-return-forecasting/` uses this chain as the
+  challenger loop (`training_systems → deep_time_series → compression_serving`),
+  evaluated on the same folds and net-of-cost bar as the ML baseline.
 
 ### Analytics Pipeline (runtime)
 

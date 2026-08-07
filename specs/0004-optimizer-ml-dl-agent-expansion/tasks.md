@@ -35,5 +35,9 @@ Status values: `todo` | `in-progress` | `blocked` | `done`.
 
 ## Follow-ups
 
-- Promote the first runtime optimization workflow into a new spec under `specs/0005-*`.
+- The first runtime ML/DL workflow is promoted to `specs/0006-ml-return-forecasting/`
+  — a cross-sectional return forecast routing the `machine_learning/` and
+  `deep_learning/` groups from labeling through monitored serving.
+- Promote the first runtime *optimization* workflow into a new spec (next free number
+  is `0007-*`).
 - Add solver/runtime adapters only after a concrete workflow chooses data, solver, and acceptance criteria.

@@ -211,6 +211,7 @@ Artifact prompts:
 - `templates/docs/`: research memo, dataset card, model card, backtest report, experiment summary, run card, model monitoring plan, incident postmortem, handoff memo, and production readiness checklist.
 - `templates/data/`: data contract template.
 - `specs/0001-daily-momentum-signal/`: a filled-in spec/plan/tasks reference showing the ID scheme and traceability end to end.
+- `specs/0006-ml-return-forecasting/`: a worked ML/DL example routing the machine-learning and deep-learning agents from labeling through a monitored, net-of-cost-validated forecast.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

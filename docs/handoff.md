@@ -84,15 +84,18 @@ by the `knowledge` gate.
    highest-priority handoff: use it to string together optimization specs and
    workflows across finance, operations, and technology; promote the first runtime
    optimizer workflow into `specs/0006-*` or the next available spec number.
-2. **Machine-learning and deep-learning workflow expansion** — use
-   `agents/machine_learning/` and `agents/deep_learning/` to route model specs from
-   labeling/features through validation, MLOps, training systems, and serving.
+2. **Machine-learning and deep-learning workflow expansion** — the first runtime
+   workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
+   end with a DL challenger). Next: promote the first *optimization* runtime workflow
+   into `specs/0007-*`, and add more ML/DL worked examples (ranking, RL, forecasting
+   variants) as the desk needs them.
 3. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
 4. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
    CLI later, package only with real code).
-5. **More worked examples** — a risk/forecast spec end to end; an ingestion example
-   that emits a data contract.
+5. **More worked examples** — the forecast spec is done
+   (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
+   and an ingestion example that emits a data contract.
 6. **Remaining backing instructions** — risk_management, data_ingestion,
    reproducibility, monitoring.
 7. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.

@@ -75,7 +75,8 @@ by the `knowledge` gate.
 ## Quality Gates — Enforced vs Advisory
 
 - **Enforced in CI:** required docs, agent contract, shell syntax, `spec`,
-  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`.
+  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`, and the pytest suite
+  (`tests/`, run against the package's declared dependencies).
 - **Advisory:** `leakage` (heuristic by design) and the per-stage/quant gates not
   listed above. Graduate a gate to enforced per repo as discipline matures.
 

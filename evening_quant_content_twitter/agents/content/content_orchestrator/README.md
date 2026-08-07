@@ -14,8 +14,8 @@ budgeting, stage routing, ranking, draft-pack assembly, and delivery handoff.
 
 ## Inputs
 
-- `configs/evening_quant_content.yml`.
-- Prior memory from `memory/evening_quant_content/`.
+- `evening_quant_content_twitter/configs/evening_quant_content.yml`.
+- Prior memory from `evening_quant_content_twitter/memory/evening_quant_content/`.
 - Optional user-supplied context, links, screenshots, or data summaries.
 
 ## Outputs

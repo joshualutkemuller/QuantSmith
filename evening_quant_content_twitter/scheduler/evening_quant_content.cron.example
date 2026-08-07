@@ -1,0 +1,5 @@
+# Run at 10:30 PM local machine time. Set the machine timezone to America/New_York
+# or convert this time for the host timezone.
+#
+# Replace /path/to/QuantSmith with the local repository path before installing.
+30 22 * * * cd /path/to/QuantSmith && python evening_quant_content_twitter/runtime/evening_quant_pipeline.py --config evening_quant_content_twitter/configs/evening_quant_content.yml --context evening_quant_content_twitter/examples/evening_quant_content/context_sample.md --output-dir evening_quant_content_twitter/output/$(date +\%Y-\%m-\%d) >> evening_quant_content_twitter/output/cron.log 2>&1

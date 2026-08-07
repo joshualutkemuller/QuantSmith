@@ -93,4 +93,4 @@ claims requiring stronger evidence.
 ## Memory Updates
 
 Record themes used, hooks used, formats used, rejected framing, and visual ideas to
-carry into `memory/evening_quant_content/`.
+carry into `evening_quant_content_twitter/memory/evening_quant_content/`.

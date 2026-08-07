@@ -14,7 +14,7 @@ preferences.
 
 ## Inputs
 
-- `memory/evening_quant_content/`.
+- `evening_quant_content_twitter/memory/evening_quant_content/`.
 - Completed draft pack.
 - Review findings and rejected/deferred ideas.
 

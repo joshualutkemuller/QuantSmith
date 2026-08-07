@@ -2,9 +2,12 @@
 
 ## Status
 
-- **Status:** in-progress
+- **Status:** runtime-complete
 - **Priority:** P1
-- **Spec path:** `specs/0003-evening-quant-content-workflow/`
+- **Spec path:** `evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`
+- **Runtime spec:** `evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/`
+- **Runtime entrypoint:** `evening_quant_content_twitter/runtime/evening_quant_pipeline.py`
+- **Scheduler profile:** `evening_quant_content_twitter/scheduler/cron.md`
 - **Primary workflow map:** `docs/workflows.md`
 - **Related backlog:** `docs/handoffs/future_features.md`
 
@@ -76,23 +79,23 @@ schedule trigger
 
 | Agent | Responsibility | Reuses |
 | --- | --- | --- |
-| `agents/content/content_orchestrator/` | Own the run config, topic budget, ranking logic, deliverable assembly, and handoff to delivery adapters. | `workflow_orchestrator`, `reporting-agent` |
-| `agents/content/market_context_researcher/` | Gather current market/news context and classify facts, reactions, and speculation. | `research_analyst`, `data_ingestion/*`, `knowledge/*` |
-| `agents/content/quant_angle_generator/` | Convert context into contrarian, quantitative, research-grade angles with clear mechanisms and second-order implications. | `research_analyst`, `modeling`, `risk` |
-| `agents/content/x_post_packager/` | Format concise posts, quote-tweet replies, hooks, and thread drafts under configurable platform constraints. | `reporting-agent` |
-| `agents/content/visual_spec_agent/` | Define chart, meme, screenshot, or diagram concepts, including data needed, chart type, source notes, and caption direction. | `tooling/*`, `reporting-agent` |
-| `agents/content/meme_culture_agent/` | Generate market-aware meme concepts without compromising factual claims or professional tone. | `reporting-agent` |
-| `agents/content/claim_review_agent/` | Review factual claims, source support, uncertainty language, compliance hazards, and confidential-information risk. | `quality-guard-agent`, `risk`, `knowledge/*` |
-| `agents/content/content_memory_agent/` | Track prior themes, formats, hooks, visual ideas, and rejected tropes to reduce repetition. | `memory/`, `knowledge/*` |
+| `evening_quant_content_twitter/agents/content/content_orchestrator/` | Own the run config, topic budget, ranking logic, deliverable assembly, and handoff to delivery adapters. | `workflow_orchestrator`, `reporting-agent` |
+| `evening_quant_content_twitter/agents/content/market_context_researcher/` | Gather current market/news context and classify facts, reactions, and speculation. | `research_analyst`, `data_ingestion/*`, `knowledge/*` |
+| `evening_quant_content_twitter/agents/content/quant_angle_generator/` | Convert context into contrarian, quantitative, research-grade angles with clear mechanisms and second-order implications. | `research_analyst`, `modeling`, `risk` |
+| `evening_quant_content_twitter/agents/content/x_post_packager/` | Format concise posts, quote-tweet replies, hooks, and thread drafts under configurable platform constraints. | `reporting-agent` |
+| `evening_quant_content_twitter/agents/content/visual_spec_agent/` | Define chart, meme, screenshot, or diagram concepts, including data needed, chart type, source notes, and caption direction. | `tooling/*`, `reporting-agent` |
+| `evening_quant_content_twitter/agents/content/meme_culture_agent/` | Generate market-aware meme concepts without compromising factual claims or professional tone. | `reporting-agent` |
+| `evening_quant_content_twitter/agents/content/claim_review_agent/` | Review factual claims, source support, uncertainty language, compliance hazards, and confidential-information risk. | `quality-guard-agent`, `risk`, `knowledge/*` |
+| `evening_quant_content_twitter/agents/content/content_memory_agent/` | Track prior themes, formats, hooks, visual ideas, and rejected tropes to reduce repetition. | `memory/`, `knowledge/*` |
 
-The content group should be a pipeline-shaped group with a co-located
-`agents/content/README.md` mini-map once implementation begins.
+The content group is a pipeline-shaped group with a co-located
+`evening_quant_content_twitter/agents/content/README.md` mini-map.
 
 ## Config Contract
 
 Initial config file:
 
-`configs/evening_quant_content.yml`
+`evening_quant_content_twitter/configs/evening_quant_content.yml`
 
 ```yaml
 workflow_name: evening_quant_content
@@ -175,7 +178,7 @@ Each run should emit a versioned draft pack:
 ```yaml
 run_id: "2026-08-07-evening-quant-content"
 generated_at: "2026-08-07T22:30:00-04:00"
-config_ref: "configs/evening_quant_content.yml"
+config_ref: "evening_quant_content_twitter/configs/evening_quant_content.yml"
 status: draft
 
 ranked_ideas:
@@ -247,7 +250,7 @@ Use persistent workflow memory to track:
 Suggested memory path:
 
 ```text
-memory/evening_quant_content/
+evening_quant_content_twitter/memory/evening_quant_content/
   README.md
   index.yaml
   themes.md
@@ -261,16 +264,18 @@ memory/evening_quant_content/
 | Phase | Scope | Done When |
 | --- | --- | --- |
 | 1 | Add handoff, workflow-map entry, and backlog row. | **Done.** The workflow is discoverable and spec-ready. |
-| 2 | Promote to `specs/0003-evening-quant-content-workflow/` and add the config template. | **Done.** `spec.md`, `plan.md`, `tasks.md`, and `configs/evening_quant_content.yml` define build scope and acceptance criteria. |
-| 3 | Add `agents/content/*` contracts and group README. | **Done.** Each content agent has README, prompt, instructions, and tasks files. |
+| 2 | Promote to `evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/` and add the config template. | **Done.** `spec.md`, `plan.md`, `tasks.md`, and `evening_quant_content_twitter/configs/evening_quant_content.yml` define build scope and acceptance criteria. |
+| 3 | Add `evening_quant_content_twitter/agents/content/*` contracts and group README. | **Done.** Each content agent has README, prompt, instructions, and tasks files. |
 | 4 | Add sample run fixture and draft-pack template. | **Done.** A deterministic example run produces the output contract without live posting. |
-| 5 | Add validation hooks. | **Done.** `content-draft-pack-check.sh` validates the config/template/sample scaffold. |
-| 6 | Add scheduler and delivery adapter. | **Partial.** Config references scheduler and local artifact adapters; executable scheduler deployment is deferred. |
+| 5 | Add validation hooks. | **Done.** `content-draft-pack-check.sh` validates the config/template/sample scaffold and smoke-runs the executor. |
+| 6 | Add scheduler and delivery adapter. | **Done.** Cron profile and example entry run the local artifact writer; posting remains out of scope. |
+| 7 | Add runnable pipeline spec and executor. | **Done.** `0005` defines the runnable slice and `runtime/evening_quant_pipeline.py` writes draft packs. |
 
-## Acceptance Criteria For The Future Spec
+## Acceptance Criteria For The Runtime Spec
 
 - A human can run the workflow manually with a config file and receive a draft pack.
-- A scheduler can trigger the same workflow at 10:30 PM Eastern.
+- A scheduler profile can trigger the same workflow at 10:30 PM Eastern-equivalent
+  local time.
 - Topic weights, deliverable counts, tone, account mode, and delivery channel are
   configurable.
 - The system produces 10-15 ranked ideas per run.
@@ -285,25 +290,19 @@ memory/evening_quant_content/
 
 ## Open Questions
 
-- Should the first implementation support only email delivery, or also local
-  Markdown/JSON output?
-- Should web/news research be required every run, or can the workflow accept
-  user-supplied links and screenshots as the only input?
+- Should the next slice add live source adapters or LLM-backed generation first?
 - Should scoring use fixed weights, configurable weights, or a learned preference
   file in memory?
-- Should visual generation be separate from visual specification in the first
-  version?
 - What is the minimum acceptable source set for current-events claims?
 
 ## Build Recommendation
 
-Start with a non-posting MVP:
+The non-posting MVP now exists:
 
 ```text
 config -> research/context notes -> ranked content ideas -> draft pack -> review
 ```
 
 Do not build platform posting until the draft-pack quality, claim-review gate, and
-memory loop are reliable. The value is not that it can post unattended; the value
-is that it can hand a quant a publishable, sourced, visually interesting content
-queue every night.
+memory loop are reliable. The next valuable step is either live source ingestion or
+LLM-backed drafting, not autoposting.

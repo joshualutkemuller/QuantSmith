@@ -9,15 +9,18 @@ importantly the queue of features to build next.
 
 - `future_features.md` — the running backlog of features to build. Add new ideas
   here as they arise; promote one to a full `specs/NNNN-slug/` when work starts.
-- `evening_quant_content_workflow.md` — handoff for the configurable nightly quant
-  X/Twitter content, thread, visual, and meme draft workflow.
+- `../../evening_quant_content_twitter/docs/handoff.md` — root-level workflow-pack
+  handoff for the configurable nightly quant X/Twitter content, thread, visual,
+  and meme draft workflow.
 
 ## How To Use
 
 1. When a new feature is proposed, add a row to `future_features.md` with a short,
    spec-ready description, its rough priority, and status `proposed`.
 2. When work begins, create `specs/NNNN-slug/` from `templates/spec/`, assign IDs,
-   and set the row's status to `in-progress` with a link to the spec.
+   and set the row's status to `in-progress` with a link to the spec. Workflow
+   packs that are intentionally root-level may keep their specs under
+   `<workflow_pack>/specs/`.
 3. When it ships, set the status to `done` (or remove the row) and note the spec.
 
 Keep entries short — the detail belongs in the spec, not here.

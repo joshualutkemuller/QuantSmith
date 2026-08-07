@@ -11,6 +11,7 @@ schedule:
   time: "22:30"
   timezone: America/New_York
   scheduler_adapter: adapters/schedulers/cron.md
+  scheduler_profile: evening_quant_content_twitter/scheduler/cron.md
 
 platform:
   primary: x
@@ -84,14 +85,15 @@ review:
 
 memory:
   workflow: evening_quant_content
-  path: memory/evening_quant_content
+  path: evening_quant_content_twitter/memory/evening_quant_content
   prime_before_run: true
   learn_after_run: true
 
 delivery:
   draft_channel: local_file
   adapter: adapters/artifact_delivery/local_file.md
-  output_template: templates/docs/evening_quant_draft_pack.md
+  output_template: evening_quant_content_twitter/templates/docs/evening_quant_draft_pack.md
+  runtime_entrypoint: evening_quant_content_twitter/runtime/evening_quant_pipeline.py
   include:
     - ranked_ideas
     - finished_posts

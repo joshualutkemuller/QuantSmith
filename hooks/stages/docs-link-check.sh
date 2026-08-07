@@ -26,6 +26,10 @@ for f in $md_files; do
     case "$path" in
       http://*|https://*|mailto:*|tel:*|ftp://*|//*) continue ;;
     esac
+    # Decode the most common percent-encoding so links to files with spaces resolve.
+    case "$path" in
+      *%20*) path=$(printf '%s' "$path" | sed 's/%20/ /g') ;;
+    esac
     if [ "${path#/}" != "$path" ]; then
       resolved="$QF_ROOT/${path#/}"        # repo-root-relative
     else

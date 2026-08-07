@@ -29,4 +29,5 @@ Comparison` table.
 
 The validation scheme and acceptance thresholds belong in the spec: encode the
 metric target and out-of-sample requirement as `AC-*`/`NFR-*`, and record the
-validation design in the feature/model `plan.md` so tests can prove it.
+validation design in the feature/model `plan.md` so tests can prove it. Build the
+model to the standardized `instructions/model_development.md`.

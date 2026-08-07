@@ -133,6 +133,28 @@ them.
 | `formulaic_alphas/alpha_combination/` | Combining alphas: correlation, spanning, weighting, diversification | Research, Testing |
 | `formulaic_alphas/alpha_evaluation/` | Holding period, turnover, volatility dependence, correlation, capacity, decay | Testing |
 
+## Analytics Pipeline Agents
+
+A runtime multi-agent analytics/dashboard pipeline (consolidated from other
+projects and normalized to the four-file contract). Each also keeps its original
+`SKILL.md`. They form a chain: orchestrate → query → prep → explore → visualize →
+guard → report.
+
+| Agent | Handles |
+| --- | --- |
+| `orchestrator-agent/` | Routes a natural-language analytics request across the pipeline agents |
+| `sql-integration-agent/` | Safe, parameterized SQL querying and schema discovery |
+| `data-prep-agent/` | Cleaning, profiling, transformation, and lineage |
+| `eda-specialist-agent/` | Exploratory data analysis and hypothesis generation |
+| `tableau-dashboard-agent/` | Schema-validated Tableau dashboard payloads |
+| `powerbi-dashboard-agent/` | Schema-validated Power BI report payloads with governance |
+| `quality-guard-agent/` | Contract, schema, and policy quality gates before release |
+| `reporting-agent/` | Stakeholder-ready report artifacts with provenance |
+
+These overlap conceptually with SDK agents (`workflow_orchestrator`,
+`data_ingestion/`, `tooling/`, `testing_validation`) but are a distinct runtime
+pipeline; the SDK agents are design-and-review roles.
+
 ## How They Fit Together
 
 1. The **orchestrator** determines the lifecycle position and the next gate.

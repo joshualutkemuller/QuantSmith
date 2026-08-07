@@ -51,6 +51,7 @@ qf_workflow_sdk/
   agents/
   hooks/
   instructions/
+  memory/
   prompts/
   specs/
   templates/
@@ -147,12 +148,14 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/quant_research.md`
 - `instructions/data_quality.md`
 - `instructions/backtesting.md`
+- `instructions/model_validation.md` (how to validate)
+- `instructions/model_development.md` (how to build)
 - `instructions/trading_strategies.md`
 - `instructions/securities_financing.md`
 - `instructions/formulaic_alphas.md`
-- `instructions/model_validation.md`
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
+- `instructions/workflow_memory.md`
 - `instructions/git_workflow.md`
 
 ## Prompt Library
@@ -185,15 +188,11 @@ Artifact prompts:
 - `specs/0001-daily-momentum-signal/`: a filled-in spec/plan/tasks reference showing the ID scheme and traceability end to end.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
-## Suggested Quant Workflow
+## Workflows
 
-1. Start with a hypothesis and use a Research Analyst Agent to draft the research plan.
-2. Use a Data Quality Agent to inspect source data, joins, timestamp alignment, coverage, and leakage risk.
-3. Use a Feature Engineering or Modeling Agent to document transformations, model choices, validation design, and assumptions.
-4. Use a Backtest Review Agent to inspect bias, costs, benchmarks, fragility, and robustness.
-5. Use a Risk Agent to summarize exposures, concentration, drawdowns, stress behavior, and monitoring needs.
-6. Use a Documentation Agent to produce a research memo, model card, dataset card, experiment summary, and handoff memo.
-7. Use Git hooks and PR templates to keep changes reviewable and reproducible.
+See `docs/workflows.md` for the workflow map — the Quant Researcher, Quant Model
+Build, Data Analyst, Data Engineer, and Analytics Pipeline workflows as ordered
+agent + gate chains, all on the Spec-Driven Development backbone.
 
 ## Local Hook Setup
 
@@ -223,7 +222,9 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 ## Documentation
 
 - `docs/sdk_plan.md`: roadmap and proposed SDK architecture.
+- `docs/workflows.md`: the workflow map — role and scenario workflows as agent + gate chains.
 - `docs/handoff.md`: continuation guide for the next implementer.
+- `docs/handoffs/`: work-stream handoffs, including `future_features.md` (the build backlog).
 - `docs/adoption_guide.md`: how to install the SDK into an existing quant repo.
 - `docs/packaging.md`: packaging & distribution decision record.
 - `agentic_dictionary.md`: definitions for the SDK vocabulary.

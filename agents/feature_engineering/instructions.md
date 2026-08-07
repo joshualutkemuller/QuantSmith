@@ -29,4 +29,5 @@ what data it is fit on.
 
 Point-in-time and leakage requirements are acceptance criteria, not comments:
 encode "no look-ahead" and "normalization fit on train only" as `AC-*` in the
-spec so the testing stage must prove them. See `instructions/point_in_time.md`.
+spec so the testing stage must prove them. See `instructions/point_in_time.md` and
+build to the standardized `instructions/model_development.md`.

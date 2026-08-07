@@ -43,6 +43,7 @@ pattern-based; tune them to your repository.
 | Markdown link check | `docs-link-check.sh` | all docs |
 | Agent catalog sync | `agent-catalog-check.sh` | `agents/README.md` |
 | Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
+| Workflow memory check | `memory-check.sh` | `memory/`, `agents/knowledge/` |
 
 Each script:
 
@@ -98,6 +99,10 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract
   `$QF_KNOWLEDGE_BASE` colon-separated paths), verifies each path exists and is
   readable, and reports its subfolder domains and file counts. See
   `templates/knowledge/knowledge_sources.yml`.
+- **`memory-check.sh`** validates the persistent workflow memory store (`memory/`):
+  that records carry provenance (`first_seen`, `last_confirmed`, `access_level`) and
+  that memory holds no secrets, connection strings, or PII (memory is metadata only).
+  See `instructions/workflow_memory.md` and `specs/0002-workflow-memory/`.
 
 ## Spec-Driven Check
 

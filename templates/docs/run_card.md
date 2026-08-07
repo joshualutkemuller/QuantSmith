@@ -39,6 +39,11 @@ One or two sentences: the hypothesis, model, or job this run executed.
 - Python / runtime version:
 - Hardware notes (if results are hardware-sensitive):
 
+## Workflow Memory
+
+- Memory version / snapshot used: (so the run is reproducible as memory evolves)
+- Point-in-time scope applied to primed records: (research/backtest runs only)
+
 ## Results
 
 | Metric | Value | Notes |

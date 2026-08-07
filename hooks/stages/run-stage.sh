@@ -14,6 +14,8 @@
 #   (security and documentation-integrity checks)
 # Knowledge gate: knowledge
 #   (validates configured knowledge-base source locations)
+# Memory gate: memory
+#   (validates the persistent workflow memory store)
 #
 # Environment:
 #   QF_STAGE_ENFORCE=1  make findings blocking (non-zero exit)
@@ -22,7 +24,7 @@
 
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
-ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract secret-scan docs-link agent-catalog knowledge"
+ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract secret-scan docs-link agent-catalog knowledge memory"
 stages="$*"
 [ -z "$stages" ] && stages="$ALL"
 

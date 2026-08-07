@@ -106,7 +106,7 @@ pipeline_builder → pipeline_orchestration → pipeline_deployment
 - Automated remediation remains opt-in and runbook-governed; notification alone
   never authorizes a portfolio, data, model, or production mutation.
 
-### Evening Quant Content (planned)
+### Evening Quant Content
 
 Market context → ranked X/Twitter ideas, thread drafts, visual specs, meme
 concepts, source notes, and claim review.
@@ -118,6 +118,9 @@ content_orchestrator → market_context_researcher → quant_angle_generator
 ```
 
 - Handoff: `docs/handoffs/evening_quant_content_workflow.md`.
+- Spec: `specs/0003-evening-quant-content-workflow/`.
+- Config: `configs/evening_quant_content.yml`.
+- Content group map: `agents/content/README.md`.
 - Delivery produces a nightly draft pack; posting stays manual unless a future
   spec adds explicit approval gates and platform write permissions.
 - Platform limits, topic weights, tone, schedule, and delivery channels are config,
@@ -165,6 +168,7 @@ mini-map:
 | [Data Ingestion](../agents/data_ingestion/README.md#group-workflow) | Ingest → validate → emit data contract |
 | [Securities Financing](../agents/securities_financing/README.md#group-workflow) | Model financing inputs → all-in cost → backtest and risk |
 | [Secrets Management](../agents/secrets_management/README.md#group-workflow) | Store → access → rotate, with scanning throughout |
+| [Content](../agents/content/README.md#group-workflow) | Orchestrate → research context → generate angles → package posts/visuals/memes → review → update memory |
 
 Parallel catalogs such as `trading_strategies/` and `tooling/` intentionally do
 not have workflow maps: their members are alternatives, not ordered stages. The

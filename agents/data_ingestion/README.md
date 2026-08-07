@@ -14,6 +14,17 @@ dataset with a data contract, without leaking secrets or the future.
 | `file_ingestion/` | Files across formats (CSV, Parquet, Excel, JSON/JSONL, XML, fixed-width, …): typed loading, encoding, schema, chunking. |
 | `api_ingestion/` | REST / streaming / vendor APIs: auth, pagination, rate limits, retries, as-of capture, raw payload archival. |
 
+## Group Workflow
+
+```
+database_connectivity | file_ingestion | api_ingestion
+  → typed, validated snapshot → data contract + dataset card → data_quality
+```
+
+Choose the ingress agent by source type. Every path converges on the same output:
+an immutable or reproducibly identified dataset, explicit schema and
+point-in-time semantics, and the contracts required by downstream quality checks.
+
 ## Shared Principles
 
 Every ingestion agent upholds the constitution (`instructions/engineering_principles.md`)

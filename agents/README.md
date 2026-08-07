@@ -86,7 +86,7 @@ engineering, optimization/GPU, and market connectivity.
 ## Planned Pipeline, Monitoring & Alerting Agents
 
 These roadmap capabilities extend the existing data-engineering and maintenance
-roles without changing the current 43-agent count:
+roles without changing the current 105-agent count:
 
 | Capability | Planned roles | Design rule |
 | --- | --- | --- |
@@ -120,6 +120,75 @@ spec adds identity, approval, and platform write controls.
 See [`content/README.md`](content/README.md#group-workflow) and
 [`../specs/0003-evening-quant-content-workflow/`](../specs/0003-evening-quant-content-workflow/)
 for the workflow contract.
+
+
+## Optimization Agents (`optimization/`)
+
+Grouped in the `optimization/` category folder; these agents classify constrained decision problems, choose formulation families, review solver behavior, and hand work to specs/runtime only after objectives and constraints are explicit.
+
+| Agent | Handles |
+| --- | --- |
+| `optimization/optimization_orchestrator/` | Routes optimization requests across formulation, solver, domain, validation, and deployment agents. |
+| `optimization/problem_formulation/` | Turns an ambiguous decision into variables, objective functions, constraints, data contracts, and acceptance criteria. |
+| `optimization/linear_programming/` | LPs for allocation, blending, transportation, cash, collateral, balance-sheet, and capacity problems. |
+| `optimization/quadratic_programming/` | Convex QPs for mean-variance, tracking error, turnover penalties, and regularized allocation. |
+| `optimization/conic_optimization/` | SOCP/SDP-style risk, norm, robust, covariance, and chance-constraint formulations. |
+| `optimization/mixed_integer_optimization/` | Binary/integer decisions, fixed charges, lot sizes, assignment, facility, and cardinality constraints. |
+| `optimization/nonlinear_optimization/` | Smooth constrained nonlinear programs, gradients, scaling, local minima, and KKT diagnostics. |
+| `optimization/global_optimization/` | Nonconvex search, multi-start, branch-and-bound, Bayesian optimization, evolutionary methods, and heuristics. |
+| `optimization/stochastic_optimization/` | Scenario, sample-average, recourse, and simulation-backed optimization under uncertainty. |
+| `optimization/robust_optimization/` | Uncertainty sets, stress-aware objectives, robust counterparts, and fragile-estimate mitigation. |
+| `optimization/dynamic_programming/` | Sequential decisions, Bellman recursions, approximate DP, inventory/rebalancing policies, and control. |
+| `optimization/network_flow/` | Min-cost flow, max-flow, matching, circulation, funding ladders, collateral chains, and graph routing. |
+| `optimization/routing_scheduling/` | Routing, scheduling, order batching, job/crew allocation, market windows, and latency-aware placement. |
+| `optimization/inventory_supply_chain/` | Replenishment, allocation, service levels, safety stock, and multi-echelon supply decisions. |
+| `optimization/portfolio_construction/` | Portfolio weights, factor/risk constraints, turnover, tax lots, capacity, and rebalancing. |
+| `optimization/collateral_margin_optimization/` | Eligibility, haircuts, margin, cheapest-to-deliver, substitutions, liquidity buffers, and regulation. |
+| `optimization/execution_optimization/` | Trading schedules, participation, venue choice, order slicing, impact, slippage, and fill-risk trade-offs. |
+| `optimization/resource_capacity_optimization/` | Compute, staffing, capital, balance-sheet, quota, cloud, API, and throughput allocation. |
+| `optimization/pricing_revenue_optimization/` | Bid/ask, rebates, fee schedules, markdowns, elasticity, acceptance probabilities, and revenue risk. |
+| `optimization/simulation_optimization/` | Monte Carlo, digital twins, response surfaces, and simulation-backed objective comparisons. |
+| `optimization/solver_diagnostics_sensitivity/` | Solver status, infeasibility, duals, shadow prices, slacks, degeneracy, scaling, and sensitivity. |
+
+
+## Machine Learning Agents (`machine_learning/`)
+
+Grouped in the `machine_learning/` category folder; these agents cover ML framing, feature systems, predictive modeling, causal/ranking/online methods, validation, and production monitoring.
+
+| Agent | Handles |
+| --- | --- |
+| `machine_learning/ml_orchestrator/` | Routes ML work from framing through features, validation, deployment, monitoring, and retraining. |
+| `machine_learning/problem_framing_labeling/` | Targets, labels, horizons, decision times, leakage boundaries, class balance, and label quality. |
+| `machine_learning/feature_store_engineering/` | Reusable features, point-in-time joins, entity keys, offline/online parity, and provenance. |
+| `machine_learning/supervised_learning/` | Regression/classification, baselines, calibration, imbalance, metric choice, and segment errors. |
+| `machine_learning/time_series_forecasting/` | Forecasting, temporal validation, hierarchical series, exogenous drivers, revisions, and reconciliation. |
+| `machine_learning/ranking_recommendation/` | Ranking, recommendation, candidate generation, retrieval, learning-to-rank, and evaluation at rank. |
+| `machine_learning/causal_uplift/` | Treatment effects, uplift, experiments, observational bias, instruments, diff-in-diff, and identification. |
+| `machine_learning/unsupervised_anomaly/` | Clustering, dimensionality reduction, outliers, novelty detection, drift probes, and alert quality. |
+| `machine_learning/model_selection_validation/` | Baselines, validation design, hyperparameter search, leakage controls, robustness, and error analysis. |
+| `machine_learning/automl_experimentation/` | Broad searches, experiment tracking, multiple-testing control, reproducibility, and search-space discipline. |
+| `machine_learning/online_learning_bandits/` | Contextual bandits, exploration/exploitation, delayed feedback, guardrails, regret, and online updates. |
+| `machine_learning/mlops_monitoring/` | Packaging, serving, drift, calibration, retraining triggers, run cards, and production ownership. |
+
+
+## Deep Learning Agents (`deep_learning/`)
+
+Grouped in the `deep_learning/` category folder; these agents cover neural architectures, training systems, modality specialists, reinforcement learning, generative models, and serving constraints.
+
+| Agent | Handles |
+| --- | --- |
+| `deep_learning/dl_orchestrator/` | Routes DL work across architecture, data, training, evaluation, compression, serving, and monitoring. |
+| `deep_learning/training_systems/` | Data loaders, distributed training, mixed precision, checkpointing, determinism, accelerators, and cost. |
+| `deep_learning/neural_tabular/` | Tabular neural nets, embeddings, categorical features, calibration, baselines, and tree-model trade-offs. |
+| `deep_learning/sequence_transformers/` | Temporal, transformer, attention, and sequence models for markets, logs, language, and streams. |
+| `deep_learning/graph_neural_networks/` | GNNs for networks, collateral chains, counterparties, supply graphs, ownership graphs, and message passing. |
+| `deep_learning/reinforcement_learning/` | MDP framing, reward design, simulators, offline RL, policy constraints, safety, and evaluation. |
+| `deep_learning/computer_vision/` | Image, document, screenshot, and visual workflows, including augmentation, labeling, and quality checks. |
+| `deep_learning/nlp_llm/` | Text classification, retrieval, embeddings, reranking, prompt/eval design, RAG boundaries, and LLM controls. |
+| `deep_learning/representation_metric_learning/` | Embeddings, contrastive learning, similarity search, clustering, and representation evaluation. |
+| `deep_learning/generative_models/` | Diffusion, VAEs, GANs, synthetic data, scenario generation, augmentation, and privacy/risk limits. |
+| `deep_learning/deep_time_series/` | Deep forecasting, temporal fusion, sequence-to-sequence, regime conditioning, and probabilistic forecasts. |
+| `deep_learning/compression_serving/` | Distillation, quantization, pruning, batching, latency, memory, GPU utilization, and serving contracts. |
 
 ## Knowledge Management Agents (`knowledge/`)
 

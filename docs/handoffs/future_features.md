@@ -4,12 +4,13 @@ The running backlog of features to build. Add new ideas as rows; promote one to 
 full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 
 **Status:** `proposed` → `in-progress` → `done`.
-**Priority:** P1 (high) · P2 (medium) · P3 (nice-to-have).
+**Priority:** P0 (highest) · P1 (high) · P2 (medium) · P3 (nice-to-have).
 
 ## Agents
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
+| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs | P0 | in-progress |
 | `agents/data_engineering/data_modeling/` | Dimensional/warehouse modeling: star/snowflake schemas, slowly-changing dimensions, grain | P1 | proposed |
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency | P1 | proposed |
 | `agents/data_engineering/pipeline_observability/` | Data freshness, SLAs, lineage, data-downtime detection | P2 | proposed |

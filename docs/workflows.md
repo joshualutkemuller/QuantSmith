@@ -105,6 +105,23 @@ pipeline_builder → pipeline_orchestration → pipeline_deployment
 - Automated remediation remains opt-in and runbook-governed; notification alone
   never authorizes a portfolio, data, model, or production mutation.
 
+### Evening Quant Content (planned)
+
+Market context → ranked X/Twitter ideas, thread drafts, visual specs, meme
+concepts, source notes, and claim review.
+
+```text
+content_orchestrator → market_context_researcher → quant_angle_generator
+  → x_post_packager → visual_spec_agent → meme_culture_agent
+  → claim_review_agent → content_memory_agent → delivery adapter
+```
+
+- Handoff: `docs/handoffs/evening_quant_content_workflow.md`.
+- Delivery produces a nightly draft pack; posting stays manual unless a future
+  spec adds explicit approval gates and platform write permissions.
+- Platform limits, topic weights, tone, schedule, and delivery channels are config,
+  not hard-coded agent behavior.
+
 ### Analytics Pipeline (runtime)
 
 The consolidated multi-agent analytics copilot (full blueprint in

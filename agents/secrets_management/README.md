@@ -17,6 +17,18 @@ using a real secret store rather than plaintext files in version control.
 | `secret_rotation/` | Writing, updating, and rotating credentials and custom keys/values; versioning, zero-downtime rotation, revocation. |
 | `secret_scanning/` | Detecting leaked secrets in code, history, logs, and notebooks; remediation and prevention. |
 
+## Group Workflow
+
+```
+secret_storage → credential_access → secret_rotation
+       ↖──────── secret_scanning (cross-cutting) ────────↗
+```
+
+Provision the controlled store, inject least-privilege credentials at runtime, and
+rotate or revoke them through a versioned cutover. Secret scanning runs across
+every stage and triggers containment, rotation, and history remediation when it
+finds an exposure.
+
 ## Shared Principles
 
 - **Never in the repo.** No plaintext secrets, connection strings, tokens, or keys

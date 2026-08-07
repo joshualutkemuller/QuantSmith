@@ -15,6 +15,17 @@ does.
 | `collateral_management/` | Eligibility, haircuts, margin, collateral optimization and substitution, concentration, rehypothecation, and regulatory (LCR/NSFR) impact. |
 | `financing_cost_analysis/` | All-in cost of carry, borrow cost and short rebate, financing spread — and financing-aware backtesting. |
 
+## Group Workflow
+
+```
+securities_lending | repo_financing | collateral_management
+  → financing_cost_analysis → backtest_review + risk
+```
+
+Model the relevant borrow, funding, and collateral terms first; consolidate them
+into an all-in financing cost; then apply that cost to strategy validation and risk
+review. The flow can use one or all three domain agents depending on the position.
+
 ## Shared Principles
 
 Every securities-financing agent upholds the constitution and the quant standards:

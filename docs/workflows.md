@@ -110,13 +110,30 @@ usage in `memory/<workflow>/`.
 
 ### Knowledge & Institutional Memory (cross-cutting)
 
-```
-knowledge/knowledge_ingestion → knowledge/knowledge_curation
-  → knowledge/knowledge_retrieval ; knowledge/institutional_memory (persist)
-```
+Use the [Knowledge Management group workflow](../agents/knowledge/README.md#group-workflow)
+for the ingestion, curation, retrieval, and persistence sequence.
 
 - Standard: `instructions/knowledge_base.md`; sources in `knowledge_sources.yml`.
 - Gate: `knowledge`.
+
+## Group Workflows
+
+Role and scenario workflows above compose capabilities across groups. For groups
+with a meaningful internal sequence, the co-located README is the canonical
+mini-map:
+
+| Pipeline-shaped group | Internal flow |
+| --- | --- |
+| [Formulaic Alpha](../agents/formulaic_alphas/README.md#group-workflow) | Construct → combine → evaluate |
+| [Knowledge Management](../agents/knowledge/README.md#group-workflow) | Ingest → curate → retrieve or persist |
+| [Data Ingestion](../agents/data_ingestion/README.md#group-workflow) | Ingest → validate → emit data contract |
+| [Securities Financing](../agents/securities_financing/README.md#group-workflow) | Model financing inputs → all-in cost → backtest and risk |
+| [Secrets Management](../agents/secrets_management/README.md#group-workflow) | Store → access → rotate, with scanning throughout |
+
+Parallel catalogs such as `trading_strategies/` and `tooling/` intentionally do
+not have workflow maps: their members are alternatives, not ordered stages. The
+lifecycle agents use the SDD backbone above, and the analytics pipeline retains
+its dedicated blueprint.
 
 ## Related Maps
 

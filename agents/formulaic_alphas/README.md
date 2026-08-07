@@ -18,6 +18,16 @@ language that constructs signals.
 | `alpha_combination/` | Combining many alphas into a portfolio — pairwise correlation, spanning/regression, weighting, and diversification. |
 | `alpha_evaluation/` | Evaluating an alpha — holding period, turnover, volatility dependence, correlation, capacity, and decay/crowding. |
 
+## Group Workflow
+
+```
+alpha_construction → alpha_combination → alpha_evaluation
+```
+
+Construct point-in-time candidate formulas, combine weakly correlated survivors into
+a diversified alpha book, then evaluate turnover, capacity, decay, crowding, and
+net performance. Failed evaluation feeds a new construction or combination cycle.
+
 ## The Operator Language
 
 Formulaic alphas compose a small set of operators over market inputs (see

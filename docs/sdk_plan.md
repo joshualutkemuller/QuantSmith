@@ -217,6 +217,12 @@ link/contract checks). What remains:
 - Add a `CHANGELOG.md` and a versioning policy once downstream repos consume the SDK.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
+- Build the production workflow spine in priority order: pipeline builder and
+  deployment, pipeline/model monitoring, then channel-neutral alert policy,
+  routing, and delivery adapters.
+- Extend quant tooling coverage first through Python, SQL, C/C++, R, Jupyter,
+  kdb+/q, dbt, and DAG orchestration; add vendors as profiles unless their review
+  contract is materially different.
 
 ## Open Decisions
 

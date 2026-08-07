@@ -95,11 +95,12 @@ acknowledged incident or recovery.
 ```text
 pipeline_builder → pipeline_orchestration → pipeline_deployment
   → pipeline_monitoring → alert_policy → alert_router
-  → channel adapter → incident_notification → maintenance_monitoring
+  → alert_delivery adapter → incident_notification → maintenance_monitoring
 ```
 
 - Channels are adapters (email, Slack, Teams, PagerDuty-style systems, SMS/push,
-  webhooks, and ticketing), not separate agents.
+  webhooks, and ticketing), not separate agents. See
+  [`../adapters/alert_delivery/README.md`](../adapters/alert_delivery/README.md).
 - Gates: `data-contract`, `repro`, `secret-scan`, with planned `pipeline-contract`,
   `monitoring-coverage`, and `alert-contract` gates.
 - Automated remediation remains opt-in and runbook-governed; notification alone
@@ -175,6 +176,7 @@ its dedicated blueprint.
 - `instructions/spec_driven_development.md` — the SDD lifecycle (the backbone).
 - `agents/README.md` — the agent catalog and "How They Fit Together".
 - `agents/agentic_workflow_blueprint.md` — the analytics-pipeline blueprint.
+- `../adapters/README.md` — the adapter catalog for provider boundaries.
 - `README.md` — the "Suggested Quant Workflow" narrative.
 
 ## Composing A Role Agent

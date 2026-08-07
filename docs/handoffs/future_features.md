@@ -14,9 +14,42 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency | P1 | proposed |
 | `agents/data_engineering/pipeline_observability/` | Data freshness, SLAs, lineage, data-downtime detection | P2 | proposed |
 | `agents/data_engineering/data_governance/` | Catalog, lineage, access policy, ownership | P3 | proposed |
+| `agents/data_engineering/pipeline_builder/` | Compile a source/transform/sink intent into a reviewable DAG, data contracts, schedules, retries, backfills, tests, ownership, and deployment plan | P1 | proposed |
+| `agents/data_engineering/pipeline_deployment/` | Environment promotion, dry runs, canaries, rollback, state migration, and scheduler-specific deployment adapters | P1 | proposed |
 | `agents/analytics/metrics_semantic_layer/` | Canonical KPI/metric definitions (semantic layer) — the biggest data-analyst consistency win | P1 | proposed |
 | `agents/analytics/experimentation/` | A/B testing, power analysis, causal caveats | P2 | proposed |
+| `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules | P1 | proposed |
+| `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection | P1 | proposed |
+| `agents/alerts/incident_notification/` | Actionable notifications, acknowledgement/recovery lifecycle, evidence and runbook links | P1 | proposed |
+| Alert delivery adapters | Email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear without channel-specific agent duplication | P1 | proposed |
+| `agents/monitoring/pipeline_monitoring/` | DAG status, dependencies, freshness, latency, backlogs, retries, partial writes, idempotency, and SLOs | P1 | proposed |
+| `agents/monitoring/model_signal_monitoring/` | Quality, calibration, feature drift, alpha decay, turnover/capacity, and regime change | P1 | proposed |
+| `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails | P2 | proposed |
 | Normalize `agents/quant_analyst/` | Bring the consolidated `quant_analyst` (and `agentic_quant/` Python) into the four-file contract and catalog | P2 | proposed |
+
+## Technology & Tooling
+
+Tooling agents are grouped by distinct risk and review contracts. Vendor variants
+belong under profiles/adapters unless they require materially different behavior.
+
+| Feature | What it adds | Priority | Status |
+| --- | --- | --- | --- |
+| `agents/tooling/python/` | Packaging, typing, vectorization, numerical stability, testing, environments, profiling | P1 | proposed |
+| `agents/tooling/sql/` | Dialect-aware query design, temporal joins, plans, parameterization, transactions, warehouse cost | P1 | proposed |
+| `agents/tooling/cpp/` | C/C++ numerical correctness, memory/undefined behavior, concurrency, profiling, Python bindings | P1 | proposed |
+| `agents/tooling/r/` | Reproducible environments, statistical workflows, packages, testing, R/Python interoperability | P1 | proposed |
+| `agents/tooling/jupyter/` | Execution order, hidden state, parameterized runs, environment capture, notebook graduation | P1 | proposed |
+| `agents/tooling/kdb_q/` | Tick/time-series storage, temporal joins, partitioning, symbology, query performance | P1 | proposed |
+| `agents/tooling/dbt/` | Model contracts, tests, incremental models, snapshots, lineage, semantic definitions | P1 | proposed |
+| `agents/tooling/dag_orchestration/` | Airflow/Dagster/Prefect/cloud scheduler profiles; DAGs, retries, backfills, idempotency | P1 | proposed |
+| `agents/tooling/julia/`, `matlab/`, `java_jvm/`, `dotnet_csharp/` | Additional research, numerical, and enterprise-runtime coverage | P2 | proposed |
+| `agents/tooling/looker/`, `qlik/`, `superset/`, `streamlit_dash/` | Remaining common governed BI and Python-native analytics surfaces | P2 | proposed |
+| `agents/tooling/warehouse_lakehouse/` | Snowflake, Databricks, BigQuery, Redshift profiles with PIT, partition, cost, and governance review | P1 | proposed |
+| `agents/tooling/columnar_data/` | Parquet/Arrow/Polars/DuckDB profiles; schema, partitioning, lazy execution, interoperability | P2 | proposed |
+| `agents/tooling/spark/`, `ray_dask/` | Distributed compute plans, skew/shuffle diagnostics, determinism, memory and cost | P2 | proposed |
+| `agents/tooling/git_ci/`, `containers/`, `cloud_quant_platform/` | CI/CD, containers/Kubernetes, and AWS/Azure/GCP deployment profiles | P2 | proposed |
+| `agents/tooling/optimization_solvers/`, `gpu_compute/` | Solver diagnostics and accelerated numerical-compute rigor | P2 | proposed |
+| `agents/tooling/market_data_execution/` | FIX/vendor feeds, timestamps, calendars, throttling, replay, order safety, audit | P1 | proposed |
 
 ## Instructions (backing standards)
 
@@ -26,12 +59,17 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `instructions/data_ingestion.md` | Standard behind `data_ingestion/*` (PIT capture, snapshots, schema validation) | P2 | proposed |
 | `instructions/reproducibility.md` | Operationalize P4 for the `repro` gate and run card | P2 | proposed |
 | `instructions/monitoring.md` | Standard behind `maintenance_monitoring` and the monitoring plan | P3 | proposed |
+| `instructions/pipeline_engineering.md` | DAG, idempotency, retry/backfill, environment, data-contract, lineage, and deployment standard | P1 | proposed |
+| `instructions/alerting.md` | Channel-neutral alert schema, severity, routing, suppression, acknowledgement, escalation, and privacy | P1 | proposed |
 
 ## Gates
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
 | `hooks/stages/ingestion-snapshot-check.sh` | Verify ingestion captures a snapshot/checksum | P3 | proposed |
+| `hooks/stages/pipeline-contract-check.sh` | Verify DAG ownership, inputs/outputs, schedule, retry/backfill, idempotency, and runbook metadata | P2 | proposed |
+| `hooks/stages/alert-contract-check.sh` | Verify event schema, owner, severity, deduplication, runbook, redaction, and test route | P2 | proposed |
+| `hooks/stages/monitoring-coverage-check.sh` | Verify each production risk has a metric, threshold/baseline, owner, alert, runbook, and review cadence | P2 | proposed |
 | Stricter notebook-output gate | Beyond the current `implementation` check | P3 | proposed |
 | Enforce `leakage` in CI | Currently advisory (heuristic); revisit once patterns are tuned | P3 | proposed |
 

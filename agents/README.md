@@ -100,26 +100,29 @@ for channel adapters, and
 [`docs/handoffs/future_features.md`](../docs/handoffs/future_features.md) for
 priorities and status.
 
-## Content Agents (`content/`)
+## Evening Content Workflow Pack
 
-Grouped in the `content/` category folder; they produce reviewed, non-posting
-quant-finance content draft packs. Posting remains manual unless a future approved
-spec adds identity, approval, and platform write controls.
+The evening X/Twitter content agents moved out of the core `agents/` tree into the
+root-level `evening_quant_content_twitter/` workflow pack so the whole content
+surface can later be ignored locally as one folder. They still follow the same
+four-file agent contract.
 
 | Agent | Handles | Feeds mainly |
 | --- | --- | --- |
-| `content/content_orchestrator/` | Config, topic budget, stage routing, ranking, draft-pack assembly, and delivery handoff | Orchestration, Reporting |
-| `content/market_context_researcher/` | Current context, source notes, fact/reaction/speculation separation | Research, Data Ingestion |
-| `content/quant_angle_generator/` | Quant-native, contrarian angles with mechanisms, scores, and risks | Research, Reporting |
-| `content/x_post_packager/` | Short posts, quote-tweet replies, and thread drafts under platform constraints | Reporting |
-| `content/visual_spec_agent/` | Chart, diagram, screenshot, and media specs with source/caveat requirements | Tooling, Reporting |
-| `content/meme_culture_agent/` | Market-aware meme concepts with factual and reputational risk notes | Reporting |
-| `content/claim_review_agent/` | Source support, labels, confidential-info review, and advice-language checks | Quality, Risk |
-| `content/content_memory_agent/` | Prior themes, hooks, style, visual playbook, rejected framing, and memory updates | Knowledge, Memory |
+| `evening_quant_content_twitter/agents/content/content_orchestrator/` | Config, topic budget, stage routing, ranking, draft-pack assembly, and delivery handoff | Orchestration, Reporting |
+| `evening_quant_content_twitter/agents/content/market_context_researcher/` | Current context, source notes, fact/reaction/speculation separation | Research, Data Ingestion |
+| `evening_quant_content_twitter/agents/content/quant_angle_generator/` | Quant-native, contrarian angles with mechanisms, scores, and risks | Research, Reporting |
+| `evening_quant_content_twitter/agents/content/x_post_packager/` | Short posts, quote-tweet replies, and thread drafts under platform constraints | Reporting |
+| `evening_quant_content_twitter/agents/content/visual_spec_agent/` | Chart, diagram, screenshot, and media specs with source/caveat requirements | Tooling, Reporting |
+| `evening_quant_content_twitter/agents/content/meme_culture_agent/` | Market-aware meme concepts with factual and reputational risk notes | Reporting |
+| `evening_quant_content_twitter/agents/content/claim_review_agent/` | Source support, labels, confidential-info review, and advice-language checks | Quality, Risk |
+| `evening_quant_content_twitter/agents/content/content_memory_agent/` | Prior themes, hooks, style, visual playbook, rejected framing, and memory updates | Knowledge, Memory |
 
-See [`content/README.md`](content/README.md#group-workflow) and
-[`../specs/0003-evening-quant-content-workflow/`](../specs/0003-evening-quant-content-workflow/)
-for the workflow contract.
+See [`../evening_quant_content_twitter/agents/content/README.md`](../evening_quant_content_twitter/agents/content/README.md#group-workflow),
+[`../evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`](../evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/)
+and
+[`../evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/`](../evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/)
+for the workflow contracts.
 
 
 ## Optimization Agents (`optimization/`)
@@ -189,6 +192,15 @@ Grouped in the `deep_learning/` category folder; these agents cover neural archi
 | `deep_learning/generative_models/` | Diffusion, VAEs, GANs, synthetic data, scenario generation, augmentation, and privacy/risk limits. |
 | `deep_learning/deep_time_series/` | Deep forecasting, temporal fusion, sequence-to-sequence, regime conditioning, and probabilistic forecasts. |
 | `deep_learning/compression_serving/` | Distillation, quantization, pruning, batching, latency, memory, GPU utilization, and serving contracts. |
+| `deep_learning/deep_portfolio_optimization/` | Direct neural allocation, differentiable portfolio objectives, allocation constraints, baselines, and validation. |
+| `deep_learning/portfolio_volatility_costs/` | Volatility scaling, turnover, transaction costs, leverage, after-cost robustness, and implementation frictions. |
+| `deep_learning/portfolio_stress_explainability/` | Stress-window allocation behavior, feature attribution, regime explanations, and monitoring hooks. |
+
+## Git Workflow Agent (`git/`)
+
+| Agent | Handles |
+| --- | --- |
+| `git/` | Branch hygiene, Conventional Commits, hooks, CI guidance, and GitHub workflow support. |
 
 ## Knowledge Management Agents (`knowledge/`)
 

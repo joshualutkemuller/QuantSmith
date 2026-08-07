@@ -51,6 +51,7 @@ quantsmith/
   .githooks/
   .github/
   agents/
+  adapters/
   hooks/
   instructions/
   memory/
@@ -66,7 +67,7 @@ Current state notes:
 - `.agents/` contains seed agent examples for general, Git, and design-oriented workflows.
 - `.githooks/` contains seed Git hooks.
 - `.github/` contains seed GitHub workflow and contribution templates.
-- `agents/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `examples/` are the intended public SDK surfaces.
+- `agents/`, `adapters/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `examples/` are the intended public SDK surfaces.
 - The old app-specific assets have been removed from the working tree; the remaining seed files now describe the SDK workflow.
 
 ## Public Agents
@@ -132,9 +133,22 @@ Each public agent follows the same contract:
 - `instructions.md`
 - `tasks.md`
 
+## Public Adapters
+
+See `adapters/README.md` for the adapter catalog. Adapters are the provider
+boundary for workflows and agents: alert delivery, schedulers, artifact delivery,
+data access, and LLM runtimes.
+
+Agents decide what happened and what should be done. Adapters translate approved
+payloads into provider-specific actions such as sending email, posting to Slack
+or Teams, scheduling a GitHub Actions workflow, writing an artifact, querying a
+warehouse, or invoking an approved model runtime.
+
 ## Main Concepts
 
 - Agents define durable roles such as Research Analyst, Data Quality Reviewer, Modeling Reviewer, Backtest Reviewer, Risk Reviewer, Documentation Agent, and Git/Release Agent.
+- Adapters define stable provider boundaries for delivery, scheduling, storage,
+  data access, and model runtime calls.
 - Instructions define reusable standards and behavioral rules that agents follow.
 - Prompts define task-specific starting points with clear inputs and outputs.
 - Hooks define local quality gates for commits, pushes, documentation, notebooks, tests, and sensitive files.

@@ -14,16 +14,17 @@ acknowledgement or escalation.
 | `alert_router/` | Ownership, deduplication, grouping, rate limits, trading-hours rules, escalation paths, and delivery-channel selection. |
 | `incident_notification/` | Actionable notification payloads, acknowledgement state, escalation, recovery notices, and links to runbooks/evidence. |
 
-Delivery channels are adapters, not agents. Initial adapters should cover email,
-Slack, Microsoft Teams, PagerDuty/Opsgenie-style incident systems, SMS/push where
-policy permits, generic webhooks, and ticket creation in systems such as Jira,
-ServiceNow, or Linear. This keeps alert semantics consistent while allowing a team
-to swap providers.
+Delivery channels are adapters, not agents. See
+[`../../adapters/alert_delivery/README.md`](../../adapters/alert_delivery/README.md)
+for email, Slack, Microsoft Teams, PagerDuty/Opsgenie-style incident systems,
+SMS/push, generic webhooks, and ticket creation in systems such as Jira,
+ServiceNow, or Linear. This keeps alert semantics consistent while allowing a
+team to swap providers.
 
 ## Group Workflow
 
 ```text
-monitor emits event → alert_policy → alert_router → channel adapter
+monitor emits event → alert_policy → alert_router → alert_delivery adapter
   → acknowledgement / escalation → incident or recovery record
 ```
 

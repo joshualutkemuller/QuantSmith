@@ -1,7 +1,9 @@
-"""Allow running the workflow via ``python -m agentic_quant``."""
+"""Legacy ``python -m agentic_quant`` entry point."""
 
-from .main import main
+from __future__ import annotations
+
+from . import main
 
 
 if __name__ == "__main__":
-    main()
+    main.main()

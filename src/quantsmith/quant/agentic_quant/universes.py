@@ -24,7 +24,7 @@ def get_sp500_tickers(limit: int | None = None) -> List[str]:
 
     Returns:
         A list of normalized ticker symbols ready to be passed to
-        :class:`~agentic_quant.agents.YahooFinanceDataAgent` or other agents.
+        :class:`~quantsmith.quant.agentic_quant.agents.YahooFinanceDataAgent` or other agents.
 
     Raises:
         RuntimeError: If the required HTML parsing dependencies are missing or

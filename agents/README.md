@@ -33,6 +33,7 @@ stages.
 | Agent | Supplies | Feeds mainly |
 | --- | --- | --- |
 | `research_analyst/` | Hypothesis → research plan, assumptions, go/no-go | Planning |
+| `quant_analyst/` | End-to-end quant workflow routing across research, data, modeling, financing, risk, and runtime handoff | Planning, Design, Implementation |
 | `data_quality/` | Lineage, joins, timestamps, missingness, leakage review | Planning, Design |
 | `feature_engineering/` | Point-in-time features, normalization-leakage review, stability | Design, Implementation |
 | `modeling/` | Model selection, leakage-free validation, error analysis | Design, Testing |
@@ -187,6 +188,8 @@ pipeline; the SDK agents are design-and-review roles.
 5. The **spec** carries state between stages as the single source of truth.
 6. The **adapters** connect approved payloads to providers without changing agent
    logic.
+7. Runtime Python belongs under `src/quantsmith/`; agent directories describe
+   roles, prompts, instructions, and tasks.
 
 ## Adding An Agent
 

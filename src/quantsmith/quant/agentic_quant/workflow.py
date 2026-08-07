@@ -33,7 +33,7 @@ def build_pipeline(
     This is useful when callers want to inspect or swap agents before running
     the workflow.  The returned pipeline can be executed via
     :meth:`AgentPipeline.run`.  By default the pipeline includes a
-    :class:`~agentic_quant.rebalancing.RebalancingOptimizationAgent`; pass
+    :class:`~quantsmith.quant.agentic_quant.rebalancing.RebalancingOptimizationAgent`; pass
     ``optimize_rebalancing=False`` to omit it or supply custom parameters such as
     ``rebalancing_frequencies`` or ``transaction_cost``.
     """

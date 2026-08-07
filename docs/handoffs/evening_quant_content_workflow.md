@@ -2,9 +2,9 @@
 
 ## Status
 
-- **Status:** proposed
+- **Status:** in-progress
 - **Priority:** P1
-- **Suggested spec path:** `specs/0003-evening-quant-content-workflow/`
+- **Spec path:** `specs/0003-evening-quant-content-workflow/`
 - **Primary workflow map:** `docs/workflows.md`
 - **Related backlog:** `docs/handoffs/future_features.md`
 
@@ -260,12 +260,12 @@ memory/evening_quant_content/
 
 | Phase | Scope | Done When |
 | --- | --- | --- |
-| 1 | Add handoff, workflow-map entry, and backlog row. | The workflow is discoverable and spec-ready. |
-| 2 | Promote to `specs/0003-evening-quant-content-workflow/` and add the config template. | `spec.md`, `plan.md`, `tasks.md`, and `configs/evening_quant_content.yml` define build scope and acceptance criteria. |
-| 3 | Add `agents/content/*` contracts and group README. | Each content agent has README, prompt, instructions, and tasks files. |
-| 4 | Add sample run fixture and draft-pack template. | A deterministic example run produces the output contract without live posting. |
-| 5 | Add validation hooks. | Character limits, claim labels, source notes, and confidential-info checks are testable. |
-| 6 | Add scheduler and delivery adapter. | The workflow can deliver a draft pack at 10:30 PM ET through a configured channel. |
+| 1 | Add handoff, workflow-map entry, and backlog row. | **Done.** The workflow is discoverable and spec-ready. |
+| 2 | Promote to `specs/0003-evening-quant-content-workflow/` and add the config template. | **Done.** `spec.md`, `plan.md`, `tasks.md`, and `configs/evening_quant_content.yml` define build scope and acceptance criteria. |
+| 3 | Add `agents/content/*` contracts and group README. | **Done.** Each content agent has README, prompt, instructions, and tasks files. |
+| 4 | Add sample run fixture and draft-pack template. | **Done.** A deterministic example run produces the output contract without live posting. |
+| 5 | Add validation hooks. | **Done.** `content-draft-pack-check.sh` validates the config/template/sample scaffold. |
+| 6 | Add scheduler and delivery adapter. | **Partial.** Config references scheduler and local artifact adapters; executable scheduler deployment is deferred. |
 
 ## Acceptance Criteria For The Future Spec
 

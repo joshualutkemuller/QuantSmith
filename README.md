@@ -52,6 +52,7 @@ quantsmith/
   .github/
   agents/
   adapters/
+  src/
   hooks/
   instructions/
   memory/
@@ -68,6 +69,8 @@ Current state notes:
 - `.githooks/` contains seed Git hooks.
 - `.github/` contains seed GitHub workflow and contribution templates.
 - `agents/`, `adapters/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `examples/` are the intended public SDK surfaces.
+- `src/quantsmith/` contains executable runtime packages. Agent directories are
+  role contracts and catalog entries, not long-term homes for Python modules.
 - The old app-specific assets have been removed from the working tree; the remaining seed files now describe the SDK workflow.
 
 ## Public Agents

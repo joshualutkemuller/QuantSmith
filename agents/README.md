@@ -76,6 +76,27 @@ stores).
 | `tooling/power_bi/` | Power BI datasets/reports: data model, DAX, refresh, RLS, performance | Implementation, Maintenance |
 | `tooling/tableau/` | Tableau workbooks/data sources: LOD/table calcs, extracts, honest visuals, publishing | Implementation, Maintenance |
 
+The planned technology matrix is maintained in
+[`tooling/README.md`](tooling/README.md#planned-coverage). It prioritizes Python,
+SQL, C/C++, R, Jupyter, kdb+/q, dbt, and DAG orchestration, then expands through
+additional languages, BI tools, data platforms, distributed compute, production
+engineering, optimization/GPU, and market connectivity.
+
+## Planned Pipeline, Monitoring & Alerting Agents
+
+These roadmap capabilities extend the existing data-engineering and maintenance
+roles without changing the current 43-agent count:
+
+| Capability | Planned roles | Design rule |
+| --- | --- | --- |
+| Pipeline building | `pipeline_builder`, `pipeline_orchestration`, `pipeline_deployment` | Emit a reviewable DAG, contracts, tests, ownership, deployment and rollback plan. |
+| Monitoring | `pipeline_monitoring`, `model_signal_monitoring`, `infrastructure_cost_monitoring` | Cover data, model/signal, pipeline/service, and business/risk planes. |
+| Alerting | `alerts/alert_policy`, `alerts/alert_router`, `alerts/incident_notification` | Separate detection and policy from vendor-neutral delivery adapters. |
+
+See [`alerts/README.md`](alerts/README.md#group-workflow) for the internal alert
+flow and [`docs/handoffs/future_features.md`](../docs/handoffs/future_features.md)
+for priorities and status.
+
 ## Knowledge Management Agents (`knowledge/`)
 
 Grouped in the `knowledge/` category folder; they absorb, organize, retrieve, and

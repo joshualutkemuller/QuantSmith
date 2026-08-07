@@ -32,6 +32,34 @@ caught, and where the decision to retrain, degrade, or retire is made and record
 - Retrain / degrade / retire recommendation with rationale.
 - Documentation and runbook updates.
 
+## Monitoring Coverage
+
+The agent should design coverage across four planes rather than treating a single
+dashboard as monitoring:
+
+| Plane | Representative signals |
+| --- | --- |
+| Data | Freshness, completeness, schema drift, distribution drift, revisions, point-in-time violations, lineage gaps. |
+| Model / signal | Prediction quality, calibration, residuals, feature drift, turnover, capacity, decay, regime sensitivity. |
+| Pipeline / service | DAG status, latency, retries, backlogs, partial writes, idempotency failures, dependency and SLA/SLO breaches. |
+| Business / risk | P&L attribution, exposure/limit breaches, borrow or funding changes, collateral shortfalls, cost and resource budgets. |
+
+Each metric must map to an owner, baseline, decision, runbook, and review cadence.
+Detection events flow into `agents/alerts/`; the monitoring agent must not embed
+email, chat, or incident-vendor logic directly.
+
+## Planned Extensions
+
+- `pipeline_monitoring/`: DAG, dependency, freshness, latency, retry, backfill, and
+  partial-write health.
+- `model_signal_monitoring/`: performance decay, calibration, feature drift,
+  turnover/capacity, and regime change.
+- `infrastructure_cost_monitoring/`: compute, memory, storage, API quota, market-data
+  spend, and cost-per-run guardrails.
+- Synthetic checks, shadow runs, canaries, and champion/challenger comparisons.
+- Automatic evidence bundles for incidents and postmortems, with human-approved
+  remediation and retrain/degrade/retire decisions.
+
 ## Example Requests
 
 - "Define the monitoring thresholds and alerts for this live signal."

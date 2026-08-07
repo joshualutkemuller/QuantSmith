@@ -38,6 +38,9 @@ Status values: `todo` | `in-progress` | `blocked` | `done`.
 - The first runtime ML/DL workflow is promoted to `specs/0006-ml-return-forecasting/`
   — a cross-sectional return forecast routing the `machine_learning/` and
   `deep_learning/` groups from labeling through monitored serving.
-- Promote the first runtime *optimization* workflow into a new spec (next free number
-  is `0007-*`).
+- The first runtime *optimization* workflow is promoted to
+  `specs/0007-portfolio-construction/` — a constrained mean-variance allocation from
+  the `0006` forecast, routing the `optimization/` group.
+- Both ship runnable reference pipelines with acceptance tests under
+  `src/quantsmith/pipelines/` and `tests/`.
 - Add solver/runtime adapters only after a concrete workflow chooses data, solver, and acceptance criteria.

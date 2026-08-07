@@ -150,6 +150,10 @@ optimization_orchestrator -> problem_formulation -> optimization specialist
   sensitivity, and solve-time limits.
 - Runtime code belongs under `src/quantsmith/`; the agent contracts define routing
   and review responsibilities.
+- Worked example: `specs/0007-portfolio-construction/` runs this chain end to end —
+  a constrained mean-variance allocation from the `0006` forecast, with feasibility,
+  turnover, and risk-aversion sensitivity diagnostics
+  (`src/quantsmith/pipelines/portfolio_construction.py`).
 
 ### Machine Learning Build
 

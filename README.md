@@ -51,6 +51,7 @@ qf_workflow_sdk/
   agents/
   hooks/
   instructions/
+  memory/
   prompts/
   specs/
   templates/
@@ -154,6 +155,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/formulaic_alphas.md`
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
+- `instructions/workflow_memory.md`
 - `instructions/git_workflow.md`
 
 ## Prompt Library

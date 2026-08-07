@@ -98,6 +98,16 @@ orchestrator-agent → sql-integration-agent → data-prep-agent
   → quality-guard-agent → reporting-agent
 ```
 
+### Persistent Workflow Memory (cross-cutting)
+
+Each workflow primes from and writes back to `memory/` so it arrives already knowing
+a dataset's kinks. Facts about a source live in `memory/_shared/`; workflow-specific
+usage in `memory/<workflow>/`.
+
+- Standard: `instructions/workflow_memory.md`; design: `specs/0002-workflow-memory/`.
+- Served by the `knowledge/` agents; gate: `memory`. Research runs use only
+  point-in-time-scoped records (leakage firewall).
+
 ### Knowledge & Institutional Memory (cross-cutting)
 
 ```

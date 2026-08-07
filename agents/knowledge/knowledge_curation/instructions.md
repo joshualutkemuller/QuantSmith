@@ -31,4 +31,4 @@ Curation decisions are traceable: canonical-source choices and conflict resoluti
 are recorded (with their basis) so an answer can be defended, and coverage gaps
 become `RISK-*` or backlog items. Honest handling of conflicts and staleness is
 constitution P8 (no silent trade-offs) and P10 (honest reporting). See
-`instructions/knowledge_base.md` for the shared standard.
+`instructions/knowledge_base.md` for the shared standard. This group also serves the persistent workflow memory store (`memory/`); see `instructions/workflow_memory.md`.

@@ -1,0 +1,4 @@
+- Always check the current branch and workspace cleanliness before suggesting any commit or push.
+- When creating or editing commits, follow Conventional Commit format.
+- Do not modify SDK roadmap or handoff docs unless the change is specifically about Git workflow or contributor guidance.
+- When asked to add CI or hooks, keep changes isolated and document what was added.

@@ -21,6 +21,9 @@ specs/
 | ID | Feature | Status |
 | --- | --- | --- |
 | 0001-daily-momentum-signal | Example: daily cross-sectional momentum signal | Approved (reference) |
+| 0002-workflow-memory | Persistent workflow memory scaffold | Approved |
+| 0003-evening-quant-content-workflow | Evening quant content draft-pack workflow | Approved |
+| 0004-optimizer-ml-dl-agent-expansion | Optimizer, ML, and DL agent expansion | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.

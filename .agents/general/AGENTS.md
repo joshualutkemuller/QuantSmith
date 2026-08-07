@@ -1,6 +1,6 @@
-# QF Workflow SDK Agent Guidance
+# QuantSmith Agent Guidance
 
-This file describes helpful automation and assistant patterns for the QF Workflow SDK repo.
+This file describes helpful automation and assistant patterns for the QuantSmith repo.
 
 ## Purpose
 - Provide a clear structure for future agents or AI helpers.

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Shared helpers for QF Workflow SDK stage hooks.
+# Shared helpers for QuantSmith stage hooks.
 #
 # Stage hooks are advisory by default: they print findings and exit 0 so they
 # never block exploratory work. Set QF_STAGE_ENFORCE=1 to make findings blocking

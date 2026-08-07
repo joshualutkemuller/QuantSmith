@@ -1,4 +1,4 @@
-# QF Workflow SDK Handoff
+# QuantSmith Handoff
 
 ## Snapshot
 

@@ -87,6 +87,24 @@ data_ingestion/* (or sql-integration-agent) → data_modeling (planned)
 - Gates: `data-contract`, `repro`, `secret-scan`.
 - Secrets/access via `secrets_management/*`.
 
+### Production Pipeline & Alerts (planned)
+
+Pipeline definition → deployed DAG → monitored service → actionable alert →
+acknowledged incident or recovery.
+
+```text
+pipeline_builder → pipeline_orchestration → pipeline_deployment
+  → pipeline_monitoring → alert_policy → alert_router
+  → channel adapter → incident_notification → maintenance_monitoring
+```
+
+- Channels are adapters (email, Slack, Teams, PagerDuty-style systems, SMS/push,
+  webhooks, and ticketing), not separate agents.
+- Gates: `data-contract`, `repro`, `secret-scan`, with planned `pipeline-contract`,
+  `monitoring-coverage`, and `alert-contract` gates.
+- Automated remediation remains opt-in and runbook-governed; notification alone
+  never authorizes a portfolio, data, model, or production mutation.
+
 ### Analytics Pipeline (runtime)
 
 The consolidated multi-agent analytics copilot (full blueprint in

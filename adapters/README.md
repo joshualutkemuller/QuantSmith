@@ -15,7 +15,7 @@ creating vendor-specific agents.
 | `alert_delivery/` | Deliver alerts, incident notices, recovery messages, and nightly workflow draft packs. |
 | `schedulers/` | Run workflows on cron, GitHub Actions, Airflow, Dagster, Prefect, or cloud schedulers. |
 | `artifact_delivery/` | Persist and distribute run cards, reports, draft packs, charts, and evidence bundles. |
-| `data_access/` | Normalize access patterns for SQL, object storage, and market/vendor data sources. |
+| `data_access/` | Normalize access patterns for APIs, SQL, object storage, and market/vendor data sources. |
 | `llm_runtime/` | Normalize model runtime selection while keeping prompts, evaluation, and policy outside provider code. |
 
 ## Design Rules

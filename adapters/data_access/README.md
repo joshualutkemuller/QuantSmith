@@ -10,6 +10,8 @@ snapshot behavior outside agent logic.
 | --- | --- |
 | `adapter_contract.md` | Source-neutral data access request and response schema. |
 | `sql.md` | SQL database and warehouse access profile. |
+| `api.md` | REST, GraphQL, RPC, and streaming API access profile. |
+| `external_apis/` | Provider-specific public and vendor API profiles. |
 | `object_storage.md` | S3, Azure Blob, GCS, local object stores, and lakehouse files. |
 | `market_data.md` | Market/vendor data access with calendars, as-of capture, and entitlements. |
 

@@ -32,4 +32,5 @@ Implement steps. Author tasks from `templates/spec/tasks.md`: assign `T-*` IDs,
 cite the `REQ-*`/`NFR-*` each task advances (no orphan tasks), and honor the
 shared Definition of Done. Keep the implementation traceable to the plan and spec
 IDs. Every acceptance criterion (`AC-*`) must end up named by a test — record that
-in the task's test coverage map.
+in the task's test coverage map. For quant models and signals, follow the
+standardized `instructions/model_development.md`.

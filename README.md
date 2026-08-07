@@ -147,10 +147,11 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/quant_research.md`
 - `instructions/data_quality.md`
 - `instructions/backtesting.md`
+- `instructions/model_validation.md` (how to validate)
+- `instructions/model_development.md` (how to build)
 - `instructions/trading_strategies.md`
 - `instructions/securities_financing.md`
 - `instructions/formulaic_alphas.md`
-- `instructions/model_validation.md`
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
 - `instructions/git_workflow.md`
@@ -223,7 +224,9 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 ## Documentation
 
 - `docs/sdk_plan.md`: roadmap and proposed SDK architecture.
+- `docs/workflows.md`: the workflow map — role and scenario workflows as agent + gate chains.
 - `docs/handoff.md`: continuation guide for the next implementer.
+- `docs/handoffs/`: work-stream handoffs, including `future_features.md` (the build backlog).
 - `docs/adoption_guide.md`: how to install the SDK into an existing quant repo.
 - `docs/packaging.md`: packaging & distribution decision record.
 - `agentic_dictionary.md`: definitions for the SDK vocabulary.

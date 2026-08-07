@@ -41,6 +41,26 @@ traceable, not a black box.
 
 ## Growing This Group
 
-Candidate future agents as demand appears: `kdb_q/` (tick/time-series database),
-`matlab/`, `r/`, and `jupyter/` (notebook reproducibility). Add each with the full
-four-file contract and a row above.
+Add a tooling agent only when a technology has distinct review rules, failure
+modes, or artifact contracts. Libraries and vendors that share those rules should
+be profiles/adapters under an agent, not new agents. This keeps selection useful
+instead of creating a directory for every package.
+
+### Planned Coverage
+
+| Family | Planned agent or profiles | Quant-specific scope |
+| --- | --- | --- |
+| Languages | `python/`, `sql/`, `r/`, `cpp/`, `julia/`, `matlab/`, `java_jvm/`, `dotnet_csharp/` | Numerical correctness, performance, packaging, testing, deterministic environments, interoperability. `cpp/` covers C and C++ profiles. |
+| Time-series / data stores | `kdb_q/`, `columnar_data/`, `warehouse_lakehouse/` | Temporal joins, tick data, partitioning, query plans, point-in-time semantics, Parquet/Arrow, Snowflake/Databricks/BigQuery/Redshift profiles. |
+| Notebooks / research IDEs | `jupyter/`, `research_ide/` | Execution order, hidden state, environment capture, notebook-to-package graduation; VS Code, RStudio, MATLAB, and similar profiles. |
+| BI / semantic analytics | existing `excel/`, `power_bi/`, `tableau/`; planned `looker/`, `qlik/`, `superset/`, `streamlit_dash/` | Semantic models, calculations, refresh, permissions, performance, reconciliation, honest presentation. |
+| Data transformation / orchestration | `dbt/`, `dag_orchestration/` | Model contracts, DAGs, scheduling, retries, backfills, idempotency, lineage; Airflow, Dagster, Prefect, and cloud-orchestrator profiles. |
+| Distributed compute | `spark/`, `ray_dask/` | Partitioning, shuffles, skew, determinism, serialization, memory, cluster cost. |
+| Dev / production | `git_ci/`, `containers/`, `cloud_quant_platform/` | Reproducible builds, CI/CD, Docker/Kubernetes, secrets, observability, and AWS/Azure/GCP deployment profiles. |
+| Optimization / accelerated compute | `optimization_solvers/`, `gpu_compute/` | Solver formulation, tolerances, infeasibility diagnostics, duals; CUDA and accelerator reproducibility/performance. |
+| Market connectivity | `market_data_execution/` | FIX/vendor feeds, symbology, calendars, timestamps, throttling, replay, order safety, and audit trails. |
+
+Initial implementation priority should be `python/`, `sql/`, `cpp/`, `r/`,
+`jupyter/`, `kdb_q/`, `dbt/`, and `dag_orchestration/`. They cover the highest-value
+gaps while the existing Excel, Power BI, and Tableau agents cover common analyst
+delivery surfaces.

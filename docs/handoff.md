@@ -45,7 +45,7 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
   `testing`, `deployment`, `maintenance`.
 - Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
   `repro`, `data-contract`, `content-draft-pack`.
-- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `knowledge`.
+- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`.
 
 **Instructions (13)** — constitution, SDD method, point-in-time, and the domain
 standards (quant_research, data_quality, backtesting, model_validation, documentation,
@@ -75,7 +75,7 @@ by the `knowledge` gate.
 ## Quality Gates — Enforced vs Advisory
 
 - **Enforced in CI:** required docs, agent contract, shell syntax, `spec`,
-  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`, and the pytest suite
+  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, and the pytest suite
   (`tests/`, run against the package's declared dependencies).
 - **Advisory:** `leakage` (heuristic by design) and the per-stage/quant gates not
   listed above. Graduate a gate to enforced per repo as discipline matures.
@@ -99,14 +99,27 @@ by the `knowledge` gate.
    them.
 3. **Data-engineering & data-analyst spec + runtime coverage** — closing the biggest
    structural gap, role by role.
-   - **Data Analyst — complete, end to end.** The `agents/analytics/` group is built
-     (`metrics_semantic_layer/` — spec `0008`; `experimentation/` — spec `0009`), and
-     the whole chain now has a capstone: `specs/0010-analytics-pipeline/` runs
-     query → prepare → profile → metrics → quality guard → report as a tested runtime
-     (`src/quantsmith/pipelines/analytics_pipeline.py`) that reuses the `0008` semantic
-     layer. No `(planned)` nodes remain in the Data Analyst or Analytics Pipeline
-     chains. Optional polish: continuous-metric / sequential experiment designs, a
-     Tableau/Power BI payload renderer, and richer near-duplicate data-quality checks.
+   - **Data Analyst — analysis + communication layers shipped.** Governed analysis:
+     `metrics_semantic_layer/` (spec `0008`), `experimentation/` (spec `0009`), and the
+     end-to-end capstone `specs/0010-analytics-pipeline/` (tested runtime that reuses
+     the `0008` layer). Communication layer (spec `0014-data-analyst-storytelling`):
+     `data_storytelling/` (governed `Report` → narrative) and `dashboard_design/`
+     (tool-agnostic dashboard spec), backed by `instructions/data_storytelling.md` —
+     both **reuse** `0008`/`0009`/`0010` and hand off to `reporting-agent` and the
+     tool-specific dashboard agents (no duplication). No `(planned)` nodes remain in
+     the core Data Analyst or Analytics Pipeline chains. **Dashboard profiles shipped:**
+     a tool-agnostic `DashboardSpec` contract plus renderers for **Power BI**
+     (`specs/0015-powerbi-dashboard-profile/`), **Excel**, and **React**
+     (`specs/0016-excel-react-dashboard-profiles/`), each mapping the *same* spec to a
+     validated payload; `tooling/react` was added (Excel/Power BI reuse existing
+     agents). Live artifact generation is defined behind the adapter contract in
+     `adapters/dashboard_render/` (`xlsx.md`, `react_scaffold.md`) — a provider
+     implementation is the executable next step. **Open Data Analyst track:** the
+     remaining BI-tool profiles on the same `DashboardSpec` — **Streamlit** (Python-
+     native, the natural next one), then **Looker**, **Qlik**, **Superset** — plus a
+     `powerbi_publish` render adapter, provider implementations for
+     `adapters/dashboard_render/`, an optional `analytics/data_visualization` agent, and
+     optional continuous-metric / sequential experiment designs.
    - **Data Engineer — first slice shipped.** The flagship node is built:
      `agents/data_engineering/pipeline_orchestration/` (a DAG runner with data
      contracts, idempotency, retries, backfill, and a run manifest), backed by
@@ -145,7 +158,7 @@ by the `knowledge` gate.
 - Breadth: 43 agents is useful only if each stays narrow and inspectable.
 - Heuristic gates (`leakage`, `backtest`, `secret-scan` fallback) can false-positive
   or miss; keep them advisory unless a repo's layout makes them reliable.
-- Docs can drift from the code; the `docs-link` and `agent-catalog` gates help, but
+- Docs can drift from the code; the `docs-link`, `agent-catalog`, and `spec-index` gates help, but
   narrative docs (this file, `sdk_plan.md`, `agentic_dictionary.md`) need periodic
   manual refresh.
 - Copied gates assume conventional artifact names; adopters must tune the patterns.

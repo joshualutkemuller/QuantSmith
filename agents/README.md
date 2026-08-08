@@ -93,6 +93,7 @@ stores).
 | `tooling/excel/` | Excel models: structure, formula audit, reproducibility, model-risk, VBA safety | Implementation, Testing |
 | `tooling/power_bi/` | Power BI datasets/reports: data model, DAX, refresh, RLS, performance | Implementation, Maintenance |
 | `tooling/tableau/` | Tableau workbooks/data sources: LOD/table calcs, extracts, honest visuals, publishing | Implementation, Maintenance |
+| `tooling/react/` | Web dashboards in React: honest/accessible charts, state/data, secrets out of the bundle; renders the shared dashboard spec (`0016`) | Implementation, Maintenance |
 
 The planned technology matrix is maintained in
 [`tooling/README.md`](tooling/README.md#planned-coverage). It prioritizes Python,
@@ -287,11 +288,18 @@ dashboard/reporting agents.
 | --- | --- | --- |
 | `analytics/metrics_semantic_layer/` | Canonical KPI definitions — one source of truth, point-in-time computation, declared dimensions, ratio metrics | Reporting, Dashboards, Testing |
 | `analytics/experimentation/` | A/B test design and readout — power/sample-size, sample-ratio-mismatch validity, p-value/CI consistency, power-gated verdict | Reporting, Testing |
+| `analytics/data_storytelling/` | Governed `Report` → audience-tailored narrative (situation → insight → action); reuse-only, evidence-bounded | Reporting, Dashboards |
+| `analytics/dashboard_design/` | Tool-agnostic dashboard spec (hierarchy, chart selection, drill paths, accessibility) | Dashboards, Reporting |
 
-Runtimes: `src/quantsmith/pipelines/metrics_semantic_layer.py`,
+The last two are the communication layer (spec `0014-data-analyst-storytelling`) — they
+compose `0008`/`0009`/`0010` outputs and hand off to `reporting-agent` and the
+tool-specific dashboard agents. Runtimes:
+`src/quantsmith/pipelines/metrics_semantic_layer.py`,
 `src/quantsmith/pipelines/experimentation.py`; specs:
-`specs/0008-metrics-semantic-layer/`, `specs/0009-experimentation/`; standards:
-`instructions/metrics_semantic_layer.md`, `instructions/model_validation.md`.
+`specs/0008-metrics-semantic-layer/`, `specs/0009-experimentation/`,
+`specs/0014-data-analyst-storytelling/`; standards:
+`instructions/metrics_semantic_layer.md`, `instructions/data_storytelling.md`,
+`instructions/model_validation.md`.
 
 ## Analytics Pipeline Agents
 

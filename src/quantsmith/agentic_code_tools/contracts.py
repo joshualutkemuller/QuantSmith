@@ -42,6 +42,18 @@ class DashboardPayload:
 
 
 @dataclass
+class PowerBIPayload:
+    """Structured report payload for Power BI adapters."""
+
+    title: str
+    dataset: str
+    report_page: str
+    visuals: List[str]
+    measures: List[str]
+    filters: Dict[str, str] = field(default_factory=dict)
+
+
+@dataclass
 class AgentResponse:
     """Final response returned by orchestrator."""
 

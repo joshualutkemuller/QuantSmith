@@ -25,13 +25,20 @@
 
 Status values: `todo` | `in-progress` | `blocked` | `done`.
 
+## Runtime
+
+Executable reference: `src/quantsmith/pipelines/momentum_signal.py`
+(`build_signal`, `raw_momentum`, `liquidity_filter`, `normalize`). Standard-library
+only and deterministic, so this reference — and the whole quant chain (signal →
+forecast → portfolio → execution) — runs anywhere.
+
 ## Test Coverage Map
 
 | Acceptance criterion | Test(s) | Status |
 | --- | --- | --- |
-| AC-001 | `test_no_lookahead_AC-001` | done |
-| AC-002 | `test_cross_section_normalized_AC-002` | done |
-| AC-003 | `test_reproducible_output_AC-003` | done |
+| AC-001 | `tests/test_momentum_signal.py::test_no_lookahead_AC_001` | done |
+| AC-002 | `tests/test_momentum_signal.py::test_cross_section_normalized_AC_002` | done |
+| AC-003 | `tests/test_momentum_signal.py::test_reproducible_output_AC_003` | done |
 
 ## Follow-ups
 

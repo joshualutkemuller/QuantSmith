@@ -1,9 +1,11 @@
 """Runnable reference pipelines that make specs executable.
 
-Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
+Exposes the ``0001-daily-momentum-signal``, ``0006-ml-return-forecasting``,
+``0007-portfolio-construction``,
 ``0008-metrics-semantic-layer``, ``0009-experimentation``,
 ``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``,
-``0012-execution-scheduling``, and ``0013-optimization-solvers`` reference pipelines.
+``0012-execution-scheduling``, ``0013-optimization-solvers``, and the dashboard
+renderers (``0015`` Power BI, ``0016`` Excel and React) reference pipelines.
 """
 
 from __future__ import annotations
@@ -19,6 +21,12 @@ from .analytics_pipeline import (
     run_pipeline,
     run_query,
 )
+from .dashboard_spec import (
+    CHART_TYPES,
+    DashboardSpec,
+    DashboardSpecError,
+    Panel,
+)
 from .data_pipeline import (
     DataContract,
     Pipeline,
@@ -31,6 +39,11 @@ from .data_pipeline import (
 from .execution_optimization import (
     ExecutionSchedule,
     optimal_schedule,
+)
+from .excel_profile import (
+    ExcelChart,
+    ExcelWorkbookPayload,
+    render_excel,
 )
 from .experimentation import (
     ExperimentReadout,
@@ -46,6 +59,12 @@ from .metrics_semantic_layer import (
     MetricDefinition,
     SemanticLayer,
 )
+from .momentum_signal import (
+    PriceBar as MomentumPriceBar,
+    build_signal,
+    liquidity_filter,
+    raw_momentum,
+)
 from .optimization_solvers import (
     DPProblem,
     DPResult,
@@ -55,6 +74,12 @@ from .optimization_solvers import (
     solve_dp,
     solve_lp,
     solve_milp,
+)
+from .powerbi_profile import render_powerbi
+from .react_profile import (
+    ReactComponent,
+    ReactDashboardPayload,
+    render_react,
 )
 from .portfolio_construction import (
     ConstraintSet,
@@ -83,6 +108,11 @@ from .return_forecasting import (
 )
 
 __all__ = [
+    # 0001 — momentum signal
+    "MomentumPriceBar",
+    "build_signal",
+    "liquidity_filter",
+    "raw_momentum",
     # 0006 — return forecasting
     "EvalResult",
     "FeatureConfig",
@@ -148,4 +178,16 @@ __all__ = [
     "solve_dp",
     "solve_lp",
     "solve_milp",
+    # 0014/0015/0016 — dashboard spec + tool renderers
+    "CHART_TYPES",
+    "DashboardSpec",
+    "DashboardSpecError",
+    "Panel",
+    "render_powerbi",
+    "ExcelChart",
+    "ExcelWorkbookPayload",
+    "render_excel",
+    "ReactComponent",
+    "ReactDashboardPayload",
+    "render_react",
 ]

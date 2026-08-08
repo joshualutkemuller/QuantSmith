@@ -5,6 +5,24 @@ Each pipeline demonstrates a spec's leakage-safe contracts so its acceptance
 criteria can be tested anywhere (standard library only — no numpy, pandas, or
 deep-learning runtime).
 
+## `momentum_signal` — spec `0001-daily-momentum-signal`
+
+The original reference, now executable: a daily cross-sectional momentum signal
+(12-1 window → liquidity filter → per-date z-score) — the first link in the quant
+chain (signal → forecast → portfolio → execution).
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `raw_momentum` | REQ-001 / AC-001 | 12-1 window uses only data on/before D minus the skip — no look-ahead. |
+| `liquidity_filter` | REQ-003 | Names below the per-date liquidity percentile are excluded. |
+| `normalize` / `build_signal` | REQ-002 / NFR-001 / AC-002, AC-003 | Per-date cross-sectional z-score; deterministic. |
+
+Tests: `tests/test_momentum_signal.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_momentum_signal.py -q
+```
+
 ## `return_forecasting` — spec `0006-ml-return-forecasting`
 
 A cross-sectional short-horizon return forecast that routes the ML build chain with
@@ -174,4 +192,46 @@ Tests: `tests/test_optimization_solvers.py` (one test per acceptance criterion).
 
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_optimization_solvers.py -q
+```
+
+## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`
+
+The first BI-tool renderer from the `0014` expansion track. `dashboard_spec.py` is the
+tool-agnostic `DashboardSpec` contract (the output of `analytics/dashboard_design`);
+`powerbi_profile.py` renders it into a Power BI payload, reusing the existing
+`PowerBIPayload` and `PowerBIPayloadValidator`. Dependency-free and deterministic.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `DashboardSpec` / `Panel` | REQ-001 / NFR-003 | Governed metric per panel; chart types from a fixed vocabulary; rejects empty/ungoverned specs. |
+| `render_powerbi` | REQ-002 / NFR-002 | Maps panels→visuals and metrics→measures (de-duplicated, ordered); carries dataset/page/filters. |
+| reuse of `PowerBIPayloadValidator` | REQ-003/004 / NFR-001 | Validates via the existing (now repaired) Power BI contract. |
+
+Tests: `tests/test_powerbi_profile.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_powerbi_profile.py -q
+```
+
+## `excel_profile` + `react_profile` — spec `0016-excel-react-dashboard-profiles`
+
+Two more renderers of the shared `DashboardSpec`, on the `0015` pattern. Dependency-free
+and deterministic.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `render_excel` → `ExcelWorkbookPayload` | REQ-001 | Data sheet + dashboard sheet; a chart per panel with mapped Excel chart types and governed measures. |
+| `render_react` → `ReactDashboardPayload` | REQ-002 | A component per panel (mapped) with the governed metric in props and a deterministic grid layout. |
+| shared `DashboardSpec` | REQ-003 / NFR-002/003 | Dataset/page/filters/order carried; governed metrics only. |
+
+One design (`dashboard_design`), three renderers so far — Power BI, Excel, React —
+rendered by `tooling/power_bi`, `tooling/excel`, and `tooling/react`. Looker, Qlik,
+Superset, and Streamlit render the same spec next. Turning a rendered payload into a
+**live artifact** (`.xlsx` file, scaffolded React app, published report) is defined
+behind the adapter contract in `adapters/dashboard_render/`.
+
+Tests: `tests/test_excel_react_profiles.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_excel_react_profiles.py -q
 ```

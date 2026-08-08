@@ -115,3 +115,24 @@ Tests: `tests/test_analytics_pipeline.py` (one test per acceptance criterion).
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_analytics_pipeline.py -q
 ```
+
+## `data_pipeline` — spec `0011-data-pipeline-orchestration`
+
+The first Data Engineer runtime: a deterministic DAG runner with the core
+data-engineering guarantees. Dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `Pipeline` (toposort) | REQ-001 / NFR-002 / AC-001 | Dependency-ordered execution; cycles and missing deps rejected at construction. |
+| `DataContract.validate` | REQ-002 / AC-002 | Each step's output is validated (columns, types, required); violations fail the step. |
+| `run` (idempotent + retries) | REQ-003, REQ-004 / AC-003, AC-004 | Completed partitions skipped; bounded retries; deterministic recompute. |
+| `backfill` + `RunManifest` | REQ-005 / NFR-003 / AC-005 | Only missing partitions run; per-(step, partition) status for observability. |
+
+A production build wraps a real scheduler (Airflow/Dagster/Prefect) and a durable
+state store behind the same contract.
+
+Tests: `tests/test_data_pipeline.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_data_pipeline.py -q
+```

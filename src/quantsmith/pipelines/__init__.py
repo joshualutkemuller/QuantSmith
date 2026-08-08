@@ -1,8 +1,9 @@
 """Runnable reference pipelines that make specs executable.
 
 Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
-``0008-metrics-semantic-layer``, ``0009-experimentation``, and
-``0010-analytics-pipeline`` reference pipelines.
+``0008-metrics-semantic-layer``, ``0009-experimentation``,
+``0010-analytics-pipeline``, and ``0011-data-pipeline-orchestration`` reference
+pipelines.
 """
 
 from __future__ import annotations
@@ -17,6 +18,15 @@ from .analytics_pipeline import (
     profile_facts,
     run_pipeline,
     run_query,
+)
+from .data_pipeline import (
+    DataContract,
+    Pipeline,
+    RunManifest,
+    Step,
+    StepResult,
+    backfill,
+    run,
 )
 from .experimentation import (
     ExperimentReadout,
@@ -104,4 +114,12 @@ __all__ = [
     "profile_facts",
     "run_pipeline",
     "run_query",
+    # 0011 — data-pipeline orchestration
+    "DataContract",
+    "Pipeline",
+    "RunManifest",
+    "Step",
+    "StepResult",
+    "backfill",
+    "run",
 ]

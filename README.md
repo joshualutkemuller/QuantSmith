@@ -116,6 +116,10 @@ Evening content workflow pack (`evening_quant_content_twitter/`):
 - `runtime/evening_quant_pipeline.py` and `scheduler/cron.md`: run the local
   non-posting pipeline and document the 10:30 PM scheduler profile.
 
+Data engineering agents (`agents/data_engineering/`):
+
+- `pipeline_orchestration/`: designs and runs data pipelines as DAGs — dependency ordering, per-step data contracts, idempotent partitioned runs, retries, backfill, and a run manifest. (`data_modeling/`, `pipeline_observability/`, and more planned.)
+
 Analytics agents (`agents/analytics/`):
 
 - `metrics_semantic_layer/`: the canonical metrics layer for the Data Analyst workflow — one source-of-truth definition per KPI, computed consistently and point-in-time, with governance and dimension reconciliation.
@@ -186,6 +190,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
 - `instructions/metrics_semantic_layer.md`
+- `instructions/pipeline_engineering.md`
 - `instructions/workflow_memory.md`
 - `instructions/git_workflow.md`
 
@@ -222,7 +227,8 @@ Artifact prompts:
 - `specs/0008-metrics-semantic-layer/`: a worked Data Analyst example — a governed metrics layer with one canonical, point-in-time definition per KPI.
 - `specs/0009-experimentation/`: a worked Data Analyst example — disciplined A/B test design and readout with power, sample-ratio-mismatch, and CI/p-value consistency.
 - `specs/0010-analytics-pipeline/`: the Data Analyst capstone — the full chain (query → prepare → profile → metrics → quality guard → report) end to end, reusing the `0008` semantic layer.
-- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0010` executable.
+- `specs/0011-data-pipeline-orchestration/`: the first Data Engineer example — a DAG runner with data contracts, idempotency, retries, backfill, and a run manifest.
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0011` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

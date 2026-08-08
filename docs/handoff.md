@@ -103,15 +103,18 @@ by the `knowledge` gate.
      layer. No `(planned)` nodes remain in the Data Analyst or Analytics Pipeline
      chains. Optional polish: continuous-metric / sequential experiment designs, a
      Tableau/Power BI payload renderer, and richer near-duplicate data-quality checks.
-   - **Data Engineer — still open.** The engineer role has a documented workflow and a
-     partial agent set (`data_ingestion/*`, `data-prep-agent`, `data_quality`) but no
-     spec or spec-backed runtime, and its map still references `data_modeling`,
-     `pipeline_orchestration`, `pipeline_observability` (all `(planned)`). The
-     `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) are runtime but
-     not tied to any spec or gated by tests. Close it like `0006`/`0007`/`0008`: build
-     `agents/data_engineering/*`, add `instructions/pipeline_engineering.md`, and ship a
-     worked spec + tested runtime (an ingestion→data-contract example is the natural
-     first slice). Backlog detail in `docs/handoffs/future_features.md`.
+   - **Data Engineer — first slice shipped.** The flagship node is built:
+     `agents/data_engineering/pipeline_orchestration/` (a DAG runner with data
+     contracts, idempotency, retries, backfill, and a run manifest), backed by
+     `instructions/pipeline_engineering.md`, the worked spec
+     `specs/0011-data-pipeline-orchestration/`, and a runnable, tested runtime
+     (`src/quantsmith/pipelines/data_pipeline.py`). Its Data Engineer chain in
+     `docs/workflows.md` no longer marks the orchestration node `(planned)`. Remaining
+     Data Engineer nodes (still `(planned)`): `data_modeling`, `pipeline_observability`
+     (consumes the run manifest — a natural next slice), `pipeline_builder`,
+     `pipeline_deployment`, `data_governance`; plus a `pipeline-contract-check.sh` gate.
+     The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain
+     runtime not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
 4. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
 5. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync

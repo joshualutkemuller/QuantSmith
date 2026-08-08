@@ -266,6 +266,8 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 
 ## Documentation
 
+- `specs/README.md`: the spec index — every spec with its runtime and tests.
+- `src/quantsmith/pipelines/README.md`: the runtime catalog — every reference pipeline mapped to its spec and tests.
 - `docs/sdk_plan.md`: roadmap and proposed SDK architecture.
 - `docs/workflows.md`: the workflow map — role and scenario workflows as agent + gate chains.
 - `docs/handoff.md`: continuation guide for the next implementer.

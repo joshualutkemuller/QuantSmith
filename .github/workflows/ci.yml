@@ -53,3 +53,18 @@ jobs:
       - name: Enforce docs links and agent catalog
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh docs-link agent-catalog
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package with declared dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,data,quant]"
+      - name: Run test suite
+        run: |
+          python -m pytest tests/ -q

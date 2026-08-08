@@ -116,6 +116,11 @@ Evening content workflow pack (`evening_quant_content_twitter/`):
 - `runtime/evening_quant_pipeline.py` and `scheduler/cron.md`: run the local
   non-posting pipeline and document the 10:30 PM scheduler profile.
 
+Analytics agents (`agents/analytics/`):
+
+- `metrics_semantic_layer/`: the canonical metrics layer for the Data Analyst workflow — one source-of-truth definition per KPI, computed consistently and point-in-time, with governance and dimension reconciliation.
+- `experimentation/`: disciplined A/B test design and readout — power/sample-size, sample-ratio-mismatch validity, p-value/CI consistency, and a power-gated verdict.
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
@@ -180,6 +185,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/formulaic_alphas.md`
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
+- `instructions/metrics_semantic_layer.md`
 - `instructions/workflow_memory.md`
 - `instructions/git_workflow.md`
 
@@ -211,6 +217,11 @@ Artifact prompts:
 - `templates/docs/`: research memo, dataset card, model card, backtest report, experiment summary, run card, model monitoring plan, incident postmortem, handoff memo, and production readiness checklist.
 - `templates/data/`: data contract template.
 - `specs/0001-daily-momentum-signal/`: a filled-in spec/plan/tasks reference showing the ID scheme and traceability end to end.
+- `specs/0006-ml-return-forecasting/`: a worked ML/DL example routing the machine-learning and deep-learning agents from labeling through a monitored, net-of-cost-validated forecast.
+- `specs/0007-portfolio-construction/`: a worked optimization example routing the optimization agents to turn the `0006` forecast into a constrained mean-variance portfolio.
+- `specs/0008-metrics-semantic-layer/`: a worked Data Analyst example — a governed metrics layer with one canonical, point-in-time definition per KPI.
+- `specs/0009-experimentation/`: a worked Data Analyst example — disciplined A/B test design and readout with power, sample-ratio-mismatch, and CI/p-value consistency.
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`, `0007`, `0008`, and `0009` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

@@ -66,12 +66,19 @@ Business question → validated, communicated answer.
 
 ```
 planning_requirements → sql-integration-agent → eda-specialist-agent
-  → metrics_semantic_layer (planned) → tooling/tableau | tooling/power_bi
+  → analytics/metrics_semantic_layer → tooling/tableau | tooling/power_bi
   → quality-guard-agent → reporting-agent
 ```
 
-- Experimentation/A-B work uses `experimentation` (planned).
+- Experimentation/A-B work uses `analytics/experimentation` — design (power/sample
+  size), validity (sample-ratio mismatch), and a power-gated readout.
+- Standard: `instructions/metrics_semantic_layer.md`, `instructions/model_validation.md`.
 - Gates: `data-contract`, `secret-scan`.
+- Worked examples: `specs/0008-metrics-semantic-layer/` — canonical, point-in-time
+  metric definitions with governance and reconciliation
+  (`src/quantsmith/pipelines/metrics_semantic_layer.py`); and
+  `specs/0009-experimentation/` — disciplined A/B test design and readout
+  (`src/quantsmith/pipelines/experimentation.py`).
 
 ### Data Engineer
 
@@ -150,6 +157,10 @@ optimization_orchestrator -> problem_formulation -> optimization specialist
   sensitivity, and solve-time limits.
 - Runtime code belongs under `src/quantsmith/`; the agent contracts define routing
   and review responsibilities.
+- Worked example: `specs/0007-portfolio-construction/` runs this chain end to end —
+  a constrained mean-variance allocation from the `0006` forecast, with feasibility,
+  turnover, and risk-aversion sensitivity diagnostics
+  (`src/quantsmith/pipelines/portfolio_construction.py`).
 
 ### Machine Learning Build
 
@@ -166,6 +177,9 @@ ml_orchestrator -> problem_framing_labeling -> feature_store_engineering
   causal/uplift, unsupervised/anomaly detection, AutoML, online learning/bandits,
   validation, and MLOps.
 - Gates: `leakage`, `repro`, `backtest` where applicable, `testing`, `data-contract`.
+- Worked example: `specs/0006-ml-return-forecasting/` runs this chain end to end
+  (labeling → PIT feature store → gradient-boosted baseline → purged/embargoed
+  validation → monitored candidate), with a deep-learning challenger.
 
 ### Deep Learning Build
 
@@ -181,6 +195,9 @@ dl_orchestrator -> training_systems -> DL specialist
 - Specialists cover tabular neural nets, transformers/sequences, GNNs, RL, vision,
   NLP/LLM, representation learning, generative models, deep time series, and serving.
 - Gates: `leakage`, `repro`, `testing`, model validation, and production monitoring.
+- Worked example: `specs/0006-ml-return-forecasting/` uses this chain as the
+  challenger loop (`training_systems → deep_time_series → compression_serving`),
+  evaluated on the same folds and net-of-cost bar as the ML baseline.
 
 ### Analytics Pipeline (runtime)
 

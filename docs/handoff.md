@@ -6,8 +6,9 @@ The SDK has a working v1: a **spec-driven engineering framework** over the six
 software-development stages, **105 agents** including the root evening-content
 workflow pack, **15 quality gates**, **13 instruction standards**, and CI that
 enforces the deterministic gates. It remains primarily a scaffold to be copied
-into quant repos, with `evening_quant_content_twitter/` now serving as the first
-runnable local workflow pack.
+into quant repos, with `evening_quant_content_twitter/` as the first runnable local
+workflow pack and `src/quantsmith/pipelines/` holding runnable, dependency-free
+reference pipelines that make specs `0006` and `0007` executable and tested.
 
 - Build-out branch: `claude/dev-stages-hooks-agents-co1sjj` (open as PR #4 into `main`).
 - Root `CLAUDE.md` activates the framework by default for any agent in the repo.
@@ -74,29 +75,54 @@ by the `knowledge` gate.
 ## Quality Gates — Enforced vs Advisory
 
 - **Enforced in CI:** required docs, agent contract, shell syntax, `spec`,
-  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`.
+  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`, and the pytest suite
+  (`tests/`, run against the package's declared dependencies).
 - **Advisory:** `leakage` (heuristic by design) and the per-stage/quant gates not
   listed above. Graduate a gate to enforced per repo as discipline matures.
 
 ## What's Next (prioritized)
 
-1. **P0 optimizer-agent workflow expansion** — treat `agents/optimization/` as the
-   highest-priority handoff: use it to string together optimization specs and
-   workflows across finance, operations, and technology; promote the first runtime
-   optimizer workflow into `specs/0006-*` or the next available spec number.
-2. **Machine-learning and deep-learning workflow expansion** — use
-   `agents/machine_learning/` and `agents/deep_learning/` to route model specs from
-   labeling/features through validation, MLOps, training systems, and serving.
-3. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
+1. **P0 optimizer-agent workflow expansion** — the first runtime optimizer workflow
+   is shipped as `specs/0007-portfolio-construction/` (constrained mean-variance
+   allocation from the `0006` forecast, with a runnable reference pipeline and
+   acceptance tests). Next: extend `agents/optimization/` into more runtime workflows
+   across operations and technology (collateral/margin, execution, capacity,
+   routing/scheduling) as the desk needs them.
+2. **Machine-learning and deep-learning workflow expansion** — the first runtime
+   workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
+   end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
+   more ML/DL worked examples (ranking, RL, forecasting variants) as the desk needs
+   them.
+3. **Data-engineering & data-analyst spec + runtime coverage** — closing the biggest
+   structural gap, role by role.
+   - **Data Analyst — both analytics nodes shipped.** The `agents/analytics/` group is
+     complete: `metrics_semantic_layer/` (canonical metrics — spec
+     `specs/0008-metrics-semantic-layer/`) and `experimentation/` (A/B design + readout
+     — spec `specs/0009-experimentation/`), each with a backing instruction and a
+     runnable, tested runtime under `src/quantsmith/pipelines/`. The Data Analyst chain
+     in `docs/workflows.md` has no remaining `(planned)` nodes. Optional next analyst
+     work: continuous-metric / sequential experiment designs, or a dashboard-payload
+     runtime for the `tableau`/`power_bi` agents.
+   - **Data Engineer — still open.** The engineer role has a documented workflow and a
+     partial agent set (`data_ingestion/*`, `data-prep-agent`, `data_quality`) but no
+     spec or spec-backed runtime, and its map still references `data_modeling`,
+     `pipeline_orchestration`, `pipeline_observability` (all `(planned)`). The
+     `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) are runtime but
+     not tied to any spec or gated by tests. Close it like `0006`/`0007`/`0008`: build
+     `agents/data_engineering/*`, add `instructions/pipeline_engineering.md`, and ship a
+     worked spec + tested runtime (an ingestion→data-contract example is the natural
+     first slice). Backlog detail in `docs/handoffs/future_features.md`.
+4. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
-4. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
+5. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
    CLI later, package only with real code).
-5. **More worked examples** — a risk/forecast spec end to end; an ingestion example
-   that emits a data contract.
-6. **Remaining backing instructions** — risk_management, data_ingestion,
-   reproducibility, monitoring.
-7. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
-8. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+6. **More worked examples** — the forecast spec is done
+   (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
+   and an ingestion example that emits a data contract (see item 3).
+7. **Remaining backing instructions** — risk_management, data_ingestion,
+   reproducibility, monitoring, pipeline_engineering.
+8. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
+9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
 
 ## Open Questions For The Owner

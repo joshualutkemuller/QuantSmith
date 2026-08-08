@@ -2,8 +2,8 @@
 
 Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
 ``0008-metrics-semantic-layer``, ``0009-experimentation``,
-``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``, and
-``0012-execution-scheduling`` reference pipelines.
+``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``,
+``0012-execution-scheduling``, and ``0013-optimization-solvers`` reference pipelines.
 """
 
 from __future__ import annotations
@@ -45,6 +45,16 @@ from .metrics_semantic_layer import (
     GovernanceError,
     MetricDefinition,
     SemanticLayer,
+)
+from .optimization_solvers import (
+    DPProblem,
+    DPResult,
+    FlowResult,
+    LPResult,
+    min_cost_flow,
+    solve_dp,
+    solve_lp,
+    solve_milp,
 )
 from .portfolio_construction import (
     ConstraintSet,
@@ -129,4 +139,13 @@ __all__ = [
     # 0012 — execution scheduling
     "ExecutionSchedule",
     "optimal_schedule",
+    # 0013 — optimization solvers
+    "DPProblem",
+    "DPResult",
+    "FlowResult",
+    "LPResult",
+    "min_cost_flow",
+    "solve_dp",
+    "solve_lp",
+    "solve_milp",
 ]

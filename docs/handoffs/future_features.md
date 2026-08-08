@@ -92,9 +92,10 @@ belong under profiles/adapters unless they require materially different behavior
   `specs/0010-analytics-pipeline/` — all with dependency-free, tested reference
   runtimes under `src/quantsmith/pipelines/`.
 - ML/DL and optimization runtime workflows: `specs/0006-ml-return-forecasting/`,
-  `specs/0007-portfolio-construction/`, and `specs/0012-execution-scheduling/`
-  (Almgren-Chriss optimal execution), with tested reference pipelines. The quant chain
-  runs signal → forecast → portfolio → execution.
+  `specs/0007-portfolio-construction/` (QP), `specs/0012-execution-scheduling/`
+  (Almgren-Chriss), and `specs/0013-optimization-solvers/` (LP, MILP, min-cost flow,
+  dynamic programming), with tested reference pipelines. The quant chain runs
+  signal → forecast → portfolio → execution.
 - Data Engineer first slice: `specs/0011-data-pipeline-orchestration/` — a DAG runner
   with contracts, idempotency, retries, backfill, and a run manifest.
 - Adapter catalog contracts (`adapters/`) for alert delivery, schedulers, artifact

@@ -107,11 +107,14 @@ by the `knowledge` gate.
      (tool-agnostic dashboard spec), backed by `instructions/data_storytelling.md` —
      both **reuse** `0008`/`0009`/`0010` and hand off to `reporting-agent` and the
      tool-specific dashboard agents (no duplication). No `(planned)` nodes remain in
-     the core Data Analyst or Analytics Pipeline chains. **Open Data Analyst track
-     (spec `0014` follow-ups):** BI-tool profiles under `tooling/` (Looker, Qlik,
-     Superset, Streamlit) that render the shared dashboard spec, and an optional
-     `analytics/data_visualization` agent; plus optional continuous-metric / sequential
-     experiment designs and richer near-duplicate data-quality checks.
+     the core Data Analyst or Analytics Pipeline chains. **Power BI profile shipped**
+     as `specs/0015-powerbi-dashboard-profile/`: a tool-agnostic `DashboardSpec`
+     contract plus `render_powerbi` mapping it to a validated Power BI payload (reusing
+     — and repairing — the existing `powerbi.py`). **Open Data Analyst track (spec
+     `0014`/`0015` follow-ups):** the next BI-tool profiles (Looker, Qlik, Superset,
+     Streamlit) that render the same `DashboardSpec`, an optional
+     `analytics/data_visualization` agent, and optional continuous-metric / sequential
+     experiment designs.
    - **Data Engineer — first slice shipped.** The flagship node is built:
      `agents/data_engineering/pipeline_orchestration/` (a DAG runner with data
      contracts, idempotency, retries, backfill, and a run manifest), backed by

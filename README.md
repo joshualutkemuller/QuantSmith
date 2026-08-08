@@ -236,6 +236,7 @@ Artifact prompts:
 - `specs/0014-data-analyst-storytelling/`: the Data Analyst communication layer — storytelling and dashboard-design agents that reuse the governed analysis outputs.
 - `specs/0015-powerbi-dashboard-profile/`: the first BI-tool profile — a tool-agnostic dashboard spec rendered into a Power BI payload.
 - `specs/0016-excel-react-dashboard-profiles/`: Excel and React renderers of the same shared dashboard spec.
+- `specs/0017-dashboard-render-adapters/`: executable render adapters — a React app scaffolder and an `.xlsx` writer behind the `adapters/dashboard_render/` contract.
 - `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0001`, `0006`–`0013`, `0015`, and `0016` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 

@@ -228,7 +228,8 @@ Artifact prompts:
 - `specs/0009-experimentation/`: a worked Data Analyst example — disciplined A/B test design and readout with power, sample-ratio-mismatch, and CI/p-value consistency.
 - `specs/0010-analytics-pipeline/`: the Data Analyst capstone — the full chain (query → prepare → profile → metrics → quality guard → report) end to end, reusing the `0008` semantic layer.
 - `specs/0011-data-pipeline-orchestration/`: the first Data Engineer example — a DAG runner with data contracts, idempotency, retries, backfill, and a run manifest.
-- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0011` executable.
+- `specs/0012-execution-scheduling/`: a worked optimization example — Almgren-Chriss optimal execution of a target trade, trading cost against variance (continues `0007`).
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0012` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

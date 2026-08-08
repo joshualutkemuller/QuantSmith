@@ -2,8 +2,8 @@
 
 Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
 ``0008-metrics-semantic-layer``, ``0009-experimentation``,
-``0010-analytics-pipeline``, and ``0011-data-pipeline-orchestration`` reference
-pipelines.
+``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``, and
+``0012-execution-scheduling`` reference pipelines.
 """
 
 from __future__ import annotations
@@ -27,6 +27,10 @@ from .data_pipeline import (
     StepResult,
     backfill,
     run,
+)
+from .execution_optimization import (
+    ExecutionSchedule,
+    optimal_schedule,
 )
 from .experimentation import (
     ExperimentReadout,
@@ -122,4 +126,7 @@ __all__ = [
     "StepResult",
     "backfill",
     "run",
+    # 0012 — execution scheduling
+    "ExecutionSchedule",
+    "optimal_schedule",
 ]

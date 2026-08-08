@@ -136,3 +136,21 @@ Tests: `tests/test_data_pipeline.py` (one test per acceptance criterion).
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_data_pipeline.py -q
 ```
+
+## `execution_optimization` — spec `0012-execution-scheduling`
+
+Almgren-Chriss optimal execution: schedule a liquidation over a horizon, trading
+expected cost against cost variance. Continues the quant chain (signal → forecast →
+portfolio → execution). Dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `optimal_schedule` | REQ-001/002 / NFR-002 / AC-001, AC-002, AC-005 | Full-liquidation trajectory (X→0), monotone and non-negative. |
+| risk-neutral / risk-averse branches | REQ-003 / AC-003 | TWAP at zero risk aversion; front-loaded when positive. |
+| `expected_cost` / `cost_variance` | REQ-004 / NFR-003 / AC-004 | Both reported; risk aversion trades cost against variance. |
+
+Tests: `tests/test_execution_optimization.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_execution_optimization.py -q
+```

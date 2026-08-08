@@ -93,17 +93,33 @@ by the `knowledge` gate.
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
    more ML/DL worked examples (ranking, RL, forecasting variants) as the desk needs
    them.
-3. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
+3. **Data-engineering & data-analyst spec + runtime coverage** — the biggest
+   structural gap. Both roles have a documented workflow in `docs/workflows.md` and a
+   partial agent set (analyst: `sql-integration-agent`, `eda-specialist-agent`,
+   `data-prep-agent`, `tableau`/`powerbi-dashboard-agent`, `reporting-agent`,
+   `quality-guard-agent`; engineer: `data_ingestion/*`, `data-prep-agent`,
+   `data_quality`), **but neither has a spec (`specs/NNNN`) or a spec-backed runtime
+   with tests** the way ML/optimization now do. Their workflow maps also reference
+   agents that do not exist yet — `metrics_semantic_layer`, `experimentation`,
+   `data_modeling`, `pipeline_orchestration`, `pipeline_observability` (all marked
+   `(planned)`). The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep,
+   BI) are analyst-flavored runtime but are not tied to any spec or gated by tests.
+   Close it the way `0006`/`0007` were closed: build the missing
+   `agents/data_engineering/` and `agents/analytics/` agents, add a
+   `instructions/pipeline_engineering.md` standard, and ship a worked spec + runnable
+   reference pipeline with tests (an ingestion→data-contract example is the natural
+   first slice). Backlog detail in `docs/handoffs/future_features.md`.
+4. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
-4. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
+5. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
    CLI later, package only with real code).
-5. **More worked examples** — the forecast spec is done
+6. **More worked examples** — the forecast spec is done
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
-   and an ingestion example that emits a data contract.
-6. **Remaining backing instructions** — risk_management, data_ingestion,
-   reproducibility, monitoring.
-7. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
-8. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+   and an ingestion example that emits a data contract (see item 3).
+7. **Remaining backing instructions** — risk_management, data_ingestion,
+   reproducibility, monitoring, pipeline_engineering.
+8. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
+9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
 
 ## Open Questions For The Owner

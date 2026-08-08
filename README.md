@@ -124,6 +124,8 @@ Analytics agents (`agents/analytics/`):
 
 - `metrics_semantic_layer/`: the canonical metrics layer for the Data Analyst workflow — one source-of-truth definition per KPI, computed consistently and point-in-time, with governance and dimension reconciliation.
 - `experimentation/`: disciplined A/B test design and readout — power/sample-size, sample-ratio-mismatch validity, p-value/CI consistency, and a power-gated verdict.
+- `data_storytelling/`: turns a governed `Report` into an audience-tailored narrative (situation → insight → action), evidence-bounded and provenance-carrying.
+- `dashboard_design/`: produces a tool-agnostic dashboard spec (hierarchy, chart selection, drill paths, accessibility) that the tool-specific dashboard agents render.
 
 Domain agents:
 
@@ -190,6 +192,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
 - `instructions/metrics_semantic_layer.md`
+- `instructions/data_storytelling.md`
 - `instructions/pipeline_engineering.md`
 - `instructions/workflow_memory.md`
 - `instructions/git_workflow.md`
@@ -230,6 +233,7 @@ Artifact prompts:
 - `specs/0011-data-pipeline-orchestration/`: the first Data Engineer example — a DAG runner with data contracts, idempotency, retries, backfill, and a run manifest.
 - `specs/0012-execution-scheduling/`: a worked optimization example — Almgren-Chriss optimal execution of a target trade, trading cost against variance (continues `0007`).
 - `specs/0013-optimization-solvers/`: the core solver toolkit by mathematical form — LP, MILP, min-cost flow, and dynamic programming.
+- `specs/0014-data-analyst-storytelling/`: the Data Analyst communication layer — storytelling and dashboard-design agents that reuse the governed analysis outputs.
 - `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0013` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 

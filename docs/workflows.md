@@ -72,7 +72,12 @@ planning_requirements → sql-integration-agent → eda-specialist-agent
 
 - Experimentation/A-B work uses `analytics/experimentation` — design (power/sample
   size), validity (sample-ratio mismatch), and a power-gated readout.
-- Standard: `instructions/metrics_semantic_layer.md`, `instructions/model_validation.md`.
+- Communication layer (spec `0014`): from a governed `Report`,
+  `analytics/data_storytelling` writes the narrative (situation → insight → action)
+  and `analytics/dashboard_design` writes a tool-agnostic dashboard spec, both handed
+  to `reporting-agent` / `tableau`/`powerbi` dashboard agents to render.
+- Standard: `instructions/metrics_semantic_layer.md`, `instructions/data_storytelling.md`,
+  `instructions/model_validation.md`.
 - Gates: `data-contract`, `secret-scan`.
 - Worked examples: `specs/0008-metrics-semantic-layer/` — canonical, point-in-time
   metric definitions with governance and reconciliation

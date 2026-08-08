@@ -92,7 +92,7 @@ Secrets management agents (`agents/secrets_management/`):
 
 Technology & tooling agents (`agents/tooling/`):
 
-- `excel/`, `power_bi/`, `tableau/`: bring reproducibility, point-in-time correctness, auditability, and secrets-safe connections to the spreadsheet and BI tools quants use. Built to grow across the quant stack (kdb+/q, MATLAB, R, Jupyter).
+- `excel/`, `power_bi/`, `tableau/`, `react/`: bring reproducibility, point-in-time correctness, auditability, and secrets-safe connections to the spreadsheet, BI, and web-dashboard tools quants use. `power_bi`, `excel`, and `react` render the shared dashboard spec (specs `0015`/`0016`). Built to grow across the quant stack (kdb+/q, MATLAB, R, Jupyter).
 
 Knowledge management agents (`agents/knowledge/`):
 
@@ -124,6 +124,8 @@ Analytics agents (`agents/analytics/`):
 
 - `metrics_semantic_layer/`: the canonical metrics layer for the Data Analyst workflow — one source-of-truth definition per KPI, computed consistently and point-in-time, with governance and dimension reconciliation.
 - `experimentation/`: disciplined A/B test design and readout — power/sample-size, sample-ratio-mismatch validity, p-value/CI consistency, and a power-gated verdict.
+- `data_storytelling/`: turns a governed `Report` into an audience-tailored narrative (situation → insight → action), evidence-bounded and provenance-carrying.
+- `dashboard_design/`: produces a tool-agnostic dashboard spec (hierarchy, chart selection, drill paths, accessibility) that the tool-specific dashboard agents render.
 
 Domain agents:
 
@@ -190,6 +192,7 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/documentation.md`
 - `instructions/knowledge_base.md`
 - `instructions/metrics_semantic_layer.md`
+- `instructions/data_storytelling.md`
 - `instructions/pipeline_engineering.md`
 - `instructions/workflow_memory.md`
 - `instructions/git_workflow.md`
@@ -230,7 +233,10 @@ Artifact prompts:
 - `specs/0011-data-pipeline-orchestration/`: the first Data Engineer example — a DAG runner with data contracts, idempotency, retries, backfill, and a run manifest.
 - `specs/0012-execution-scheduling/`: a worked optimization example — Almgren-Chriss optimal execution of a target trade, trading cost against variance (continues `0007`).
 - `specs/0013-optimization-solvers/`: the core solver toolkit by mathematical form — LP, MILP, min-cost flow, and dynamic programming.
-- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0013` executable.
+- `specs/0014-data-analyst-storytelling/`: the Data Analyst communication layer — storytelling and dashboard-design agents that reuse the governed analysis outputs.
+- `specs/0015-powerbi-dashboard-profile/`: the first BI-tool profile — a tool-agnostic dashboard spec rendered into a Power BI payload.
+- `specs/0016-excel-react-dashboard-profiles/`: Excel and React renderers of the same shared dashboard spec.
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0001`, `0006`–`0013`, `0015`, and `0016` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows
@@ -266,6 +272,8 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 
 ## Documentation
 
+- `specs/README.md`: the spec index — every spec with its runtime and tests.
+- `src/quantsmith/pipelines/README.md`: the runtime catalog — every reference pipeline mapped to its spec and tests.
 - `docs/sdk_plan.md`: roadmap and proposed SDK architecture.
 - `docs/workflows.md`: the workflow map — role and scenario workflows as agent + gate chains.
 - `docs/handoff.md`: continuation guide for the next implementer.

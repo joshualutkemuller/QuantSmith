@@ -15,6 +15,7 @@ creating vendor-specific agents.
 | `alert_delivery/` | Deliver alerts, incident notices, recovery messages, and nightly workflow draft packs. |
 | `schedulers/` | Run workflows on cron, GitHub Actions, Airflow, Dagster, Prefect, or cloud schedulers. |
 | `artifact_delivery/` | Persist and distribute run cards, reports, draft packs, charts, and evidence bundles. |
+| `dashboard_render/` | Turn a rendered dashboard payload (`0015`/`0016`) into a live artifact: an `.xlsx` workbook, a scaffolded React app, or a published report. |
 | `data_access/` | Normalize access patterns for APIs, SQL, object storage, and market/vendor data sources. |
 | `llm_runtime/` | Normalize model runtime selection while keeping prompts, evaluation, and policy outside provider code. |
 

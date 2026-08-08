@@ -226,7 +226,9 @@ and deterministic.
 
 One design (`dashboard_design`), three renderers so far — Power BI, Excel, React —
 rendered by `tooling/power_bi`, `tooling/excel`, and `tooling/react`. Looker, Qlik,
-Superset, and Streamlit render the same spec next.
+Superset, and Streamlit render the same spec next. Turning a rendered payload into a
+**live artifact** (`.xlsx` file, scaffolded React app, published report) is defined
+behind the adapter contract in `adapters/dashboard_render/`.
 
 Tests: `tests/test_excel_react_profiles.py` (one test per acceptance criterion).
 

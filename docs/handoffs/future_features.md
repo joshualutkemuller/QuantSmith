@@ -20,7 +20,8 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/analytics/metrics_semantic_layer/` | Canonical KPI/metric definitions (semantic layer) — the biggest data-analyst consistency win. Shipped: agent + `instructions/metrics_semantic_layer.md` + spec `specs/0008-metrics-semantic-layer/` + tested runtime `src/quantsmith/pipelines/metrics_semantic_layer.py` | P1 | done |
 | `agents/analytics/experimentation/` | A/B testing, power analysis, causal caveats. Shipped: agent + spec `specs/0009-experimentation/` + tested runtime `src/quantsmith/pipelines/experimentation.py` (power/sample-size, SRM guard, p-value/CI consistency, power-gated verdict). Follow-ups: continuous-metric (t-test), sequential/Bayesian, CUPED | P2 | done |
 | `agents/analytics/data_storytelling/` + `dashboard_design/` | Data Analyst communication layer — narrative (situation → insight → action) and tool-agnostic dashboard spec. Shipped: two agents + `instructions/data_storytelling.md` + spec `specs/0014-data-analyst-storytelling/`; reuse `0008`/`0009`/`0010`, hand off to `reporting-agent` and tool dashboard agents | P1 | done |
-| BI-tool profiles: `tooling/looker`, `tooling/qlik`, `tooling/superset`, `tooling/streamlit_dash` | Thin profiles that render the shared dashboard spec from `dashboard_design`. Shipped so far: Power BI (`specs/0015-powerbi-dashboard-profile/`), Excel and React (`specs/0016-excel-react-dashboard-profiles/`, added `tooling/react`). These four follow the same `render_<tool>(DashboardSpec)` pattern | P2 | in-progress |
+| BI-tool profiles: `tooling/streamlit_dash`, `tooling/looker`, `tooling/qlik`, `tooling/superset` | Thin profiles that render the shared dashboard spec from `dashboard_design`. Shipped so far: Power BI (`specs/0015-powerbi-dashboard-profile/`), Excel and React (`specs/0016-excel-react-dashboard-profiles/`, added `tooling/react`). Streamlit is the natural next (Python-native). These follow the same `render_<tool>(DashboardSpec)` pattern | P2 | in-progress |
+| `adapters/dashboard_render/` provider implementations | Executable providers behind the shipped contract (`adapter_contract.md`, `xlsx.md`, `react_scaffold.md`): openpyxl `.xlsx` writer, React scaffold, and a `powerbi_publish` provider | P2 | proposed |
 | `agents/analytics/data_visualization/` | Single-chart encoding/color/accessibility, split from `dashboard_design` if it grows too broad (spec `0014` track) | P3 | proposed |
 | `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules | P1 | proposed |
 | `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection | P1 | proposed |
@@ -101,6 +102,9 @@ belong under profiles/adapters unless they require materially different behavior
   signal → forecast → portfolio → execution.
 - Data Engineer first slice: `specs/0011-data-pipeline-orchestration/` — a DAG runner
   with contracts, idempotency, retries, backfill, and a run manifest.
+- Dashboard render adapters (`adapters/dashboard_render/`): the contract plus `xlsx`
+  and `react_scaffold` providers that turn a rendered dashboard payload into a live
+  artifact.
 - Adapter catalog contracts (`adapters/`) for alert delivery, schedulers, artifact
   delivery, data access, and LLM runtimes.
 - Persistent workflow memory (`memory/`, `instructions/workflow_memory.md`,

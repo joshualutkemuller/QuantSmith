@@ -45,7 +45,7 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
   `testing`, `deployment`, `maintenance`.
 - Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
   `repro`, `data-contract`, `content-draft-pack`.
-- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `knowledge`.
+- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`.
 
 **Instructions (13)** — constitution, SDD method, point-in-time, and the domain
 standards (quant_research, data_quality, backtesting, model_validation, documentation,
@@ -75,7 +75,7 @@ by the `knowledge` gate.
 ## Quality Gates — Enforced vs Advisory
 
 - **Enforced in CI:** required docs, agent contract, shell syntax, `spec`,
-  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`, and the pytest suite
+  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, and the pytest suite
   (`tests/`, run against the package's declared dependencies).
 - **Advisory:** `leakage` (heuristic by design) and the per-stage/quant gates not
   listed above. Graduate a gate to enforced per repo as discipline matures.
@@ -145,7 +145,7 @@ by the `knowledge` gate.
 - Breadth: 43 agents is useful only if each stays narrow and inspectable.
 - Heuristic gates (`leakage`, `backtest`, `secret-scan` fallback) can false-positive
   or miss; keep them advisory unless a repo's layout makes them reliable.
-- Docs can drift from the code; the `docs-link` and `agent-catalog` gates help, but
+- Docs can drift from the code; the `docs-link`, `agent-catalog`, and `spec-index` gates help, but
   narrative docs (this file, `sdk_plan.md`, `agentic_dictionary.md`) need periodic
   manual refresh.
 - Copied gates assume conventional artifact names; adopters must tune the patterns.

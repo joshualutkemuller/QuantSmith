@@ -5,6 +5,24 @@ Each pipeline demonstrates a spec's leakage-safe contracts so its acceptance
 criteria can be tested anywhere (standard library only — no numpy, pandas, or
 deep-learning runtime).
 
+## `momentum_signal` — spec `0001-daily-momentum-signal`
+
+The original reference, now executable: a daily cross-sectional momentum signal
+(12-1 window → liquidity filter → per-date z-score) — the first link in the quant
+chain (signal → forecast → portfolio → execution).
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `raw_momentum` | REQ-001 / AC-001 | 12-1 window uses only data on/before D minus the skip — no look-ahead. |
+| `liquidity_filter` | REQ-003 | Names below the per-date liquidity percentile are excluded. |
+| `normalize` / `build_signal` | REQ-002 / NFR-001 / AC-002, AC-003 | Per-date cross-sectional z-score; deterministic. |
+
+Tests: `tests/test_momentum_signal.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_momentum_signal.py -q
+```
+
 ## `return_forecasting` — spec `0006-ml-return-forecasting`
 
 A cross-sectional short-horizon return forecast that routes the ML build chain with

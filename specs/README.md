@@ -18,14 +18,14 @@ specs/
 
 ## Index
 
-Specs `0006`–`0013` have dependency-free reference runtimes under
+Specs `0001` and `0006`–`0013` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
 
 | ID | Feature | Runtime (`src/quantsmith/pipelines/`) | Tests (`tests/`) | Status |
 | --- | --- | --- | --- | --- |
-| [0001-daily-momentum-signal](0001-daily-momentum-signal/) | Daily cross-sectional momentum signal | — (illustrative reference) | — | Approved (reference) |
+| [0001-daily-momentum-signal](0001-daily-momentum-signal/) | Daily cross-sectional momentum signal | `momentum_signal.py` | `test_momentum_signal.py` | Approved (reference) |
 | [0002-workflow-memory](0002-workflow-memory/) | Persistent workflow memory scaffold | `memory/` scaffold | `memory` gate | Approved |
 | [0004-optimizer-ml-dl-agent-expansion](0004-optimizer-ml-dl-agent-expansion/) | Optimizer, ML, and DL agent expansion | — (agent contracts) | catalog/docs gates | Approved |
 | [0006-ml-return-forecasting](0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` | `test_return_forecasting.py` | Approved |

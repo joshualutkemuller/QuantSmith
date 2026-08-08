@@ -99,14 +99,19 @@ by the `knowledge` gate.
    them.
 3. **Data-engineering & data-analyst spec + runtime coverage** — closing the biggest
    structural gap, role by role.
-   - **Data Analyst — complete, end to end.** The `agents/analytics/` group is built
-     (`metrics_semantic_layer/` — spec `0008`; `experimentation/` — spec `0009`), and
-     the whole chain now has a capstone: `specs/0010-analytics-pipeline/` runs
-     query → prepare → profile → metrics → quality guard → report as a tested runtime
-     (`src/quantsmith/pipelines/analytics_pipeline.py`) that reuses the `0008` semantic
-     layer. No `(planned)` nodes remain in the Data Analyst or Analytics Pipeline
-     chains. Optional polish: continuous-metric / sequential experiment designs, a
-     Tableau/Power BI payload renderer, and richer near-duplicate data-quality checks.
+   - **Data Analyst — analysis + communication layers shipped.** Governed analysis:
+     `metrics_semantic_layer/` (spec `0008`), `experimentation/` (spec `0009`), and the
+     end-to-end capstone `specs/0010-analytics-pipeline/` (tested runtime that reuses
+     the `0008` layer). Communication layer (spec `0014-data-analyst-storytelling`):
+     `data_storytelling/` (governed `Report` → narrative) and `dashboard_design/`
+     (tool-agnostic dashboard spec), backed by `instructions/data_storytelling.md` —
+     both **reuse** `0008`/`0009`/`0010` and hand off to `reporting-agent` and the
+     tool-specific dashboard agents (no duplication). No `(planned)` nodes remain in
+     the core Data Analyst or Analytics Pipeline chains. **Open Data Analyst track
+     (spec `0014` follow-ups):** BI-tool profiles under `tooling/` (Looker, Qlik,
+     Superset, Streamlit) that render the shared dashboard spec, and an optional
+     `analytics/data_visualization` agent; plus optional continuous-metric / sequential
+     experiment designs and richer near-duplicate data-quality checks.
    - **Data Engineer — first slice shipped.** The flagship node is built:
      `agents/data_engineering/pipeline_orchestration/` (a DAG runner with data
      contracts, idempotency, retries, backfill, and a run manifest), backed by

@@ -36,6 +36,7 @@ each with a matching test module under `tests/`.
 | [0011-data-pipeline-orchestration](0011-data-pipeline-orchestration/) | Data-pipeline orchestration (DAG runner) | `data_pipeline.py` | `test_data_pipeline.py` | Approved |
 | [0012-execution-scheduling](0012-execution-scheduling/) | Optimal execution scheduling (Almgren-Chriss) | `execution_optimization.py` | `test_execution_optimization.py` | Approved |
 | [0013-optimization-solvers](0013-optimization-solvers/) | Optimization solvers (LP/MILP/flow/DP) | `optimization_solvers.py` | `test_optimization_solvers.py` | Approved |
+| [0014-data-analyst-storytelling](0014-data-analyst-storytelling/) | Data Analyst storytelling & dashboard expansion | — (agents; reuses `0010` Report) | catalog/docs gates | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -44,7 +45,8 @@ traceability end to end. Copy its structure, not its content.
 
 - **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution.
 - **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control).
-- **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end pipeline.
+- **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
+  pipeline → `0014` storytelling & dashboards (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration.
 - **Cross-cutting:** `0002` workflow memory; `0004` agent expansion.
 
@@ -55,4 +57,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0014`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0015`** (`0003`/`0005` belong to the local-only pack).

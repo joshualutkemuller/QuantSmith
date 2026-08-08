@@ -4,7 +4,8 @@ Exposes the ``0001-daily-momentum-signal``, ``0006-ml-return-forecasting``,
 ``0007-portfolio-construction``,
 ``0008-metrics-semantic-layer``, ``0009-experimentation``,
 ``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``,
-``0012-execution-scheduling``, and ``0013-optimization-solvers`` reference pipelines.
+``0012-execution-scheduling``, ``0013-optimization-solvers``, and the
+``0015-powerbi-dashboard-profile`` renderer reference pipelines.
 """
 
 from __future__ import annotations
@@ -19,6 +20,12 @@ from .analytics_pipeline import (
     profile_facts,
     run_pipeline,
     run_query,
+)
+from .dashboard_spec import (
+    CHART_TYPES,
+    DashboardSpec,
+    DashboardSpecError,
+    Panel,
 )
 from .data_pipeline import (
     DataContract,
@@ -63,6 +70,7 @@ from .optimization_solvers import (
     solve_lp,
     solve_milp,
 )
+from .powerbi_profile import render_powerbi
 from .portfolio_construction import (
     ConstraintSet,
     diagnostics,
@@ -160,4 +168,10 @@ __all__ = [
     "solve_dp",
     "solve_lp",
     "solve_milp",
+    # 0014/0015 — dashboard spec + Power BI profile
+    "CHART_TYPES",
+    "DashboardSpec",
+    "DashboardSpecError",
+    "Panel",
+    "render_powerbi",
 ]

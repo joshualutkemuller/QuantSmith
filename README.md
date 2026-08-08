@@ -234,7 +234,8 @@ Artifact prompts:
 - `specs/0012-execution-scheduling/`: a worked optimization example — Almgren-Chriss optimal execution of a target trade, trading cost against variance (continues `0007`).
 - `specs/0013-optimization-solvers/`: the core solver toolkit by mathematical form — LP, MILP, min-cost flow, and dynamic programming.
 - `specs/0014-data-analyst-storytelling/`: the Data Analyst communication layer — storytelling and dashboard-design agents that reuse the governed analysis outputs.
-- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0013` executable.
+- `specs/0015-powerbi-dashboard-profile/`: the first BI-tool profile — a tool-agnostic dashboard spec rendered into a Power BI payload.
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0001`, `0006`–`0013`, and `0015` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

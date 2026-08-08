@@ -193,3 +193,24 @@ Tests: `tests/test_optimization_solvers.py` (one test per acceptance criterion).
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_optimization_solvers.py -q
 ```
+
+## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`
+
+The first BI-tool renderer from the `0014` expansion track. `dashboard_spec.py` is the
+tool-agnostic `DashboardSpec` contract (the output of `analytics/dashboard_design`);
+`powerbi_profile.py` renders it into a Power BI payload, reusing the existing
+`PowerBIPayload` and `PowerBIPayloadValidator`. Dependency-free and deterministic.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `DashboardSpec` / `Panel` | REQ-001 / NFR-003 | Governed metric per panel; chart types from a fixed vocabulary; rejects empty/ungoverned specs. |
+| `render_powerbi` | REQ-002 / NFR-002 | Maps panels→visuals and metrics→measures (de-duplicated, ordered); carries dataset/page/filters. |
+| reuse of `PowerBIPayloadValidator` | REQ-003/004 / NFR-001 | Validates via the existing (now repaired) Power BI contract. |
+
+Other BI tools (Looker, Qlik, Superset, Streamlit) render the same `DashboardSpec`.
+
+Tests: `tests/test_powerbi_profile.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_powerbi_profile.py -q
+```

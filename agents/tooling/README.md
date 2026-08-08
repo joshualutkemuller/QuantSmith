@@ -10,7 +10,7 @@ used without version control, tests, or point-in-time rigor.
 | Agent | Handles |
 | --- | --- |
 | `excel/` | Excel models and workbooks: structure, formula auditability, reproducibility, VBA/Power Query safety, model-risk review. |
-| `power_bi/` | Power BI datasets and reports: data model (star schema), DAX, refresh/lineage, row-level security, performance. |
+| `power_bi/` | Power BI datasets and reports: data model (star schema), DAX, refresh/lineage, row-level security, performance. Renders the tool-agnostic dashboard spec via `render_powerbi` (spec `0015`, `src/quantsmith/pipelines/powerbi_profile.py`). |
 | `tableau/` | Tableau workbooks and data sources: extracts vs live, LOD/table calcs, honest visualization, publishing/permissions. |
 
 ## Shared Principles

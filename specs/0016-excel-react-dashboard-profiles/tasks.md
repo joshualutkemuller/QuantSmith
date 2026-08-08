@@ -42,6 +42,9 @@ are unchanged.
 
 ## Follow-ups
 
-- Add a live `.xlsx` writer and a React scaffold behind the adapter contract.
+- Live artifact generation is defined behind the adapter contract in
+  `adapters/dashboard_render/` (`adapter_contract.md`, `xlsx.md`, `react_scaffold.md`);
+  a provider implementation (openpyxl workbook, React scaffold) is the executable
+  next step.
 - Add the remaining BI-tool profiles (Looker, Qlik, Superset, Streamlit) on the same
-  shared spec.
+  shared spec, plus a `powerbi_publish` render adapter.

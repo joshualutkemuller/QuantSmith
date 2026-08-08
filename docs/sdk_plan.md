@@ -25,7 +25,8 @@ The SDK now has a working v1 built on a spec-driven engineering framework:
   cards, data contracts, monitoring plans, and postmortems.
 - **CI** (`.github/workflows/ci.yml`) enforces required docs, the recursive agent
   contract, shell syntax, spec traceability, backtest integrity, secret-scan,
-  docs-link, and agent-catalog; runs leakage advisory.
+  docs-link, and agent-catalog; runs leakage advisory; and runs the pytest suite
+  (`tests/`) in a separate job against the package's declared dependencies.
 - Root `CLAUDE.md` activates the framework by default for any agent in the repo.
 - `setup-hooks.sh` wires local Git hooks; `.githooks/` holds commit/pre-commit/pre-push.
 

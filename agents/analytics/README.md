@@ -13,6 +13,10 @@ These agents sit in the middle of the Data Analyst chain (see `docs/workflows.md
 planning_requirements -> sql-integration-agent -> data-prep-agent
   -> eda-specialist-agent -> metrics_semantic_layer
   -> tooling/tableau | tooling/power_bi -> quality-guard-agent -> reporting-agent
+
+# experiment branch:
+planning_requirements -> experimentation (design) -> (run) -> experimentation (readout)
+  -> quality-guard-agent -> reporting-agent
 ```
 
 ## Agents
@@ -20,7 +24,7 @@ planning_requirements -> sql-integration-agent -> data-prep-agent
 | Agent | Handles |
 | --- | --- |
 | `metrics_semantic_layer/` | Canonical KPI/metric definitions — one source of truth per metric, consistent point-in-time computation, declared dimensions, and derived (ratio) metrics. |
-| `experimentation/` (planned) | A/B testing, power analysis, and causal caveats for analyst experiments. |
+| `experimentation/` | A/B test design and readout — power/sample-size, sample-ratio-mismatch validity, p-value/CI consistency, and a power-gated verdict. |
 
 ## Rules
 
@@ -32,11 +36,14 @@ planning_requirements -> sql-integration-agent -> data-prep-agent
   at `src/quantsmith/pipelines/metrics_semantic_layer.py`); agent directories describe
   roles, prompts, instructions, and tasks.
 
-## Standard
+## Standards
 
-`instructions/metrics_semantic_layer.md` — how to define and govern metrics.
+- `instructions/metrics_semantic_layer.md` — how to define and govern metrics.
+- `instructions/model_validation.md` — validation discipline behind experiment readouts.
 
-## Worked Example
+## Worked Examples
 
-`specs/0008-metrics-semantic-layer/` — the metrics layer as a spec-driven,
-test-backed runtime workflow.
+- `specs/0008-metrics-semantic-layer/` — the metrics layer as a spec-driven,
+  test-backed runtime workflow.
+- `specs/0009-experimentation/` — disciplined A/B test design and readout
+  (`src/quantsmith/pipelines/experimentation.py`).

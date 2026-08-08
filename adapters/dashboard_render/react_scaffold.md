@@ -30,6 +30,12 @@ A `ReactDashboardPayload` from `render_react` (spec `0016`,
 - Use deterministic filenames and stable ordering so the same payload scaffolds the
   same source tree; produce a reproducible build (committed lockfile).
 
+## Reference Implementation
+
+`quantsmith.adapters.dashboard_render.scaffold_react` (spec `0017`,
+`src/quantsmith/adapters/dashboard_render/react_scaffold.py`) implements this provider:
+pure standard library, deterministic, with a secret guard on generated content.
+
 ## Result Evidence
 
 Capture the scaffold directory path, a manifest of generated files with checksums, the

@@ -1,8 +1,9 @@
 """Runnable reference pipelines that make specs executable.
 
 Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
-``0008-metrics-semantic-layer``, ``0009-experimentation``, and
-``0010-analytics-pipeline`` reference pipelines.
+``0008-metrics-semantic-layer``, ``0009-experimentation``,
+``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``,
+``0012-execution-scheduling``, and ``0013-optimization-solvers`` reference pipelines.
 """
 
 from __future__ import annotations
@@ -18,6 +19,19 @@ from .analytics_pipeline import (
     run_pipeline,
     run_query,
 )
+from .data_pipeline import (
+    DataContract,
+    Pipeline,
+    RunManifest,
+    Step,
+    StepResult,
+    backfill,
+    run,
+)
+from .execution_optimization import (
+    ExecutionSchedule,
+    optimal_schedule,
+)
 from .experimentation import (
     ExperimentReadout,
     ProportionTest,
@@ -31,6 +45,16 @@ from .metrics_semantic_layer import (
     GovernanceError,
     MetricDefinition,
     SemanticLayer,
+)
+from .optimization_solvers import (
+    DPProblem,
+    DPResult,
+    FlowResult,
+    LPResult,
+    min_cost_flow,
+    solve_dp,
+    solve_lp,
+    solve_milp,
 )
 from .portfolio_construction import (
     ConstraintSet,
@@ -104,4 +128,24 @@ __all__ = [
     "profile_facts",
     "run_pipeline",
     "run_query",
+    # 0011 — data-pipeline orchestration
+    "DataContract",
+    "Pipeline",
+    "RunManifest",
+    "Step",
+    "StepResult",
+    "backfill",
+    "run",
+    # 0012 — execution scheduling
+    "ExecutionSchedule",
+    "optimal_schedule",
+    # 0013 — optimization solvers
+    "DPProblem",
+    "DPResult",
+    "FlowResult",
+    "LPResult",
+    "min_cost_flow",
+    "solve_dp",
+    "solve_lp",
+    "solve_milp",
 ]

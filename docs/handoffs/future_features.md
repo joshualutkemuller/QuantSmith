@@ -12,7 +12,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | --- | --- | --- | --- |
 | `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. First runtime workflows shipped: `specs/0006-ml-return-forecasting/` (ML/DL) and `specs/0007-portfolio-construction/` (optimization), both with runnable reference pipelines and tests. Remaining: more runtime workflows across operations/technology optimization and additional ML/DL examples | P0 | in-progress |
 | `agents/data_engineering/data_modeling/` | Dimensional/warehouse modeling: star/snowflake schemas, slowly-changing dimensions, grain | P1 | proposed |
-| `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency | P1 | proposed |
+| `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency. Shipped: agent + `instructions/pipeline_engineering.md` + spec `specs/0011-data-pipeline-orchestration/` + tested runtime `src/quantsmith/pipelines/data_pipeline.py` (DAG, contracts, idempotency, retries, backfill, run manifest) | P1 | done |
 | `agents/data_engineering/pipeline_observability/` | Data freshness, SLAs, lineage, data-downtime detection | P2 | proposed |
 | `agents/data_engineering/data_governance/` | Catalog, lineage, access policy, ownership | P3 | proposed |
 | `agents/data_engineering/pipeline_builder/` | Compile a source/transform/sink intent into a reviewable DAG, data contracts, schedules, retries, backfills, tests, ownership, and deployment plan | P1 | proposed |
@@ -91,8 +91,13 @@ belong under profiles/adapters unless they require materially different behavior
   `analytics/experimentation` (spec `0009`), and the end-to-end capstone
   `specs/0010-analytics-pipeline/` — all with dependency-free, tested reference
   runtimes under `src/quantsmith/pipelines/`.
-- ML/DL and optimization runtime workflows: `specs/0006-ml-return-forecasting/` and
-  `specs/0007-portfolio-construction/`, with tested reference pipelines.
+- ML/DL and optimization runtime workflows: `specs/0006-ml-return-forecasting/`,
+  `specs/0007-portfolio-construction/` (QP), `specs/0012-execution-scheduling/`
+  (Almgren-Chriss), and `specs/0013-optimization-solvers/` (LP, MILP, min-cost flow,
+  dynamic programming), with tested reference pipelines. The quant chain runs
+  signal → forecast → portfolio → execution.
+- Data Engineer first slice: `specs/0011-data-pipeline-orchestration/` — a DAG runner
+  with contracts, idempotency, retries, backfill, and a run manifest.
 - Adapter catalog contracts (`adapters/`) for alert delivery, schedulers, artifact
   delivery, data access, and LLM runtimes.
 - Persistent workflow memory (`memory/`, `instructions/workflow_memory.md`,

@@ -1,11 +1,17 @@
 """Runnable reference pipelines that make specs executable.
 
-Exposes the ``0006-ml-return-forecasting`` and ``0007-portfolio-construction``
-reference pipelines.
+Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``, and
+``0008-metrics-semantic-layer`` reference pipelines.
 """
 
 from __future__ import annotations
 
+from .metrics_semantic_layer import (
+    Fact,
+    GovernanceError,
+    MetricDefinition,
+    SemanticLayer,
+)
 from .portfolio_construction import (
     ConstraintSet,
     diagnostics,
@@ -56,4 +62,9 @@ __all__ = [
     "portfolio_variance",
     "solve_portfolio",
     "turnover",
+    # 0008 — metrics semantic layer
+    "Fact",
+    "GovernanceError",
+    "MetricDefinition",
+    "SemanticLayer",
 ]

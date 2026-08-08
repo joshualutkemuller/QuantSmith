@@ -52,3 +52,26 @@ Tests: `tests/test_portfolio_construction.py` (one test per acceptance criterion
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_portfolio_construction.py -q
 ```
+
+## `metrics_semantic_layer` — spec `0008-metrics-semantic-layer`
+
+A governed metrics layer for the Data Analyst workflow: each KPI is defined once and
+computed consistently, so every dashboard and report returns the same number.
+Deterministic and dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `SemanticLayer.register` | REQ-001 / AC-001 | One definition per metric; conflicting re-definitions rejected. |
+| `SemanticLayer.compute` | REQ-002 / NFR-002 / AC-002 / AC-003 | Point-in-time period filter and declared-dimension slices that reconcile. |
+| ratio metrics | REQ-003 / AC-004 | Numerator/denominator divided over the same governed rows. |
+| `GovernanceError` paths | REQ-004 / AC-005 | Undefined metric, undeclared dimension, missing owner/grain fail loudly. |
+
+Standard: `instructions/metrics_semantic_layer.md`. A production build may load
+definitions from a versioned registry and connect to a warehouse; the governance
+contract is unchanged.
+
+Tests: `tests/test_metrics_semantic_layer.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_metrics_semantic_layer.py -q
+```

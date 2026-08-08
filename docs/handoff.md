@@ -93,22 +93,24 @@ by the `knowledge` gate.
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
    more ML/DL worked examples (ranking, RL, forecasting variants) as the desk needs
    them.
-3. **Data-engineering & data-analyst spec + runtime coverage** — the biggest
-   structural gap. Both roles have a documented workflow in `docs/workflows.md` and a
-   partial agent set (analyst: `sql-integration-agent`, `eda-specialist-agent`,
-   `data-prep-agent`, `tableau`/`powerbi-dashboard-agent`, `reporting-agent`,
-   `quality-guard-agent`; engineer: `data_ingestion/*`, `data-prep-agent`,
-   `data_quality`), **but neither has a spec (`specs/NNNN`) or a spec-backed runtime
-   with tests** the way ML/optimization now do. Their workflow maps also reference
-   agents that do not exist yet — `metrics_semantic_layer`, `experimentation`,
-   `data_modeling`, `pipeline_orchestration`, `pipeline_observability` (all marked
-   `(planned)`). The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep,
-   BI) are analyst-flavored runtime but are not tied to any spec or gated by tests.
-   Close it the way `0006`/`0007` were closed: build the missing
-   `agents/data_engineering/` and `agents/analytics/` agents, add a
-   `instructions/pipeline_engineering.md` standard, and ship a worked spec + runnable
-   reference pipeline with tests (an ingestion→data-contract example is the natural
-   first slice). Backlog detail in `docs/handoffs/future_features.md`.
+3. **Data-engineering & data-analyst spec + runtime coverage** — closing the biggest
+   structural gap, role by role.
+   - **Data Analyst — first slice shipped.** The flagship node is built:
+     `agents/analytics/metrics_semantic_layer/` (the canonical metrics layer), backed
+     by `instructions/metrics_semantic_layer.md`, the worked spec
+     `specs/0008-metrics-semantic-layer/`, and a runnable, tested runtime
+     (`src/quantsmith/pipelines/metrics_semantic_layer.py`). Its Data Analyst chain in
+     `docs/workflows.md` no longer marks the metrics node `(planned)`. Next analyst
+     node: `agents/analytics/experimentation/` (A/B testing, power analysis).
+   - **Data Engineer — still open.** The engineer role has a documented workflow and a
+     partial agent set (`data_ingestion/*`, `data-prep-agent`, `data_quality`) but no
+     spec or spec-backed runtime, and its map still references `data_modeling`,
+     `pipeline_orchestration`, `pipeline_observability` (all `(planned)`). The
+     `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) are runtime but
+     not tied to any spec or gated by tests. Close it like `0006`/`0007`/`0008`: build
+     `agents/data_engineering/*`, add `instructions/pipeline_engineering.md`, and ship a
+     worked spec + tested runtime (an ingestion→data-contract example is the natural
+     first slice). Backlog detail in `docs/handoffs/future_features.md`.
 4. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
 5. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync

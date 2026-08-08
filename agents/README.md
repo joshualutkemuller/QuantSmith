@@ -259,6 +259,20 @@ them.
 | `formulaic_alphas/alpha_combination/` | Combining alphas: correlation, spanning, weighting, diversification | Research, Testing |
 | `formulaic_alphas/alpha_evaluation/` | Holding period, turnover, volatility dependence, correlation, capacity, decay | Testing |
 
+## Analytics Agents (`analytics/`)
+
+Specialist roles that make **Data Analyst** work consistent (see
+[`analytics/README.md`](analytics/README.md)). They sit mid-chain between EDA and the
+dashboard/reporting agents.
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `analytics/metrics_semantic_layer/` | Canonical KPI definitions — one source of truth, point-in-time computation, declared dimensions, ratio metrics | Reporting, Dashboards, Testing |
+
+Planned: `analytics/experimentation/` (A/B testing, power analysis, causal caveats).
+Runtime: `src/quantsmith/pipelines/metrics_semantic_layer.py`; spec:
+`specs/0008-metrics-semantic-layer/`; standard: `instructions/metrics_semantic_layer.md`.
+
 ## Analytics Pipeline Agents
 
 A runtime multi-agent analytics/dashboard pipeline (consolidated from other

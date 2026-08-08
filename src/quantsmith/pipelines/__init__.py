@@ -1,6 +1,7 @@
 """Runnable reference pipelines that make specs executable.
 
-Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
+Exposes the ``0001-daily-momentum-signal``, ``0006-ml-return-forecasting``,
+``0007-portfolio-construction``,
 ``0008-metrics-semantic-layer``, ``0009-experimentation``,
 ``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``,
 ``0012-execution-scheduling``, and ``0013-optimization-solvers`` reference pipelines.
@@ -46,6 +47,12 @@ from .metrics_semantic_layer import (
     MetricDefinition,
     SemanticLayer,
 )
+from .momentum_signal import (
+    PriceBar as MomentumPriceBar,
+    build_signal,
+    liquidity_filter,
+    raw_momentum,
+)
 from .optimization_solvers import (
     DPProblem,
     DPResult,
@@ -83,6 +90,11 @@ from .return_forecasting import (
 )
 
 __all__ = [
+    # 0001 — momentum signal
+    "MomentumPriceBar",
+    "build_signal",
+    "liquidity_filter",
+    "raw_momentum",
     # 0006 — return forecasting
     "EvalResult",
     "FeatureConfig",

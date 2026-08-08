@@ -43,6 +43,7 @@ pattern-based; tune them to your repository.
 | Secret leak scan | `secret-scan-check.sh` | `agents/secrets_management/` |
 | Markdown link check | `docs-link-check.sh` | all docs |
 | Agent catalog sync | `agent-catalog-check.sh` | `agents/README.md` |
+| Spec index sync | `spec-index-check.sh` | `specs/README.md` |
 | Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
 | Workflow memory check | `memory-check.sh` | `memory/`, `agents/knowledge/` |
 
@@ -98,6 +99,8 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pac
   resolve to existing files. External links and pure anchors are skipped.
 - **`agent-catalog-check.sh`** verifies every public agent (a directory with
   `prompt.md`) is listed in `agents/README.md`.
+- **`spec-index-check.sh`** verifies every tracked spec (a directory under `specs/`
+  with `spec.md`) is listed in the spec index, `specs/README.md`. Enforced in CI.
 - **`knowledge-check.sh`** validates the configurable knowledge-base source
   locations for `agents/knowledge/`: it resolves a manifest
   (`$QF_KNOWLEDGE_SOURCES`, then `knowledge_sources.yml`, then the ad-hoc

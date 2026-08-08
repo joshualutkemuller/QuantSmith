@@ -167,7 +167,10 @@ optimization_orchestrator -> problem_formulation -> optimization specialist
   (`src/quantsmith/pipelines/portfolio_construction.py`); and
   `specs/0012-execution-scheduling/` — Almgren-Chriss optimal execution of the target
   trade, trading cost against variance
-  (`src/quantsmith/pipelines/execution_optimization.py`).
+  (`src/quantsmith/pipelines/execution_optimization.py`); and
+  `specs/0013-optimization-solvers/` — the core solver toolkit by mathematical form
+  (LP, MILP, min-cost flow, dynamic programming) in
+  `src/quantsmith/pipelines/optimization_solvers.py`.
 
 ### Machine Learning Build
 

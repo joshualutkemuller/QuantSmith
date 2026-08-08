@@ -154,3 +154,24 @@ Tests: `tests/test_execution_optimization.py` (one test per acceptance criterion
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_execution_optimization.py -q
 ```
+
+## `optimization_solvers` — spec `0013-optimization-solvers`
+
+The core mathematical-programming toolkit: one deterministic solver per form, each
+with an explicit status. Convex QP ships separately as `0007`. Dependency-free.
+
+| Solver | Form / spec | Agent |
+| --- | --- | --- |
+| `solve_lp` | Linear programming (two-phase simplex, Bland's rule) — REQ-001/002 | `linear_programming` |
+| `solve_milp` | Mixed-integer (branch-and-bound) — REQ-003 | `mixed_integer_optimization` |
+| `min_cost_flow` | Min-cost (max-)flow — REQ-004 | `network_flow` |
+| `solve_dp` | Finite-horizon dynamic programming — REQ-005 | `dynamic_programming` |
+
+Infeasible and unbounded are named statuses, never a silent number. A production build
+may swap in HiGHS/OR-Tools behind the same interfaces.
+
+Tests: `tests/test_optimization_solvers.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_optimization_solvers.py -q
+```

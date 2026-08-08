@@ -82,14 +82,16 @@ by the `knowledge` gate.
 
 ## What's Next (prioritized)
 
-1. **P0 optimizer-agent workflow expansion** — two optimization runtime workflows are
-   shipped: `specs/0007-portfolio-construction/` (constrained mean-variance allocation
-   from the `0006` forecast) and `specs/0012-execution-scheduling/` (Almgren-Chriss
-   optimal execution of the target trade), each with a tested reference pipeline. The
-   quant chain now runs signal → forecast → portfolio → execution. Next optimization
-   runtimes across the 21-agent group (still only these two have runtimes):
-   collateral/margin, capacity/resource, routing/scheduling, and pricing/revenue are
-   natural candidates as the desk needs them.
+1. **P0 optimizer-agent workflow expansion** — the optimization group now has runtimes
+   for the core mathematical forms plus two applications: convex QP
+   (`specs/0007-portfolio-construction/`), a closed-form control
+   (`specs/0012-execution-scheduling/`), and the solver toolkit
+   (`specs/0013-optimization-solvers/`: LP, MILP, min-cost flow, dynamic programming).
+   The quant chain runs signal → forecast → portfolio → execution. Next: build
+   *application* specs on the new solvers — collateral/margin LP, cardinality-
+   constrained portfolio (MILP), funding-ladder min-cost flow, multi-period
+   rebalancing DP — and add conic/global/nonlinear forms when a dependency-free method
+   or an optional solver dependency is chosen.
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add

@@ -95,3 +95,23 @@ Tests: `tests/test_experimentation.py` (one test per acceptance criterion).
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_experimentation.py -q
 ```
+
+## `analytics_pipeline` — spec `0010-analytics-pipeline`
+
+The Data Analyst capstone: runs the whole chain end to end — query → prepare →
+profile → metrics → quality guard → report — and reuses the `0008` semantic layer so
+the report's numbers come from one source of truth. Deterministic and dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `run_pipeline` | REQ-001 / NFR-001 | One deterministic call from source to report. |
+| `run_query` + `prepare` + `profile_facts` | REQ-002 | Dedup, typing, missingness profile, and an EDA summary. |
+| `SemanticLayer.compute` (from `0008`) | REQ-003 / NFR-002/003 | Metrics only through the governed layer. |
+| quality guard + `QualityResult` | REQ-004 | Blocks empty results, ungoverned metrics, and failed reconciliation. |
+| `Report.provenance` | REQ-005 | Source, period, row counts, and metric definition travel with the answer. |
+
+Tests: `tests/test_analytics_pipeline.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_analytics_pipeline.py -q
+```

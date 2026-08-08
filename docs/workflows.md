@@ -210,6 +210,10 @@ orchestrator-agent → sql-integration-agent → data-prep-agent
   → quality-guard-agent → reporting-agent
 ```
 
+- Worked example: `specs/0010-analytics-pipeline/` runs the chain end to end
+  (query → prepare → profile → metrics via the `0008` semantic layer → quality guard
+  → report with provenance), in `src/quantsmith/pipelines/analytics_pipeline.py`.
+
 ### Persistent Workflow Memory (cross-cutting)
 
 Each workflow primes from and writes back to `memory/` so it arrives already knowing
@@ -241,7 +245,8 @@ mini-map:
 | [Data Ingestion](../agents/data_ingestion/README.md#group-workflow) | Ingest → validate → emit data contract |
 | [Securities Financing](../agents/securities_financing/README.md#group-workflow) | Model financing inputs → all-in cost → backtest and risk |
 | [Secrets Management](../agents/secrets_management/README.md#group-workflow) | Store → access → rotate, with scanning throughout |
-| [Content](../evening_quant_content_twitter/agents/content/README.md#group-workflow) | Orchestrate → research context → generate angles → package posts/visuals/memes → review → update memory |
+| [Analytics](../agents/analytics/README.md#group-workflow) | Define metrics → design/read out experiments; feeds dashboards and reports |
+| Content (`evening_quant_content_twitter/agents/content/README.md`, local-only pack) | Orchestrate → research context → generate angles → package posts/visuals/memes → review → update memory |
 
 Parallel catalogs such as `trading_strategies/` and `tooling/` intentionally do
 not have workflow maps: their members are alternatives, not ordered stages. The

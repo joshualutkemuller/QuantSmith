@@ -87,6 +87,12 @@ belong under profiles/adapters unless they require materially different behavior
 
 ## Recently Shipped (for reference)
 
+- **Data Analyst role complete**: `analytics/metrics_semantic_layer` (spec `0008`),
+  `analytics/experimentation` (spec `0009`), and the end-to-end capstone
+  `specs/0010-analytics-pipeline/` — all with dependency-free, tested reference
+  runtimes under `src/quantsmith/pipelines/`.
+- ML/DL and optimization runtime workflows: `specs/0006-ml-return-forecasting/` and
+  `specs/0007-portfolio-construction/`, with tested reference pipelines.
 - Adapter catalog contracts (`adapters/`) for alert delivery, schedulers, artifact
   delivery, data access, and LLM runtimes.
 - Persistent workflow memory (`memory/`, `instructions/workflow_memory.md`,

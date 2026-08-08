@@ -1,11 +1,23 @@
 """Runnable reference pipelines that make specs executable.
 
 Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
-``0008-metrics-semantic-layer``, and ``0009-experimentation`` reference pipelines.
+``0008-metrics-semantic-layer``, ``0009-experimentation``, and
+``0010-analytics-pipeline`` reference pipelines.
 """
 
 from __future__ import annotations
 
+from .analytics_pipeline import (
+    FactSchema,
+    PreparedData,
+    QualityResult,
+    Report,
+    Table,
+    prepare,
+    profile_facts,
+    run_pipeline,
+    run_query,
+)
 from .experimentation import (
     ExperimentReadout,
     ProportionTest,
@@ -82,4 +94,14 @@ __all__ = [
     "analyze_proportions",
     "required_sample_size",
     "sample_ratio_mismatch",
+    # 0010 — analytics pipeline
+    "FactSchema",
+    "PreparedData",
+    "QualityResult",
+    "Report",
+    "Table",
+    "prepare",
+    "profile_facts",
+    "run_pipeline",
+    "run_query",
 ]

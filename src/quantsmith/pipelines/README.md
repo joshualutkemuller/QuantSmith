@@ -115,3 +115,63 @@ Tests: `tests/test_analytics_pipeline.py` (one test per acceptance criterion).
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_analytics_pipeline.py -q
 ```
+
+## `data_pipeline` — spec `0011-data-pipeline-orchestration`
+
+The first Data Engineer runtime: a deterministic DAG runner with the core
+data-engineering guarantees. Dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `Pipeline` (toposort) | REQ-001 / NFR-002 / AC-001 | Dependency-ordered execution; cycles and missing deps rejected at construction. |
+| `DataContract.validate` | REQ-002 / AC-002 | Each step's output is validated (columns, types, required); violations fail the step. |
+| `run` (idempotent + retries) | REQ-003, REQ-004 / AC-003, AC-004 | Completed partitions skipped; bounded retries; deterministic recompute. |
+| `backfill` + `RunManifest` | REQ-005 / NFR-003 / AC-005 | Only missing partitions run; per-(step, partition) status for observability. |
+
+A production build wraps a real scheduler (Airflow/Dagster/Prefect) and a durable
+state store behind the same contract.
+
+Tests: `tests/test_data_pipeline.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_data_pipeline.py -q
+```
+
+## `execution_optimization` — spec `0012-execution-scheduling`
+
+Almgren-Chriss optimal execution: schedule a liquidation over a horizon, trading
+expected cost against cost variance. Continues the quant chain (signal → forecast →
+portfolio → execution). Dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `optimal_schedule` | REQ-001/002 / NFR-002 / AC-001, AC-002, AC-005 | Full-liquidation trajectory (X→0), monotone and non-negative. |
+| risk-neutral / risk-averse branches | REQ-003 / AC-003 | TWAP at zero risk aversion; front-loaded when positive. |
+| `expected_cost` / `cost_variance` | REQ-004 / NFR-003 / AC-004 | Both reported; risk aversion trades cost against variance. |
+
+Tests: `tests/test_execution_optimization.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_execution_optimization.py -q
+```
+
+## `optimization_solvers` — spec `0013-optimization-solvers`
+
+The core mathematical-programming toolkit: one deterministic solver per form, each
+with an explicit status. Convex QP ships separately as `0007`. Dependency-free.
+
+| Solver | Form / spec | Agent |
+| --- | --- | --- |
+| `solve_lp` | Linear programming (two-phase simplex, Bland's rule) — REQ-001/002 | `linear_programming` |
+| `solve_milp` | Mixed-integer (branch-and-bound) — REQ-003 | `mixed_integer_optimization` |
+| `min_cost_flow` | Min-cost (max-)flow — REQ-004 | `network_flow` |
+| `solve_dp` | Finite-horizon dynamic programming — REQ-005 | `dynamic_programming` |
+
+Infeasible and unbounded are named statuses, never a silent number. A production build
+may swap in HiGHS/OR-Tools behind the same interfaces.
+
+Tests: `tests/test_optimization_solvers.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_optimization_solvers.py -q
+```

@@ -86,13 +86,17 @@ Source → modeled, orchestrated, monitored, contract-backed data.
 
 ```
 data_ingestion/* (or sql-integration-agent) → data_modeling (planned)
-  → data-prep-agent → pipeline_orchestration (planned)
+  → data_engineering/pipeline_orchestration → data-prep-agent
   → data_quality + quality-guard-agent → pipeline_observability (planned)
 ```
 
-- Standard: `instructions/data_quality.md`, `templates/data/data_contract.md`.
+- Standard: `instructions/data_quality.md`, `instructions/pipeline_engineering.md`,
+  `templates/data/data_contract.md`.
 - Gates: `data-contract`, `repro`, `secret-scan`.
 - Secrets/access via `secrets_management/*`.
+- Worked example: `specs/0011-data-pipeline-orchestration/` — a DAG runner with data
+  contracts, idempotency, retries, backfill, and a run manifest
+  (`src/quantsmith/pipelines/data_pipeline.py`).
 
 ### Production Pipeline & Alerts (planned)
 
@@ -157,10 +161,16 @@ optimization_orchestrator -> problem_formulation -> optimization specialist
   sensitivity, and solve-time limits.
 - Runtime code belongs under `src/quantsmith/`; the agent contracts define routing
   and review responsibilities.
-- Worked example: `specs/0007-portfolio-construction/` runs this chain end to end —
+- Worked examples: `specs/0007-portfolio-construction/` runs this chain end to end —
   a constrained mean-variance allocation from the `0006` forecast, with feasibility,
   turnover, and risk-aversion sensitivity diagnostics
-  (`src/quantsmith/pipelines/portfolio_construction.py`).
+  (`src/quantsmith/pipelines/portfolio_construction.py`); and
+  `specs/0012-execution-scheduling/` — Almgren-Chriss optimal execution of the target
+  trade, trading cost against variance
+  (`src/quantsmith/pipelines/execution_optimization.py`); and
+  `specs/0013-optimization-solvers/` — the core solver toolkit by mathematical form
+  (LP, MILP, min-cost flow, dynamic programming) in
+  `src/quantsmith/pipelines/optimization_solvers.py`.
 
 ### Machine Learning Build
 

@@ -86,13 +86,17 @@ Source → modeled, orchestrated, monitored, contract-backed data.
 
 ```
 data_ingestion/* (or sql-integration-agent) → data_modeling (planned)
-  → data-prep-agent → pipeline_orchestration (planned)
+  → data_engineering/pipeline_orchestration → data-prep-agent
   → data_quality + quality-guard-agent → pipeline_observability (planned)
 ```
 
-- Standard: `instructions/data_quality.md`, `templates/data/data_contract.md`.
+- Standard: `instructions/data_quality.md`, `instructions/pipeline_engineering.md`,
+  `templates/data/data_contract.md`.
 - Gates: `data-contract`, `repro`, `secret-scan`.
 - Secrets/access via `secrets_management/*`.
+- Worked example: `specs/0011-data-pipeline-orchestration/` — a DAG runner with data
+  contracts, idempotency, retries, backfill, and a run manifest
+  (`src/quantsmith/pipelines/data_pipeline.py`).
 
 ### Production Pipeline & Alerts (planned)
 

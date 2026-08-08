@@ -52,6 +52,23 @@ workflow as typed, validated, reproducible datasets with a data contract.
 | `data_ingestion/file_ingestion/` | Files (CSV, Parquet, Excel, JSON, XML, fixed-width, …): typed loading, validation | Planning, Design |
 | `data_ingestion/api_ingestion/` | REST / streaming / vendor APIs: auth, pagination, retries, as-of capture | Planning, Design |
 
+## Data Engineering Agents (`data_engineering/`)
+
+Grouped in the `data_engineering/` category folder (see
+[`data_engineering/README.md`](data_engineering/README.md)); they turn raw sources
+into modeled, orchestrated, contract-backed, observable data — the **Data Engineer**
+role, downstream of ingestion.
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `data_engineering/pipeline_orchestration/` | DAG design and execution — dependency ordering, per-step data contracts, idempotent partitioned runs, retries, backfill, run manifest | Design, Implementation, Testing |
+
+Planned: `data_modeling`, `pipeline_observability`, `pipeline_builder`,
+`pipeline_deployment`, `data_governance`. Runtime:
+`src/quantsmith/pipelines/data_pipeline.py`; spec:
+`specs/0011-data-pipeline-orchestration/`; standard:
+`instructions/pipeline_engineering.md`.
+
 ## Secrets Management Agents (`secrets_management/`)
 
 Grouped in the `secrets_management/` category folder; they handle secret keys,
@@ -90,7 +107,7 @@ roles without changing the current 105-agent count:
 
 | Capability | Planned roles | Design rule |
 | --- | --- | --- |
-| Pipeline building | `pipeline_builder`, `pipeline_orchestration`, `pipeline_deployment` | Emit a reviewable DAG, contracts, tests, ownership, deployment and rollback plan. |
+| Pipeline building | `data_engineering/pipeline_orchestration` (shipped), `pipeline_builder`, `pipeline_deployment` (planned) | Emit a reviewable DAG, contracts, tests, ownership, deployment and rollback plan. |
 | Monitoring | `pipeline_monitoring`, `model_signal_monitoring`, `infrastructure_cost_monitoring` | Cover data, model/signal, pipeline/service, and business/risk planes. |
 | Alerting | `alerts/alert_policy`, `alerts/alert_router`, `alerts/incident_notification` | Separate detection and policy from vendor-neutral delivery adapters. |
 

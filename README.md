@@ -92,7 +92,7 @@ Secrets management agents (`agents/secrets_management/`):
 
 Technology & tooling agents (`agents/tooling/`):
 
-- `excel/`, `power_bi/`, `tableau/`: bring reproducibility, point-in-time correctness, auditability, and secrets-safe connections to the spreadsheet and BI tools quants use. Built to grow across the quant stack (kdb+/q, MATLAB, R, Jupyter).
+- `excel/`, `power_bi/`, `tableau/`, `react/`: bring reproducibility, point-in-time correctness, auditability, and secrets-safe connections to the spreadsheet, BI, and web-dashboard tools quants use. `power_bi`, `excel`, and `react` render the shared dashboard spec (specs `0015`/`0016`). Built to grow across the quant stack (kdb+/q, MATLAB, R, Jupyter).
 
 Knowledge management agents (`agents/knowledge/`):
 
@@ -235,7 +235,8 @@ Artifact prompts:
 - `specs/0013-optimization-solvers/`: the core solver toolkit by mathematical form — LP, MILP, min-cost flow, and dynamic programming.
 - `specs/0014-data-analyst-storytelling/`: the Data Analyst communication layer — storytelling and dashboard-design agents that reuse the governed analysis outputs.
 - `specs/0015-powerbi-dashboard-profile/`: the first BI-tool profile — a tool-agnostic dashboard spec rendered into a Power BI payload.
-- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0001`, `0006`–`0013`, and `0015` executable.
+- `specs/0016-excel-react-dashboard-profiles/`: Excel and React renderers of the same shared dashboard spec.
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0001`, `0006`–`0013`, `0015`, and `0016` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

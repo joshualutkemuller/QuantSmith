@@ -9,7 +9,8 @@ used without version control, tests, or point-in-time rigor.
 
 | Agent | Handles |
 | --- | --- |
-| `excel/` | Excel models and workbooks: structure, formula auditability, reproducibility, VBA/Power Query safety, model-risk review. |
+| `excel/` | Excel models and workbooks: structure, formula auditability, reproducibility, VBA/Power Query safety, model-risk review. Renders the shared dashboard spec via `render_excel` (spec `0016`). |
+| `react/` | Web dashboards in React: honest/accessible charts, state and data fetching, secrets kept out of the bundle, reproducible builds. Renders the shared dashboard spec via `render_react` (spec `0016`, `src/quantsmith/pipelines/react_profile.py`). |
 | `power_bi/` | Power BI datasets and reports: data model (star schema), DAX, refresh/lineage, row-level security, performance. Renders the tool-agnostic dashboard spec via `render_powerbi` (spec `0015`, `src/quantsmith/pipelines/powerbi_profile.py`). |
 | `tableau/` | Tableau workbooks and data sources: extracts vs live, LOD/table calcs, honest visualization, publishing/permissions. |
 

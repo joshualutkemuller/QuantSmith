@@ -93,6 +93,7 @@ stores).
 | `tooling/excel/` | Excel models: structure, formula audit, reproducibility, model-risk, VBA safety | Implementation, Testing |
 | `tooling/power_bi/` | Power BI datasets/reports: data model, DAX, refresh, RLS, performance | Implementation, Maintenance |
 | `tooling/tableau/` | Tableau workbooks/data sources: LOD/table calcs, extracts, honest visuals, publishing | Implementation, Maintenance |
+| `tooling/react/` | Web dashboards in React: honest/accessible charts, state/data, secrets out of the bundle; renders the shared dashboard spec (`0016`) | Implementation, Maintenance |
 
 The planned technology matrix is maintained in
 [`tooling/README.md`](tooling/README.md#planned-coverage). It prioritizes Python,

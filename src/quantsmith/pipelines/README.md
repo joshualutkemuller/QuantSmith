@@ -207,10 +207,29 @@ tool-agnostic `DashboardSpec` contract (the output of `analytics/dashboard_desig
 | `render_powerbi` | REQ-002 / NFR-002 | Maps panels→visuals and metrics→measures (de-duplicated, ordered); carries dataset/page/filters. |
 | reuse of `PowerBIPayloadValidator` | REQ-003/004 / NFR-001 | Validates via the existing (now repaired) Power BI contract. |
 
-Other BI tools (Looker, Qlik, Superset, Streamlit) render the same `DashboardSpec`.
-
 Tests: `tests/test_powerbi_profile.py` (one test per acceptance criterion).
 
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_powerbi_profile.py -q
+```
+
+## `excel_profile` + `react_profile` — spec `0016-excel-react-dashboard-profiles`
+
+Two more renderers of the shared `DashboardSpec`, on the `0015` pattern. Dependency-free
+and deterministic.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `render_excel` → `ExcelWorkbookPayload` | REQ-001 | Data sheet + dashboard sheet; a chart per panel with mapped Excel chart types and governed measures. |
+| `render_react` → `ReactDashboardPayload` | REQ-002 | A component per panel (mapped) with the governed metric in props and a deterministic grid layout. |
+| shared `DashboardSpec` | REQ-003 / NFR-002/003 | Dataset/page/filters/order carried; governed metrics only. |
+
+One design (`dashboard_design`), three renderers so far — Power BI, Excel, React —
+rendered by `tooling/power_bi`, `tooling/excel`, and `tooling/react`. Looker, Qlik,
+Superset, and Streamlit render the same spec next.
+
+Tests: `tests/test_excel_react_profiles.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_excel_react_profiles.py -q
 ```

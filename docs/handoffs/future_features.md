@@ -17,8 +17,8 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/data_engineering/data_governance/` | Catalog, lineage, access policy, ownership | P3 | proposed |
 | `agents/data_engineering/pipeline_builder/` | Compile a source/transform/sink intent into a reviewable DAG, data contracts, schedules, retries, backfills, tests, ownership, and deployment plan | P1 | proposed |
 | `agents/data_engineering/pipeline_deployment/` | Environment promotion, dry runs, canaries, rollback, state migration, and scheduler-specific deployment adapters | P1 | proposed |
-| `agents/analytics/metrics_semantic_layer/` | Canonical KPI/metric definitions (semantic layer) — the biggest data-analyst consistency win | P1 | proposed |
-| `agents/analytics/experimentation/` | A/B testing, power analysis, causal caveats | P2 | proposed |
+| `agents/analytics/metrics_semantic_layer/` | Canonical KPI/metric definitions (semantic layer) — the biggest data-analyst consistency win. Shipped: agent + `instructions/metrics_semantic_layer.md` + spec `specs/0008-metrics-semantic-layer/` + tested runtime `src/quantsmith/pipelines/metrics_semantic_layer.py` | P1 | done |
+| `agents/analytics/experimentation/` | A/B testing, power analysis, causal caveats — next Data Analyst node | P2 | proposed |
 | `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules | P1 | proposed |
 | `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection | P1 | proposed |
 | `agents/alerts/incident_notification/` | Actionable notifications, acknowledgement/recovery lifecycle, evidence and runbook links | P1 | proposed |

@@ -66,12 +66,16 @@ Business question → validated, communicated answer.
 
 ```
 planning_requirements → sql-integration-agent → eda-specialist-agent
-  → metrics_semantic_layer (planned) → tooling/tableau | tooling/power_bi
+  → analytics/metrics_semantic_layer → tooling/tableau | tooling/power_bi
   → quality-guard-agent → reporting-agent
 ```
 
-- Experimentation/A-B work uses `experimentation` (planned).
+- Experimentation/A-B work uses `analytics/experimentation` (planned).
+- Standard: `instructions/metrics_semantic_layer.md`.
 - Gates: `data-contract`, `secret-scan`.
+- Worked example: `specs/0008-metrics-semantic-layer/` — canonical, point-in-time
+  metric definitions with governance and reconciliation
+  (`src/quantsmith/pipelines/metrics_semantic_layer.py`).
 
 ### Data Engineer
 

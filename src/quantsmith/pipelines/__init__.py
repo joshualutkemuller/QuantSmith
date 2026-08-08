@@ -1,11 +1,19 @@
 """Runnable reference pipelines that make specs executable.
 
-Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``, and
-``0008-metrics-semantic-layer`` reference pipelines.
+Exposes the ``0006-ml-return-forecasting``, ``0007-portfolio-construction``,
+``0008-metrics-semantic-layer``, and ``0009-experimentation`` reference pipelines.
 """
 
 from __future__ import annotations
 
+from .experimentation import (
+    ExperimentReadout,
+    ProportionTest,
+    analyze_experiment,
+    analyze_proportions,
+    required_sample_size,
+    sample_ratio_mismatch,
+)
 from .metrics_semantic_layer import (
     Fact,
     GovernanceError,
@@ -67,4 +75,11 @@ __all__ = [
     "GovernanceError",
     "MetricDefinition",
     "SemanticLayer",
+    # 0009 — experimentation
+    "ExperimentReadout",
+    "ProportionTest",
+    "analyze_experiment",
+    "analyze_proportions",
+    "required_sample_size",
+    "sample_ratio_mismatch",
 ]

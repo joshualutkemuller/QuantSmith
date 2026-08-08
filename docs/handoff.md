@@ -95,13 +95,14 @@ by the `knowledge` gate.
    them.
 3. **Data-engineering & data-analyst spec + runtime coverage** — closing the biggest
    structural gap, role by role.
-   - **Data Analyst — first slice shipped.** The flagship node is built:
-     `agents/analytics/metrics_semantic_layer/` (the canonical metrics layer), backed
-     by `instructions/metrics_semantic_layer.md`, the worked spec
-     `specs/0008-metrics-semantic-layer/`, and a runnable, tested runtime
-     (`src/quantsmith/pipelines/metrics_semantic_layer.py`). Its Data Analyst chain in
-     `docs/workflows.md` no longer marks the metrics node `(planned)`. Next analyst
-     node: `agents/analytics/experimentation/` (A/B testing, power analysis).
+   - **Data Analyst — both analytics nodes shipped.** The `agents/analytics/` group is
+     complete: `metrics_semantic_layer/` (canonical metrics — spec
+     `specs/0008-metrics-semantic-layer/`) and `experimentation/` (A/B design + readout
+     — spec `specs/0009-experimentation/`), each with a backing instruction and a
+     runnable, tested runtime under `src/quantsmith/pipelines/`. The Data Analyst chain
+     in `docs/workflows.md` has no remaining `(planned)` nodes. Optional next analyst
+     work: continuous-metric / sequential experiment designs, or a dashboard-payload
+     runtime for the `tableau`/`power_bi` agents.
    - **Data Engineer — still open.** The engineer role has a documented workflow and a
      partial agent set (`data_ingestion/*`, `data-prep-agent`, `data_quality`) but no
      spec or spec-backed runtime, and its map still references `data_modeling`,

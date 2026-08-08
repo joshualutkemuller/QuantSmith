@@ -118,7 +118,8 @@ Evening content workflow pack (`evening_quant_content_twitter/`):
 
 Analytics agents (`agents/analytics/`):
 
-- `metrics_semantic_layer/`: the canonical metrics layer for the Data Analyst workflow — one source-of-truth definition per KPI, computed consistently and point-in-time, with governance and dimension reconciliation. (`experimentation/` planned.)
+- `metrics_semantic_layer/`: the canonical metrics layer for the Data Analyst workflow — one source-of-truth definition per KPI, computed consistently and point-in-time, with governance and dimension reconciliation.
+- `experimentation/`: disciplined A/B test design and readout — power/sample-size, sample-ratio-mismatch validity, p-value/CI consistency, and a power-gated verdict.
 
 Domain agents:
 
@@ -219,7 +220,8 @@ Artifact prompts:
 - `specs/0006-ml-return-forecasting/`: a worked ML/DL example routing the machine-learning and deep-learning agents from labeling through a monitored, net-of-cost-validated forecast.
 - `specs/0007-portfolio-construction/`: a worked optimization example routing the optimization agents to turn the `0006` forecast into a constrained mean-variance portfolio.
 - `specs/0008-metrics-semantic-layer/`: a worked Data Analyst example — a governed metrics layer with one canonical, point-in-time definition per KPI.
-- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`, `0007`, and `0008` executable.
+- `specs/0009-experimentation/`: a worked Data Analyst example — disciplined A/B test design and readout with power, sample-ratio-mismatch, and CI/p-value consistency.
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`, `0007`, `0008`, and `0009` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

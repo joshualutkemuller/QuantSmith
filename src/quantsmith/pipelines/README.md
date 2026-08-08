@@ -75,3 +75,23 @@ Tests: `tests/test_metrics_semantic_layer.py` (one test per acceptance criterion
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_metrics_semantic_layer.py -q
 ```
+
+## `experimentation` — spec `0009-experimentation`
+
+Disciplined A/B test design and readout for the Data Analyst workflow: size before
+you run, validate the allocation, and refuse to call a winner that is underpowered or
+invalid. Deterministic and dependency-free (normal CDF via `math.erf`, inverse normal
+via Acklam's approximation).
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `required_sample_size` | REQ-001 / AC-001 | Per-arm power analysis; grows as the MDE shrinks. |
+| `analyze_proportions` | REQ-002 / NFR-002 / AC-002, AC-005 | One shared Wald SE — CI excludes 0 exactly when p < alpha. |
+| `sample_ratio_mismatch` | REQ-003 / AC-003 | Detects broken allocation and invalidates the readout. |
+| `analyze_experiment` | REQ-004 / NFR-003 / AC-004 | Verdict is "inconclusive" unless powered and valid (peeking guard). |
+
+Tests: `tests/test_experimentation.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_experimentation.py -q
+```

@@ -70,12 +70,15 @@ planning_requirements → sql-integration-agent → eda-specialist-agent
   → quality-guard-agent → reporting-agent
 ```
 
-- Experimentation/A-B work uses `analytics/experimentation` (planned).
-- Standard: `instructions/metrics_semantic_layer.md`.
+- Experimentation/A-B work uses `analytics/experimentation` — design (power/sample
+  size), validity (sample-ratio mismatch), and a power-gated readout.
+- Standard: `instructions/metrics_semantic_layer.md`, `instructions/model_validation.md`.
 - Gates: `data-contract`, `secret-scan`.
-- Worked example: `specs/0008-metrics-semantic-layer/` — canonical, point-in-time
+- Worked examples: `specs/0008-metrics-semantic-layer/` — canonical, point-in-time
   metric definitions with governance and reconciliation
-  (`src/quantsmith/pipelines/metrics_semantic_layer.py`).
+  (`src/quantsmith/pipelines/metrics_semantic_layer.py`); and
+  `specs/0009-experimentation/` — disciplined A/B test design and readout
+  (`src/quantsmith/pipelines/experimentation.py`).
 
 ### Data Engineer
 

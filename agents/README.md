@@ -268,10 +268,12 @@ dashboard/reporting agents.
 | Agent | Handles | Feeds mainly |
 | --- | --- | --- |
 | `analytics/metrics_semantic_layer/` | Canonical KPI definitions — one source of truth, point-in-time computation, declared dimensions, ratio metrics | Reporting, Dashboards, Testing |
+| `analytics/experimentation/` | A/B test design and readout — power/sample-size, sample-ratio-mismatch validity, p-value/CI consistency, power-gated verdict | Reporting, Testing |
 
-Planned: `analytics/experimentation/` (A/B testing, power analysis, causal caveats).
-Runtime: `src/quantsmith/pipelines/metrics_semantic_layer.py`; spec:
-`specs/0008-metrics-semantic-layer/`; standard: `instructions/metrics_semantic_layer.md`.
+Runtimes: `src/quantsmith/pipelines/metrics_semantic_layer.py`,
+`src/quantsmith/pipelines/experimentation.py`; specs:
+`specs/0008-metrics-semantic-layer/`, `specs/0009-experimentation/`; standards:
+`instructions/metrics_semantic_layer.md`, `instructions/model_validation.md`.
 
 ## Analytics Pipeline Agents
 

@@ -221,7 +221,8 @@ Artifact prompts:
 - `specs/0007-portfolio-construction/`: a worked optimization example routing the optimization agents to turn the `0006` forecast into a constrained mean-variance portfolio.
 - `specs/0008-metrics-semantic-layer/`: a worked Data Analyst example — a governed metrics layer with one canonical, point-in-time definition per KPI.
 - `specs/0009-experimentation/`: a worked Data Analyst example — disciplined A/B test design and readout with power, sample-ratio-mismatch, and CI/p-value consistency.
-- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`, `0007`, `0008`, and `0009` executable.
+- `specs/0010-analytics-pipeline/`: the Data Analyst capstone — the full chain (query → prepare → profile → metrics → quality guard → report) end to end, reusing the `0008` semantic layer.
+- `src/quantsmith/pipelines/`: runnable, dependency-free reference pipelines (with tests) that make specs `0006`–`0010` executable.
 - `examples/alpha_signal_handoff/`: an end-to-end example showing how the SDK artifacts connect for a hypothetical alpha signal.
 
 ## Workflows

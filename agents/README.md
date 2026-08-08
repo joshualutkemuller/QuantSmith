@@ -104,8 +104,10 @@ priorities and status.
 
 The evening X/Twitter content agents moved out of the core `agents/` tree into the
 root-level `evening_quant_content_twitter/` workflow pack so the whole content
-surface can later be ignored locally as one folder. They still follow the same
-four-file agent contract.
+surface can be ignored locally as one folder. That pack is now **local-only**
+(untracked from git; present on disk where it was set up), so the references below are
+paths within the pack rather than links. They still follow the same four-file agent
+contract.
 
 | Agent | Handles | Feeds mainly |
 | --- | --- | --- |
@@ -118,11 +120,10 @@ four-file agent contract.
 | `evening_quant_content_twitter/agents/content/claim_review_agent/` | Source support, labels, confidential-info review, and advice-language checks | Quality, Risk |
 | `evening_quant_content_twitter/agents/content/content_memory_agent/` | Prior themes, hooks, style, visual playbook, rejected framing, and memory updates | Knowledge, Memory |
 
-See [`../evening_quant_content_twitter/agents/content/README.md`](../evening_quant_content_twitter/agents/content/README.md#group-workflow),
-[`../evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`](../evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/)
-and
-[`../evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/`](../evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/)
-for the workflow contracts.
+See `evening_quant_content_twitter/agents/content/README.md`,
+`evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`, and
+`evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/`
+for the workflow contracts (within the local-only pack).
 
 
 ## Optimization Agents (`optimization/`)

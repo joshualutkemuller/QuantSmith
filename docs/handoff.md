@@ -82,12 +82,14 @@ by the `knowledge` gate.
 
 ## What's Next (prioritized)
 
-1. **P0 optimizer-agent workflow expansion** — the first runtime optimizer workflow
-   is shipped as `specs/0007-portfolio-construction/` (constrained mean-variance
-   allocation from the `0006` forecast, with a runnable reference pipeline and
-   acceptance tests). Next: extend `agents/optimization/` into more runtime workflows
-   across operations and technology (collateral/margin, execution, capacity,
-   routing/scheduling) as the desk needs them.
+1. **P0 optimizer-agent workflow expansion** — two optimization runtime workflows are
+   shipped: `specs/0007-portfolio-construction/` (constrained mean-variance allocation
+   from the `0006` forecast) and `specs/0012-execution-scheduling/` (Almgren-Chriss
+   optimal execution of the target trade), each with a tested reference pipeline. The
+   quant chain now runs signal → forecast → portfolio → execution. Next optimization
+   runtimes across the 21-agent group (still only these two have runtimes):
+   collateral/margin, capacity/resource, routing/scheduling, and pricing/revenue are
+   natural candidates as the desk needs them.
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add

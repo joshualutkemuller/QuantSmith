@@ -11,6 +11,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
 | `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. First runtime workflows shipped: `specs/0006-ml-return-forecasting/` (ML/DL) and `specs/0007-portfolio-construction/` (optimization), both with runnable reference pipelines and tests. Remaining: more runtime workflows across operations/technology optimization and additional ML/DL examples | P0 | in-progress |
+| `agents/portfolio_management/*` | End-to-end portfolio lifecycle agents for mandate, universe, signal intake, allocation policy, construction oversight, rebalance implementation, risk budgeting, compliance, attribution, liquidity/cash, tax/transition, monitoring, and governance. Shipped with shared standard `instructions/portfolio_management.md`; runtime specs can promote specific workflows as needed | P0 | done |
 | `agents/data_engineering/data_modeling/` | Dimensional/warehouse modeling: star/snowflake schemas, slowly-changing dimensions, grain. Agent shipped (spec `0019` group build-out); executable runtime as needed | P1 | in-progress |
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency. Shipped: agent + `instructions/pipeline_engineering.md` + spec `specs/0011-data-pipeline-orchestration/` + tested runtime `src/quantsmith/pipelines/data_pipeline.py` (DAG, contracts, idempotency, retries, backfill, run manifest) | P1 | done |
 | `agents/data_engineering/pipeline_observability/` | Data freshness, SLAs, lineage, data-downtime detection. Shipped: agent + spec `specs/0019-pipeline-observability/` + tested runtime `src/quantsmith/pipelines/pipeline_observability.py` (consumes the `0011` run manifest) | P2 | done |
@@ -67,6 +68,7 @@ belong under profiles/adapters unless they require materially different behavior
 | `instructions/monitoring.md` | Standard behind `maintenance_monitoring` and the monitoring plan | P3 | proposed |
 | `instructions/pipeline_engineering.md` | DAG, idempotency, retry/backfill, environment, data-contract, lineage, and deployment standard | P1 | proposed |
 | `instructions/alerting.md` | Channel-neutral alert schema, severity, routing, suppression, acknowledgement, escalation, and privacy. **Shipped** (spec `0020`) | P1 | done |
+| `instructions/portfolio_management.md` | Standard behind the portfolio-management lifecycle agents, including mandate, universe, signal intake, allocation, implementation, risk, compliance, attribution, liquidity, tax, and governance checks | P0 | done |
 
 ## Gates
 
@@ -111,6 +113,8 @@ belong under profiles/adapters unless they require materially different behavior
   `memory-check` gate) — spec `specs/0002-workflow-memory/`.
 - Model-development standard (`instructions/model_development.md`) and the
   consolidated workflow map (`docs/workflows.md`).
+- Portfolio-management lifecycle agents (`agents/portfolio_management/`) plus
+  `instructions/portfolio_management.md`.
 - Securities financing, formulaic alphas, trading strategies, tooling, knowledge,
   and secrets agent groups.
 - The consolidation pass (refreshed `sdk_plan`, `handoff`, `agentic_dictionary`;

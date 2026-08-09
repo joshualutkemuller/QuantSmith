@@ -118,7 +118,9 @@ Evening content workflow pack (`evening_quant_content_twitter/`):
 
 Data engineering agents (`agents/data_engineering/`):
 
-- `pipeline_orchestration/`: designs and runs data pipelines as DAGs — dependency ordering, per-step data contracts, idempotent partitioned runs, retries, backfill, and a run manifest. (`data_modeling/`, `pipeline_observability/`, and more planned.)
+- `pipeline_orchestration/`: designs and runs data pipelines as DAGs — dependency ordering, per-step data contracts, idempotent partitioned runs, retries, backfill, and a run manifest (spec `0011`, tested runtime).
+- `pipeline_observability/`: reads the run manifest for freshness, data-downtime, SLA, and lineage (spec `0019`, tested runtime).
+- `data_modeling/`, `pipeline_builder/`, `pipeline_deployment/`, `data_governance/`: design-and-review roles for dimensional modeling, DAG compilation, environment promotion/rollback, and catalog/lineage/access policy.
 
 Analytics agents (`agents/analytics/`):
 

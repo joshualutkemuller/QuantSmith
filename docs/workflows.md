@@ -272,10 +272,13 @@ mini-map:
 | [Analytics](../agents/analytics/README.md#group-workflow) | Define metrics → design/read out experiments; feeds dashboards and reports |
 | Content (`evening_quant_content_twitter/agents/content/README.md`, local-only pack) | Orchestrate → research context → generate angles → package posts/visuals/memes → review → update memory |
 
-Parallel catalogs such as `trading_strategies/` and `tooling/` intentionally do
-not have workflow maps: their members are alternatives, not ordered stages. The
-lifecycle agents use the SDD backbone above, and the analytics pipeline retains
-its dedicated blueprint.
+Parallel catalogs such as `trading_strategies/`, `asset_classes/`, and `tooling/`
+intentionally do not have workflow maps: their members are alternatives, not
+ordered stages. A request naming both a strategy archetype and an asset class
+routes through the matching `asset_classes/` agent first (mechanics), then the
+matching `trading_strategies/` agent (design/review) — see
+`agents/asset_classes/README.md`. The lifecycle agents use the SDD backbone above,
+and the analytics pipeline retains its dedicated blueprint.
 
 ## Related Maps
 

@@ -73,7 +73,7 @@ belong under profiles/adapters unless they require materially different behavior
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
 | `hooks/stages/ingestion-snapshot-check.sh` | Verify ingestion captures a snapshot/checksum | P3 | proposed |
-| `hooks/stages/pipeline-contract-check.sh` | Verify DAG ownership, inputs/outputs, schedule, retry/backfill, idempotency, and runbook metadata | P2 | proposed |
+| `hooks/stages/pipeline-contract-check.sh` | Verify DAG ownership, inputs/outputs, schedule, retry/backfill, idempotency, and runbook metadata. **Shipped**: validates a pipeline manifest (`templates/data/pipeline_manifest.md`); enforced in CI, skips when absent | P2 | done |
 | `hooks/stages/alert-contract-check.sh` | Verify event schema, owner, severity, deduplication, runbook, redaction, and test route | P2 | proposed |
 | `hooks/stages/monitoring-coverage-check.sh` | Verify each production risk has a metric, threshold/baseline, owner, alert, runbook, and review cadence | P2 | proposed |
 | Stricter notebook-output gate | Beyond the current `implementation` check | P3 | proposed |

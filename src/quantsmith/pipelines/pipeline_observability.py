@@ -10,9 +10,20 @@ Standard-library only and deterministic.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Optional, Union
 
 from .data_pipeline import Pipeline, RunManifest
+
+# A watermark / attempts SLA may be one value for all steps, or per-step via a dict.
+Watermark = Union[int, Dict[str, int]]
+AttemptsSLA = Optional[Union[int, Dict[str, int]]]
+
+
+def _per_step(value, step: str):
+    """Resolve a scalar-or-dict threshold for a step (None when a dict omits it)."""
+    if isinstance(value, dict):
+        return value.get(step)
+    return value
 
 
 @dataclass(frozen=True)
@@ -48,9 +59,9 @@ class ObservabilityReport:
 
 def observe(
     manifest: RunManifest,
-    watermark: int,
+    watermark: Watermark,
     pipeline: Optional[Pipeline] = None,
-    max_attempts_sla: Optional[int] = None,
+    max_attempts_sla: AttemptsSLA = None,
 ) -> ObservabilityReport:
     """Turn a run manifest into an observability report.
 
@@ -58,6 +69,10 @@ def observe(
     latest successful partition is behind it is *stale*. A step with a failed partition
     is in *downtime*. The SLA passes when no step is stale, none is in downtime, and no
     step exceeded ``max_attempts_sla`` (when given).
+
+    ``watermark`` and ``max_attempts_sla`` accept either one value for all steps or a
+    per-step ``{step: value}`` dict; a step omitted from a dict has no threshold (its
+    freshness only requires that it produced data at all).
     """
     # Group results by step, preserving first-seen order.
     order: List[str] = []
@@ -84,7 +99,11 @@ def observe(
 
     for name in order:
         latest_ok = max(ok[name]) if ok[name] else None
-        fresh = latest_ok is not None and latest_ok >= watermark
+        wm = _per_step(watermark, name)
+        if wm is None:
+            fresh = latest_ok is not None            # no watermark: just needs data
+        else:
+            fresh = latest_ok is not None and latest_ok >= wm
         downtime = len(failed[name]) > 0
         steps.append(
             StepHealth(
@@ -100,12 +119,13 @@ def observe(
         )
         if not fresh:
             freshness_breaches.append(name)
-            sla_breaches.append(f"{name}: stale (latest ok {latest_ok} < watermark {watermark})")
+            sla_breaches.append(f"{name}: stale (latest ok {latest_ok} < watermark {wm})")
         if downtime:
             downtime_steps.append(name)
             sla_breaches.append(f"{name}: downtime (failed partitions {sorted(failed[name])})")
-        if max_attempts_sla is not None and attempts[name] > max_attempts_sla:
-            sla_breaches.append(f"{name}: {attempts[name]} attempts > SLA {max_attempts_sla}")
+        attempts_sla = _per_step(max_attempts_sla, name)
+        if attempts_sla is not None and attempts[name] > attempts_sla:
+            sla_breaches.append(f"{name}: {attempts[name]} attempts > SLA {attempts_sla}")
 
     lineage: Dict[str, List[str]] = {}
     if pipeline is not None:

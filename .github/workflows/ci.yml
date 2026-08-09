@@ -40,6 +40,9 @@ jobs:
       - name: Enforce backtest integrity (only when a report exists)
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh backtest
+      - name: Enforce pipeline contract (only when a manifest exists)
+        run: |
+          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh pipeline-contract
       - name: Leakage smell scan (advisory)
         run: |
           BASE="${{ github.event.pull_request.base.sha }}"

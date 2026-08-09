@@ -55,6 +55,7 @@ pipeline_orchestration (0011) -> RunManifest
 | REQ-002 | freshness vs watermark | T-002 |
 | REQ-003 | downtime from failed partitions | T-002 |
 | REQ-004 | SLA verdict + lineage | T-003 |
+| REQ-005 | `_per_step` scalar-or-dict threshold resolution | T-004 |
 | NFR-001 | deterministic fold | T-001 |
 | NFR-002 | degraded on any breach | T-002, T-003 |
 | NFR-003 | reads the `0011` manifest | T-001 |

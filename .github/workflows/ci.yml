@@ -43,6 +43,9 @@ jobs:
       - name: Enforce pipeline contract (only when a manifest exists)
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh pipeline-contract
+      - name: Enforce alert & monitoring contracts (only when artifacts exist)
+        run: |
+          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh alert-contract monitoring-coverage
       - name: Leakage smell scan (advisory)
         run: |
           BASE="${{ github.event.pull_request.base.sha }}"

@@ -155,6 +155,28 @@ Tests: `tests/test_data_pipeline.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_data_pipeline.py -q
 ```
 
+## `signal_monitoring` + `alerting` — specs `0021` / `0020`
+
+The monitoring→alerting chain. `signal_monitoring.monitor_signal` computes model/signal
+health (drift, calibration, alpha decay, regime shift) from a reference vs live sample
+and emits `Observation`s; `alerting.evaluate_policies` turns those into alerts, and
+`alerting.route` deduplicates, suppresses, assigns owner/channel, and escalates.
+Detection and delivery stay separate — delivery is the `adapters/alert_delivery/`
+contract. Dependency-free and deterministic.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `monitor_signal` → `SignalHealth` | REQ-001/002 / NFR-002 | Drift/calibration/decay/regime vs a reference; degraded on any breach. |
+| `SignalHealth.observations` | REQ-003 | Measured values as observations the alerting engine evaluates. |
+| `evaluate_policies` | 0020 REQ-001 / NFR-002 | A breach always fires (threshold/missing); severity + dedup key. |
+| `route` | 0020 REQ-002 | Dedup + count, suppression, owner/channel, escalation. |
+
+Tests: `tests/test_signal_monitoring.py`, `tests/test_alerting.py`.
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_signal_monitoring.py tests/test_alerting.py -q
+```
+
 ## `pipeline_observability` — spec `0019-pipeline-observability`
 
 Reads the `RunManifest` the DAG runner (`0011`) emits and turns it into a health read:

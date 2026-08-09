@@ -106,22 +106,28 @@ data_ingestion/* (or sql-integration-agent) → data_engineering/data_modeling
   `specs/0019-pipeline-observability/` — reads that run manifest for freshness, data
   downtime, SLA, and lineage (`src/quantsmith/pipelines/pipeline_observability.py`).
 
-### Production Pipeline & Alerts (planned)
+### Production Pipeline, Monitoring & Alerts
 
 Pipeline definition → deployed DAG → monitored service → actionable alert →
 acknowledged incident or recovery.
 
 ```text
 pipeline_builder → pipeline_orchestration → pipeline_deployment
-  → pipeline_monitoring → alert_policy → alert_router
-  → alert_delivery adapter → incident_notification → maintenance_monitoring
+  → monitoring/* → alerts/alert_policy → alerts/alert_router
+  → alert_delivery adapter → alerts/incident_notification → maintenance_monitoring
 ```
 
+- Detection: `monitoring/*` — `pipeline_monitoring` (via `0019`),
+  `model_signal_monitoring` (runtime `signal_monitoring`, `0021`), and
+  `infrastructure_cost_monitoring` — emit observations.
+- Alerting (`0020`): `alert_policy` evaluates policies → `alert_router` dedups/routes →
+  the `alert_delivery` adapter delivers → `incident_notification` owns the lifecycle.
 - Channels are adapters (email, Slack, Teams, PagerDuty-style systems, SMS/push,
   webhooks, and ticketing), not separate agents. See
   [`../adapters/alert_delivery/README.md`](../adapters/alert_delivery/README.md).
-- Gates: `data-contract`, `repro`, `secret-scan`, with planned `pipeline-contract`,
-  `monitoring-coverage`, and `alert-contract` gates.
+- Standards: `instructions/monitoring.md`, `instructions/alerting.md`.
+- Gates: `pipeline-contract`, `monitoring-coverage`, `alert-contract` (skip when the
+  artifact is absent), plus `data-contract`, `repro`, `secret-scan`.
 - Automated remediation remains opt-in and runbook-governed; notification alone
   never authorizes a portfolio, data, model, or production mutation.
 

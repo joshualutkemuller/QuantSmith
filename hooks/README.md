@@ -35,6 +35,8 @@ pattern-based; tune them to your repository.
 | Reproducibility | `repro-check.sh` | `templates/docs/run_card.md`, `agents/implementation/` |
 | Data contract | `data-contract-check.sh` | `templates/data/data_contract.md`, `agents/data_quality/` |
 | Pipeline contract | `pipeline-contract-check.sh` | `templates/data/pipeline_manifest.md`, `agents/data_engineering/` |
+| Alert contract | `alert-contract-check.sh` | `templates/data/alert_policy.md`, `agents/alerts/` |
+| Monitoring coverage | `monitoring-coverage-check.sh` | `templates/docs/model_monitoring_plan.md`, `agents/monitoring/` |
 | Evening content draft pack | `content-draft-pack-check.sh` | `evening_quant_content_twitter/` |
 
 ### Repo Gates (security & docs integrity)

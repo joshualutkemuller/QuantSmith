@@ -109,22 +109,32 @@ SQL, C/C++, R, Jupyter, kdb+/q, dbt, and DAG orchestration, then expands through
 additional languages, BI tools, data platforms, distributed compute, production
 engineering, optimization/GPU, and market connectivity.
 
-## Planned Pipeline, Monitoring & Alerting Agents
+## Monitoring Agents (`monitoring/`)
 
-These roadmap capabilities extend the existing data-engineering and maintenance
-roles without changing the current 105-agent count:
+Keep live pipelines, models, and infrastructure healthy and hand a clean signal to
+the alerts agents (see [`monitoring/README.md`](monitoring/README.md)).
 
-| Capability | Planned roles | Design rule |
+| Agent | Handles | Feeds mainly |
 | --- | --- | --- |
-| Pipeline building | `data_engineering/pipeline_orchestration` (shipped), `pipeline_builder`, `pipeline_deployment` (planned) | Emit a reviewable DAG, contracts, tests, ownership, deployment and rollback plan. |
-| Monitoring | `pipeline_monitoring`, `model_signal_monitoring`, `infrastructure_cost_monitoring` | Cover data, model/signal, pipeline/service, and business/risk planes. |
-| Alerting | `alerts/alert_policy`, `alerts/alert_router`, `alerts/incident_notification` | Separate detection and policy from vendor-neutral delivery adapters. |
+| `monitoring/pipeline_monitoring/` | DAG status, freshness, latency, backlogs, retries, idempotency, SLOs (via `0019`) | Maintenance |
+| `monitoring/model_signal_monitoring/` | Drift, calibration, alpha decay, turnover/capacity, regime change (runtime `signal_monitoring`, `0021`) | Maintenance |
+| `monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, cost-per-run guardrails | Maintenance |
 
-See [`alerts/README.md`](alerts/README.md#group-workflow) for the internal alert
-flow, [`../adapters/alert_delivery/README.md`](../adapters/alert_delivery/README.md)
-for channel adapters, and
-[`docs/handoffs/future_features.md`](../docs/handoffs/future_features.md) for
-priorities and status.
+## Alerting Agents (`alerts/`)
+
+Turn monitoring observations into actionable, routed notifications without coupling to
+a delivery vendor (see [`alerts/README.md`](alerts/README.md#group-workflow)).
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `alerts/alert_policy/` | Threshold/anomaly/composite/missing rules with severity, suppression; evaluate to alerts (runtime `alerting`, `0020`) | Maintenance |
+| `alerts/alert_router/` | Ownership, dedup, grouping, rate limits, escalation, channel selection | Maintenance |
+| `alerts/incident_notification/` | Actionable payloads, ack/recovery lifecycle, runbook/evidence links | Maintenance |
+
+Runtimes: `src/quantsmith/pipelines/signal_monitoring.py` (`0021`),
+`src/quantsmith/pipelines/alerting.py` (`0020`); standards:
+`instructions/monitoring.md`, `instructions/alerting.md`; delivery via
+[`../adapters/alert_delivery/README.md`](../adapters/alert_delivery/README.md).
 
 ## Evening Content Workflow Pack
 

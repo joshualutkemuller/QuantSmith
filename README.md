@@ -129,6 +129,14 @@ Analytics agents (`agents/analytics/`):
 - `data_storytelling/`: turns a governed `Report` into an audience-tailored narrative (situation → insight → action), evidence-bounded and provenance-carrying.
 - `dashboard_design/`: produces a tool-agnostic dashboard spec (hierarchy, chart selection, drill paths, accessibility) that the tool-specific dashboard agents render.
 
+Monitoring agents (`agents/monitoring/`):
+
+- `pipeline_monitoring/`, `model_signal_monitoring/`, `infrastructure_cost_monitoring/`: watch pipelines, live signals/models, and infra/cost against point-in-time baselines, report honest health (degraded on any breach), and emit `Observation`s for the alerting layer instead of paging directly (spec `0021`, tested `signal_monitoring` runtime).
+
+Alerting agents (`agents/alerts/`):
+
+- `alert_policy/`, `alert_router/`, `incident_notification/`: turn monitoring observations into deduplicated, severity-routed alerts — policy evaluation, suppression, escalation, owner/channel routing, and redaction — delivering through the `adapters/alert_delivery/` contract, never remediating silently (spec `0020`, tested `alerting` runtime).
+
 Domain agents:
 
 - `agents/research_analyst/`: turns hypotheses into research plans, assumptions, validation gates, and handoff-ready next actions.
@@ -196,6 +204,8 @@ See `agentic_dictionary.md` for the shared vocabulary.
 - `instructions/metrics_semantic_layer.md`
 - `instructions/data_storytelling.md`
 - `instructions/pipeline_engineering.md`
+- `instructions/monitoring.md`
+- `instructions/alerting.md`
 - `instructions/workflow_memory.md`
 - `instructions/git_workflow.md`
 

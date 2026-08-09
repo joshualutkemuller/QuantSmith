@@ -11,6 +11,15 @@ Superset/Qlik) reference pipelines.
 
 from __future__ import annotations
 
+from .alerting import (
+    Alert,
+    AlertPolicy,
+    Observation,
+    RoutedAlert,
+    Routing,
+    evaluate_policies,
+    route,
+)
 from .analytics_pipeline import (
     FactSchema,
     PreparedData,
@@ -88,6 +97,11 @@ from .pipeline_observability import (
     ObservabilityReport,
     StepHealth,
     observe,
+)
+from .signal_monitoring import (
+    MonitorThresholds,
+    SignalHealth,
+    monitor_signal,
 )
 from .powerbi_profile import render_powerbi
 from .react_profile import (
@@ -184,6 +198,18 @@ __all__ = [
     "ObservabilityReport",
     "StepHealth",
     "observe",
+    # 0020 — alerting
+    "Alert",
+    "AlertPolicy",
+    "Observation",
+    "RoutedAlert",
+    "Routing",
+    "evaluate_policies",
+    "route",
+    # 0021 — signal monitoring
+    "MonitorThresholds",
+    "SignalHealth",
+    "monitor_signal",
     # 0012 — execution scheduling
     "ExecutionSchedule",
     "optimal_schedule",

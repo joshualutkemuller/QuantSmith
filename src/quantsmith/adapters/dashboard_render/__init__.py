@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from .react_scaffold import scaffold_react
 from .result import FileRecord, RenderResult, manifest
+from .streamlit_scaffold import scaffold_streamlit
 from .xlsx import write_xlsx
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "RenderResult",
     "manifest",
     "scaffold_react",
+    "scaffold_streamlit",
     "write_xlsx",
 ]

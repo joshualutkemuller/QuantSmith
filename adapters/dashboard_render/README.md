@@ -15,9 +15,13 @@ validated, governed payload. These adapters only materialize that payload.
 | `xlsx.md` | Write a real `.xlsx` workbook from an `ExcelWorkbookPayload`. |
 | `react_scaffold.md` | Scaffold a React app from a `ReactDashboardPayload`. |
 
-Planned providers (same contract): `powerbi_publish.md` (publish/export a
-`PowerBIPayload`), and Streamlit/Looker/Qlik/Superset once their profile renderers
-land.
+Executable providers: `scaffold_react`, `write_xlsx` (spec `0017`), and
+`scaffold_streamlit` (spec `0018`, writes a runnable Streamlit app from the Streamlit
+`BiDashboardPayload`) — all under
+`src/quantsmith/adapters/dashboard_render/`.
+
+Planned providers (same contract): `powerbi_publish` (publish/export a `PowerBIPayload`)
+and executable emitters for Looker/Superset/Qlik once needed.
 
 ## Design Rule
 

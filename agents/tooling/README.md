@@ -11,6 +11,10 @@ used without version control, tests, or point-in-time rigor.
 | --- | --- |
 | `excel/` | Excel models and workbooks: structure, formula auditability, reproducibility, VBA/Power Query safety, model-risk review. Renders the shared dashboard spec via `render_excel` (spec `0016`). |
 | `react/` | Web dashboards in React: honest/accessible charts, state and data fetching, secrets kept out of the bundle, reproducible builds. Renders the shared dashboard spec via `render_react` (spec `0016`, `src/quantsmith/pipelines/react_profile.py`). |
+| `streamlit_dash/` | Python-native Streamlit apps: caching/state, honest charts, secrets in the environment. Renders + scaffolds the shared spec via `render_streamlit`/`scaffold_streamlit` (spec `0018`). |
+| `looker/` | Looker: LookML semantic-model consistency, explores, caching. Renders the shared spec via `render_looker` (spec `0018`). |
+| `qlik/` | Qlik: associative model, set analysis, section access. Renders the shared spec via `render_qlik` (spec `0018`). |
+| `superset/` | Apache Superset: SQL/dataset governance, Jinja safety, caching. Renders the shared spec via `render_superset` (spec `0018`). |
 | `power_bi/` | Power BI datasets and reports: data model (star schema), DAX, refresh/lineage, row-level security, performance. Renders the tool-agnostic dashboard spec via `render_powerbi` (spec `0015`, `src/quantsmith/pipelines/powerbi_profile.py`). |
 | `tableau/` | Tableau workbooks and data sources: extracts vs live, LOD/table calcs, honest visualization, publishing/permissions. |
 
@@ -54,7 +58,7 @@ instead of creating a directory for every package.
 | Languages | `python/`, `sql/`, `r/`, `cpp/`, `julia/`, `matlab/`, `java_jvm/`, `dotnet_csharp/` | Numerical correctness, performance, packaging, testing, deterministic environments, interoperability. `cpp/` covers C and C++ profiles. |
 | Time-series / data stores | `kdb_q/`, `columnar_data/`, `warehouse_lakehouse/` | Temporal joins, tick data, partitioning, query plans, point-in-time semantics, Parquet/Arrow, Snowflake/Databricks/BigQuery/Redshift profiles. |
 | Notebooks / research IDEs | `jupyter/`, `research_ide/` | Execution order, hidden state, environment capture, notebook-to-package graduation; VS Code, RStudio, MATLAB, and similar profiles. |
-| BI / semantic analytics | existing `excel/`, `power_bi/`, `tableau/`; planned `looker/`, `qlik/`, `superset/`, `streamlit_dash/` | Semantic models, calculations, refresh, permissions, performance, reconciliation, honest presentation. |
+| BI / semantic analytics | `excel/`, `power_bi/`, `tableau/`, `react/`, `streamlit_dash/`, `looker/`, `qlik/`, `superset/` (all built) | Semantic models, calculations, refresh, permissions, performance, reconciliation, honest presentation. |
 | Data transformation / orchestration | `dbt/`, `dag_orchestration/` | Model contracts, DAGs, scheduling, retries, backfills, idempotency, lineage; Airflow, Dagster, Prefect, and cloud-orchestrator profiles. |
 | Distributed compute | `spark/`, `ray_dask/` | Partitioning, shuffles, skew, determinism, serialization, memory, cluster cost. |
 | Dev / production | `git_ci/`, `containers/`, `cloud_quant_platform/` | Reproducible builds, CI/CD, Docker/Kubernetes, secrets, observability, and AWS/Azure/GCP deployment profiles. |

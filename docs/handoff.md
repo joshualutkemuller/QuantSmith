@@ -113,14 +113,15 @@ by the `knowledge` gate.
      (`specs/0016-excel-react-dashboard-profiles/`), each mapping the *same* spec to a
      validated payload; `tooling/react` was added (Excel/Power BI reuse existing
      agents). Live artifact generation is shipped: the `adapters/dashboard_render/` contract
-     plus **executable providers** (spec `0017-dashboard-render-adapters`) —
-     `scaffold_react` (pure stdlib React app) and `write_xlsx` (openpyxl, lazy) under
-     `src/quantsmith/adapters/dashboard_render/`, both dry-run-capable with a checksum
-     manifest and a no-secrets guard. **Open Data Analyst track:** the remaining BI-tool
-     profiles on the same `DashboardSpec` — **Streamlit** (Python-native, the natural
-     next one), then **Looker**, **Qlik**, **Superset** — plus a `powerbi_publish` render
-     provider, an optional `analytics/data_visualization` agent, and optional
-     continuous-metric / sequential experiment designs.
+     plus **executable providers** (specs `0017`/`0018`) — `scaffold_react`,
+     `write_xlsx` (openpyxl, lazy), and `scaffold_streamlit`, all dry-run-capable with a
+     checksum manifest and a no-secrets guard. **Dashboard track complete:** the shared
+     `DashboardSpec` now renders to **seven targets** — Power BI, Excel, React
+     (`0015`/`0016`) and Streamlit, Looker, Superset, Qlik (`0018`) — each with a
+     `tooling/` agent. **Open Data Analyst track:** executable emitters for
+     Looker/Superset/Qlik and a `powerbi_publish` provider (payload/agents exist), an
+     optional `analytics/data_visualization` agent, and optional continuous-metric /
+     sequential experiment designs.
    - **Data Engineer — first slice shipped.** The flagship node is built:
      `agents/data_engineering/pipeline_orchestration/` (a DAG runner with data
      contracts, idempotency, retries, backfill, and a run manifest), backed by

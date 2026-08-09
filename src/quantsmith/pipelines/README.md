@@ -224,11 +224,13 @@ and deterministic.
 | `render_react` → `ReactDashboardPayload` | REQ-002 | A component per panel (mapped) with the governed metric in props and a deterministic grid layout. |
 | shared `DashboardSpec` | REQ-003 / NFR-002/003 | Dataset/page/filters/order carried; governed metrics only. |
 
-One design (`dashboard_design`), three renderers so far — Power BI, Excel, React —
-rendered by `tooling/power_bi`, `tooling/excel`, and `tooling/react`. Looker, Qlik,
-Superset, and Streamlit render the same spec next. Turning a rendered payload into a
-**live artifact** (`.xlsx` file, scaffolded React app, published report) is defined
-behind the adapter contract in `adapters/dashboard_render/`.
+One design (`dashboard_design`), **seven render targets** — Power BI, Excel, React
+(`0015`/`0016`) and Streamlit, Looker, Superset, Qlik (`0018`,
+`src/quantsmith/pipelines/bi_profiles.py`) — rendered by their `tooling/` agents.
+Turning a rendered payload into a **live artifact** (`.xlsx` file, scaffolded React or
+Streamlit app, published report) is defined behind the adapter contract in
+`adapters/dashboard_render/`; `write_xlsx`, `scaffold_react`, and `scaffold_streamlit`
+are executable (`0017`/`0018`).
 
 Tests: `tests/test_excel_react_profiles.py` (one test per acceptance criterion).
 

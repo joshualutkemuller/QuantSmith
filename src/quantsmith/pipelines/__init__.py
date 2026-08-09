@@ -5,7 +5,8 @@ Exposes the ``0001-daily-momentum-signal``, ``0006-ml-return-forecasting``,
 ``0008-metrics-semantic-layer``, ``0009-experimentation``,
 ``0010-analytics-pipeline``, ``0011-data-pipeline-orchestration``,
 ``0012-execution-scheduling``, ``0013-optimization-solvers``, and the dashboard
-renderers (``0015`` Power BI, ``0016`` Excel and React) reference pipelines.
+renderers (``0015`` Power BI, ``0016`` Excel and React, ``0018`` Streamlit/Looker/
+Superset/Qlik) reference pipelines.
 """
 
 from __future__ import annotations
@@ -20,6 +21,14 @@ from .analytics_pipeline import (
     profile_facts,
     run_pipeline,
     run_query,
+)
+from .bi_profiles import (
+    BiDashboardPayload,
+    BiElement,
+    render_looker,
+    render_qlik,
+    render_streamlit,
+    render_superset,
 )
 from .dashboard_spec import (
     CHART_TYPES,
@@ -190,4 +199,11 @@ __all__ = [
     "ReactComponent",
     "ReactDashboardPayload",
     "render_react",
+    # 0018 — remaining BI profiles
+    "BiDashboardPayload",
+    "BiElement",
+    "render_streamlit",
+    "render_looker",
+    "render_superset",
+    "render_qlik",
 ]

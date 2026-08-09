@@ -94,6 +94,10 @@ stores).
 | `tooling/power_bi/` | Power BI datasets/reports: data model, DAX, refresh, RLS, performance | Implementation, Maintenance |
 | `tooling/tableau/` | Tableau workbooks/data sources: LOD/table calcs, extracts, honest visuals, publishing | Implementation, Maintenance |
 | `tooling/react/` | Web dashboards in React: honest/accessible charts, state/data, secrets out of the bundle; renders the shared dashboard spec (`0016`) | Implementation, Maintenance |
+| `tooling/streamlit_dash/` | Python-native Streamlit apps: caching/state, honest charts; renders + scaffolds the shared spec (`0018`) | Implementation, Maintenance |
+| `tooling/looker/` | Looker: LookML semantic model, explores, caching; renders the shared spec (`0018`) | Implementation, Maintenance |
+| `tooling/qlik/` | Qlik: associative model, set analysis, section access; renders the shared spec (`0018`) | Implementation, Maintenance |
+| `tooling/superset/` | Apache Superset: SQL/dataset governance, Jinja safety, caching; renders the shared spec (`0018`) | Implementation, Maintenance |
 
 The planned technology matrix is maintained in
 [`tooling/README.md`](tooling/README.md#planned-coverage). It prioritizes Python,

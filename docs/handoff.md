@@ -141,7 +141,8 @@ by the `knowledge` gate.
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
 7. **Remaining backing instructions** — risk_management, data_ingestion,
-   reproducibility, monitoring, pipeline_engineering.
+   reproducibility, monitoring. (`pipeline_engineering`, `metrics_semantic_layer`, and
+   `data_storytelling` are shipped.)
 8. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
 9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.

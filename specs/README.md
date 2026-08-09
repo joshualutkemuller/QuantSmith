@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`, and `0019` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, and `0018`–`0021` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -42,6 +42,8 @@ each with a matching test module under `tests/`.
 | [0017-dashboard-render-adapters](0017-dashboard-render-adapters/) | Executable render adapters — React scaffold + `.xlsx` writer | `adapters/dashboard_render/` (not `pipelines/`) | `test_dashboard_render_adapters.py` | Approved |
 | [0018-remaining-dashboard-profiles](0018-remaining-dashboard-profiles/) | Streamlit/Looker/Superset/Qlik renderers + Streamlit scaffolder | `bi_profiles.py`, `adapters/dashboard_render/streamlit_scaffold.py` | `test_bi_profiles.py` | Approved |
 | [0019-pipeline-observability](0019-pipeline-observability/) | Data-pipeline observability — freshness, downtime, SLA, lineage | `pipeline_observability.py` | `test_pipeline_observability.py` | Approved |
+| [0020-alerting](0020-alerting/) | Alerting — policy evaluation + routing (dedup, suppress, escalate) | `alerting.py` | `test_alerting.py` | Approved |
+| [0021-signal-monitoring](0021-signal-monitoring/) | Model/signal monitoring — drift, calibration, decay, regime | `signal_monitoring.py` | `test_signal_monitoring.py` | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -53,6 +55,7 @@ traceability end to end. Copy its structure, not its content.
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
+- **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`.
 - **Cross-cutting:** `0002` workflow memory; `0004` agent expansion.
 
 ### Local-only specs
@@ -62,4 +65,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0020`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0022`** (`0003`/`0005` belong to the local-only pack).

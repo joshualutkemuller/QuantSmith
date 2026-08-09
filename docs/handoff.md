@@ -44,7 +44,8 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
 - Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
   `testing`, `deployment`, `maintenance`.
 - Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
-  `repro`, `data-contract`, `content-draft-pack`.
+  `repro`, `data-contract`, `pipeline-contract`, `alert-contract`,
+  `monitoring-coverage`, `content-draft-pack`.
 - Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`.
 
 **Instructions (13)** — constitution, SDD method, point-in-time, and the domain

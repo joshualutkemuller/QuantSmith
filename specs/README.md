@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, and `0016` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, and `0018` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -39,6 +39,8 @@ each with a matching test module under `tests/`.
 | [0014-data-analyst-storytelling](0014-data-analyst-storytelling/) | Data Analyst storytelling & dashboard expansion | — (agents; reuses `0010` Report) | catalog/docs gates | Approved |
 | [0015-powerbi-dashboard-profile](0015-powerbi-dashboard-profile/) | Power BI dashboard profile (renders the shared dashboard spec) | `dashboard_spec.py`, `powerbi_profile.py` | `test_powerbi_profile.py` | Approved |
 | [0016-excel-react-dashboard-profiles](0016-excel-react-dashboard-profiles/) | Excel and React dashboard profiles (render the shared dashboard spec) | `excel_profile.py`, `react_profile.py` | `test_excel_react_profiles.py` | Approved |
+| [0017-dashboard-render-adapters](0017-dashboard-render-adapters/) | Executable render adapters — React scaffold + `.xlsx` writer | `adapters/dashboard_render/` (not `pipelines/`) | `test_dashboard_render_adapters.py` | Approved |
+| [0018-remaining-dashboard-profiles](0018-remaining-dashboard-profiles/) | Streamlit/Looker/Superset/Qlik renderers + Streamlit scaffolder | `bi_profiles.py`, `adapters/dashboard_render/streamlit_scaffold.py` | `test_bi_profiles.py` | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -48,7 +50,7 @@ traceability end to end. Copy its structure, not its content.
 - **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution.
 - **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
-  pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles — Power BI, Excel, React (communication layer).
+  pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration.
 - **Cross-cutting:** `0002` workflow memory; `0004` agent expansion.
 
@@ -59,4 +61,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0017`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0019`** (`0003`/`0005` belong to the local-only pack).

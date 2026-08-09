@@ -112,14 +112,16 @@ by the `knowledge` gate.
      (`specs/0015-powerbi-dashboard-profile/`), **Excel**, and **React**
      (`specs/0016-excel-react-dashboard-profiles/`), each mapping the *same* spec to a
      validated payload; `tooling/react` was added (Excel/Power BI reuse existing
-     agents). Live artifact generation is defined behind the adapter contract in
-     `adapters/dashboard_render/` (`xlsx.md`, `react_scaffold.md`) — a provider
-     implementation is the executable next step. **Open Data Analyst track:** the
-     remaining BI-tool profiles on the same `DashboardSpec` — **Streamlit** (Python-
-     native, the natural next one), then **Looker**, **Qlik**, **Superset** — plus a
-     `powerbi_publish` render adapter, provider implementations for
-     `adapters/dashboard_render/`, an optional `analytics/data_visualization` agent, and
-     optional continuous-metric / sequential experiment designs.
+     agents). Live artifact generation is shipped: the `adapters/dashboard_render/` contract
+     plus **executable providers** (specs `0017`/`0018`) — `scaffold_react`,
+     `write_xlsx` (openpyxl, lazy), and `scaffold_streamlit`, all dry-run-capable with a
+     checksum manifest and a no-secrets guard. **Dashboard track complete:** the shared
+     `DashboardSpec` now renders to **seven targets** — Power BI, Excel, React
+     (`0015`/`0016`) and Streamlit, Looker, Superset, Qlik (`0018`) — each with a
+     `tooling/` agent. **Open Data Analyst track:** executable emitters for
+     Looker/Superset/Qlik and a `powerbi_publish` provider (payload/agents exist), an
+     optional `analytics/data_visualization` agent, and optional continuous-metric /
+     sequential experiment designs.
    - **Data Engineer — first slice shipped.** The flagship node is built:
      `agents/data_engineering/pipeline_orchestration/` (a DAG runner with data
      contracts, idempotency, retries, backfill, and a run manifest), backed by
@@ -140,7 +142,8 @@ by the `knowledge` gate.
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
 7. **Remaining backing instructions** — risk_management, data_ingestion,
-   reproducibility, monitoring, pipeline_engineering.
+   reproducibility, monitoring. (`pipeline_engineering`, `metrics_semantic_layer`, and
+   `data_storytelling` are shipped.)
 8. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
 9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.

@@ -28,6 +28,12 @@ An `ExcelWorkbookPayload` from `render_excel` (spec `0016`,
 - Do not add panels, measures, or calculations beyond the payload; the design is
   fixed upstream.
 
+## Reference Implementation
+
+`quantsmith.adapters.dashboard_render.write_xlsx` (spec `0017`,
+`src/quantsmith/adapters/dashboard_render/xlsx.py`) implements this provider: it imports
+`openpyxl` lazily and supports `dry_run` without it.
+
 ## Result Evidence
 
 Capture the workbook path, checksum, byte size, sheet names, chart count, and

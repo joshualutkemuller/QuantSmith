@@ -270,6 +270,22 @@ risk concerns.
 | `trading_strategies/macro_multi_asset/` | Global macro, allocation, risk parity, tactical tilts |
 | `trading_strategies/market_making_microstructure/` | Liquidity provision, execution alpha, order-book strategies |
 
+## Asset Class Mechanics Agents (`asset_classes/`)
+
+Grouped in the `asset_classes/` category folder (see
+[`asset_classes/README.md`](asset_classes/README.md)); mechanics-only agents, one
+per asset class, that hand `trading_strategies/` and `securities_financing/` clean,
+point-in-time-correct market-structure and data inputs instead of duplicating
+mechanics guidance inside every archetype.
+
+| Agent | Handles | Typical strategy handoff |
+| --- | --- | --- |
+| `asset_classes/equities/` | Venues/sessions, corporate-action adjustment, point-in-time index membership, short-sale mechanics, settlement | `trading_strategies/momentum_trend`, `mean_reversion_statarb`, `value_factor`, `event_driven_arbitrage`; `securities_financing/securities_lending` |
+| `asset_classes/fixed_income_rates/` | Day-count/accrual conventions, clean vs dirty price, point-in-time curve construction, credit spreads/ratings, on-the-run status | `trading_strategies/carry`, `macro_multi_asset`, `event_driven_arbitrage`; `optimization/` |
+| `asset_classes/fx/` | Spot/forward/swap conventions, settlement/value dates, fixing-window risk, regional session structure | `trading_strategies/carry`, `macro_multi_asset` |
+| `asset_classes/commodities/` | Futures curve shape, roll mechanics and roll yield, physical delivery vs cash settlement, storage/carry cost, seasonality | `trading_strategies/carry`, `momentum_trend`, `macro_multi_asset` |
+| `asset_classes/digital_assets/` | Venue fragmentation, custody/counterparty risk, perpetual-funding mechanics, 24/7 session structure, on-chain/oracle risk | `trading_strategies/market_making_microstructure`, `momentum_trend`; `securities_financing/collateral_management` |
+
 ## Securities Financing Agents (`securities_financing/`)
 
 Grouped in the `securities_financing/` category folder; they make financing a

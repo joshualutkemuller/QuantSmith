@@ -13,9 +13,9 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![CI](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml/badge.svg)](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
-[![Agents: 122](https://img.shields.io/badge/Agents-122-6f42c1)](agents/README.md)
+[![Agents: 127](https://img.shields.io/badge/Agents-127-6f42c1)](agents/README.md)
 [![Quality Gates: 21](https://img.shields.io/badge/Quality%20Gates-21-2ea44f)](hooks/README.md)
-[![Specs: 19](https://img.shields.io/badge/Specs-19-0969da)](specs/README.md)
+[![Specs: 20](https://img.shields.io/badge/Specs-20-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
 <br/>
@@ -265,7 +265,7 @@ each. Uses the catalog as its routing table.
 </details>
 
 <details>
-<summary><b>🛠️ Tooling, 📚 knowledge, 📈 trading strategies, 💵 financing &amp; 🧮 formulaic alphas</b></summary>
+<summary><b>🛠️ Tooling, 📚 knowledge, 📈 trading strategies, 🌍 asset classes, 💵 financing &amp; 🧮 formulaic alphas</b></summary>
 
 <br/>
 
@@ -274,6 +274,8 @@ each. Uses the catalog as its routing table.
 **Knowledge** (`agents/knowledge/`) — `knowledge_ingestion/`, `knowledge_curation/`, `knowledge_retrieval/`, `institutional_memory/`: absorb, organize, retrieve, and persist institutional knowledge across domains — grounded, cited answers, access control and information barriers, provenance, and durable memory.
 
 **Trading strategies** (`agents/trading_strategies/`) — `momentum_trend/`, `mean_reversion_statarb/`, `carry/`, `value_factor/`, `volatility_options/`, `event_driven_arbitrage/`, `macro_multi_asset/`, `market_making_microstructure/`: design-and-review roles for the archetypes in *151 Trading Strategies* (Kakushadze & Serur).
+
+**Asset class mechanics** (`agents/asset_classes/`) — `equities/`, `fixed_income_rates/`, `fx/`, `commodities/`, `digital_assets/`: mechanics-only agents, one per asset class, covering settlement, sessions, conventions, corporate actions/roll, curve construction, and custody — handing `trading_strategies/` and `securities_financing/` clean, point-in-time-correct inputs instead of duplicating mechanics per archetype (spec `0022`).
 
 **Securities financing** (`agents/securities_financing/`) — `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost, short rebate, repo/funding, collateral and margin.
 
@@ -330,6 +332,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`model_development.md`](instructions/model_development.md) — how to build
 - [`model_validation.md`](instructions/model_validation.md) — how to validate
 - [`trading_strategies.md`](instructions/trading_strategies.md)
+- [`asset_class_mechanics.md`](instructions/asset_class_mechanics.md)
 - [`securities_financing.md`](instructions/securities_financing.md)
 - [`formulaic_alphas.md`](instructions/formulaic_alphas.md)
 

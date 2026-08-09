@@ -62,12 +62,16 @@ role, downstream of ingestion.
 | Agent | Handles | Feeds mainly |
 | --- | --- | --- |
 | `data_engineering/pipeline_orchestration/` | DAG design and execution — dependency ordering, per-step data contracts, idempotent partitioned runs, retries, backfill, run manifest | Design, Implementation, Testing |
+| `data_engineering/pipeline_observability/` | Freshness, SLAs, lineage, and data-downtime detection from the run manifest | Maintenance, Testing |
+| `data_engineering/data_modeling/` | Dimensional/warehouse modeling: grain, keys, star/snowflake, slowly-changing and conformed dimensions | Design |
+| `data_engineering/pipeline_builder/` | Compile source→transform→sink intent into a reviewable DAG with contracts, schedules, retries, tests, ownership, deployment plan | Design, Implementation |
+| `data_engineering/pipeline_deployment/` | Environment promotion, dry runs, canaries, rollback, state migration, scheduler deployment | Deployment |
+| `data_engineering/data_governance/` | Catalog, lineage, access policy, ownership, classification | Maintenance |
 
-Planned: `data_modeling`, `pipeline_observability`, `pipeline_builder`,
-`pipeline_deployment`, `data_governance`. Runtime:
-`src/quantsmith/pipelines/data_pipeline.py`; spec:
-`specs/0011-data-pipeline-orchestration/`; standard:
-`instructions/pipeline_engineering.md`.
+Runtimes: `src/quantsmith/pipelines/data_pipeline.py` (`0011`) and
+`src/quantsmith/pipelines/pipeline_observability.py` (`0019`); specs:
+`specs/0011-data-pipeline-orchestration/`, `specs/0019-pipeline-observability/`;
+standard: `instructions/pipeline_engineering.md`.
 
 ## Secrets Management Agents (`secrets_management/`)
 

@@ -39,6 +39,7 @@ stages.
 | `modeling/` | Model selection, leakage-free validation, error analysis | Design, Testing |
 | `backtest_review/` | Bias, costs, robustness, production-readiness of simulations | Testing |
 | `risk/` | Exposure, concentration, drawdown, tail/stress, risk limits | Testing, Deployment |
+| `portfolio_management/` | End-to-end portfolio lifecycle routing across mandate, universe, signal intake, allocation, implementation, risk, compliance, attribution, liquidity, tax, and governance | Planning, Design, Testing, Maintenance |
 | `git_release/` | Conventional commits, spec-traceable PRs, changelogs | Deployment |
 
 ## Ingestion Agents (`data_ingestion/`)
@@ -135,6 +136,35 @@ Runtimes: `src/quantsmith/pipelines/signal_monitoring.py` (`0021`),
 `src/quantsmith/pipelines/alerting.py` (`0020`); standards:
 `instructions/monitoring.md`, `instructions/alerting.md`; delivery via
 [`../adapters/alert_delivery/README.md`](../adapters/alert_delivery/README.md).
+
+## Portfolio Management Agents (`portfolio_management/`)
+
+Grouped in the `portfolio_management/` category folder; these agents cover the
+full portfolio operating lifecycle around the existing construction optimizer.
+They define the mandate, universe, signal intake, allocation policy, construction
+oversight, implementation, risk budget, compliance, attribution, liquidity, tax,
+monitoring, and governance responsibilities before target weights or trades are
+treated as controlled outputs.
+
+| Agent | Handles |
+| --- | --- |
+| `portfolio_management/pm_orchestrator/` | Routes portfolio-management work across mandate, universe, signal intake, allocation, construction, implementation, risk, attribution, and governance specialists. |
+| `portfolio_management/mandate_objectives/` | Portfolio objective, benchmark, horizon, constraints, fiduciary limits, stakeholder approvals, and non-goals. |
+| `portfolio_management/universe_selection/` | Eligible assets, filters, liquidity screens, corporate-action handling, survivorship controls, and coverage gaps. |
+| `portfolio_management/data_signal_intake/` | Forecasts, alphas, risk-model inputs, benchmark data, holdings, prices, point-in-time readiness, and confidence. |
+| `portfolio_management/allocation_policy/` | Capital allocation rules, risk budgets, sizing logic, factor tilts, rebalancing bands, and fallback baselines. |
+| `portfolio_management/construction_oversight/` | Optimization-ready objectives, constraints, costs, diagnostics, feasibility checks, and optimizer handoff. |
+| `portfolio_management/rebalance_trade_implementation/` | Target-weight-to-trade conversion, cash impacts, turnover controls, execution constraints, operations, and rollback. |
+| `portfolio_management/risk_budgeting/` | Factor, sector, issuer, liquidity, leverage, drawdown, stress, scenario, and tracking-error risk budgets. |
+| `portfolio_management/compliance_constraints/` | Investment guidelines, restricted lists, concentration rules, client exclusions, approvals, and exception handling. |
+| `portfolio_management/performance_attribution/` | Return, risk, cost, timing, sizing, selection, factor, benchmark, and residual attribution. |
+| `portfolio_management/liquidity_cash_management/` | Cash buffers, subscriptions/redemptions, liquidity tiers, funding, borrow, income, and forced-trade risk. |
+| `portfolio_management/tax_transition_management/` | Tax lots, wash-sale constraints, transition trades, legacy positions, realization budgets, and after-tax trade-offs. |
+| `portfolio_management/monitoring_governance/` | Live monitoring, breach triage, model/portfolio review cadence, run cards, ownership, and governance evidence. |
+
+Standard: `instructions/portfolio_management.md`. Construction math routes to
+`optimization/portfolio_construction/`; execution scheduling routes to
+`optimization/execution_optimization/`.
 
 ## Evening Content Workflow Pack
 

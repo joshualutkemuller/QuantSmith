@@ -13,9 +13,9 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![CI](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml/badge.svg)](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
-[![Agents: 122](https://img.shields.io/badge/Agents-122-6f42c1)](agents/README.md)
+[![Agents: 127](https://img.shields.io/badge/Agents-127-6f42c1)](agents/README.md)
 [![Quality Gates: 21](https://img.shields.io/badge/Quality%20Gates-21-2ea44f)](hooks/README.md)
-[![Specs: 19](https://img.shields.io/badge/Specs-19-0969da)](specs/README.md)
+[![Specs: 21](https://img.shields.io/badge/Specs-21-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
 <br/>
@@ -265,7 +265,7 @@ each. Uses the catalog as its routing table.
 </details>
 
 <details>
-<summary><b>🛠️ Tooling, 📚 knowledge, 📈 trading strategies, 💵 financing &amp; 🧮 formulaic alphas</b></summary>
+<summary><b>🛠️ Tooling, 📚 knowledge, 📈 trading strategies, 🌍 asset classes, 💵 financing &amp; 🧮 formulaic alphas</b></summary>
 
 <br/>
 
@@ -275,7 +275,9 @@ each. Uses the catalog as its routing table.
 
 **Trading strategies** (`agents/trading_strategies/`) — `momentum_trend/`, `mean_reversion_statarb/`, `carry/`, `value_factor/`, `volatility_options/`, `event_driven_arbitrage/`, `macro_multi_asset/`, `market_making_microstructure/`: design-and-review roles for the archetypes in *151 Trading Strategies* (Kakushadze & Serur).
 
-**Securities financing** (`agents/securities_financing/`) — `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost, short rebate, repo/funding, collateral and margin.
+**Asset class mechanics** (`agents/asset_classes/`) — `equities/`, `fixed_income_rates/`, `fx/`, `commodities/`, `digital_assets/`: mechanics-only agents, one per asset class, covering settlement, sessions, conventions, corporate actions/roll, curve construction, and custody — handing `trading_strategies/` and `securities_financing/` clean, point-in-time-correct inputs instead of duplicating mechanics per archetype (spec `0022`).
+
+**Securities financing** (`agents/securities_financing/`) — `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost, short rebate, repo/funding, collateral and margin. `securities_lending/` has a tested runtime — GC/WARM/HTB classification, LP inventory optimization, concentration risk (spec `0023`).
 
 **Formulaic alphas** (`agents/formulaic_alphas/`) — `alpha_construction/`, `alpha_combination/`, `alpha_evaluation/`: operationalize the methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — build tradable signals from an operator library, combine weakly-correlated alphas, and evaluate holding period, turnover, correlation, and capacity.
 
@@ -330,6 +332,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`model_development.md`](instructions/model_development.md) — how to build
 - [`model_validation.md`](instructions/model_validation.md) — how to validate
 - [`trading_strategies.md`](instructions/trading_strategies.md)
+- [`asset_class_mechanics.md`](instructions/asset_class_mechanics.md)
 - [`securities_financing.md`](instructions/securities_financing.md)
 - [`formulaic_alphas.md`](instructions/formulaic_alphas.md)
 
@@ -425,6 +428,7 @@ the [spec index](specs/README.md).
 | [`0019`](specs/0019-pipeline-observability/) | Pipeline observability — freshness, downtime, SLA, lineage | `pipeline_observability.py` |
 | [`0020`](specs/0020-alerting/) | Alerting — policy evaluation + routing | `alerting.py` |
 | [`0021`](specs/0021-signal-monitoring/) | Model/signal monitoring — drift, calibration, decay, regime | `signal_monitoring.py` |
+| [`0023`](specs/0023-securities-lending-workflow/) | Securities lending — borrow classification, LP inventory optimization, concentration risk | `quant/agentic_quant/sec_lending_workflow.py` *(not `pipelines/`; needs `numpy`)* |
 
 **Themed chains**
 
@@ -433,6 +437,7 @@ the [spec index](specs/README.md).
 - 📊 **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` pipeline → `0014` storytelling → `0015`/`0016`/`0018` dashboards → `0017` render adapters
 - 🏗️ **Data Engineer:** `0011` orchestration → `0019` observability
 - 🛰️ **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`
+- 💵 **Securities financing:** `0022` asset-class mechanics → `0023` securities lending → `financing_cost_analysis` → backtest/risk
 
 ---
 

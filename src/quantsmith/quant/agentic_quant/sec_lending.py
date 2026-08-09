@@ -443,11 +443,11 @@ class InventoryOptimizationAgent:
                 x = np.array(res.x)
                 status = "optimal"
             else:
-                x = self._greedy(notional, fee_per_notional)
+                x = self._greedy(notional, fee_per_notional, self._max_book)
                 status = "greedy_fallback"
 
         except ImportError:
-            x = self._greedy(notional, fee_per_notional)
+            x = self._greedy(notional, fee_per_notional, self._max_book)
             status = "greedy_scipy_missing"
 
         allocations = []
@@ -482,10 +482,20 @@ class InventoryOptimizationAgent:
 
     @staticmethod
     def _greedy(
-        notional: np.ndarray, fee_per_notional: np.ndarray
+        notional: np.ndarray, fee_per_notional: np.ndarray, max_book: float
     ) -> np.ndarray:
-        """Rank by fee density; allocate greedily."""
-        x = np.ones(len(notional))
+        """Rank by fee density; allocate greedily up to the balance-sheet cap.
+
+        Used when scipy is unavailable or the LP solve fails, so it must
+        respect the same balance-sheet constraint the LP does.
+        """
+        x = np.zeros(len(notional))
+        remaining = max_book
+        for i in np.argsort(-fee_per_notional):
+            if remaining <= 0 or notional[i] <= 0:
+                continue
+            x[i] = min(1.0, remaining / notional[i])
+            remaining -= notional[i] * x[i]
         return x
 
 

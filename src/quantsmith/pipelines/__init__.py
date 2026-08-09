@@ -84,6 +84,11 @@ from .optimization_solvers import (
     solve_lp,
     solve_milp,
 )
+from .pipeline_observability import (
+    ObservabilityReport,
+    StepHealth,
+    observe,
+)
 from .powerbi_profile import render_powerbi
 from .react_profile import (
     ReactComponent,
@@ -175,6 +180,10 @@ __all__ = [
     "StepResult",
     "backfill",
     "run",
+    # 0019 — pipeline observability
+    "ObservabilityReport",
+    "StepHealth",
+    "observe",
     # 0012 — execution scheduling
     "ExecutionSchedule",
     "optimal_schedule",

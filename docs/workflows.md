@@ -90,18 +90,21 @@ planning_requirements → sql-integration-agent → eda-specialist-agent
 Source → modeled, orchestrated, monitored, contract-backed data.
 
 ```
-data_ingestion/* (or sql-integration-agent) → data_modeling (planned)
-  → data_engineering/pipeline_orchestration → data-prep-agent
-  → data_quality + quality-guard-agent → pipeline_observability (planned)
+data_ingestion/* (or sql-integration-agent) → data_engineering/data_modeling
+  → pipeline_builder → data_engineering/pipeline_orchestration → data-prep-agent
+  → data_quality + quality-guard-agent → data_engineering/pipeline_observability
+  → pipeline_deployment ; data_governance (cross-cutting)
 ```
 
 - Standard: `instructions/data_quality.md`, `instructions/pipeline_engineering.md`,
   `templates/data/data_contract.md`.
 - Gates: `data-contract`, `repro`, `secret-scan`.
 - Secrets/access via `secrets_management/*`.
-- Worked example: `specs/0011-data-pipeline-orchestration/` — a DAG runner with data
+- Worked examples: `specs/0011-data-pipeline-orchestration/` — a DAG runner with data
   contracts, idempotency, retries, backfill, and a run manifest
-  (`src/quantsmith/pipelines/data_pipeline.py`).
+  (`src/quantsmith/pipelines/data_pipeline.py`); and
+  `specs/0019-pipeline-observability/` — reads that run manifest for freshness, data
+  downtime, SLA, and lineage (`src/quantsmith/pipelines/pipeline_observability.py`).
 
 ### Production Pipeline & Alerts (planned)
 

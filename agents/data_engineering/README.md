@@ -10,20 +10,23 @@ These agents sit downstream of ingestion in the Data Engineer chain (see
 `docs/workflows.md` → *Data Engineer*):
 
 ```text
-data_ingestion/* (or sql-integration-agent) -> data_modeling (planned)
-  -> data_engineering/pipeline_orchestration
+data_ingestion/* (or sql-integration-agent) -> data_modeling
+  -> pipeline_builder -> data_engineering/pipeline_orchestration
   -> data-prep-agent + data_quality
-  -> pipeline_observability (planned; consumes the run manifest)
+  -> pipeline_observability (consumes the run manifest)
+  -> pipeline_deployment ; data_governance (cross-cutting)
 ```
 
 ## Agents
 
 | Agent | Handles |
 | --- | --- |
-| `pipeline_orchestration/` | DAG design and execution — dependency ordering, data contracts per step, idempotent partitioned runs, retries, backfill, and a run manifest. |
-| `data_modeling/` (planned) | Dimensional/warehouse modeling: grain, keys, star/snowflake schemas, slowly-changing dimensions. |
-| `pipeline_observability/` (planned) | Freshness, SLAs, lineage, data-downtime detection from the run manifest. |
-| `pipeline_builder/`, `pipeline_deployment/`, `data_governance/` (planned) | Compile intent into a DAG; environment promotion/rollback; catalog, lineage, and access policy. |
+| `pipeline_orchestration/` | DAG design and execution — dependency ordering, data contracts per step, idempotent partitioned runs, retries, backfill, and a run manifest (spec `0011`). |
+| `pipeline_observability/` | Freshness, SLAs, lineage, and data-downtime detection from the run manifest (spec `0019`). |
+| `data_modeling/` | Dimensional/warehouse modeling: grain, keys, star/snowflake schemas, slowly-changing and conformed dimensions. |
+| `pipeline_builder/` | Compile a source → transform → sink intent into a reviewable DAG with contracts, schedules, retries, backfills, tests, ownership, and a deployment plan. |
+| `pipeline_deployment/` | Environment promotion, dry runs, canaries, rollback, state migration, and scheduler-specific deployment. |
+| `data_governance/` | Catalog, lineage, access policy, ownership, and classification. |
 
 ## Standard
 
@@ -40,7 +43,9 @@ contracts, and observability discipline.
   `src/quantsmith/pipelines/data_pipeline.py`); agent directories describe roles,
   prompts, instructions, and tasks.
 
-## Worked Example
+## Worked Examples
 
-`specs/0011-data-pipeline-orchestration/` — the DAG runner as a spec-driven,
-test-backed runtime workflow.
+- `specs/0011-data-pipeline-orchestration/` — the DAG runner as a spec-driven,
+  test-backed runtime workflow.
+- `specs/0019-pipeline-observability/` — reads the run manifest for freshness, data
+  downtime, SLA, and lineage (`src/quantsmith/pipelines/pipeline_observability.py`).

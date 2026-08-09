@@ -155,6 +155,23 @@ Tests: `tests/test_data_pipeline.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_data_pipeline.py -q
 ```
 
+## `pipeline_observability` — spec `0019-pipeline-observability`
+
+Reads the `RunManifest` the DAG runner (`0011`) emits and turns it into a health read:
+per-step status, freshness against a watermark, data-downtime detection, an SLA verdict,
+and a lineage view. Reuses `0011`; it observes, it does not re-orchestrate.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `observe` → `ObservabilityReport` | REQ-001/004 / NFR-002 | Per-step health, SLA verdict, and lineage; degraded on any breach. |
+| freshness / downtime | REQ-002/003 | Stale steps (behind the watermark) and failed-partition downtime flagged. |
+
+Tests: `tests/test_pipeline_observability.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_pipeline_observability.py -q
+```
+
 ## `execution_optimization` — spec `0012-execution-scheduling`
 
 Almgren-Chriss optimal execution: schedule a liquidation over a horizon, trading

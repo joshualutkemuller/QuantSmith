@@ -46,6 +46,7 @@ each with a matching test module under `tests/`.
 | [0021-signal-monitoring](0021-signal-monitoring/) | Model/signal monitoring — drift, calibration, decay, regime | `signal_monitoring.py` | `test_signal_monitoring.py` | Approved |
 | [0022-asset-class-mechanics-agents](0022-asset-class-mechanics-agents/) | Asset class mechanics agent expansion (equities, fixed income/rates/credit, FX, commodities, digital assets) | — (agent contracts) | catalog/docs gates | Approved |
 | [0023-securities-lending-workflow](0023-securities-lending-workflow/) | Securities lending workflow — borrow classification, LP inventory optimization, concentration risk | `quantsmith/quant/agentic_quant/sec_lending_workflow.py` (not `pipelines/`) | `test_sec_lending_workflow.py` | Approved |
+| [0024-role-operations-agents](0024-role-operations-agents/) | Role operations agent expansion, Phase 1 (meeting/status/scaffolding/research-scan toil, configurable, no company data) | — (agent contracts) | catalog/docs gates, `role-context` gate | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -59,7 +60,7 @@ traceability end to end. Copy its structure, not its content.
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
 - **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`.
 - **Securities financing:** `0022` asset-class mechanics (equities shorts) → `0023` securities lending workflow → `financing_cost_analysis` (agent-contract only) → `backtest_review`/`risk`.
-- **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`).
+- **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents (feed `research_analyst`/`implementation`, configurable via a local-only `role_context.yml`).
 
 ### Local-only specs
 
@@ -68,4 +69,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0024`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0025`** (`0003`/`0005` belong to the local-only pack).

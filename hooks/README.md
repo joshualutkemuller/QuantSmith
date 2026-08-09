@@ -49,6 +49,7 @@ pattern-based; tune them to your repository.
 | Spec index sync | `spec-index-check.sh` | `specs/README.md` |
 | Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
 | Workflow memory check | `memory-check.sh` | `memory/`, `agents/knowledge/` |
+| Role context check | `role-context-check.sh` | `templates/role_operations/role_context.yml`, `agents/role_operations/` |
 
 Each script:
 
@@ -114,6 +115,13 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pac
   that records carry provenance (`first_seen`, `last_confirmed`, `access_level`) and
   that memory holds no secrets, connection strings, or PII (memory is metadata only).
   See `instructions/workflow_memory.md` and `specs/0002-workflow-memory/`.
+- **`role-context-check.sh`** guards the configurable context for
+  `agents/role_operations/`: it deterministically flags a `role_context.yml`
+  that is tracked or staged (blocking under `QF_STAGE_ENFORCE=1`), reports the
+  shape of whatever context is resolved (`$QF_ROLE_CONTEXT`, then
+  `./role_context.yml`), and advisorially checks the shipped template for
+  placeholder hygiene. See `templates/role_operations/role_context.yml` and
+  `instructions/role_operations.md`.
 
 ## Spec-Driven Check
 
@@ -143,6 +151,7 @@ Behavior is controlled by environment variables:
 | `QF_DIFF_BASE=<ref>` | Diff changed files against `<ref>` (e.g. `origin/main`) instead of the working tree. |
 | `QF_KNOWLEDGE_SOURCES=<path>` | Path to a knowledge-source manifest for the `knowledge` gate. |
 | `QF_KNOWLEDGE_BASE=<paths>` | Colon-separated knowledge-base locations for the `knowledge` gate (ad-hoc, no manifest). |
+| `QF_ROLE_CONTEXT=<path>` | Path to a filled-in role-context file for the `role-context` gate and `agents/role_operations/` (local only; never commit it). |
 
 ## Wiring Into Git
 

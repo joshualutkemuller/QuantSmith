@@ -42,3 +42,15 @@ corporate actions on loaned securities.
 - Recall and buy-in risk, and their effect on holding the short.
 - Corporate actions on loaned stock (manufactured dividends, lost votes).
 - Capacity limited by availability, especially in specials.
+
+## Runtime
+
+A tested, runnable lending-desk pipeline exists for the classification, inventory,
+and risk mechanics this agent reviews (spec `0023-securities-lending-workflow`):
+`src/quantsmith/quant/agentic_quant/sec_lending_workflow.py` — universe
+construction → borrow-rate/GC-WARM-HTB classification → LP inventory
+optimization (balance-sheet- and counterparty-capped) → concentration risk →
+optional ML demand forecast/anomaly detection → report. Run it via
+`quantsmith-sec-lending` or `python -m quantsmith.quant.agentic_quant`. This
+agent's review themes (point-in-time borrow rates, recall/buy-in risk,
+corporate actions) still require human judgment the runtime does not automate.

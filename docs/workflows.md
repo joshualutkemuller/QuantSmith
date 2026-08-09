@@ -60,6 +60,32 @@ design_architecture (plan) → implementation (build) → testing_validation (ve
 - Gates: `implementation`, `leakage`, `repro`, `testing`, `backtest`.
 - Reproducibility is captured in a run card (`templates/docs/run_card.md`).
 
+### Securities Lending & Financing
+
+Lending-desk data → classified borrow rates, optimized inventory, and a
+concentration-risk-flagged report; financing costs feed backtest and risk review.
+
+```text
+asset_classes/equities (shorts mechanics) → securities_financing/securities_lending
+  → securities_financing/financing_cost_analysis → backtest_review → risk
+```
+
+- Standard: `instructions/securities_financing.md`, `instructions/asset_class_mechanics.md`.
+- Gates: `spec`, `repro`, `secret-scan`; the `backtest` gate's financing theme prices
+  shorts realistically.
+- Group workflow (agent-contract steps, all three financing agents feed into
+  `financing_cost_analysis`): [Securities
+  Financing](../agents/securities_financing/README.md#group-workflow).
+- Worked example: `specs/0023-securities-lending-workflow/` runs the lending-desk
+  chain end to end — universe construction → GC/WARM/HTB borrow-rate
+  classification → LP inventory optimization under a balance-sheet cap →
+  counterparty/single-name concentration risk → optional ML demand forecast and
+  anomaly detection → report
+  (`src/quantsmith/quant/agentic_quant/sec_lending_workflow.py`; CLI:
+  `quantsmith-sec-lending`). `financing_cost_analysis`,
+  `repo_financing`, and `collateral_management` remain agent-contract-only until a
+  future spec promotes them the same way.
+
 ### Data Analyst
 
 Business question → validated, communicated answer.
@@ -272,10 +298,13 @@ mini-map:
 | [Analytics](../agents/analytics/README.md#group-workflow) | Define metrics → design/read out experiments; feeds dashboards and reports |
 | Content (`evening_quant_content_twitter/agents/content/README.md`, local-only pack) | Orchestrate → research context → generate angles → package posts/visuals/memes → review → update memory |
 
-Parallel catalogs such as `trading_strategies/` and `tooling/` intentionally do
-not have workflow maps: their members are alternatives, not ordered stages. The
-lifecycle agents use the SDD backbone above, and the analytics pipeline retains
-its dedicated blueprint.
+Parallel catalogs such as `trading_strategies/`, `asset_classes/`, and `tooling/`
+intentionally do not have workflow maps: their members are alternatives, not
+ordered stages. A request naming both a strategy archetype and an asset class
+routes through the matching `asset_classes/` agent first (mechanics), then the
+matching `trading_strategies/` agent (design/review) — see
+`agents/asset_classes/README.md`. The lifecycle agents use the SDD backbone above,
+and the analytics pipeline retains its dedicated blueprint.
 
 ## Related Maps
 

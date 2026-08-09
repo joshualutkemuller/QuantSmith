@@ -212,6 +212,27 @@ optimization_orchestrator -> problem_formulation -> optimization specialist
   (LP, MILP, min-cost flow, dynamic programming) in
   `src/quantsmith/pipelines/optimization_solvers.py`.
 
+### Portfolio Management Lifecycle
+
+Mandate -> universe -> signal intake -> allocation policy -> construction oversight -> rebalance implementation -> monitored governance.
+
+```text
+pm_orchestrator -> mandate_objectives -> universe_selection
+  -> data_signal_intake -> allocation_policy -> construction_oversight
+  -> rebalance_trade_implementation -> monitoring_governance
+```
+
+- Standard: `instructions/portfolio_management.md`.
+- Specialist reviews cover mandate, universe, signal readiness, allocation policy,
+  construction oversight, implementation, risk budgeting, compliance, attribution,
+  liquidity/cash, tax/transition, monitoring, and governance.
+- Construction-specific optimization still routes through
+  `optimization/portfolio_construction`; execution scheduling routes through
+  `optimization/execution_optimization`.
+- Gates: `spec`, `data-contract`, `leakage`, `backtest`, `testing`, and
+  `maintenance`, depending on whether the workflow is research-only, target-weight
+  generation, trade implementation, or live monitoring.
+
 ### Machine Learning Build
 
 Decision -> label/feature design -> validated model -> monitored production candidate.

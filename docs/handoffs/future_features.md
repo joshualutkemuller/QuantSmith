@@ -23,13 +23,13 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | BI-tool profiles: `tooling/streamlit_dash`, `tooling/looker`, `tooling/qlik`, `tooling/superset` | Thin profiles that render the shared dashboard spec from `dashboard_design`. **Shipped** (`specs/0018-remaining-dashboard-profiles/`): renderers + four agents; Streamlit also has an executable scaffolder. With Power BI/Excel/React (`0015`/`0016`), the shared spec now renders to seven targets. Remaining: executable emitters for Looker/Superset/Qlik | P2 | done |
 | `adapters/dashboard_render/` provider implementations | Executable providers behind the contract. Shipped: `scaffold_react`, `write_xlsx` (specs `0017`), and `scaffold_streamlit` (`0018`). Remaining: `powerbi_publish`, Looker/Superset/Qlik emitters, and a hosted-deploy step | P2 | in-progress |
 | `agents/analytics/data_visualization/` | Single-chart encoding/color/accessibility, split from `dashboard_design` if it grows too broad (spec `0014` track) | P3 | proposed |
-| `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules | P1 | proposed |
-| `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection | P1 | proposed |
-| `agents/alerts/incident_notification/` | Actionable notifications, acknowledgement/recovery lifecycle, evidence and runbook links | P1 | proposed |
+| `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules. **Shipped**: agent + `instructions/alerting.md` + spec `specs/0020-alerting/` + tested runtime `src/quantsmith/pipelines/alerting.py` (`evaluate_policies`) | P1 | done |
+| `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection. **Shipped**: agent + `route` (spec `0020`); delivery via `adapters/alert_delivery/` | P1 | done |
+| `agents/alerts/incident_notification/` | Actionable notifications, acknowledgement/recovery lifecycle, evidence and runbook links. **Shipped**: agent (spec `0020`) | P1 | done |
 | Provider implementations for `adapters/alert_delivery/` | Executable email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear integrations behind the adapter contract | P1 | proposed |
-| `agents/monitoring/pipeline_monitoring/` | DAG status, dependencies, freshness, latency, backlogs, retries, partial writes, idempotency, and SLOs | P1 | proposed |
-| `agents/monitoring/model_signal_monitoring/` | Quality, calibration, feature drift, alpha decay, turnover/capacity, and regime change | P1 | proposed |
-| `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails | P2 | proposed |
+| `agents/monitoring/pipeline_monitoring/` | DAG status, dependencies, freshness, latency, backlogs, retries, partial writes, idempotency, and SLOs. **Shipped**: agent (reads the `0019` run manifest) | P1 | done |
+| `agents/monitoring/model_signal_monitoring/` | Quality, calibration, feature drift, alpha decay, turnover/capacity, and regime change. **Shipped**: agent + `instructions/monitoring.md` + spec `specs/0021-signal-monitoring/` + tested runtime `src/quantsmith/pipelines/signal_monitoring.py` | P1 | done |
+| `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails. Agent shipped; executable cost runtime is a follow-up | P2 | in-progress |
 | `evening_quant_content_twitter/` evening content workflow pack | Configurable 10:30 PM ET quant content workflow that produces ranked X/Twitter ideas, threads, visual specs, meme concepts, source notes, claim review, local draft artifacts, and a cron profile without automatic posting; see `evening_quant_content_twitter/docs/handoff.md`, `evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`, and `evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/` | P1 | done |
 | Normalize `agents/quant_analyst/` | Keep `agents/quant_analyst/` as a four-file agent contract and promote runtime Python into `src/quantsmith/` | P2 | shipped |
 
@@ -66,7 +66,7 @@ belong under profiles/adapters unless they require materially different behavior
 | `instructions/reproducibility.md` | Operationalize P4 for the `repro` gate and run card | P2 | proposed |
 | `instructions/monitoring.md` | Standard behind `maintenance_monitoring` and the monitoring plan | P3 | proposed |
 | `instructions/pipeline_engineering.md` | DAG, idempotency, retry/backfill, environment, data-contract, lineage, and deployment standard | P1 | proposed |
-| `instructions/alerting.md` | Channel-neutral alert schema, severity, routing, suppression, acknowledgement, escalation, and privacy | P1 | proposed |
+| `instructions/alerting.md` | Channel-neutral alert schema, severity, routing, suppression, acknowledgement, escalation, and privacy. **Shipped** (spec `0020`) | P1 | done |
 
 ## Gates
 
@@ -74,8 +74,8 @@ belong under profiles/adapters unless they require materially different behavior
 | --- | --- | --- | --- |
 | `hooks/stages/ingestion-snapshot-check.sh` | Verify ingestion captures a snapshot/checksum | P3 | proposed |
 | `hooks/stages/pipeline-contract-check.sh` | Verify DAG ownership, inputs/outputs, schedule, retry/backfill, idempotency, and runbook metadata. **Shipped**: validates a pipeline manifest (`templates/data/pipeline_manifest.md`); enforced in CI, skips when absent | P2 | done |
-| `hooks/stages/alert-contract-check.sh` | Verify event schema, owner, severity, deduplication, runbook, redaction, and test route | P2 | proposed |
-| `hooks/stages/monitoring-coverage-check.sh` | Verify each production risk has a metric, threshold/baseline, owner, alert, runbook, and review cadence | P2 | proposed |
+| `hooks/stages/alert-contract-check.sh` | Verify event schema, owner, severity, deduplication, runbook, redaction, and test route. **Shipped** (`templates/data/alert_policy.md`; enforced in CI, skips when absent) | P2 | done |
+| `hooks/stages/monitoring-coverage-check.sh` | Verify each production risk has a metric, threshold/baseline, owner, alert, runbook, and review cadence. **Shipped** (`templates/docs/model_monitoring_plan.md`; enforced in CI, skips when absent) | P2 | done |
 | Stricter notebook-output gate | Beyond the current `implementation` check | P3 | proposed |
 | Enforce `leakage` in CI | Currently advisory (heuristic); revisit once patterns are tuned | P3 | proposed |
 

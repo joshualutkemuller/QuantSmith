@@ -73,7 +73,7 @@ belong under profiles/adapters unless they require materially different behavior
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
 | `hooks/stages/ingestion-snapshot-check.sh` | Verify ingestion captures a snapshot/checksum | P3 | proposed |
-| `hooks/stages/pipeline-contract-check.sh` | Verify DAG ownership, inputs/outputs, schedule, retry/backfill, idempotency, and runbook metadata | P2 | proposed |
+| `hooks/stages/pipeline-contract-check.sh` | Verify DAG ownership, inputs/outputs, schedule, retry/backfill, idempotency, and runbook metadata. **Shipped**: validates a pipeline manifest (`templates/data/pipeline_manifest.md`); enforced in CI, skips when absent | P2 | done |
 | `hooks/stages/alert-contract-check.sh` | Verify event schema, owner, severity, deduplication, runbook, redaction, and test route | P2 | proposed |
 | `hooks/stages/monitoring-coverage-check.sh` | Verify each production risk has a metric, threshold/baseline, owner, alert, runbook, and review cadence | P2 | proposed |
 | Stricter notebook-output gate | Beyond the current `implementation` check | P3 | proposed |
@@ -83,10 +83,10 @@ belong under profiles/adapters unless they require materially different behavior
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
-| Expand `docs/adoption_guide.md` | Full walkthrough with per-project-type recipes | P1 | proposed |
+| Expand `docs/adoption_guide.md` | Full walkthrough with per-project-type recipes — **shipped** (covers the `quantsmith` package and the scaffold, gate wiring, and recipes) | P1 | done |
 | Copier-style sync CLI | Selective install + update per `docs/packaging.md` | P2 | proposed |
 | More worked examples | Forecast spec shipped (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end and an ingestion example that emits a data contract | P2 | in-progress |
-| `CHANGELOG.md` + versioning policy | Once the SDK is consumed by other repos | P2 | proposed |
+| `CHANGELOG.md` + versioning policy | **Shipped** — Keep a Changelog format + a SemVer-style policy in `CHANGELOG.md`; `docs/packaging.md` updated to the active package phase | P2 | done |
 | Visual workflow diagram | A rendered diagram of `docs/workflows.md` | P3 | proposed |
 
 ## Recently Shipped (for reference)

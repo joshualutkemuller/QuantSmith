@@ -1,14 +1,45 @@
 # Packaging & Distribution Decision Record
 
-- **Status:** Accepted (direction set; phased)
-- **Decision:** Formalize the copyable template now; add a Copier-style sync CLI
-  when update pain is real; reach for a Python package only when there is real
-  executable logic to ship.
-- **Last updated:** 2026-07-17
+- **Status:** Accepted (direction set; phased) — **package phase now active**
+- **Decision:** A **hybrid**: distribute the runtimes as a versioned Python package
+  (`quantsmith`) and the Markdown/shell scaffold as a copyable template. A Copier-style
+  sync CLI is still deferred until update pain is real.
+- **Last updated:** 2026-08-08
 
 This record answers the open question "should the SDK be a Python package, a CLI
-scaffold, or a copyable repo template?" It is a decision record, not a tutorial;
-the adoption mechanics belong in `docs/adoption_guide.md` (to be written).
+scaffold, or a copyable repo template?" It is a decision record, not a tutorial; the
+adoption mechanics live in `docs/adoption_guide.md`.
+
+## Update (2026-08-08) — real code now exists
+
+The original record below reasoned about an SDK that "ships almost no code." **That
+premise has changed.** The repo now contains a pip-installable package (`quantsmith`,
+`pyproject.toml`) with ~20 tested reference runtimes under `src/quantsmith/pipelines/`
+and `src/quantsmith/adapters/`, a `tests/` suite, and a CI job that installs the
+package and runs it. Step 3 of the sequence below — "a Python package only once there
+is real executable logic" — has therefore **triggered**.
+
+The SDK is now explicitly two layers, distributed two ways:
+
+| Layer | Content | Distribution |
+| --- | --- | --- |
+| Runtimes | `src/quantsmith/` (importable, tested) | **Python package** — pin a version, `pip install` |
+| Scaffold | agents, instructions, prompts, templates, `hooks/stages/*`, `specs/*` | **Template** — copy & own, tune the gates locally |
+
+This does not overturn the original analysis; it advances the sequence. The template
+still carries the ~95% that is Markdown/shell; the package now carries the code that
+earned it. The Copier CLI (step 2) remains the future move when multiple teams need
+to sync reference content without clobbering local tuning.
+
+### Package specifics (as shipped)
+
+- Name `quantsmith`; core depends only on `numpy`. Extras: `quant` (scipy),
+  `data` (pandas), `dev` (pytest, openpyxl). Most `pipelines/*` runtimes are
+  standard-library-only and need no extras.
+- Console scripts under `[project.scripts]` for the agentic-quant CLIs.
+- Versioned per `CHANGELOG.md`; consumers pin a version or Git tag.
+
+The remainder of this record is the original reasoning, preserved.
 
 ## Context
 
@@ -105,10 +136,10 @@ Treat packaging as a **sequence**, not a single choice:
    update pain. Implement the hybrid: scaffold owned files once, sync pinned
    reference content on demand, support selective agent/gate installation. This is
    where the SDK's scale (21 agents, 14 gates) pays off.
-3. **Later — a Python package** only once there is real executable logic worth
-   shipping (e.g. replacing regex leakage/secret heuristics with an AST/entropy
-   engine). The package then ships that engine plus the CLI; the Markdown stays
-   template-distributed.
+3. **Now active — a Python package.** Real executable logic exists (the reference
+   runtimes under `src/quantsmith/`, with tests and CI), so the package phase has
+   arrived ahead of a bespoke leakage engine. `quantsmith` ships the runtimes; the
+   Markdown/shell scaffold stays template-distributed. See the *Update* section above.
 
 **Trap to avoid:** jumping straight to a pip package because it feels more
 finished. It adds a runtime dependency and a `site-packages` indirection to a
@@ -130,8 +161,11 @@ Earn the package with code.
 
 ## Consequences
 
-- The immediate next deliverable is `docs/adoption_guide.md`, not tooling.
-- Keep the reference/owned split visible as the SDK grows, so a future `qf sync`
-  can update reference content without touching tuned gates.
-- Do not add a packaging manifest or publish to a registry until step 2/3 is
-  triggered by real demand.
+- `docs/adoption_guide.md` is written and now covers **both** layers — installing the
+  package and copying the scaffold.
+- The package (`pyproject.toml`) and `CHANGELOG.md` are in place; consumers pin a
+  version or Git tag. Publishing to PyPI is optional and not yet done — install from a
+  Git tag until there is demand for a registry release.
+- Keep the reference/owned split visible as the SDK grows, so a future `qf sync` can
+  update reference (package + Markdown) content without touching tuned gates.
+- The Copier `qf` CLI (step 2) remains deferred until multiple teams feel update pain.

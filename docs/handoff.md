@@ -129,22 +129,27 @@ by the `knowledge` gate.
      `data_modeling`, `pipeline_builder`, `pipeline_deployment`, and `data_governance`
      as design/review agents. The Data Engineer chain in `docs/workflows.md` has no
      remaining `(planned)` nodes. Backed by `instructions/pipeline_engineering.md`.
-     **Open Data Engineer track:** executable runtimes for the four design/review nodes
-     as they are needed, a `pipeline-contract-check.sh` gate (DAG ownership/schedule/
-     retry/runbook metadata), and per-step SLA thresholds. The
-     `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain runtime
-     not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
-4. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
-   installing the SDK into an existing quant repo.
-5. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync
-   CLI later, package only with real code).
+     Follow-ups closed: the **`pipeline-contract-check.sh` gate** (validates a pipeline
+     manifest against `templates/data/pipeline_manifest.md`; enforced in CI, skips when
+     absent) and **per-step SLA thresholds** in `observe` (`0019`). The four
+     design/review nodes (`data_modeling`, `pipeline_builder`, `pipeline_deployment`,
+     `data_governance`) get executable runtimes only when a concrete workflow needs
+     one. The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain
+     runtime not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
+4. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
+   layers: `pip install quantsmith` + using the runtimes, and copying the scaffold +
+   wiring the gates, with per-project-type recipes.
+5. **Packaging** — done (package phase active). `docs/packaging.md` records the hybrid
+   (versioned `quantsmith` package for the runtimes + template for the scaffold);
+   `CHANGELOG.md` and a versioning policy are in place. Remaining optional step: the
+   Copier `qf` sync CLI, and an optional PyPI release when there is demand.
 6. **More worked examples** — the forecast spec is done
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
 7. **Remaining backing instructions** — risk_management, data_ingestion,
    reproducibility, monitoring. (`pipeline_engineering`, `metrics_semantic_layer`, and
    `data_storytelling` are shipped.)
-8. **`CHANGELOG.md`** and a versioning policy once the SDK is consumed elsewhere.
+8. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
 9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
 

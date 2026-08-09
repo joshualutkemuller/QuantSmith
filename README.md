@@ -220,6 +220,7 @@ each. Uses the catalog as its routing table.
 - [`modeling/`](agents/modeling/): model selection, leakage-free validation design, error analysis, and overfitting assessment.
 - [`backtest_review/`](agents/backtest_review/): reviews historical simulations for bias, execution realism, robustness, risk, and production-readiness.
 - [`risk/`](agents/risk/): factor exposure, concentration, drawdown, tail/stress risk, and monitorable risk limits.
+- [`portfolio_management/`](agents/portfolio_management/): manages the full PM lifecycle from mandate and universe through signal intake, allocation, construction oversight, implementation, risk, compliance, attribution, liquidity, tax, monitoring, and governance.
 - [`git_release/`](agents/git_release/): keeps commits, PRs, changelogs, and release records clean and traceable to the spec.
 
 </details>
@@ -332,6 +333,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`model_development.md`](instructions/model_development.md) — how to build
 - [`model_validation.md`](instructions/model_validation.md) — how to validate
 - [`trading_strategies.md`](instructions/trading_strategies.md)
+- [`portfolio_management.md`](instructions/portfolio_management.md)
 - [`asset_class_mechanics.md`](instructions/asset_class_mechanics.md)
 - [`securities_financing.md`](instructions/securities_financing.md)
 - [`formulaic_alphas.md`](instructions/formulaic_alphas.md)
@@ -433,6 +435,7 @@ the [spec index](specs/README.md).
 **Themed chains**
 
 - 🔬 **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution
+- 📌 **Portfolio management:** mandate → universe → signal intake → allocation policy → construction oversight → implementation → monitored governance
 - 🧮 **Optimization toolkit:** `0007` (QP) · `0013` (LP/MILP/flow/DP) · `0012` (control)
 - 📊 **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` pipeline → `0014` storytelling → `0015`/`0016`/`0018` dashboards → `0017` render adapters
 - 🏗️ **Data Engineer:** `0011` orchestration → `0019` observability

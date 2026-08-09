@@ -299,6 +299,11 @@ costs and risks.
 | `securities_financing/collateral_management/` | Eligibility, haircuts, margin, collateral optimization, rehypothecation, regulatory impact | Deployment |
 | `securities_financing/financing_cost_analysis/` | All-in cost of carry, borrow/rebate/funding netting, financing-aware backtesting | Testing |
 
+`securities_lending/` has a tested runtime (spec `0023-securities-lending-workflow`):
+`src/quantsmith/quant/agentic_quant/sec_lending_workflow.py` — universe
+construction, GC/WARM/HTB classification, LP inventory optimization, and
+concentration risk; run via `quantsmith-sec-lending`.
+
 ## Formulaic Alpha Agents (`formulaic_alphas/`)
 
 Grouped in the `formulaic_alphas/` category folder; they operationalize the

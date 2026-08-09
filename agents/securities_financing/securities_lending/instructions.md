@@ -30,5 +30,7 @@ Borrow assumptions become spec criteria: "borrow cost netted", "point-in-time bo
 rates", and "capacity reflects availability" become `AC-*`/`NFR-*`; recall, buy-in,
 and specials risk become `RISK-*`. Point-in-time borrow data is enforced by
 `instructions/point_in_time.md`; short-cost realism by the `backtest` gate's
-financing theme. See `instructions/securities_financing.md`. Hands off to
-`financing_cost_analysis`, `backtest_review`, and `risk`.
+financing theme. See `instructions/securities_financing.md`. The classification,
+inventory-optimization, and concentration-risk mechanics have a tested runtime in
+`specs/0023-securities-lending-workflow/`. Hands off to `financing_cost_analysis`,
+`backtest_review`, and `risk`.

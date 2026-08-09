@@ -252,6 +252,23 @@ grounding, citations, access control, and provenance.
 | `knowledge/knowledge_retrieval/` | Grounded, cited answers respecting the asker's access level and information barriers | Cross-cutting |
 | `knowledge/institutional_memory/` | Persisting decisions, lessons, glossary, and FAQs as durable, referenceable artifacts | Maintenance, cross-cutting |
 
+## Role Operations Agents (`role_operations/`)
+
+Grouped in the `role_operations/` category folder (see
+[`role_operations/README.md`](role_operations/README.md)); a quant/data-science
+lead's operational overhead — meeting follow-ups, status updates, prototype
+setup, first-pass research scans — absorbed so more time goes to model scoping
+and research. Configurable via a local, gitignored `role_context.yml`
+(spec `0024`, Phase 1 of a four-pillar roster); this repository never carries
+real platform, client, or personal data (`role-context` gate).
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `role_operations/meeting_to_action/` | Notes/transcript → decisions, owners, open items, a draft follow-up | Cross-cutting |
+| `role_operations/status_rollup/` | Recent activity → a draft status update, blocked items stated plainly | Cross-cutting |
+| `role_operations/rapid_scaffolder/` | New idea → repo skeleton, data-contract stub, naive baseline plan | Planning, Implementation |
+| `role_operations/prior_art_scanner/` | Hypothesis → related approaches, failure modes, open questions | Planning |
+
 ## Trading Strategy Agents (`trading_strategies/`)
 
 Grouped in the `trading_strategies/` category folder; they operationalize the

@@ -26,3 +26,10 @@ build/
 # Local logs
 *.log
 agents.zip
+
+# Local role context (agents/role_operations/) -- may carry real platform,
+# team, or data specifics once filled in; never commit it. Anchored to the
+# repo root so it does not also hide templates/role_operations/role_context.yml,
+# the committed, placeholders-only template.
+/role_context.yml
+/role_context.yaml

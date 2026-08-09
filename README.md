@@ -285,8 +285,9 @@ to diff against a base branch. See `hooks/README.md` for wiring into Git and CI.
 - `evening_quant_content_twitter/`: self-contained evening quant X/Twitter workflow pack.
 - `evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`: configurable evening quant content workflow spec.
 - `evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/`: runnable local draft-pack pipeline spec.
-- `docs/adoption_guide.md`: how to install the SDK into an existing quant repo.
-- `docs/packaging.md`: packaging & distribution decision record.
+- `docs/adoption_guide.md`: how to adopt the SDK — the `quantsmith` package and the scaffold — into an existing quant repo.
+- `docs/packaging.md`: packaging & distribution decision record (hybrid: package + template).
+- `CHANGELOG.md`: release history and the versioning policy.
 - `agentic_dictionary.md`: definitions for the SDK vocabulary.
 
 ## Recommended Next Steps

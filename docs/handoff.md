@@ -129,11 +129,13 @@ by the `knowledge` gate.
      `data_modeling`, `pipeline_builder`, `pipeline_deployment`, and `data_governance`
      as design/review agents. The Data Engineer chain in `docs/workflows.md` has no
      remaining `(planned)` nodes. Backed by `instructions/pipeline_engineering.md`.
-     **Open Data Engineer track:** executable runtimes for the four design/review nodes
-     as they are needed, a `pipeline-contract-check.sh` gate (DAG ownership/schedule/
-     retry/runbook metadata), and per-step SLA thresholds. The
-     `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain runtime
-     not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
+     Follow-ups closed: the **`pipeline-contract-check.sh` gate** (validates a pipeline
+     manifest against `templates/data/pipeline_manifest.md`; enforced in CI, skips when
+     absent) and **per-step SLA thresholds** in `observe` (`0019`). The four
+     design/review nodes (`data_modeling`, `pipeline_builder`, `pipeline_deployment`,
+     `data_governance`) get executable runtimes only when a concrete workflow needs
+     one. The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain
+     runtime not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
 4. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
 5. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync

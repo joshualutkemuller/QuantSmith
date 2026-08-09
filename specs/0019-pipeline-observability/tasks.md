@@ -21,6 +21,7 @@
 | T-001 | Implement per-step health from the manifest (`StepHealth`, grouping). | REQ-001, NFR-001, NFR-003 | done | `pipeline_observability` | Counts, latest ok partition, attempts. |
 | T-002 | Implement freshness (vs watermark) and downtime detection. | REQ-002, REQ-003, NFR-002 | done | `pipeline_observability` | Stale and downtime flags + breaches. |
 | T-003 | Implement the SLA verdict and lineage from the pipeline. | REQ-004, NFR-002 | done | `pipeline_observability` | `healthy`/`degraded` + lineage map. |
+| T-004 | Accept per-step watermarks and attempt SLAs (`_per_step`). | REQ-005 | done | `pipeline_observability` | Scalar or `{step: value}` dict. |
 
 Status values: `todo` | `in-progress` | `blocked` | `done`.
 
@@ -36,10 +37,13 @@ Runtime: `src/quantsmith/pipelines/pipeline_observability.py` (`observe`,
 | AC-003 | `tests/test_pipeline_observability.py::test_downtime_AC_003` | done |
 | AC-004 | `tests/test_pipeline_observability.py::test_sla_and_lineage_AC_004` | done |
 | AC-005 | `tests/test_pipeline_observability.py::test_deterministic_AC_005` | done |
+| AC-006 | `tests/test_pipeline_observability.py::test_per_step_thresholds_AC_006` | done |
 
 ## Follow-ups
 
-- Per-step SLA thresholds and a `pipeline-contract-check.sh` gate (DAG ownership,
-  schedule, retry/backfill, idempotency, runbook metadata).
-- Executable runtimes for the other Data Engineer nodes (`data_modeling`,
-  `pipeline_builder`, `pipeline_deployment`, `data_governance`) as they are needed.
+- Per-step SLA thresholds — **done** (`observe` accepts scalar or per-step dicts).
+- `pipeline-contract-check.sh` gate — **done** (validates a pipeline manifest against
+  `templates/data/pipeline_manifest.md`; enforced in CI, skips when absent).
+- The other Data Engineer nodes (`data_modeling`, `pipeline_builder`,
+  `pipeline_deployment`, `data_governance`) are design/review agents; add executable
+  runtimes only when a concrete workflow needs one.

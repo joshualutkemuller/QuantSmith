@@ -100,6 +100,28 @@ def test_deterministic_AC_005():
     assert a == b
 
 
+# --- AC-006: per-step watermarks and attempt SLAs ---
+
+
+def test_per_step_thresholds_AC_006():
+    manifest = run(build_pipeline(), partitions=[1, 2, 3])  # both steps reach 3
+    # Per-step watermarks: source must reach 3 (ok), double must reach 5 (stale).
+    report = observe(manifest, watermark={"source": 3, "double": 5})
+    assert report.health_of("source").fresh is True
+    assert report.health_of("double").fresh is False
+    assert report.freshness_breaches == ["double"]
+
+    # A step omitted from the watermark dict only needs to have produced data.
+    partial = observe(manifest, watermark={"double": 3})
+    assert partial.health_of("source").fresh is True   # no watermark, has data
+    assert partial.health_of("double").fresh is True
+
+    # Per-step attempt SLA.
+    strict = observe(manifest, watermark=3, max_attempts_sla={"source": 0})
+    assert strict.sla_ok is False
+    assert any("attempts" in b for b in strict.sla_breaches)
+
+
 # --- reuse check: observability reads a backfill manifest too ---
 
 

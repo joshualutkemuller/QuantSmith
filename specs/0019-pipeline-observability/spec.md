@@ -41,6 +41,7 @@ detection, an SLA verdict, and a lineage view — without re-orchestrating anyth
 | REQ-002 | Evaluate freshness against a watermark and flag steps whose latest successful partition is behind it. | must |
 | REQ-003 | Detect data downtime — a step with a failed partition — and list the downtime steps. | must |
 | REQ-004 | Produce an SLA verdict (stale, downtime, or attempts over budget = degraded) and a lineage map from the pipeline dependencies. | must |
+| REQ-005 | Accept per-step thresholds — a `{step: value}` watermark and max-attempts SLA — falling back to a single value for all steps. | should |
 
 ## Non-Functional Requirements
 
@@ -59,6 +60,7 @@ detection, an SLA verdict, and a lineage view — without re-orchestrating anyth
 | AC-003 | Given a manifest with a failed partition, when observed, then the step is flagged as data downtime; a clean run has none. | REQ-003 |
 | AC-004 | Given a pipeline and a max-attempts SLA, when observed, then the SLA verdict reflects staleness/downtime/attempts and the lineage matches the DAG dependencies. | REQ-004, NFR-002 |
 | AC-005 | Given the same manifest and watermark, when observed twice, then the reports are identical. | NFR-001 |
+| AC-006 | Given per-step watermarks and attempt SLAs, when observed, then each step is judged against its own threshold, and a step omitted from a dict only needs to have produced data. | REQ-005 |
 
 ## Data & Dependencies
 

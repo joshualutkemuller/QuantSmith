@@ -25,7 +25,7 @@
 
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
-ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract pipeline-contract alert-contract monitoring-coverage content-draft-pack secret-scan docs-link agent-catalog spec-index knowledge memory"
+ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract pipeline-contract alert-contract monitoring-coverage content-draft-pack secret-scan docs-link agent-catalog spec-index knowledge memory role-context"
 stages="$*"
 [ -z "$stages" ] && stages="$ALL"
 

@@ -46,7 +46,7 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
 - Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
   `repro`, `data-contract`, `pipeline-contract`, `alert-contract`,
   `monitoring-coverage`, `content-draft-pack`.
-- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`.
+- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`, `role-context`.
 
 **Instructions (13)** — constitution, SDD method, point-in-time, and the domain
 standards (quant_research, data_quality, backtesting, model_validation, documentation,
@@ -76,7 +76,7 @@ by the `knowledge` gate.
 ## Quality Gates — Enforced vs Advisory
 
 - **Enforced in CI:** required docs, agent contract, shell syntax, `spec`,
-  `backtest`, `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, and the pytest suite
+  `backtest`, `secret-scan`, `role-context`, `docs-link`, `agent-catalog`, `spec-index`, and the pytest suite
   (`tests/`, run against the package's declared dependencies).
 - **Advisory:** `leakage` (heuristic by design) and the per-stage/quant gates not
   listed above. Graduate a gate to enforced per repo as discipline matures.

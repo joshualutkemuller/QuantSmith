@@ -122,18 +122,18 @@ by the `knowledge` gate.
      Looker/Superset/Qlik and a `powerbi_publish` provider (payload/agents exist), an
      optional `analytics/data_visualization` agent, and optional continuous-metric /
      sequential experiment designs.
-   - **Data Engineer — first slice shipped.** The flagship node is built:
-     `agents/data_engineering/pipeline_orchestration/` (a DAG runner with data
-     contracts, idempotency, retries, backfill, and a run manifest), backed by
-     `instructions/pipeline_engineering.md`, the worked spec
-     `specs/0011-data-pipeline-orchestration/`, and a runnable, tested runtime
-     (`src/quantsmith/pipelines/data_pipeline.py`). Its Data Engineer chain in
-     `docs/workflows.md` no longer marks the orchestration node `(planned)`. Remaining
-     Data Engineer nodes (still `(planned)`): `data_modeling`, `pipeline_observability`
-     (consumes the run manifest — a natural next slice), `pipeline_builder`,
-     `pipeline_deployment`, `data_governance`; plus a `pipeline-contract-check.sh` gate.
-     The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain
-     runtime not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
+   - **Data Engineer — group fully staffed; two runtime nodes.** The
+     `agents/data_engineering/` group now has all six agents: `pipeline_orchestration`
+     (DAG runner — spec `0011`, tested runtime) and `pipeline_observability` (freshness/
+     downtime/SLA/lineage from the run manifest — spec `0019`, tested runtime), plus
+     `data_modeling`, `pipeline_builder`, `pipeline_deployment`, and `data_governance`
+     as design/review agents. The Data Engineer chain in `docs/workflows.md` has no
+     remaining `(planned)` nodes. Backed by `instructions/pipeline_engineering.md`.
+     **Open Data Engineer track:** executable runtimes for the four design/review nodes
+     as they are needed, a `pipeline-contract-check.sh` gate (DAG ownership/schedule/
+     retry/runbook metadata), and per-step SLA thresholds. The
+     `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain runtime
+     not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
 4. **Adoption guide** (`docs/adoption_guide.md`) — expand into a full walkthrough of
    installing the SDK into an existing quant repo.
 5. **Packaging** — execute the decision in `docs/packaging.md` (template now, sync

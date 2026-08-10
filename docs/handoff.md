@@ -98,10 +98,13 @@ by the `knowledge` gate.
    (`specs/0012-execution-scheduling/`), and the solver toolkit
    (`specs/0013-optimization-solvers/`: LP, MILP, min-cost flow, dynamic programming).
    The quant chain runs signal → forecast → portfolio → execution. Next: build
-   *application* specs on the new solvers — collateral/margin LP, cardinality-
-   constrained portfolio (MILP), funding-ladder min-cost flow, multi-period
-   rebalancing DP — and add conic/global/nonlinear forms when a dependency-free method
-   or an optional solver dependency is chosen.
+   *application* specs on the new solvers — cardinality-constrained portfolio (MILP),
+   funding-ladder min-cost flow, multi-period rebalancing DP — and add
+   conic/global/nonlinear forms when a dependency-free method or an optional solver
+   dependency is chosen. (Securities-financing LP work is deliberately out of scope:
+   that domain routes to an adopter's own models via
+   `agents/optimization/model_plugin_registration/`, spec `0026`, rather than the SDK
+   owning the optimization logic itself — see item 5.)
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
@@ -186,9 +189,13 @@ by the `knowledge` gate.
      `agents/alerts/alert_router/` and
      `agents/alerts/incident_notification/`.
 5. **P0 optimizer-agent workflow expansion (continued)** — the solver
-   toolkit (`0013`) has no financing-specific application spec yet;
-   collateral/margin LP or cardinality-constrained portfolio (MILP) would
-   be the first.
+   toolkit (`0013`) still has no application spec built on it;
+   cardinality-constrained portfolio (MILP) would be the first. A
+   securities-financing LP application is deliberately not planned here:
+   `repo_financing`/`collateral_management` stay agent-contract-only, and
+   that domain routes to an adopter's own optimization models via
+   `agents/optimization/model_plugin_registration/` (spec `0026`) instead
+   of the SDK owning securities-financing optimization logic itself.
 6. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
    layers: `pip install quantsmith` + using the runtimes, and copying the scaffold +
    wiring the gates, with per-project-type recipes.

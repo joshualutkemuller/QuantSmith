@@ -345,6 +345,29 @@ mechanics guidance inside every archetype.
 | `asset_classes/commodities/` | Futures curve shape, roll mechanics and roll yield, physical delivery vs cash settlement, storage/carry cost, seasonality | `trading_strategies/carry`, `momentum_trend`, `macro_multi_asset` |
 | `asset_classes/digital_assets/` | Venue fragmentation, custody/counterparty risk, perpetual-funding mechanics, 24/7 session structure, on-chain/oracle risk | `trading_strategies/market_making_microstructure`, `momentum_trend`; `securities_financing/collateral_management` |
 
+## Economists Agents (`economists/`)
+
+Grouped in the `economists/` category folder (see
+[`economists/README.md`](economists/README.md)); give a quant or
+portfolio-management workflow a grounded macro backdrop to start from —
+indicator tracking, policy reads, regime classification, cross-asset
+translation, forward scenarios, and two report writers (a recurring brief
+and a periodic outlook). Analysis and synthesis only: strategy design stays
+`trading_strategies/macro_multi_asset`'s job, and live-model regime-change
+detection stays `monitoring/model_signal_monitoring`'s job — neither is
+duplicated here. Backed by `instructions/macro_economic_analysis.md` and
+`sources/{fred,bls,bea,census,eia}.yml` (spec `0033`).
+
+| Agent | Handles | Feeds mainly |
+| --- | --- | --- |
+| `economists/macro_indicator_analyst/` | Core releases → a vintage-aware, surprise-vs-consensus read | `macro_regime_classifier`, `macro_backdrop_summarizer` |
+| `economists/monetary_policy_analyst/` | Central bank stance, rate path, balance sheet → a policy read | `macro_regime_classifier`, `research_analyst` |
+| `economists/macro_regime_classifier/` | Indicators + policy → a classified regime, distinct from `model_signal_monitoring`'s regime-change alerts | `macro_multi_asset`, `portfolio_management/allocation_policy` |
+| `economists/cross_asset_macro_linkages/` | A regime → cross-asset expression (rates/FX/credit/equities/commodities), no sizing | `research_analyst`, `trading_strategies/*` |
+| `economists/macro_scenario_analyst/` | A regime → forward stress scenarios with quantified indicator paths | `risk`, `backtest_review` |
+| `economists/macro_backdrop_summarizer/` | All of the above → a concise, recurring macro brief | `research_analyst`, `modeling`, `portfolio_management/*` |
+| `economists/economic_outlook_report_writer/` | All of the above → a longer periodic outlook report | `portfolio_management/*`, IC-facing review |
+
 ## Securities Financing Agents (`securities_financing/`)
 
 Grouped in the `securities_financing/` category folder; they make financing a

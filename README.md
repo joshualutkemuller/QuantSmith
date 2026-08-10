@@ -283,6 +283,8 @@ each. Uses the catalog as its routing table.
 
 **Securities financing** (`agents/securities_financing/`) — `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost, short rebate, repo/funding, collateral and margin. `securities_lending/` has a tested runtime — GC/WARM/HTB classification, LP inventory optimization, concentration risk (spec `0023`). `financing_cost_analysis/` also has one — cost-of-carry decomposition, financing-aware returns, rate-shock sensitivity, capacity (spec `0028`); `repo_financing/` and `collateral_management/` remain agent-contract-only.
 
+**Economists** (`agents/economists/`) — `macro_indicator_analyst/`, `monetary_policy_analyst/`, `macro_regime_classifier/`, `cross_asset_macro_linkages/`, `macro_scenario_analyst/`, `macro_backdrop_summarizer/`, `economic_outlook_report_writer/`: give a quant or portfolio-management workflow a grounded macro backdrop — indicators through policy through a classified regime through cross-asset/scenario translation to a recurring brief and a periodic outlook report. Analysis and synthesis only; strategy design stays `trading_strategies/macro_multi_asset`'s job and live-model regime-change detection stays `monitoring/model_signal_monitoring`'s job. Draws on `sources/{fred,bls,bea,census,eia}.yml`; every figure traces to a supplied input or registered source, never invented (spec `0033`).
+
 **Formulaic alphas** (`agents/formulaic_alphas/`) — `alpha_construction/`, `alpha_combination/`, `alpha_evaluation/`: operationalize the methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — build tradable signals from an operator library, combine weakly-correlated alphas, and evaluate holding period, turnover, correlation, and capacity.
 
 </details>
@@ -342,6 +344,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`portfolio_management.md`](instructions/portfolio_management.md)
 - [`asset_class_mechanics.md`](instructions/asset_class_mechanics.md)
 - [`securities_financing.md`](instructions/securities_financing.md)
+- [`macro_economic_analysis.md`](instructions/macro_economic_analysis.md)
 - [`formulaic_alphas.md`](instructions/formulaic_alphas.md)
 - [`optimization.md`](instructions/optimization.md)
 - [`model_plugin_integration.md`](instructions/model_plugin_integration.md)
@@ -457,6 +460,7 @@ the [spec index](specs/README.md).
 - 🏗️ **Data Engineer:** `0011` orchestration → `0019` observability
 - 🛰️ **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/` (`0032`: email + webhook executable)
 - 💵 **Securities financing:** `0022` asset-class mechanics → `0023` securities lending → `0028` financing cost analysis → backtest/risk
+- 🌐 **Macro & economics:** `0027` source catalog → `0033` economists agents (indicators → policy → regime → cross-asset/scenario → brief/outlook) → `macro_multi_asset`, `portfolio_management`, `risk`
 
 ---
 

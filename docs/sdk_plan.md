@@ -244,6 +244,14 @@ operations, data provenance):
   (spec `0032`, deterministic payload/redaction, injectable transport, no
   network code in the SDK). Remaining: Slack, Teams, ticketing,
   PagerDuty/Opsgenie, SMS/push.
+- `agents/economists/` — done (spec `0033`). Seven agents giving a
+  quant/PM workflow a grounded macro backdrop (indicators → policy →
+  regime → cross-asset/scenario → brief/outlook reports), reclaiming a
+  stray, unwired placeholder left by the earlier parallel
+  `agent/portfolio-management-agents` merge. Backed by
+  `instructions/macro_economic_analysis.md`; hands off to
+  `trading_strategies/macro_multi_asset`, `portfolio_management/*`, and
+  `risk` rather than duplicating them.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

@@ -8,15 +8,18 @@ operational layer so more of the week goes to the work itself.
 
 ## Note On Scope
 
-This is **Phase 1 + Phase 2** of a four-pillar roster (Framework Design, Client
-& Stakeholder Engagement, Model Governance, Innovation & Prototyping). Phase 1
-(spec `0024`) was the lowest-risk, highest-frequency slice, chosen deliberately
-so the habit forms on work that never touches a client or a governance
-committee before any agent gets near either. Phase 2 (spec
-`0029-role-operations-agents-phase2`) extends into prototype accelerators —
-still nothing governance-facing. **Phase 3** (model-card drafting, audit-trail
-keeping, governance-readiness checklists — higher stakes, sequenced last) is
-the remaining follow-up — see `specs/0029-.../tasks.md`'s Follow-ups.
+This is the **complete four-pillar roster** (Framework Design, Client &
+Stakeholder Engagement, Model Governance, Innovation & Prototyping), shipped
+in three deliberately risk-ordered phases. Phase 1 (spec `0024`) was the
+lowest-risk, highest-frequency slice, chosen so the habit forms on work that
+never touches a client or a governance committee before any agent gets near
+either. Phase 2 (spec `0029-role-operations-agents-phase2`) extended into
+prototype accelerators — still nothing governance-facing. Phase 3 (spec
+`0030-role-operations-agents-phase3`) closes out the roster with the
+governance-adjacent tier — model-card drafting, audit-trail keeping,
+governance-readiness checking, a fast pre-check ahead of full backtest
+review, build-handoff writing, and personal alert triage — sequenced last
+given the higher stakes. All fourteen agents are shipped.
 
 ## Configuration
 
@@ -42,6 +45,12 @@ tracked.
 | `role_operations/demo_narrative_packager/` | A prototype's results → situation/insight/recommendation narrative + one-pager | Client & Stakeholder Engagement |
 | `role_operations/tough_question_rehearsal/` | Demo material → persona-grouped tough questions with suggested answers | Client & Stakeholder Engagement |
 | `role_operations/experiment_ledger/` | Every prototype variant tried → an append-only, no-survivorship-bias log | Innovation & Prototyping |
+| `role_operations/model_card_drafter/` | Model info → a draft `templates/docs/model_card.md`, gaps flagged not fabricated | Model Governance |
+| `role_operations/audit_trail_keeper/` | A decision as it's made → an append-only decision-log entry | Model Governance |
+| `role_operations/governance_readiness_checklist/` | Artifact state → each readiness item marked evidenced (cited), a gap, or n/a | Model Governance |
+| `role_operations/second_look_backtest_reviewer/` | A backtest result → a fast pre-check, always recommending full `backtest_review` before promotion | Model Governance |
+| `role_operations/build_handoff_writer/` | Project state → a draft `templates/docs/handoff_memo.md`, unresolved items always stated | Model Governance |
+| `role_operations/alert_triage/` | Routed alerts → a personal priority/context pass, never suppressing or re-routing | Model Governance |
 
 ## Shared Principles
 
@@ -75,6 +84,17 @@ ahead of a demo: the narrative first, then the rehearsal against it.
 `meeting_to_action` and `status_rollup` are cross-cutting and don't feed a
 specific pillar agent — they clear the ambient overhead around all of them.
 
+`model_card_drafter` and `audit_trail_keeper` feed
+`governance_readiness_checklist` — a model card and a decision log are
+evidence its checklist can cite. `second_look_backtest_reviewer` runs
+before `agents/backtest_review/`'s full review, never in place of it.
+`build_handoff_writer` draws its Key Decisions table from
+`audit_trail_keeper`'s log when one exists, and typically runs last, once
+a governance-readiness pass and a full backtest review (where applicable)
+are in hand. `alert_triage` runs alongside `agents/alerts/alert_router/`
+and `agents/alerts/incident_notification/` as a personal annotation layer
+— it has no routing, suppression, or lifecycle authority of its own.
+
 ## Related
 
 - `instructions/role_operations.md` — the shared standard behind this group.
@@ -86,3 +106,10 @@ specific pillar agent — they clear the ambient overhead around all of them.
   report template.
 - `agents/research_analyst/` — fuller research planning, downstream of
   `prior_art_scanner`.
+- `templates/docs/model_card.md`, `templates/docs/decision_log.md`,
+  `templates/docs/production_readiness_checklist.md`,
+  `templates/docs/handoff_memo.md` — the Phase 3 template targets.
+- `agents/backtest_review/` — the full review `second_look_backtest_reviewer`
+  always recommends before a production-promotion decision.
+- `agents/alerts/alert_router/`, `agents/alerts/incident_notification/` —
+  the routing and lifecycle authority `alert_triage` defers to.

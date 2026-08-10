@@ -14,8 +14,8 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
 [![Agents: 132](https://img.shields.io/badge/Agents-132-6f42c1)](agents/README.md)
-[![Quality Gates: 24](https://img.shields.io/badge/Quality%20Gates-24-2ea44f)](hooks/README.md)
-[![Specs: 24](https://img.shields.io/badge/Specs-24-0969da)](specs/README.md)
+[![Quality Gates: 25](https://img.shields.io/badge/Quality%20Gates-25-2ea44f)](hooks/README.md)
+[![Specs: 25](https://img.shields.io/badge/Specs-25-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
 <br/>
@@ -163,6 +163,7 @@ quantsmith/
 ├── ⌨️ prompts/                   # task-specific starting points
 ├── 🗂️ specs/                     # source-of-truth specifications
 ├── 🧾 templates/                 # repeatable artifacts (memos, cards, reports)
+├── 🗃️ sources/                   # data source catalog (APIs, DBs, feeds)
 ├── 🧪 examples/
 └── 📚 docs/
 ```
@@ -356,6 +357,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`knowledge_base.md`](instructions/knowledge_base.md)
 - [`role_operations.md`](instructions/role_operations.md)
 - [`data_provenance.md`](instructions/data_provenance.md)
+- [`data_source_catalog.md`](instructions/data_source_catalog.md)
 
 </td></tr>
 </table>
@@ -408,7 +410,7 @@ QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec   # blocking (as CI runs it)
 | 🧭 Cross-cutting | `spec` |
 | 🔄 Per-stage | `planning` · `design` · `implementation` · `testing` · `deployment` · `maintenance` |
 | 📈 Quant / content | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `content-draft-pack` · `data-provenance` |
-| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `knowledge` · `role-context` · `model-plugin` |
+| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `knowledge` · `role-context` · `model-plugin` · `source-catalog` |
 
 > [!TIP]
 > Use `QF_RUN_TESTS=1` to let the testing stage run the suite, and
@@ -482,6 +484,7 @@ From inside `quantsmith`, run:
 | --- | --- |
 | [`specs/README.md`](specs/README.md) | The spec index — every spec with its runtime and tests |
 | [`src/quantsmith/pipelines/README.md`](src/quantsmith/pipelines/README.md) | The runtime catalog — every reference pipeline mapped to its spec and tests |
+| [`sources/README.md`](sources/README.md) | The data source catalog — every API/DB/feed with quality, point-in-time, and credential-pointer metadata |
 | [`docs/workflows.md`](docs/workflows.md) | The workflow map — role and scenario workflows as agent + gate chains |
 | [`docs/adoption_guide.md`](docs/adoption_guide.md) | How to adopt the SDK — package + scaffold — into an existing quant repo |
 | [`docs/packaging.md`](docs/packaging.md) | Packaging & distribution decision record (hybrid: package + template) |

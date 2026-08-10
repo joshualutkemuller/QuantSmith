@@ -162,23 +162,33 @@ by the `knowledge` gate.
 8. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
 9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
-10. **Shipped since this section was last written (specs `0019`–`0026`)** —
-    pipeline observability (`0019`); the monitoring → alerting chain,
-    `agents/monitoring/`, `agents/alerts/`, `adapters/alert_delivery/` (`0020`/
-    `0021`); asset-class mechanics agents feeding `trading_strategies/` and
-    `securities_financing/` (`0022`); the securities-lending workflow promoted
-    to a tested runtime with a balance-sheet-cap correctness fix (`0023`);
-    `agents/role_operations/` Phase 1, configurable via a local-only
-    `role_context.yml` (`0024`); the data-provenance guardrail — real-data-
-    first priority stack + synthetic-data disclosure (`0025`); and the model
-    plugin adapter — register an already-built internal optimization model as
-    a reviewed, contract-bound plugin via a local-only `model_plugins.yml`
-    (`0026`). Recommended next: close out `securities_financing`
+10. **Shipped since this section was last written (specs `0019`–`0027`):**
+    - `0019` pipeline observability.
+    - `0020`/`0021` the monitoring → alerting chain (`agents/monitoring/`,
+      `agents/alerts/`, `adapters/alert_delivery/`).
+    - `0022` asset-class mechanics agents, feeding `trading_strategies/` and
+      `securities_financing/`.
+    - `0023` the securities-lending workflow promoted to a tested runtime,
+      with a balance-sheet-cap correctness fix found along the way.
+    - `0024` `agents/role_operations/` Phase 1, configurable via a
+      local-only `role_context.yml`.
+    - `0025` the data-provenance guardrail — real-data-first priority stack
+      + synthetic-data disclosure.
+    - `0026` the model plugin adapter — register an already-built internal
+      optimization model as a reviewed, contract-bound plugin via a
+      local-only `model_plugins.yml`.
+    - `0027` the data source catalog (`sources/`) — a centralized,
+      per-source registry of APIs/DBs/feeds with quality, point-in-time,
+      and credential-pointer metadata, wired into `data_contract.md`,
+      `credential_access`, and `data_ingestion`.
+
+    **Recommended next:** close out `securities_financing`
     (`repo_financing`, `collateral_management`, `financing_cost_analysis`
     remain agent-contract-only), `role_operations` Phase 2/3, an optimizer
-    application spec on the `0013` solver toolkit (e.g. collateral/margin LP),
-    and — once a concrete invocation target exists — an executable dispatcher
-    for `0026` under `src/quantsmith/adapters/model_plugin/`.
+    application spec on the `0013` solver toolkit (e.g. collateral/margin
+    LP), an executable dispatcher for `0026` once a concrete invocation
+    target exists, and populating `sources/` beyond its one reference entry
+    as real sources come into use.
 
 ## Open Questions For The Owner
 

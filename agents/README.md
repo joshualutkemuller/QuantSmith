@@ -291,9 +291,9 @@ lead's operational overhead — meeting follow-ups, status updates, prototype
 setup, first-pass research scans, demo prep — absorbed so more time goes to
 model scoping and research. Configurable via a local, gitignored
 `role_context.yml`; this repository never carries real platform, client, or
-personal data (`role-context` gate). Phase 1 (spec `0024`) and Phase 2 (spec
-`0029`) of a four-pillar roster are shipped; Phase 3 (governance-adjacent) is
-the remaining follow-up.
+personal data (`role-context` gate). All three phases of the four-pillar
+roster are shipped: Phase 1 (spec `0024`), Phase 2 (spec `0029`), and Phase 3
+(spec `0030`, governance-adjacent) — fourteen agents in total.
 
 | Agent | Handles | Feeds mainly |
 | --- | --- | --- |
@@ -304,6 +304,12 @@ the remaining follow-up.
 | `role_operations/demo_narrative_packager/` | Prototype results → situation/insight/recommendation narrative + one-pager | Client & Stakeholder Engagement |
 | `role_operations/tough_question_rehearsal/` | Demo material → persona-grouped tough questions with suggested answers | Client & Stakeholder Engagement |
 | `role_operations/experiment_ledger/` | Every prototype variant tried → an append-only, no-survivorship-bias log | Implementation |
+| `role_operations/model_card_drafter/` | Model info → a draft model card, gaps flagged not fabricated | Testing & Validation |
+| `role_operations/audit_trail_keeper/` | A decision as it's made → an append-only decision-log entry | Cross-cutting |
+| `role_operations/governance_readiness_checklist/` | Artifact state → each readiness item evidenced, a gap, or n/a | Testing & Validation |
+| `role_operations/second_look_backtest_reviewer/` | A backtest result → a fast pre-check, deferring to `backtest_review` | Testing & Validation |
+| `role_operations/build_handoff_writer/` | Project state → a draft handoff memo, unresolved items always stated | Deployment & Release |
+| `role_operations/alert_triage/` | Routed alerts → a personal priority pass, deferring to `alert_router` | Maintenance & Monitoring |
 
 ## Trading Strategy Agents (`trading_strategies/`)
 

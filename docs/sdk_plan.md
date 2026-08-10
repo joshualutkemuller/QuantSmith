@@ -236,9 +236,12 @@ operations, data provenance):
   reproducibility.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
-- A plugin/adapter contract so an adopter's already-built internal optimization
-  model can be registered and routed to by the `optimization/` agents without
-  QuantSmith owning its implementation (see `docs/handoff.md`'s Open Questions).
+- Done: a plugin/adapter contract so an adopter's already-built internal
+  optimization model can be registered and routed to by the `optimization/`
+  agents without QuantSmith owning its implementation
+  (`adapters/model_plugin/`, spec `0026`). Open follow-up: an executable
+  dispatcher under `src/quantsmith/adapters/model_plugin/` once a concrete
+  invocation target exists to build and test against.
 
 ## Open Decisions
 

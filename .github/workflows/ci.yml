@@ -62,6 +62,9 @@ jobs:
       - name: Enforce role-context safety (role_context.yml must never be tracked)
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh role-context
+      - name: Enforce model-plugin safety (model_plugins.yml must never be tracked)
+        run: |
+          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh model-plugin
       - name: Enforce docs links, agent catalog, and spec index
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh docs-link agent-catalog spec-index

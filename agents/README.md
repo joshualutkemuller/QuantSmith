@@ -200,6 +200,7 @@ Grouped in the `optimization/` category folder; these agents classify constraine
 | --- | --- |
 | `optimization/optimization_orchestrator/` | Routes optimization requests across formulation, solver, domain, validation, and deployment agents. |
 | `optimization/problem_formulation/` | Turns an ambiguous decision into variables, objective functions, constraints, data contracts, and acceptance criteria. |
+| `optimization/model_plugin_registration/` | Ingests a registered internal-model manifest entry, checks contract compliance, and flags unverifiable claims before routing to it. |
 | `optimization/linear_programming/` | LPs for allocation, blending, transportation, cash, collateral, balance-sheet, and capacity problems. |
 | `optimization/quadratic_programming/` | Convex QPs for mean-variance, tracking error, turnover penalties, and regularized allocation. |
 | `optimization/conic_optimization/` | SOCP/SDP-style risk, norm, robust, covariance, and chance-constraint formulations. |

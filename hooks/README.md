@@ -51,6 +51,7 @@ pattern-based; tune them to your repository.
 | Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
 | Workflow memory check | `memory-check.sh` | `memory/`, `agents/knowledge/` |
 | Role context check | `role-context-check.sh` | `templates/role_operations/role_context.yml`, `agents/role_operations/` |
+| Model plugin registration check | `model-plugin-check.sh` | `templates/optimization/model_plugin_manifest.yml`, `adapters/model_plugin/`, `agents/optimization/model_plugin_registration/` |
 
 Each script:
 
@@ -128,6 +129,14 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pac
   `./role_context.yml`), and advisorially checks the shipped template for
   placeholder hygiene. See `templates/role_operations/role_context.yml` and
   `instructions/role_operations.md`.
+- **`model-plugin-check.sh`** guards the registration manifest for
+  `adapters/model_plugin/`: it deterministically flags a `model_plugins.yml`
+  that is tracked or staged (blocking under `QF_STAGE_ENFORCE=1`), resolves
+  whatever manifest is configured (`$QF_MODEL_PLUGINS`, then
+  `./model_plugins.yml`), and checks each registered entry declares the
+  required contract fields (owner, category, objective, invocation type,
+  review status). See `templates/optimization/model_plugin_manifest.yml` and
+  `instructions/model_plugin_integration.md`.
 
 ## Spec-Driven Check
 
@@ -158,6 +167,7 @@ Behavior is controlled by environment variables:
 | `QF_KNOWLEDGE_SOURCES=<path>` | Path to a knowledge-source manifest for the `knowledge` gate. |
 | `QF_KNOWLEDGE_BASE=<paths>` | Colon-separated knowledge-base locations for the `knowledge` gate (ad-hoc, no manifest). |
 | `QF_ROLE_CONTEXT=<path>` | Path to a filled-in role-context file for the `role-context` gate and `agents/role_operations/` (local only; never commit it). |
+| `QF_MODEL_PLUGINS=<path>` | Path to a filled-in model-plugin manifest for the `model-plugin` gate and `adapters/model_plugin/` (local only; never commit it). |
 
 ## Wiring Into Git
 

@@ -15,7 +15,7 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
 [![Agents: 132](https://img.shields.io/badge/Agents-132-6f42c1)](agents/README.md)
 [![Quality Gates: 25](https://img.shields.io/badge/Quality%20Gates-25-2ea44f)](hooks/README.md)
-[![Specs: 25](https://img.shields.io/badge/Specs-25-0969da)](specs/README.md)
+[![Specs: 26](https://img.shields.io/badge/Specs-26-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
 <br/>
@@ -281,7 +281,7 @@ each. Uses the catalog as its routing table.
 
 **Asset class mechanics** (`agents/asset_classes/`) — `equities/`, `fixed_income_rates/`, `fx/`, `commodities/`, `digital_assets/`: mechanics-only agents, one per asset class, covering settlement, sessions, conventions, corporate actions/roll, curve construction, and custody — handing `trading_strategies/` and `securities_financing/` clean, point-in-time-correct inputs instead of duplicating mechanics per archetype (spec `0022`).
 
-**Securities financing** (`agents/securities_financing/`) — `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost, short rebate, repo/funding, collateral and margin. `securities_lending/` has a tested runtime — GC/WARM/HTB classification, LP inventory optimization, concentration risk (spec `0023`).
+**Securities financing** (`agents/securities_financing/`) — `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost, short rebate, repo/funding, collateral and margin. `securities_lending/` has a tested runtime — GC/WARM/HTB classification, LP inventory optimization, concentration risk (spec `0023`). `financing_cost_analysis/` also has one — cost-of-carry decomposition, financing-aware returns, rate-shock sensitivity, capacity (spec `0028`); `repo_financing/` and `collateral_management/` remain agent-contract-only.
 
 **Formulaic alphas** (`agents/formulaic_alphas/`) — `alpha_construction/`, `alpha_combination/`, `alpha_evaluation/`: operationalize the methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — build tradable signals from an operator library, combine weakly-correlated alphas, and evaluate holding period, turnover, correlation, and capacity.
 
@@ -442,6 +442,7 @@ the [spec index](specs/README.md).
 | [`0020`](specs/0020-alerting/) | Alerting — policy evaluation + routing | `alerting.py` |
 | [`0021`](specs/0021-signal-monitoring/) | Model/signal monitoring — drift, calibration, decay, regime | `signal_monitoring.py` |
 | [`0023`](specs/0023-securities-lending-workflow/) | Securities lending — borrow classification, LP inventory optimization, concentration risk | `quant/agentic_quant/sec_lending_workflow.py` *(not `pipelines/`; needs `numpy`)* |
+| [`0028`](specs/0028-financing-cost-analysis/) | Financing cost analysis — cost-of-carry decomposition, financing-aware returns, rate-shock sensitivity, capacity | `financing_cost_analysis.py` |
 
 **Themed chains**
 
@@ -451,7 +452,7 @@ the [spec index](specs/README.md).
 - 📊 **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` pipeline → `0014` storytelling → `0015`/`0016`/`0018` dashboards → `0017` render adapters
 - 🏗️ **Data Engineer:** `0011` orchestration → `0019` observability
 - 🛰️ **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`
-- 💵 **Securities financing:** `0022` asset-class mechanics → `0023` securities lending → `financing_cost_analysis` → backtest/risk
+- 💵 **Securities financing:** `0022` asset-class mechanics → `0023` securities lending → `0028` financing cost analysis → backtest/risk
 
 ---
 

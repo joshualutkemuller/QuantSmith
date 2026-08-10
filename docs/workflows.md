@@ -82,9 +82,16 @@ asset_classes/equities (shorts mechanics) → securities_financing/securities_le
   counterparty/single-name concentration risk → optional ML demand forecast and
   anomaly detection → report
   (`src/quantsmith/quant/agentic_quant/sec_lending_workflow.py`; CLI:
-  `quantsmith-sec-lending`). `financing_cost_analysis`,
-  `repo_financing`, and `collateral_management` remain agent-contract-only until a
-  future spec promotes them the same way.
+  `quantsmith-sec-lending`).
+- Worked example: `specs/0028-financing-cost-analysis/` closes the chain's
+  quant bridge — per-position cost-of-carry decomposition (borrow fee,
+  rebate, funding, margin) → financing-aware returns → understated-backtest
+  flags → rate-shock sensitivity → GC/WARM/HTB-keyed capacity findings
+  (`src/quantsmith/pipelines/financing_cost_analysis.py`, dependency-free;
+  reconciles with `0023`'s rate/classification vocabulary by value).
+  `repo_financing` and `collateral_management` remain agent-contract-only —
+  `financing_cost_analysis` accepts their financing legs as structured
+  input rather than requiring either to have a runtime first.
 
 ### Data Analyst
 

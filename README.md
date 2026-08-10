@@ -13,9 +13,9 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![CI](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml/badge.svg)](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
-[![Agents: 131](https://img.shields.io/badge/Agents-131-6f42c1)](agents/README.md)
-[![Quality Gates: 23](https://img.shields.io/badge/Quality%20Gates-23-2ea44f)](hooks/README.md)
-[![Specs: 23](https://img.shields.io/badge/Specs-23-0969da)](specs/README.md)
+[![Agents: 132](https://img.shields.io/badge/Agents-132-6f42c1)](agents/README.md)
+[![Quality Gates: 24](https://img.shields.io/badge/Quality%20Gates-24-2ea44f)](hooks/README.md)
+[![Specs: 24](https://img.shields.io/badge/Specs-24-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
 <br/>
@@ -305,8 +305,9 @@ each. Uses the catalog as its routing table.
 > invoking an approved model runtime.
 
 See [`adapters/README.md`](adapters/README.md) for the catalog: alert delivery,
-schedulers, artifact delivery, data access, and LLM runtimes — the provider boundary
-for workflows and agents.
+schedulers, artifact delivery, data access, LLM runtimes, and model plugins
+(registering an already-built internal optimization model, spec `0026`) — the
+provider boundary for workflows and agents.
 
 ---
 
@@ -337,6 +338,10 @@ Reusable standards and behavioral rules that agents follow.
 - [`asset_class_mechanics.md`](instructions/asset_class_mechanics.md)
 - [`securities_financing.md`](instructions/securities_financing.md)
 - [`formulaic_alphas.md`](instructions/formulaic_alphas.md)
+- [`optimization.md`](instructions/optimization.md)
+- [`model_plugin_integration.md`](instructions/model_plugin_integration.md)
+- [`machine_learning.md`](instructions/machine_learning.md)
+- [`deep_learning.md`](instructions/deep_learning.md)
 
 </td><td>
 
@@ -401,7 +406,7 @@ QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec   # blocking (as CI runs it)
 | 🧭 Cross-cutting | `spec` |
 | 🔄 Per-stage | `planning` · `design` · `implementation` · `testing` · `deployment` · `maintenance` |
 | 📈 Quant / content | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `content-draft-pack` · `data-provenance` |
-| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `knowledge` · `role-context` |
+| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `knowledge` · `role-context` · `model-plugin` |
 
 > [!TIP]
 > Use `QF_RUN_TESTS=1` to let the testing stage run the suite, and

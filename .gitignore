@@ -33,3 +33,10 @@ agents.zip
 # the committed, placeholders-only template.
 /role_context.yml
 /role_context.yaml
+
+# Local model-plugin registration (agents/optimization/model_plugin_registration/)
+# -- registers real internal models; never commit it. Anchored to the repo root
+# so it does not also hide templates/optimization/model_plugin_manifest.yml, the
+# committed, placeholders-only template.
+/model_plugins.yml
+/model_plugins.yaml

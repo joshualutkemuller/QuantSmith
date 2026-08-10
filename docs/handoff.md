@@ -212,10 +212,29 @@ by the `knowledge` gate.
    `asset_class_mechanics`, `role_operations`, `data_provenance`,
    `risk_management`, `data_ingestion`, and `reproducibility` are all
    shipped.
-10. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
-11. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+10. **Economists agent group — done** (spec `0033`). Seven agents
+    (`macro_indicator_analyst`, `monetary_policy_analyst`,
+    `macro_regime_classifier`, `cross_asset_macro_linkages`,
+    `macro_scenario_analyst`, `macro_backdrop_summarizer`,
+    `economic_outlook_report_writer`) giving a quant/PM workflow a
+    grounded macro backdrop — indicators through policy through a
+    classified regime through cross-asset/scenario translation to a
+    recurring brief and a periodic outlook report. Reclaims
+    `agents/economists/`, a stray, unwired placeholder (a literal
+    `"placeholder"` `README.md`) left by the earlier parallel
+    `agent/portfolio-management-agents` merge. Backed by
+    `instructions/macro_economic_analysis.md` and
+    `templates/docs/macro_backdrop_report.md`; draws on
+    `sources/{fred,bls,bea,census,eia}.yml` (`0027`). Analysis and
+    synthesis only — hands off to `trading_strategies/macro_multi_asset`,
+    `portfolio_management/*`, and `risk` rather than replacing them, and
+    is explicitly distinguished from `monitoring/model_signal_monitoring`'s
+    regime-change detection (a different, operational question from
+    classifying what the current regime *is*).
+11. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
+12. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
     revisit enforcing `leakage`.
-12. **Shipped since this section was last written (specs `0019`–`0028`):**
+13. **Shipped since this section was last written (specs `0019`–`0028`):**
     - `0019` pipeline observability.
     - `0020`/`0021` the monitoring → alerting chain (`agents/monitoring/`,
       `agents/alerts/`, `adapters/alert_delivery/`).
@@ -253,6 +272,8 @@ by the `knowledge` gate.
       `dry_run=False`, the same credential/execution boundary already drawn
       for `credential_access` and the `0026` model-plugin dispatcher.
       Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push.
+    - `0033` the `economists/` agent group — see item 10, the dedicated
+      tracking entry.
 
     **Recommended next:** `repo_financing`/`collateral_management` stay
     agent-contract-only by choice — this SDK routes to an adopter's own

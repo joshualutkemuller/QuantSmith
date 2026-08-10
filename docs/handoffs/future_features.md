@@ -38,6 +38,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `sources/` data source catalog | Centralized, per-source registry (APIs/DBs/feeds) with quality, point-in-time, and credential-pointer metadata. **Shipped**: schema template + gate + spec `specs/0027-source-catalog/`, populated with six public sources (FRED, BLS, EIA, BEA, Census, SEC EDGAR); wired into `data_contract.md`, `credential_access`, `data_ingestion` | P2 | in-progress |
 | `agents/securities_financing/financing_cost_analysis/` | All-in cost-of-carry decomposition, financing-aware returns, understated-backtest flags, rate-shock sensitivity, capacity findings. **Shipped**: tested runtime `src/quantsmith/pipelines/financing_cost_analysis.py` + spec `specs/0028-financing-cost-analysis/`, reconciling with `0023`'s securities-lending vocabulary by value. `repo_financing`/`collateral_management` remain agent-contract-only | P1 | done |
 | `agents/asset_classes/*` | Mechanics-only agents (equities, fixed income/rates/credit, FX, commodities, digital assets) feeding `trading_strategies/` and `securities_financing/` with point-in-time-correct market-structure inputs. **Shipped**: 5 agents + `instructions/asset_class_mechanics.md` + spec `specs/0022-asset-class-mechanics-agents/` | P1 | done |
+| `agents/economists/*` | Macro backdrop for quant/PM workflows: indicator tracking, policy reads, regime classification, cross-asset translation, forward scenarios, and two report writers (recurring brief + periodic outlook). **Shipped**: 7 agents + `instructions/macro_economic_analysis.md` + `templates/docs/macro_backdrop_report.md` + spec `specs/0033-economists-agents/`; reclaims a stray, unwired `agents/economists/` placeholder left by an earlier parallel merge. Draws on `sources/{fred,bls,bea,census,eia}.yml` (`0027`); hands off to `trading_strategies/macro_multi_asset`, `portfolio_management/*`, and `risk` rather than replacing them | P1 | done |
 | `agents/securities_financing/securities_lending/` runtime | Borrow-rate classification, LP inventory optimization, concentration risk. **Shipped**: promoted the existing `quant/agentic_quant/sec_lending_workflow.py` to a tested spec (`specs/0023-securities-lending-workflow/`), fixing a balance-sheet-cap bug in the greedy fallback along the way | P1 | done |
 | `instructions/data_provenance.md` + `templates/docs/synthetic_data_disclosure.md` | Real-data-first priority stack and complete synthetic-data disclosure for any agent-produced data/visual content. **Shipped**: standard + template + `data-provenance` gate, spec `specs/0025-data-provenance-guardrail/`; wired into `role_operations` and cross-referenced from `dashboard_design`/`data_storytelling` | P1 | done |
 
@@ -145,6 +146,9 @@ belong under profiles/adapters unless they require materially different behavior
 - The first two executable `adapters/alert_delivery/` providers — email and
   webhook (spec `0032`), following the adapter's own pre-existing
   Recommended Starting Set.
+- The `economists/` agent group (spec `0033`) — seven agents giving a
+  quant/PM workflow a grounded macro backdrop, reclaiming a stray
+  placeholder directory left by an earlier parallel merge.
 - A documentation audit and refresh pass: stale counts in `docs/handoff.md`
   and `docs/sdk_plan.md` corrected, a missing "Adapter" dictionary entry
   added, and a missing `adapters/data_access/external_apis/eia.md` profile

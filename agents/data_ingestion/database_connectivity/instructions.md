@@ -2,6 +2,8 @@
 
 ## Operating Rules
 
+- Check `sources/<source-id>.yml` first for the registered connection method,
+  quality notes, and `credential_ref` before wiring a new connection.
 - Source credentials from environment variables or a secrets manager only.
 - Never commit or log connection strings, passwords, tokens, or keys.
 - Use parameterized queries; never concatenate untrusted values into SQL.

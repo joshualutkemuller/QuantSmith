@@ -33,6 +33,13 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails. Agent shipped; executable cost runtime is a follow-up | P2 | in-progress |
 | `evening_quant_content_twitter/` evening content workflow pack | Configurable 10:30 PM ET quant content workflow that produces ranked X/Twitter ideas, threads, visual specs, meme concepts, source notes, claim review, local draft artifacts, and a cron profile without automatic posting; see `evening_quant_content_twitter/docs/handoff.md`, `evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`, and `evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/` | P1 | done |
 | Normalize `agents/quant_analyst/` | Keep `agents/quant_analyst/` as a four-file agent contract and promote runtime Python into `src/quantsmith/` | P2 | shipped |
+| `agents/role_operations/*` | 14-agent roster absorbing a quant/data-science lead's operational toil (meetings, status, scaffolding, research scans, demo prep, governance docs) so more time goes to model scoping and research. **Phase 1 shipped** (spec `0024`): `meeting_to_action`, `status_rollup`, `rapid_scaffolder`, `prior_art_scanner`, configurable via a local-only `role_context.yml` (never committed; `role-context` gate). Data-provenance guardrail also shipped (spec `0025`). **Phase 2 shipped** (spec `0029`): `demo_narrative_packager`, `tough_question_rehearsal`, `experiment_ledger`. Remaining: Phase 3 (`model_card_drafter`, `audit_trail_keeper`, `governance_readiness_checklist`, `second_look_backtest_reviewer`, `build_handoff_writer`, `alert_triage`) | P1 | in-progress |
+| `agents/optimization/model_plugin_registration/` | Register an already-built internal optimization model so `optimization/` agents can route to and review it, without the SDK holding its logic. **Shipped**: agent + `adapters/model_plugin/` contract + spec `specs/0026-model-plugin-adapter/`. Remaining: an executable dispatcher once a concrete invocation target exists | P2 | in-progress |
+| `sources/` data source catalog | Centralized, per-source registry (APIs/DBs/feeds) with quality, point-in-time, and credential-pointer metadata. **Shipped**: schema template + gate + spec `specs/0027-source-catalog/`, populated with six public sources (FRED, BLS, EIA, BEA, Census, SEC EDGAR); wired into `data_contract.md`, `credential_access`, `data_ingestion` | P2 | in-progress |
+| `agents/securities_financing/financing_cost_analysis/` | All-in cost-of-carry decomposition, financing-aware returns, understated-backtest flags, rate-shock sensitivity, capacity findings. **Shipped**: tested runtime `src/quantsmith/pipelines/financing_cost_analysis.py` + spec `specs/0028-financing-cost-analysis/`, reconciling with `0023`'s securities-lending vocabulary by value. `repo_financing`/`collateral_management` remain agent-contract-only | P1 | done |
+| `agents/asset_classes/*` | Mechanics-only agents (equities, fixed income/rates/credit, FX, commodities, digital assets) feeding `trading_strategies/` and `securities_financing/` with point-in-time-correct market-structure inputs. **Shipped**: 5 agents + `instructions/asset_class_mechanics.md` + spec `specs/0022-asset-class-mechanics-agents/` | P1 | done |
+| `agents/securities_financing/securities_lending/` runtime | Borrow-rate classification, LP inventory optimization, concentration risk. **Shipped**: promoted the existing `quant/agentic_quant/sec_lending_workflow.py` to a tested spec (`specs/0023-securities-lending-workflow/`), fixing a balance-sheet-cap bug in the greedy fallback along the way | P1 | done |
+| `instructions/data_provenance.md` + `templates/docs/synthetic_data_disclosure.md` | Real-data-first priority stack and complete synthetic-data disclosure for any agent-produced data/visual content. **Shipped**: standard + template + `data-provenance` gate, spec `specs/0025-data-provenance-guardrail/`; wired into `role_operations` and cross-referenced from `dashboard_design`/`data_storytelling` | P1 | done |
 
 ## Technology & Tooling
 
@@ -119,3 +126,18 @@ belong under profiles/adapters unless they require materially different behavior
   and secrets agent groups.
 - The consolidation pass (refreshed `sdk_plan`, `handoff`, `agentic_dictionary`;
   added the adoption guide).
+- Monitoring → alerting chain (`agents/monitoring/`, `agents/alerts/`,
+  `adapters/alert_delivery/`; specs `0019`–`0021`).
+- Asset-class mechanics agents, securities-lending runtime, and financing-cost-
+  analysis runtime (specs `0022`, `0023`, `0028`) — the securities-financing
+  chain end to end except `repo_financing`/`collateral_management`, which
+  remain agent-contract-only by choice.
+- Role-operations agent roster Phase 1 and the data-provenance guardrail
+  (specs `0024`, `0025`) — see the dedicated "Agents" table row for phase
+  status.
+- Model plugin adapter (spec `0026`) and the data source catalog (spec
+  `0027`).
+- A documentation audit and refresh pass: stale counts in `docs/handoff.md`
+  and `docs/sdk_plan.md` corrected, a missing "Adapter" dictionary entry
+  added, and a missing `adapters/data_access/external_apis/eia.md` profile
+  written.

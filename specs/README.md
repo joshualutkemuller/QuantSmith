@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, and `0018`–`0021` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, and `0028` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -49,6 +49,9 @@ each with a matching test module under `tests/`.
 | [0024-role-operations-agents](0024-role-operations-agents/) | Role operations agent expansion, Phase 1 (meeting/status/scaffolding/research-scan toil, configurable, no company data) | — (agent contracts) | catalog/docs gates, `role-context` gate | Approved |
 | [0025-data-provenance-guardrail](0025-data-provenance-guardrail/) | Data provenance guardrail — real-data-first priority stack + synthetic-data disclosure | — (standard/template/gate) | `data-provenance` gate | Approved |
 | [0026-model-plugin-adapter](0026-model-plugin-adapter/) | Model plugin adapter — register a prebuilt internal optimization model as a reviewed, contract-bound plugin | `adapters/model_plugin/` (contract only, not `pipelines/`) | `model-plugin` gate | Approved |
+| [0027-source-catalog](0027-source-catalog/) | Data source catalog — centralized, per-source registry of APIs/DBs/feeds with quality, point-in-time, and credential-pointer metadata | `sources/` (catalog only, not `pipelines/`) | `source-catalog` gate | Approved |
+| [0028-financing-cost-analysis](0028-financing-cost-analysis/) | Financing cost analysis — cost-of-carry decomposition, financing-aware returns, rate-shock sensitivity, capacity | `financing_cost_analysis.py` | `test_financing_cost_analysis.py` | Approved |
+| [0029-role-operations-agents-phase2](0029-role-operations-agents-phase2/) | Role operations agent expansion, Phase 2 (demo narrative, tough-question rehearsal, experiment ledger) | — (agent contracts) | catalog/docs gates | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -57,12 +60,13 @@ traceability end to end. Copy its structure, not its content.
 
 - **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution.
 - **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models).
+- **Data foundations:** `0027` source catalog (registry) → `data_contract.md` (per-dataset) → `agents/data_ingestion/` (ingestion) → `data_quality`/`point_in_time` (review).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
 - **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`.
-- **Securities financing:** `0022` asset-class mechanics (equities shorts) → `0023` securities lending workflow → `financing_cost_analysis` (agent-contract only) → `backtest_review`/`risk`.
-- **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents (feed `research_analyst`/`implementation`, configurable via a local-only `role_context.yml`) → `0025` data-provenance guardrail (real-data-first + synthetic-data disclosure, backing `0024` and cross-referenced by `dashboard_design`/`data_storytelling`).
+- **Securities financing:** `0022` asset-class mechanics (equities shorts) → `0023` securities lending workflow → `0028` financing cost analysis (`repo_financing`/`collateral_management` remain agent-contract only) → `backtest_review`/`risk`.
+- **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents Phase 1 → `0025` data-provenance guardrail (real-data-first + synthetic-data disclosure, backing `0024`'s `rapid_scaffolder` and cross-referenced by `dashboard_design`/`data_storytelling`) → `0029` role-operations agents Phase 2 (feed `research_analyst`/`implementation`, configurable via a local-only `role_context.yml`). Phase 3 remains a follow-up.
 
 ### Local-only specs
 
@@ -71,4 +75,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0027`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0030`** (`0003`/`0005` belong to the local-only pack).

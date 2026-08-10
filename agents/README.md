@@ -288,10 +288,12 @@ grounding, citations, access control, and provenance.
 Grouped in the `role_operations/` category folder (see
 [`role_operations/README.md`](role_operations/README.md)); a quant/data-science
 lead's operational overhead — meeting follow-ups, status updates, prototype
-setup, first-pass research scans — absorbed so more time goes to model scoping
-and research. Configurable via a local, gitignored `role_context.yml`
-(spec `0024`, Phase 1 of a four-pillar roster); this repository never carries
-real platform, client, or personal data (`role-context` gate).
+setup, first-pass research scans, demo prep — absorbed so more time goes to
+model scoping and research. Configurable via a local, gitignored
+`role_context.yml`; this repository never carries real platform, client, or
+personal data (`role-context` gate). Phase 1 (spec `0024`) and Phase 2 (spec
+`0029`) of a four-pillar roster are shipped; Phase 3 (governance-adjacent) is
+the remaining follow-up.
 
 | Agent | Handles | Feeds mainly |
 | --- | --- | --- |
@@ -299,6 +301,9 @@ real platform, client, or personal data (`role-context` gate).
 | `role_operations/status_rollup/` | Recent activity → a draft status update, blocked items stated plainly | Cross-cutting |
 | `role_operations/rapid_scaffolder/` | New idea → repo skeleton, data-contract stub, naive baseline plan | Planning, Implementation |
 | `role_operations/prior_art_scanner/` | Hypothesis → related approaches, failure modes, open questions | Planning |
+| `role_operations/demo_narrative_packager/` | Prototype results → situation/insight/recommendation narrative + one-pager | Client & Stakeholder Engagement |
+| `role_operations/tough_question_rehearsal/` | Demo material → persona-grouped tough questions with suggested answers | Client & Stakeholder Engagement |
+| `role_operations/experiment_ledger/` | Every prototype variant tried → an append-only, no-survivorship-bias log | Implementation |
 
 ## Trading Strategy Agents (`trading_strategies/`)
 
@@ -350,7 +355,12 @@ costs and risks.
 `securities_lending/` has a tested runtime (spec `0023-securities-lending-workflow`):
 `src/quantsmith/quant/agentic_quant/sec_lending_workflow.py` — universe
 construction, GC/WARM/HTB classification, LP inventory optimization, and
-concentration risk; run via `quantsmith-sec-lending`.
+concentration risk; run via `quantsmith-sec-lending`. `financing_cost_analysis/`
+also has a tested runtime (spec `0028-financing-cost-analysis`):
+`src/quantsmith/pipelines/financing_cost_analysis.py` — cost-of-carry
+decomposition, financing-aware returns, understated-backtest flags,
+rate-shock sensitivity, and capacity findings, reconciling with
+`securities_lending`'s rate/classification vocabulary by value.
 
 ## Formulaic Alpha Agents (`formulaic_alphas/`)
 

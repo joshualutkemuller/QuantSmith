@@ -145,40 +145,89 @@ by the `knowledge` gate.
      `data_governance`) get executable runtimes only when a concrete workflow needs
      one. The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain
      runtime not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
-4. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
+4. **Role-operations agent roster (Data Science Lead efficiency plan)** —
+   closing out a 14-agent roster, phase by phase, that absorbs a
+   quant/data-science lead's operational toil so more time goes to model
+   scoping and research. Full roster and rationale: the role-efficiency
+   plan this initiative implements (see `agents/role_operations/README.md`
+   for the phase breakdown carried in-repo). Backlog detail also tracked
+   in `docs/handoffs/future_features.md`.
+   - **Phase 1 — done** (spec `0024`): `meeting_to_action`, `status_rollup`,
+     `rapid_scaffolder`, `prior_art_scanner` — the lowest-risk,
+     highest-frequency slice, deliberately built and used first so trust
+     forms before any agent touches a client or governance committee.
+     Configurable via a local-only `role_context.yml`, gitignored by
+     default and enforced by the `role-context` gate — this repository
+     carries no company-specific or personal data. Backed by
+     `instructions/role_operations.md`.
+   - **Data-provenance guardrail — done** (spec `0025`, prompted directly
+     by this initiative's own guardrails): real-data-first priority stack
+     and complete synthetic-data disclosure, wired into `rapid_scaffolder`
+     specifically since it's the agent most likely to reach for synthetic
+     data to make a scaffold runnable.
+   - **Phase 2 — done** (spec `0029`): `demo_narrative_packager`,
+     `tough_question_rehearsal`, `experiment_ledger` — prototype
+     accelerators. `demo_narrative_packager` disclosed synthetic data per
+     `instructions/data_provenance.md`; `tough_question_rehearsal` reads
+     `role_context.yml`'s stakeholder personas; `experiment_ledger` runs
+     alongside `rapid_scaffolder`'s iteration loop.
+   - **Phase 3 — open, next**: `model_card_drafter`, `audit_trail_keeper`,
+     `governance_readiness_checklist`, `second_look_backtest_reviewer`,
+     `build_handoff_writer`, `alert_triage` — governance-adjacent,
+     deliberately sequenced last given the higher stakes.
+5. **P0 optimizer-agent workflow expansion (continued)** — the solver
+   toolkit (`0013`) has no financing-specific application spec yet;
+   collateral/margin LP or cardinality-constrained portfolio (MILP) would
+   be the first.
+6. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
    layers: `pip install quantsmith` + using the runtimes, and copying the scaffold +
    wiring the gates, with per-project-type recipes.
-5. **Packaging** — done (package phase active). `docs/packaging.md` records the hybrid
+7. **Packaging** — done (package phase active). `docs/packaging.md` records the hybrid
    (versioned `quantsmith` package for the runtimes + template for the scaffold);
    `CHANGELOG.md` and a versioning policy are in place. Remaining optional step: the
    Copier `qf` sync CLI, and an optional PyPI release when there is demand.
-6. **More worked examples** — the forecast spec is done
+8. **More worked examples** — the forecast spec is done
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
-7. **Remaining backing instructions** — risk_management, data_ingestion,
+9. **Remaining backing instructions** — risk_management, data_ingestion,
    reproducibility. (`pipeline_engineering`, `metrics_semantic_layer`,
    `data_storytelling`, `monitoring`, `alerting`, `asset_class_mechanics`,
    `role_operations`, and `data_provenance` are shipped.)
-8. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
-9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
-   revisit enforcing `leakage`.
-10. **Shipped since this section was last written (specs `0019`–`0026`)** —
-    pipeline observability (`0019`); the monitoring → alerting chain,
-    `agents/monitoring/`, `agents/alerts/`, `adapters/alert_delivery/` (`0020`/
-    `0021`); asset-class mechanics agents feeding `trading_strategies/` and
-    `securities_financing/` (`0022`); the securities-lending workflow promoted
-    to a tested runtime with a balance-sheet-cap correctness fix (`0023`);
-    `agents/role_operations/` Phase 1, configurable via a local-only
-    `role_context.yml` (`0024`); the data-provenance guardrail — real-data-
-    first priority stack + synthetic-data disclosure (`0025`); and the model
-    plugin adapter — register an already-built internal optimization model as
-    a reviewed, contract-bound plugin via a local-only `model_plugins.yml`
-    (`0026`). Recommended next: close out `securities_financing`
-    (`repo_financing`, `collateral_management`, `financing_cost_analysis`
-    remain agent-contract-only), `role_operations` Phase 2/3, an optimizer
-    application spec on the `0013` solver toolkit (e.g. collateral/margin LP),
-    and — once a concrete invocation target exists — an executable dispatcher
-    for `0026` under `src/quantsmith/adapters/model_plugin/`.
+10. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
+11. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+    revisit enforcing `leakage`.
+12. **Shipped since this section was last written (specs `0019`–`0028`):**
+    - `0019` pipeline observability.
+    - `0020`/`0021` the monitoring → alerting chain (`agents/monitoring/`,
+      `agents/alerts/`, `adapters/alert_delivery/`).
+    - `0022` asset-class mechanics agents, feeding `trading_strategies/` and
+      `securities_financing/`.
+    - `0023` the securities-lending workflow promoted to a tested runtime,
+      with a balance-sheet-cap correctness fix found along the way.
+    - `0024`/`0025` role-operations Phase 1 + the data-provenance guardrail
+      — see item 4, the dedicated tracking entry for this initiative.
+    - `0026` the model plugin adapter — register an already-built internal
+      optimization model as a reviewed, contract-bound plugin via a
+      local-only `model_plugins.yml`.
+    - `0027` the data source catalog (`sources/`) — a centralized,
+      per-source registry of APIs/DBs/feeds with quality, point-in-time,
+      and credential-pointer metadata, wired into `data_contract.md`,
+      `credential_access`, and `data_ingestion`; populated with six public
+      sources (FRED, BLS, EIA, BEA, Census, SEC EDGAR), with a matching
+      `adapters/data_access/external_apis/eia.md` profile added.
+    - `0028` financing cost analysis promoted to a tested, dependency-free
+      runtime — cost-of-carry decomposition, financing-aware returns,
+      understated-backtest flags, rate-shock sensitivity, and
+      classification-keyed capacity findings, reconciling with `0023`'s
+      rate/classification vocabulary by value (no `numpy` dependency added).
+
+    **Recommended next:** promote `repo_financing`/`collateral_management`
+    to tested runtimes if a concrete workflow needs to derive their inputs
+    (or leave them agent-contract-only — `financing_cost_analysis` doesn't
+    require it), `role_operations` Phase 2/3, an optimizer application spec
+    on the `0013` solver toolkit (e.g. collateral/margin LP), an executable
+    dispatcher for `0026` once a concrete invocation target exists, and
+    continuing to populate `sources/` as real sources come into use.
 
 ## Open Questions For The Owner
 

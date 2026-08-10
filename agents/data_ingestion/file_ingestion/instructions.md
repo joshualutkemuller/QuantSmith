@@ -2,6 +2,9 @@
 
 ## Operating Rules
 
+- Check `sources/<source-id>.yml` first if the file originates from a
+  registered source (a vendor export or file feed), for its quality notes
+  and access level.
 - Declare an explicit schema and dtypes; do not rely on silent inference.
 - Set encoding, delimiter, quoting, and header handling explicitly per format.
 - Parse dates with an explicit format and timezone; never guess ambiguous dates.

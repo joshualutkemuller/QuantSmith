@@ -48,6 +48,7 @@ each with a matching test module under `tests/`.
 | [0023-securities-lending-workflow](0023-securities-lending-workflow/) | Securities lending workflow — borrow classification, LP inventory optimization, concentration risk | `quantsmith/quant/agentic_quant/sec_lending_workflow.py` (not `pipelines/`) | `test_sec_lending_workflow.py` | Approved |
 | [0024-role-operations-agents](0024-role-operations-agents/) | Role operations agent expansion, Phase 1 (meeting/status/scaffolding/research-scan toil, configurable, no company data) | — (agent contracts) | catalog/docs gates, `role-context` gate | Approved |
 | [0025-data-provenance-guardrail](0025-data-provenance-guardrail/) | Data provenance guardrail — real-data-first priority stack + synthetic-data disclosure | — (standard/template/gate) | `data-provenance` gate | Approved |
+| [0026-model-plugin-adapter](0026-model-plugin-adapter/) | Model plugin adapter — register a prebuilt internal optimization model as a reviewed, contract-bound plugin | `adapters/model_plugin/` (contract only, not `pipelines/`) | `model-plugin` gate | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -55,7 +56,7 @@ traceability end to end. Copy its structure, not its content.
 ### Chains & themes
 
 - **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution.
-- **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control).
+- **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
@@ -70,4 +71,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0026`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0027`** (`0003`/`0005` belong to the local-only pack).

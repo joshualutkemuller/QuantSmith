@@ -14,19 +14,30 @@ The SDK now has a working v1 built on a spec-driven engineering framework:
   (`instructions/engineering_principles.md`), the SDD method
   (`instructions/spec_driven_development.md`), per-feature specs under `specs/`, and
   a worked example (`specs/0001-daily-momentum-signal/`).
-- **43 agents** in `agents/`, indexed by the catalog `agents/README.md`: an
+- **131 agents** in `agents/`, indexed by the catalog `agents/README.md` (the
+  live count — this file is a roadmap, not the source of truth): an
   orchestrator, six lifecycle agents (one per SDLC stage), core domain agents, and
-  grouped categories — `data_ingestion/`, `secrets_management/`, `tooling/`,
-  `knowledge/`, `trading_strategies/`, `securities_financing/`, `formulaic_alphas/`.
-- **15 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
+  16 grouped categories including `optimization/`, `machine_learning/`,
+  `deep_learning/`, `data_ingestion/`, `data_engineering/`, `secrets_management/`,
+  `tooling/`, `knowledge/`, `trading_strategies/`, `asset_classes/`,
+  `securities_financing/`, `formulaic_alphas/`, `analytics/`, `monitoring/`,
+  `alerts/`, and `role_operations/`.
+- **23 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
   gates) driven by `run-stage.sh`; advisory by default, blocking under
   `QF_STAGE_ENFORCE=1`.
-- **13 instruction standards** and a prompt/template library covering specs, run
-  cards, data contracts, monitoring plans, and postmortems.
+- **26 instruction standards** and a prompt/template library covering specs, run
+  cards, data contracts, monitoring plans, alert policies, synthetic-data
+  disclosure, and postmortems.
+- **`adapters/`** is a first-class SDK surface (6 groups: `alert_delivery/`,
+  `schedulers/`, `artifact_delivery/`, `dashboard_render/`, `data_access/`,
+  `llm_runtime/`) — the boundary between agent decisions and external systems.
+  See `adapters/README.md`.
 - **CI** (`.github/workflows/ci.yml`) enforces required docs, the recursive agent
   contract, shell syntax, spec traceability, backtest integrity, secret-scan,
-  docs-link, agent-catalog, and spec-index; runs leakage advisory; and runs the pytest suite
-  (`tests/`) in a separate job against the package's declared dependencies.
+  role-context, docs-link, agent-catalog, and spec-index; runs leakage,
+  pipeline-contract, alert-contract, monitoring-coverage, and data-provenance
+  advisorially/conditionally; and runs the pytest suite (`tests/`) in a separate
+  job against the package's declared dependencies.
 - Root `CLAUDE.md` activates the framework by default for any agent in the repo.
 - `setup-hooks.sh` wires local Git hooks; `.githooks/` holds commit/pre-commit/pre-push.
 
@@ -205,25 +216,29 @@ The hidden `.agents/` folder can remain as adapter-specific or internal agent me
 
 ## Near-Term Backlog
 
-Much of the original backlog is now built (the domain agents, the hook suite, CI
-link/contract checks). What remains:
+The original backlog (domain agents, the hook suite, CI link/contract checks,
+the adoption guide, packaging, `CHANGELOG.md`, the monitoring → alerting
+production spine) is now built — see `docs/handoff.md`'s "What's Next" for the
+live, maintained list. What remains, as of the most recent slice
+(specs `0022`–`0025`: asset-class mechanics, securities lending, role
+operations, data provenance):
 
-- Write and expand `docs/adoption_guide.md` (how to install the SDK into a repo).
-- Decide packaging (recorded in `docs/packaging.md`): formalize the template now,
-  add a Copier-style sync CLI when update pain is real, a package only with real code.
-- Add more worked examples: a risk-model or forecast spec end to end, and an
-  ingestion example that emits a data contract.
-- Add remaining backing instructions where a domain lacks one (e.g. risk_management,
-  data_ingestion, reproducibility, monitoring).
-- Add a `CHANGELOG.md` and a versioning policy once downstream repos consume the SDK.
+- Close out `agents/securities_financing/`: `repo_financing` and
+  `collateral_management` remain agent-contract-only; `financing_cost_analysis`
+  is the next candidate for a tested runtime.
+- `role_operations/` Phase 2 (demo packaging, tough-question rehearsal,
+  experiment ledger) and Phase 3 (model-card drafting, audit-trail keeping,
+  governance-readiness checklist — sequenced last, higher stakes).
+- Optimizer *application* specs on the `0013` solver toolkit: collateral/margin
+  LP, cardinality-constrained portfolio (MILP), funding-ladder min-cost flow,
+  multi-period rebalancing (DP).
+- Add remaining backing instructions: risk_management, data_ingestion,
+  reproducibility.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
-- Build the production workflow spine in priority order: pipeline builder and
-  deployment, pipeline/model monitoring, then channel-neutral alert policy,
-  routing, and delivery adapters.
-- Extend quant tooling coverage first through Python, SQL, C/C++, R, Jupyter,
-  kdb+/q, dbt, and DAG orchestration; add vendors as profiles unless their review
-  contract is materially different.
+- A plugin/adapter contract so an adopter's already-built internal optimization
+  model can be registered and routed to by the `optimization/` agents without
+  QuantSmith owning its implementation (see `docs/handoff.md`'s Open Questions).
 
 ## Open Decisions
 

@@ -45,7 +45,7 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
   `testing`, `deployment`, `maintenance`.
 - Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
   `repro`, `data-contract`, `pipeline-contract`, `alert-contract`,
-  `monitoring-coverage`, `content-draft-pack`.
+  `monitoring-coverage`, `content-draft-pack`, `data-provenance`.
 - Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`, `role-context`.
 
 **Instructions (13)** — constitution, SDD method, point-in-time, and the domain

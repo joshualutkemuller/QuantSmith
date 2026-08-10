@@ -14,8 +14,8 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
 [![Agents: 131](https://img.shields.io/badge/Agents-131-6f42c1)](agents/README.md)
-[![Quality Gates: 22](https://img.shields.io/badge/Quality%20Gates-22-2ea44f)](hooks/README.md)
-[![Specs: 22](https://img.shields.io/badge/Specs-22-0969da)](specs/README.md)
+[![Quality Gates: 23](https://img.shields.io/badge/Quality%20Gates-23-2ea44f)](hooks/README.md)
+[![Specs: 23](https://img.shields.io/badge/Specs-23-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
 <br/>
@@ -350,6 +350,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`alerting.md`](instructions/alerting.md)
 - [`knowledge_base.md`](instructions/knowledge_base.md)
 - [`role_operations.md`](instructions/role_operations.md)
+- [`data_provenance.md`](instructions/data_provenance.md)
 
 </td></tr>
 </table>
@@ -401,7 +402,7 @@ QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec   # blocking (as CI runs it)
 | --- | --- |
 | 🧭 Cross-cutting | `spec` |
 | 🔄 Per-stage | `planning` · `design` · `implementation` · `testing` · `deployment` · `maintenance` |
-| 📈 Quant / content | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `content-draft-pack` |
+| 📈 Quant / content | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `content-draft-pack` · `data-provenance` |
 | 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `knowledge` · `role-context` |
 
 > [!TIP]

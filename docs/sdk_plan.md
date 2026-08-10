@@ -224,11 +224,14 @@ live, maintained list. What remains, as of the most recent slice
 operations, data provenance):
 
 - Close out `agents/securities_financing/`: `repo_financing` and
-  `collateral_management` remain agent-contract-only; `financing_cost_analysis`
-  is the next candidate for a tested runtime.
-- `role_operations/` Phase 2 (demo packaging, tough-question rehearsal,
-  experiment ledger) and Phase 3 (model-card drafting, audit-trail keeping,
-  governance-readiness checklist — sequenced last, higher stakes).
+  `collateral_management` remain agent-contract-only by choice;
+  `financing_cost_analysis` shipped as a tested runtime (spec `0028`).
+- `role_operations/` — done. Phase 2 (spec `0029`: demo packaging,
+  tough-question rehearsal, experiment ledger) and Phase 3 (spec `0030`:
+  model-card drafting, audit-trail keeping, governance-readiness
+  checklist, a backtest pre-check, build-handoff writing, alert triage —
+  sequenced last, higher stakes) both shipped; the fourteen-agent roster
+  is complete.
 - Optimizer *application* specs on the `0013` solver toolkit: collateral/margin
   LP, cardinality-constrained portfolio (MILP), funding-ladder min-cost flow,
   multi-period rebalancing (DP).

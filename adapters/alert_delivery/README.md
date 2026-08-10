@@ -34,3 +34,15 @@ Implement in this order:
 3. `slack.md` and `teams.md` for team workflows.
 4. `ticketing.md` for operational handoff.
 5. `pagerduty_opsgenie.md` and `sms_push.md` only after escalation policy is stable.
+
+## Executable Providers
+
+Steps 1 and 2 above are shipped as executable providers (spec `0032`):
+`deliver_email` and `deliver_webhook`, under
+`src/quantsmith/adapters/alert_delivery/`. Both construct the exact
+contract-shaped payload deterministically and validate/redact it — neither
+opens a network connection itself. Real delivery requires an adopter-
+supplied `transport` callable and `dry_run=False`; the default
+(`dry_run=True`) never performs I/O, matching `adapters/dashboard_render/`'s
+own dry-run-first pattern. Slack, Teams, ticketing, PagerDuty/Opsgenie, and
+SMS/push remain documentation-only, per the ordering above.

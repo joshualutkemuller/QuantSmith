@@ -276,3 +276,34 @@ Tests: `tests/test_excel_react_profiles.py` (one test per acceptance criterion).
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_excel_react_profiles.py -q
 ```
+
+## `financing_cost_analysis` — spec `0028-financing-cost-analysis`
+
+Closes out the `securities_financing` group's quant bridge. Given a book of
+`FinancedPosition`s (each carrying borrow-fee, rebate, funding, and margin
+legs), `decompose` computes the all-in cost of carry per leg on an explicit
+ACT/360 basis; `financing_aware_returns` restates a gross return net of that
+cost with the drag reported; `flag_understated_backtest` catches a backtest
+that under-reports financing; `spread_sensitivity` re-decomposes under a
+uniform rate shock; `capacity_limit` flags where requested short notional
+exceeds availability by borrow classification (GC/WARM/HTB);
+`check_point_in_time` flags a leg whose rate was "known" after its
+position's period ended. `position_from_borrow_rate` reconciles with
+`securities_lending`'s (`0023`) rate/classification vocabulary by value —
+this module never imports that runtime's `numpy` dependency. Dependency-free
+and deterministic.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `decompose` → `CostDecomposition` | REQ-001 | Per-leg cost on an explicit day-count basis; invalid inputs rejected at construction. |
+| `financing_aware_returns` | REQ-002 | `net_return = gross_return - financing_cost`, with `drag` reported. |
+| `flag_understated_backtest` | REQ-003 | Fires when reported cost is below the computed all-in cost beyond tolerance. |
+| `spread_sensitivity` | REQ-004 | Net cost under a rate shock, monotonic, borrow leg clamped at zero. |
+| `capacity_limit` → `CapacityFinding` | REQ-005 | Keyed by GC/WARM/HTB; a long position never contributes to short-borrow capacity. |
+| `check_point_in_time` | NFR-001 | Flags a leg whose rate was known after its position's period end. |
+
+Tests: `tests/test_financing_cost_analysis.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_financing_cost_analysis.py -q
+```

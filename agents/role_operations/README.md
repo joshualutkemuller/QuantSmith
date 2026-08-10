@@ -8,13 +8,15 @@ operational layer so more of the week goes to the work itself.
 
 ## Note On Scope
 
-This is **Phase 1** of a four-pillar roster (Framework Design, Client &
-Stakeholder Engagement, Model Governance, Innovation & Prototyping) — the
-lowest-risk, highest-frequency slice, chosen deliberately so the habit forms on
-work that never touches a client or a governance committee before any agent
-gets near either. Later phases (demo packaging, model-card drafting,
-audit-trail keeping, governance-readiness checklists) are follow-ups, added
-once this slice has earned its keep — see `tasks.md`'s Follow-ups.
+This is **Phase 1 + Phase 2** of a four-pillar roster (Framework Design, Client
+& Stakeholder Engagement, Model Governance, Innovation & Prototyping). Phase 1
+(spec `0024`) was the lowest-risk, highest-frequency slice, chosen deliberately
+so the habit forms on work that never touches a client or a governance
+committee before any agent gets near either. Phase 2 (spec
+`0029-role-operations-agents-phase2`) extends into prototype accelerators —
+still nothing governance-facing. **Phase 3** (model-card drafting, audit-trail
+keeping, governance-readiness checklists — higher stakes, sequenced last) is
+the remaining follow-up — see `specs/0029-.../tasks.md`'s Follow-ups.
 
 ## Configuration
 
@@ -37,6 +39,9 @@ tracked.
 | `role_operations/status_rollup/` | Recent activity (commits, notebooks, notes) → a draft status update | Cross-cutting |
 | `role_operations/rapid_scaffolder/` | A new prototype idea → a repo/notebook skeleton, data-contract stub, naive baseline | Innovation & Prototyping |
 | `role_operations/prior_art_scanner/` | A hypothesis → related approaches, known failure modes, open questions | Framework Design |
+| `role_operations/demo_narrative_packager/` | A prototype's results → situation/insight/recommendation narrative + one-pager | Client & Stakeholder Engagement |
+| `role_operations/tough_question_rehearsal/` | Demo material → persona-grouped tough questions with suggested answers | Client & Stakeholder Engagement |
+| `role_operations/experiment_ledger/` | Every prototype variant tried → an append-only, no-survivorship-bias log | Innovation & Prototyping |
 
 ## Shared Principles
 
@@ -63,9 +68,12 @@ Every role-operations agent upholds the constitution and
 
 `prior_art_scanner` feeds `research_analyst` (a lighter, faster first pass
 before full research planning). `rapid_scaffolder` feeds `implementation` once
-a prototype is approved to move toward production-grade code. `meeting_to_action`
-and `status_rollup` are cross-cutting and don't feed a specific pillar agent —
-they clear the ambient overhead around all of them.
+a prototype is approved to move toward production-grade code, and
+`experiment_ledger` runs alongside it, logging every variant tried along the
+way. `demo_narrative_packager` and `tough_question_rehearsal` run together
+ahead of a demo: the narrative first, then the rehearsal against it.
+`meeting_to_action` and `status_rollup` are cross-cutting and don't feed a
+specific pillar agent — they clear the ambient overhead around all of them.
 
 ## Related
 

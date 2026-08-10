@@ -2,6 +2,8 @@
 
 ## Operating Rules
 
+- Check `sources/<source-id>.yml` first for the registered endpoint, quality
+  notes, and `credential_ref` before wiring a new pull.
 - Source tokens/keys from environment or a secrets manager; never commit or log them.
 - Paginate to completion; detect and fail on truncated or missing pages.
 - Respect rate limits; back off and retry only transient (5xx / 429) failures.

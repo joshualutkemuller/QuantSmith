@@ -48,6 +48,7 @@ pattern-based; tune them to your repository.
 | Markdown link check | `docs-link-check.sh` | all docs |
 | Agent catalog sync | `agent-catalog-check.sh` | `agents/README.md` |
 | Spec index sync | `spec-index-check.sh` | `specs/README.md` |
+| Source catalog sync | `source-catalog-check.sh` | `sources/README.md`, `templates/data/source_catalog_entry.yml` |
 | Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
 | Workflow memory check | `memory-check.sh` | `memory/`, `agents/knowledge/` |
 | Role context check | `role-context-check.sh` | `templates/role_operations/role_context.yml`, `agents/role_operations/` |
@@ -137,6 +138,16 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pac
   required contract fields (owner, category, objective, invocation type,
   review status). See `templates/optimization/model_plugin_manifest.yml` and
   `instructions/model_plugin_integration.md`.
+- **`source-catalog-check.sh`** validates the data source catalog
+  (`sources/`): every `sources/*.yml` declares the required fields (source
+  id, name, type, owner, description, access level, quality block,
+  connection block, credential reference, status), every file is listed in
+  the index (`sources/README.md`), and `credential_ref` doesn't contain a
+  token-shaped secret value (reuses `secret-scan`'s patterns). Unlike
+  `role-context`/`model-plugin`, `sources/*.yml` is meant to be tracked —
+  this gate protects the credential field, not the file's git status. See
+  `templates/data/source_catalog_entry.yml` and
+  `instructions/data_source_catalog.md`.
 
 ## Spec-Driven Check
 

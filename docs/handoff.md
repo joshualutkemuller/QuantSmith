@@ -3,12 +3,16 @@
 ## Snapshot
 
 The SDK has a working v1: a **spec-driven engineering framework** over the six
-software-development stages, **105 agents** including the root evening-content
-workflow pack, **15 quality gates**, **13 instruction standards**, and CI that
+software-development stages, **131 agents** including the root evening-content
+workflow pack, **23 quality gates**, **26 instruction standards**, and CI that
 enforces the deterministic gates. It remains primarily a scaffold to be copied
 into quant repos, with `evening_quant_content_twitter/` as the first runnable local
-workflow pack and `src/quantsmith/pipelines/` holding runnable, dependency-free
-reference pipelines that make specs `0006` and `0007` executable and tested.
+workflow pack, `src/quantsmith/pipelines/` holding runnable, dependency-free
+reference pipelines for most specs (see `specs/README.md`'s index for the current
+list), and `src/quantsmith/quant/agentic_quant/` holding a further runtime (spec
+`0023`) with `numpy`/optional-`scipy` dependencies. `adapters/` is a first-class
+SDK surface (6 groups) — the provider boundary between agent decisions and
+external systems (delivery, scheduling, storage, data access, model runtimes).
 
 - Build-out branch: `claude/dev-stages-hooks-agents-co1sjj` (open as PR #4 into `main`).
 - Root `CLAUDE.md` activates the framework by default for any agent in the repo.
@@ -24,21 +28,25 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
 - `specs/NNNN-slug/{spec,plan,tasks}.md` from `templates/spec/`; worked example at
   `specs/0001-daily-momentum-signal/`.
 
-**Agents (105)** — all on the four-file contract (`README`/`prompt`/`instructions`/
-`tasks`) with a `Spec-Driven Role`:
+**Agents (131, verified by the `agent-catalog` gate — treat `agents/README.md`
+as the live count, not the number here)** — all on the four-file contract
+(`README`/`prompt`/`instructions`/`tasks`) with a `Spec-Driven Role`:
 
 - Orchestrator: `workflow_orchestrator/`.
 - Lifecycle (one per stage): `planning_requirements`, `design_architecture`,
   `implementation`, `testing_validation`, `deployment_release`, `maintenance_monitoring`.
 - Core domain: `research_analyst`, `data_quality`, `feature_engineering`, `modeling`,
   `backtest_review`, `risk`, `git_release`.
-- Groups: `optimization/` (21), `machine_learning/` (12), `deep_learning/` (12), `data_ingestion/` (3), `secrets_management/` (4), `tooling/` (3 — Excel,
-  Power BI, Tableau), `knowledge/` (4), `trading_strategies/` (8 archetypes from
-  *151 Trading Strategies*), `securities_financing/` (4), `formulaic_alphas/` (3 —
-  from *101 Formulaic Alphas*), and the root `evening_quant_content_twitter/`
-  pack (8 content agents plus runtime/scheduler).
+- Groups (largest first): `optimization/`, `deep_learning/`, `machine_learning/`,
+  `tooling/`, `data_engineering/`, `trading_strategies/`, `asset_classes/`,
+  `secrets_management/`, `securities_financing/`, `knowledge/`, `analytics/`,
+  `role_operations/`, `monitoring/`, `alerts/`, `data_ingestion/`,
+  `formulaic_alphas/` — see `agents/README.md` for per-group membership and
+  counts, which change more often than this file is refreshed.
+- Plus the root `evening_quant_content_twitter/` pack (local-only, untracked;
+  content agents plus runtime/scheduler).
 
-**Gates (15)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
+**Gates (23)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
 `QF_STAGE_ENFORCE=1` blocks:
 
 - Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
@@ -48,9 +56,9 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
   `monitoring-coverage`, `content-draft-pack`, `data-provenance`.
 - Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`, `role-context`.
 
-**Instructions (13)** — constitution, SDD method, point-in-time, and the domain
-standards (quant_research, data_quality, backtesting, model_validation, documentation,
-git_workflow, knowledge_base, trading_strategies, securities_financing, formulaic_alphas).
+**Instructions (26)** — constitution, SDD method, point-in-time, and the domain
+standards; see `README.md`'s "Public Instructions" table for the current list
+(this file lists categories, not every filename, to avoid drifting again).
 
 **Templates & prompts** — `templates/spec/`, `templates/docs/` (research memo,
 dataset/model card, backtest report, run card, model monitoring plan, incident
@@ -148,11 +156,25 @@ by the `knowledge` gate.
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
 7. **Remaining backing instructions** — risk_management, data_ingestion,
-   reproducibility, monitoring. (`pipeline_engineering`, `metrics_semantic_layer`, and
-   `data_storytelling` are shipped.)
+   reproducibility. (`pipeline_engineering`, `metrics_semantic_layer`,
+   `data_storytelling`, `monitoring`, `alerting`, `asset_class_mechanics`,
+   `role_operations`, and `data_provenance` are shipped.)
 8. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
 9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
+10. **Shipped since this section was last written (specs `0019`–`0025`)** —
+    pipeline observability (`0019`); the monitoring → alerting chain,
+    `agents/monitoring/`, `agents/alerts/`, `adapters/alert_delivery/` (`0020`/
+    `0021`); asset-class mechanics agents feeding `trading_strategies/` and
+    `securities_financing/` (`0022`); the securities-lending workflow promoted
+    to a tested runtime with a balance-sheet-cap correctness fix (`0023`);
+    `agents/role_operations/` Phase 1, configurable via a local-only
+    `role_context.yml` (`0024`); and the data-provenance guardrail — real-data-
+    first priority stack + synthetic-data disclosure (`0025`). Recommended next:
+    close out `securities_financing` (`repo_financing`, `collateral_management`,
+    `financing_cost_analysis` remain agent-contract-only), `role_operations`
+    Phase 2/3, and an optimizer application spec on the `0013` solver toolkit
+    (e.g. collateral/margin LP).
 
 ## Open Questions For The Owner
 
@@ -164,7 +186,7 @@ by the `knowledge` gate.
 
 ## Risks
 
-- Breadth: 43 agents is useful only if each stays narrow and inspectable.
+- Breadth: 131 agents is useful only if each stays narrow and inspectable.
 - Heuristic gates (`leakage`, `backtest`, `secret-scan` fallback) can false-positive
   or miss; keep them advisory unless a repo's layout makes them reliable.
 - Docs can drift from the code; the `docs-link`, `agent-catalog`, and `spec-index` gates help, but

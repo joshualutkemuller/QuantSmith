@@ -165,10 +165,13 @@ by the `knowledge` gate.
      and complete synthetic-data disclosure, wired into `rapid_scaffolder`
      specifically since it's the agent most likely to reach for synthetic
      data to make a scaffold runnable.
-   - **Phase 2 — in progress**: `demo_narrative_packager`,
+   - **Phase 2 — done** (spec `0029`): `demo_narrative_packager`,
      `tough_question_rehearsal`, `experiment_ledger` — prototype
-     accelerators, next in sequence.
-   - **Phase 3 — open**: `model_card_drafter`, `audit_trail_keeper`,
+     accelerators. `demo_narrative_packager` disclosed synthetic data per
+     `instructions/data_provenance.md`; `tough_question_rehearsal` reads
+     `role_context.yml`'s stakeholder personas; `experiment_ledger` runs
+     alongside `rapid_scaffolder`'s iteration loop.
+   - **Phase 3 — open, next**: `model_card_drafter`, `audit_trail_keeper`,
      `governance_readiness_checklist`, `second_look_backtest_reviewer`,
      `build_handoff_writer`, `alert_triage` — governance-adjacent,
      deliberately sequenced last given the higher stakes.

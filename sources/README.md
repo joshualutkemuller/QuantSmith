@@ -22,10 +22,18 @@ sources/
 | Source ID | Name | Type | Access | Status | Quality |
 | --- | --- | --- | --- | --- | --- |
 | [`fred`](fred.yml) | FRED / ALFRED (macro time series) | api | public | active | high |
+| [`bls`](bls.yml) | BLS (labor market, CPI, PPI, wages) | api | public | active | high |
+| [`eia`](eia.yml) | EIA (energy production, consumption, prices) | api | public | active | high |
+| [`bea`](bea.yml) | BEA (GDP, personal income, national accounts) | api | public | active | high |
+| [`census`](census.yml) | U.S. Census Bureau (economic, demographic, housing) | api | public | active | high |
+| [`sec_edgar`](sec_edgar.yml) | SEC EDGAR (filings, XBRL, disclosure metadata) | api | public | active | high |
 
 `fred.yml` is a filled-in reference showing the schema in use — the same
 role `specs/0001-daily-momentum-signal/` plays for the spec format. Copy
-its structure, not its content, for a real source.
+its structure, not its content, for a real source. `bls`, `eia`, `bea`, and
+`census` require or accept a free-registration API key (see each entry's
+`connection.credential_ref`); `sec_edgar` requires a compliant User-Agent
+header instead of a key.
 
 ## How This Connects
 

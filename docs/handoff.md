@@ -162,7 +162,7 @@ by the `knowledge` gate.
 8. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
 9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
-10. **Shipped since this section was last written (specs `0019`–`0027`):**
+10. **Shipped since this section was last written (specs `0019`–`0028`):**
     - `0019` pipeline observability.
     - `0020`/`0021` the monitoring → alerting chain (`agents/monitoring/`,
       `agents/alerts/`, `adapters/alert_delivery/`).
@@ -180,15 +180,22 @@ by the `knowledge` gate.
     - `0027` the data source catalog (`sources/`) — a centralized,
       per-source registry of APIs/DBs/feeds with quality, point-in-time,
       and credential-pointer metadata, wired into `data_contract.md`,
-      `credential_access`, and `data_ingestion`.
+      `credential_access`, and `data_ingestion`; populated with six public
+      sources (FRED, BLS, EIA, BEA, Census, SEC EDGAR), with a matching
+      `adapters/data_access/external_apis/eia.md` profile added.
+    - `0028` financing cost analysis promoted to a tested, dependency-free
+      runtime — cost-of-carry decomposition, financing-aware returns,
+      understated-backtest flags, rate-shock sensitivity, and
+      classification-keyed capacity findings, reconciling with `0023`'s
+      rate/classification vocabulary by value (no `numpy` dependency added).
 
-    **Recommended next:** close out `securities_financing`
-    (`repo_financing`, `collateral_management`, `financing_cost_analysis`
-    remain agent-contract-only), `role_operations` Phase 2/3, an optimizer
-    application spec on the `0013` solver toolkit (e.g. collateral/margin
-    LP), an executable dispatcher for `0026` once a concrete invocation
-    target exists, and populating `sources/` beyond its one reference entry
-    as real sources come into use.
+    **Recommended next:** promote `repo_financing`/`collateral_management`
+    to tested runtimes if a concrete workflow needs to derive their inputs
+    (or leave them agent-contract-only — `financing_cost_analysis` doesn't
+    require it), `role_operations` Phase 2/3, an optimizer application spec
+    on the `0013` solver toolkit (e.g. collateral/margin LP), an executable
+    dispatcher for `0026` once a concrete invocation target exists, and
+    continuing to populate `sources/` as real sources come into use.
 
 ## Open Questions For The Owner
 

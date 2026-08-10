@@ -350,7 +350,12 @@ costs and risks.
 `securities_lending/` has a tested runtime (spec `0023-securities-lending-workflow`):
 `src/quantsmith/quant/agentic_quant/sec_lending_workflow.py` — universe
 construction, GC/WARM/HTB classification, LP inventory optimization, and
-concentration risk; run via `quantsmith-sec-lending`.
+concentration risk; run via `quantsmith-sec-lending`. `financing_cost_analysis/`
+also has a tested runtime (spec `0028-financing-cost-analysis`):
+`src/quantsmith/pipelines/financing_cost_analysis.py` — cost-of-carry
+decomposition, financing-aware returns, understated-backtest flags,
+rate-shock sensitivity, and capacity findings, reconciling with
+`securities_lending`'s rate/classification vocabulary by value.
 
 ## Formulaic Alpha Agents (`formulaic_alphas/`)
 

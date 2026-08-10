@@ -50,8 +50,9 @@ each with a matching test module under `tests/`.
 | [0025-data-provenance-guardrail](0025-data-provenance-guardrail/) | Data provenance guardrail — real-data-first priority stack + synthetic-data disclosure | — (standard/template/gate) | `data-provenance` gate | Approved |
 | [0026-model-plugin-adapter](0026-model-plugin-adapter/) | Model plugin adapter — register a prebuilt internal optimization model as a reviewed, contract-bound plugin | `adapters/model_plugin/` (contract only, not `pipelines/`) | `model-plugin` gate | Approved |
 | [0027-source-catalog](0027-source-catalog/) | Data source catalog — centralized, per-source registry of APIs/DBs/feeds with quality, point-in-time, and credential-pointer metadata | `sources/` (catalog only, not `pipelines/`) | `source-catalog` gate | Approved |
-| [0028-financing-cost-analysis](0028-financing-cost-analysis/) | Financing cost analysis — cost-of-carry decomposition, financing-aware returns, rate-shock sensitivity, capacity | `financing_cost_analysis.py` | `test_financing_cost_analysis.py` | Approved |
-| [0029-role-operations-agents-phase2](0029-role-operations-agents-phase2/) | Role operations agent expansion, Phase 2 (demo narrative, tough-question rehearsal, experiment ledger) | — (agent contracts) | catalog/docs gates | Approved |
+| [0028-financing-cost-analysis](0028-financing-cost-analysis/) | Financing cost analysis — cost-of-carry decomposition, financing-aware returns, understated-backtest flags, rate-shock sensitivity, capacity findings | `financing_cost_analysis.py` | `test_financing_cost_analysis.py` | Approved |
+| [0029-role-operations-agents-phase2](0029-role-operations-agents-phase2/) | Role operations agent expansion, Phase 2 (prototype accelerators: demo narrative, tough-question rehearsal, experiment ledger) | — (agent contracts) | catalog/docs gates | Approved |
+| [0030-role-operations-agents-phase3](0030-role-operations-agents-phase3/) | Role operations agent expansion, Phase 3 (governance-adjacent: model card, decision log, governance readiness, backtest pre-check, build handoff, alert triage) — roster complete | — (agent contracts) | catalog/docs gates | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -66,7 +67,7 @@ traceability end to end. Copy its structure, not its content.
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
 - **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`.
 - **Securities financing:** `0022` asset-class mechanics (equities shorts) → `0023` securities lending workflow → `0028` financing cost analysis (`repo_financing`/`collateral_management` remain agent-contract only) → `backtest_review`/`risk`.
-- **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents Phase 1 → `0025` data-provenance guardrail (real-data-first + synthetic-data disclosure, backing `0024`'s `rapid_scaffolder` and cross-referenced by `dashboard_design`/`data_storytelling`) → `0029` role-operations agents Phase 2 (feed `research_analyst`/`implementation`, configurable via a local-only `role_context.yml`). Phase 3 remains a follow-up.
+- **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents Phase 1 → `0025` data-provenance guardrail (real-data-first + synthetic-data disclosure, backing `0024`'s `rapid_scaffolder` and cross-referenced by `dashboard_design`/`data_storytelling`) → `0029` role-operations agents Phase 2 → `0030` role-operations agents Phase 3 (governance-adjacent: model card, decision log, governance readiness, backtest pre-check, build handoff, alert triage — hands off to `backtest_review`/`alert_router`/`incident_notification` rather than replacing them). Fourteen-agent roster complete, configurable via a local-only `role_context.yml`.
 
 ### Local-only specs
 
@@ -75,4 +76,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0030`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0031`** (`0003`/`0005` belong to the local-only pack).

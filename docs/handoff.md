@@ -62,8 +62,9 @@ standards; see `README.md`'s "Public Instructions" table for the current list
 
 **Templates & prompts** — `templates/spec/`, `templates/docs/` (research memo,
 dataset/model card, backtest report, run card, model monitoring plan, incident
-postmortem, handoff memo, production readiness), `templates/data/data_contract.md`,
-`templates/knowledge/knowledge_sources.yml`, and matching prompts.
+postmortem, handoff memo, production readiness, decision log),
+`templates/data/data_contract.md`, `templates/knowledge/knowledge_sources.yml`,
+and matching prompts.
 
 **Configurable knowledge sources** — the knowledge agents plug into external
 repositories declared in `knowledge_sources.yml` (subfolders as domains), validated
@@ -145,8 +146,8 @@ by the `knowledge` gate.
      `data_governance`) get executable runtimes only when a concrete workflow needs
      one. The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain
      runtime not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
-4. **Role-operations agent roster (Data Science Lead efficiency plan)** —
-   closing out a 14-agent roster, phase by phase, that absorbs a
+4. **Role-operations agent roster (Data Science Lead efficiency plan) — done.**
+   All three phases of a 14-agent roster shipped, absorbing a
    quant/data-science lead's operational toil so more time goes to model
    scoping and research. Full roster and rationale: the role-efficiency
    plan this initiative implements (see `agents/role_operations/README.md`
@@ -171,10 +172,19 @@ by the `knowledge` gate.
      `instructions/data_provenance.md`; `tough_question_rehearsal` reads
      `role_context.yml`'s stakeholder personas; `experiment_ledger` runs
      alongside `rapid_scaffolder`'s iteration loop.
-   - **Phase 3 — open, next**: `model_card_drafter`, `audit_trail_keeper`,
-     `governance_readiness_checklist`, `second_look_backtest_reviewer`,
-     `build_handoff_writer`, `alert_triage` — governance-adjacent,
-     deliberately sequenced last given the higher stakes.
+   - **Phase 3 — done** (spec `0030`): `model_card_drafter`,
+     `audit_trail_keeper`, `governance_readiness_checklist`,
+     `second_look_backtest_reviewer`, `build_handoff_writer`,
+     `alert_triage` — governance-adjacent, deliberately sequenced last
+     given the higher stakes. Added `templates/docs/decision_log.md` (no
+     template existed yet for `agentic_dictionary.md`'s Decision Log
+     term). `second_look_backtest_reviewer` and `alert_triage` are
+     explicitly framed as handoff layers, not replacements — the former
+     always recommends the full `agents/backtest_review/` agent before a
+     production-promotion decision, the latter never suppresses,
+     escalates, resolves, or re-routes an alert, deferring all of that to
+     `agents/alerts/alert_router/` and
+     `agents/alerts/incident_notification/`.
 5. **P0 optimizer-agent workflow expansion (continued)** — the solver
    toolkit (`0013`) has no financing-specific application spec yet;
    collateral/margin LP or cardinality-constrained portfolio (MILP) would
@@ -220,14 +230,17 @@ by the `knowledge` gate.
       understated-backtest flags, rate-shock sensitivity, and
       classification-keyed capacity findings, reconciling with `0023`'s
       rate/classification vocabulary by value (no `numpy` dependency added).
+    - `0029`/`0030` role-operations Phases 2 and 3 — see item 4, the
+      dedicated tracking entry for this initiative. The fourteen-agent
+      roster is now complete.
 
     **Recommended next:** promote `repo_financing`/`collateral_management`
     to tested runtimes if a concrete workflow needs to derive their inputs
     (or leave them agent-contract-only — `financing_cost_analysis` doesn't
-    require it), `role_operations` Phase 2/3, an optimizer application spec
-    on the `0013` solver toolkit (e.g. collateral/margin LP), an executable
-    dispatcher for `0026` once a concrete invocation target exists, and
-    continuing to populate `sources/` as real sources come into use.
+    require it), an optimizer application spec on the `0013` solver
+    toolkit (e.g. collateral/margin LP), an executable dispatcher for
+    `0026` once a concrete invocation target exists, and continuing to
+    populate `sources/` as real sources come into use.
 
 ## Open Questions For The Owner
 

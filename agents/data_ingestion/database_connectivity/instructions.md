@@ -33,4 +33,5 @@ query, params). When the data is time-series, include a `Point-in-Time` note.
 Ingestion requirements belong in the spec: encode "point-in-time correct",
 "read-only", and "snapshot captured" as `AC-*`/`NFR-*`, and record credential
 handling so the constitution P9 check is explicit. Emit
-`templates/data/data_contract.md` for downstream stages.
+`templates/data/data_contract.md` for downstream stages. Backed by the
+shared `instructions/data_ingestion.md` standard.

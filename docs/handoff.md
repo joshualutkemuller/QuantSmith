@@ -199,10 +199,19 @@ by the `knowledge` gate.
 8. **More worked examples** — the forecast spec is done
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
-9. **Remaining backing instructions** — risk_management, data_ingestion,
-   reproducibility. (`pipeline_engineering`, `metrics_semantic_layer`,
-   `data_storytelling`, `monitoring`, `alerting`, `asset_class_mechanics`,
-   `role_operations`, and `data_provenance` are shipped.)
+9. **Remaining backing instructions — done** (spec `0031`).
+   `instructions/risk_management.md` (backs `agents/risk/`),
+   `instructions/data_ingestion.md` (shared standard behind the three
+   `data_ingestion/*` agents, replacing three independently-restated
+   copies of the same rules), and `instructions/reproducibility.md`
+   (operationalizes P4 for the `repro` gate and `templates/docs/run_card.md`,
+   backing `implementation`/`testing_validation`) — all cross-referenced
+   from the agents they back. Every backing-standard gap called out in this
+   section historically is now closed: `pipeline_engineering`,
+   `metrics_semantic_layer`, `data_storytelling`, `monitoring`, `alerting`,
+   `asset_class_mechanics`, `role_operations`, `data_provenance`,
+   `risk_management`, `data_ingestion`, and `reproducibility` are all
+   shipped.
 10. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
 11. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
     revisit enforcing `leakage`.
@@ -233,14 +242,27 @@ by the `knowledge` gate.
     - `0029`/`0030` role-operations Phases 2 and 3 — see item 4, the
       dedicated tracking entry for this initiative. The fourteen-agent
       roster is now complete.
+    - `0031` the last three backing instructions
+      (`risk_management`/`data_ingestion`/`reproducibility`) — see item 9,
+      the dedicated tracking entry.
+    - `0032` the first two executable `adapters/alert_delivery/` providers
+      — email and webhook, following the adapter's own pre-existing
+      Recommended Starting Set. Deterministic payload construction and
+      redaction only; no network/SMTP/HTTP code lives in this SDK — a real
+      send requires an adopter-supplied `transport` callable and
+      `dry_run=False`, the same credential/execution boundary already drawn
+      for `credential_access` and the `0026` model-plugin dispatcher.
+      Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push.
 
-    **Recommended next:** promote `repo_financing`/`collateral_management`
-    to tested runtimes if a concrete workflow needs to derive their inputs
-    (or leave them agent-contract-only — `financing_cost_analysis` doesn't
-    require it), an optimizer application spec on the `0013` solver
-    toolkit (e.g. collateral/margin LP), an executable dispatcher for
-    `0026` once a concrete invocation target exists, and continuing to
-    populate `sources/` as real sources come into use.
+    **Recommended next:** `repo_financing`/`collateral_management` stay
+    agent-contract-only by choice — this SDK routes to an adopter's own
+    optimization models via `agents/optimization/model_plugin_registration/`
+    (spec `0026`) rather than owning securities-financing LP/optimization
+    logic itself; an executable dispatcher for `0026` is worth building once
+    a concrete invocation target exists. Otherwise: the remaining
+    `adapters/alert_delivery/` providers (Slack, Teams, ticketing,
+    PagerDuty/Opsgenie, SMS/push), and continuing to populate `sources/` as
+    real sources come into use.
 
 ## Open Questions For The Owner
 

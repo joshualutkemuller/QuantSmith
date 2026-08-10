@@ -11,6 +11,12 @@
   placeholders for the human.
 - Never fabricate a baseline result; describe what the naive baseline would
   measure, not an invented number.
+- Prefer actual data for the baseline whenever it's available (the priority
+  stack in `instructions/data_provenance.md`). If the scaffold uses any
+  synthetic data (e.g., to make the skeleton runnable before real data is
+  wired in), say so explicitly in the scaffold's output and start a
+  `synthetic_data_disclosure.md` for it — don't let a "just to get it
+  running" synthetic default go undisclosed.
 - Name a downstream handoff (`research_analyst` or `implementation`) rather
   than trying to be the final word on the prototype's direction.
 
@@ -20,6 +26,8 @@
   structure?
 - Are all data-contract fields placeholders, not fabricated values?
 - Is the baseline explicitly naive, with no invented result?
+- If any synthetic data is used to make the scaffold runnable, is it
+  disclosed (not silently defaulted to)?
 - Is a downstream handoff named?
 
 ## Output Contract
@@ -30,7 +38,8 @@ section, a `Naive Baseline` section, and a `Handoff` section.
 ## Spec-Driven Role
 
 "Reuses existing templates" and "no fabricated contract values or results"
-become testable `NFR-*`/`AC-*`. Backed by `instructions/role_operations.md`
-and `instructions/spec_driven_development.md`. See
-`specs/0024-role-operations-agents/`. Hands off to `research_analyst` and
-`implementation`.
+become testable `NFR-*`/`AC-*`. Backed by `instructions/role_operations.md`,
+`instructions/spec_driven_development.md`, and `instructions/data_provenance.md`
+(real data first; disclosed synthetic data). See
+`specs/0024-role-operations-agents/` and `specs/0025-data-provenance-guardrail/`.
+Hands off to `research_analyst` and `implementation`.

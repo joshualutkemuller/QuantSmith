@@ -52,6 +52,12 @@ Every role-operations agent upholds the constitution and
   authority.
 - **No fabrication.** A name, number, or decision absent from the input stays
   absent from the output — marked as a gap, not invented.
+- **Data and visuals are traceable to source.** Actual data is used first;
+  any figure, table, or chart this group produces cites its source at the
+  point of use. Synthetic data is a documented last resort — every use is
+  disclosed, completely, in a companion `synthetic_data_disclosure.md`
+  (`templates/docs/synthetic_data_disclosure.md`), never a caveat buried in
+  prose. See `instructions/data_provenance.md`.
 
 ## Where They Fit
 
@@ -66,5 +72,9 @@ they clear the ambient overhead around all of them.
 - `instructions/role_operations.md` — the shared standard behind this group.
 - `templates/role_operations/role_context.yml` — the configuration template.
 - `hooks/stages/role-context-check.sh` — the data-safety gate.
+- `instructions/data_provenance.md` — the source-traceability and
+  synthetic-data-disclosure standard this group's outputs follow.
+- `templates/docs/synthetic_data_disclosure.md` — the companion disclosure
+  report template.
 - `agents/research_analyst/` — fuller research planning, downstream of
   `prior_art_scanner`.

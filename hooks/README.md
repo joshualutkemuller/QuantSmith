@@ -37,6 +37,7 @@ pattern-based; tune them to your repository.
 | Pipeline contract | `pipeline-contract-check.sh` | `templates/data/pipeline_manifest.md`, `agents/data_engineering/` |
 | Alert contract | `alert-contract-check.sh` | `templates/data/alert_policy.md`, `agents/alerts/` |
 | Monitoring coverage | `monitoring-coverage-check.sh` | `templates/docs/model_monitoring_plan.md`, `agents/monitoring/` |
+| Data provenance | `data-provenance-check.sh` | `templates/docs/synthetic_data_disclosure.md`, `instructions/data_provenance.md` |
 | Evening content draft pack | `content-draft-pack-check.sh` | `evening_quant_content_twitter/` |
 
 ### Repo Gates (security & docs integrity)
@@ -91,6 +92,11 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pac
   pack, including config, draft-pack template, sample fixture, content agent
   contracts, scheduler profile, runtime smoke test, manual approval flag, and
   no-autopost boundary.
+- **`data-provenance-check.sh`** verifies a synthetic-data disclosure artifact
+  declares its required fields (location, reason, generation method,
+  reviewer), and advisorially flags report/dashboard-shaped artifacts that
+  mention synthetic data with no matching disclosure anywhere in the tree.
+  See `instructions/data_provenance.md`.
 
 ## Repo Gates
 

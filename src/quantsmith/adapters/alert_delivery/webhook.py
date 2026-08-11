@@ -9,15 +9,14 @@ and timeout policy. ``dry_run=True`` (the default) never performs I/O.
 
 from __future__ import annotations
 
-import datetime
 from typing import Dict, Optional
 
 from .result import (
     AlertDeliveryEvent,
     DeliveryResult,
     Transport,
-    TransportError,
     assert_no_secret,
+    deliver_via,
     redact_text,
 )
 
@@ -72,45 +71,4 @@ def deliver_webhook(
     performs the network call itself.
     """
     payload = build_webhook_payload(event)
-    timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
-
-    if dry_run:
-        return DeliveryResult(
-            adapter_name="alert_delivery",
-            provider="webhook",
-            status="skipped",
-            correlation_id=event.correlation_id,
-            dedupe_key=event.dedupe_key,
-            timestamp_utc=timestamp,
-            dry_run=True,
-        )
-
-    if transport is None:
-        raise ValueError("transport is required when dry_run=False")
-
-    try:
-        outcome = transport(payload)
-    except TransportError as exc:
-        return DeliveryResult(
-            adapter_name="alert_delivery",
-            provider="webhook",
-            status="failed",
-            correlation_id=event.correlation_id,
-            dedupe_key=event.dedupe_key,
-            timestamp_utc=timestamp,
-            retryable=exc.retryable,
-            error_code=exc.error_code,
-            error_message_redacted=redact_text(str(exc), event.privacy),
-            dry_run=False,
-        )
-
-    return DeliveryResult(
-        adapter_name="alert_delivery",
-        provider="webhook",
-        status="delivered",
-        correlation_id=event.correlation_id,
-        dedupe_key=event.dedupe_key,
-        timestamp_utc=timestamp,
-        provider_message_id=str(outcome.get("provider_message_id")) if outcome.get("provider_message_id") else None,
-        dry_run=False,
-    )
+    return deliver_via("webhook", payload, event, transport, dry_run)

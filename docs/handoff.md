@@ -288,8 +288,8 @@ by the `knowledge` gate.
       redaction only; no network/SMTP/HTTP code lives in this SDK — a real
       send requires an adopter-supplied `transport` callable and
       `dry_run=False`, the same credential/execution boundary already drawn
-      for `credential_access` and the `0026` model-plugin dispatcher.
-      Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push.
+      for `credential_access` and the `0026` model-plugin dispatcher. The
+      remaining five providers shipped in `0037` (see below).
     - `0033` the `economists/` agent group — see item 10, the dedicated
       tracking entry.
     - `0034` cardinality-constrained portfolio construction — see item 1,
@@ -308,18 +308,29 @@ by the `knowledge` gate.
       single-position DP trading transaction cost against tracking-error
       cost over a horizon. Every `0013` solver now has a shipped
       application.
+    - `0037` the remaining five `adapters/alert_delivery/` providers —
+      Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push — completing
+      the adapter's own Recommended Starting Set end to end (all seven
+      providers now executable). `pagerduty_opsgenie` and `sms_push`
+      structurally enforce their own stated severity-routing rules
+      (raise unless `allow_all_severities=True`) rather than leaving them
+      as prose; `sms_push` also truncates an oversized message to a
+      short-message length cap with a visible marker. Also factored the
+      dry-run/transport/`DeliveryResult` wrapper duplicated between
+      `email.py`/`webhook.py` into a shared `deliver_via` helper, verified
+      behavior-preserving by `0032`'s own test suite passing unchanged.
 
-    **Recommended next:** the remaining `adapters/alert_delivery/`
-    providers (Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push), or
-    conic/global/nonlinear optimizer forms once a dependency-free method
-    or an optional solver dependency is chosen.
+    **Recommended next:** conic/global/nonlinear optimizer forms once a
+    dependency-free method or an optional solver dependency is chosen.
     `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via
     `agents/optimization/model_plugin_registration/` (spec `0026`) rather
     than owning securities-financing LP/optimization logic itself; an
     executable dispatcher for `0026` is worth building once a concrete
-    invocation target exists. Also: continuing to populate `sources/` as
+    invocation target exists. Otherwise: a risk-model worked example end
+    to end, an ingestion example that emits a real `data_contract.md`
+    (item 8's remaining gaps), or continuing to populate `sources/` as
     real sources come into use.
 
 ## Open Questions For The Owner

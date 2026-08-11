@@ -37,12 +37,20 @@ Implement in this order:
 
 ## Executable Providers
 
-Steps 1 and 2 above are shipped as executable providers (spec `0032`):
-`deliver_email` and `deliver_webhook`, under
-`src/quantsmith/adapters/alert_delivery/`. Both construct the exact
-contract-shaped payload deterministically and validate/redact it — neither
-opens a network connection itself. Real delivery requires an adopter-
-supplied `transport` callable and `dry_run=False`; the default
-(`dry_run=True`) never performs I/O, matching `adapters/dashboard_render/`'s
-own dry-run-first pattern. Slack, Teams, ticketing, PagerDuty/Opsgenie, and
-SMS/push remain documentation-only, per the ordering above.
+All seven providers above are shipped as executable modules under
+`src/quantsmith/adapters/alert_delivery/` — email and webhook (spec
+`0032`), then Slack, Teams, ticketing, PagerDuty/Opsgenie, and SMS/push
+(spec `0037`), completing the Recommended Starting Set end to end. Every
+provider constructs the exact contract-shaped payload deterministically
+and validates/redacts it — none opens a network connection itself. Real
+delivery requires an adopter-supplied `transport` callable and
+`dry_run=False`; the default (`dry_run=True`) never performs I/O, matching
+`adapters/dashboard_render/`'s own dry-run-first pattern.
+
+Two providers additionally enforce their own stated delivery rules
+structurally, not just narratively: `pagerduty_opsgenie` and `sms_push`
+raise by default unless the event's severity meets their routing bar
+(`high`/`critical` and `critical` respectively — pass
+`allow_all_severities=True` to override), and `sms_push` truncates an
+oversized title/body to a short-message length cap with a visible marker
+rather than sending it oversized.

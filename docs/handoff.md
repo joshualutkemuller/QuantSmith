@@ -92,23 +92,28 @@ by the `knowledge` gate.
 
 ## What's Next (prioritized)
 
-1. **P0 optimizer-agent workflow expansion** — the optimization group now has runtimes
-   for the core mathematical forms plus four applications: convex QP
-   (`specs/0007-portfolio-construction/`), a closed-form control
-   (`specs/0012-execution-scheduling/`), the solver toolkit
+1. **P0 optimizer-agent workflow expansion — every `0013` solver now has a shipped
+   application.** The optimization group has runtimes for the core mathematical
+   forms plus five applications: convex QP (`specs/0007-portfolio-construction/`),
+   a closed-form control (`specs/0012-execution-scheduling/`), the solver toolkit
    (`specs/0013-optimization-solvers/`: LP, MILP, min-cost flow, dynamic programming),
    **cardinality-constrained portfolio construction**
    (`specs/0034-cardinality-constrained-portfolio/`, `cardinality_portfolio.py` —
    composes `0013`'s MILP with `0007`'s unmodified QP, disclosed explicitly as a
-   two-stage heuristic rather than a joint MIQP solve), and the **funding ladder**
+   two-stage heuristic rather than a joint MIQP solve), the **funding ladder**
    (`specs/0035-funding-ladder/`, `funding_ladder.py` — a bipartite
    tenor-to-obligation network on `0013`'s `min_cost_flow`, a general
-   treasury/cash-funding tool, explicitly not securities-financing). The quant chain
-   runs signal → forecast → portfolio → execution. Next: multi-period rebalancing
-   (DP), and conic/global/nonlinear forms when a dependency-free method or an
-   optional solver dependency is chosen. (Securities-financing LP work is
-   deliberately out of scope: that domain routes to an adopter's own models via
-   `agents/optimization/model_plugin_registration/`, spec `0026`, rather than the SDK
+   treasury/cash-funding tool, explicitly not securities-financing), and
+   **multi-period rebalancing** (`specs/0036-multi-period-rebalancing/`,
+   `multi_period_rebalancing.py` — a discretized single-position DP on `0013`'s
+   `solve_dp`, trading transaction cost against tracking-error cost over a
+   horizon; unlike `0034`/`0035` it has no "infeasible" outcome, since "stay put"
+   is always a valid action). The quant chain runs signal → forecast → portfolio
+   → execution. Next: conic/global/nonlinear solver forms when a dependency-free
+   method or an optional solver dependency is chosen. (Securities-financing LP
+   work is deliberately out of scope: that domain routes to an adopter's own
+   models via `agents/optimization/model_plugin_registration/`, spec `0026`,
+   rather than the SDK
    owning the optimization logic itself — see item 5.)
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
@@ -193,10 +198,11 @@ by the `knowledge` gate.
      escalates, resolves, or re-routes an alert, deferring all of that to
      `agents/alerts/alert_router/` and
      `agents/alerts/incident_notification/`.
-5. **P0 optimizer-agent workflow expansion (continued) — cardinality-constrained
-   portfolio and funding ladder done** (specs `0034`, `0035`); the remaining
-   candidate is multi-period rebalancing (DP). A securities-financing LP
-   application is deliberately not planned here:
+5. **P0 optimizer-agent workflow expansion (continued) — done.** All three
+   applications (cardinality-constrained portfolio, funding ladder,
+   multi-period rebalancing — specs `0034`, `0035`, `0036`) are shipped;
+   every solver in the `0013` toolkit now has one. A securities-financing
+   LP application remains deliberately not planned:
    `repo_financing`/`collateral_management` stay agent-contract-only, and
    that domain routes to an adopter's own optimization models via
    `agents/optimization/model_plugin_registration/` (spec `0026`) instead
@@ -282,8 +288,8 @@ by the `knowledge` gate.
       redaction only; no network/SMTP/HTTP code lives in this SDK — a real
       send requires an adopter-supplied `transport` callable and
       `dry_run=False`, the same credential/execution boundary already drawn
-      for `credential_access` and the `0026` model-plugin dispatcher.
-      Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push.
+      for `credential_access` and the `0026` model-plugin dispatcher. The
+      remaining five providers shipped in `0037` (see below).
     - `0033` the `economists/` agent group — see item 10, the dedicated
       tracking entry.
     - `0034` cardinality-constrained portfolio construction — see item 1,
@@ -296,17 +302,35 @@ by the `knowledge` gate.
       toolkit (`min_cost_flow`), a general treasury/cash-funding tool
       matching cash obligations to funding tenors at minimum cost;
       explicitly not a securities-financing tool.
+    - `0036` multi-period rebalancing (`multi_period_rebalancing.py`) —
+      see item 1, the dedicated tracking entry. The third and last
+      application on the `0013` toolkit (`solve_dp`): a discretized
+      single-position DP trading transaction cost against tracking-error
+      cost over a horizon. Every `0013` solver now has a shipped
+      application.
+    - `0037` the remaining five `adapters/alert_delivery/` providers —
+      Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push — completing
+      the adapter's own Recommended Starting Set end to end (all seven
+      providers now executable). `pagerduty_opsgenie` and `sms_push`
+      structurally enforce their own stated severity-routing rules
+      (raise unless `allow_all_severities=True`) rather than leaving them
+      as prose; `sms_push` also truncates an oversized message to a
+      short-message length cap with a visible marker. Also factored the
+      dry-run/transport/`DeliveryResult` wrapper duplicated between
+      `email.py`/`webhook.py` into a shared `deliver_via` helper, verified
+      behavior-preserving by `0032`'s own test suite passing unchanged.
 
-    **Recommended next:** multi-period rebalancing (DP) — the last
-    remaining optimizer application on the `0013` toolkit — or the
-    remaining `adapters/alert_delivery/` providers (Slack, Teams, ticketing,
-    PagerDuty/Opsgenie, SMS/push). `repo_financing`/`collateral_management`
+    **Recommended next:** conic/global/nonlinear optimizer forms once a
+    dependency-free method or an optional solver dependency is chosen.
+    `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via
     `agents/optimization/model_plugin_registration/` (spec `0026`) rather
     than owning securities-financing LP/optimization logic itself; an
     executable dispatcher for `0026` is worth building once a concrete
-    invocation target exists. Also: continuing to populate `sources/` as
+    invocation target exists. Otherwise: a risk-model worked example end
+    to end, an ingestion example that emits a real `data_contract.md`
+    (item 8's remaining gaps), or continuing to populate `sources/` as
     real sources come into use.
 
 ## Open Questions For The Owner

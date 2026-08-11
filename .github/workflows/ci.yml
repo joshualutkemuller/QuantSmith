@@ -65,9 +65,9 @@ jobs:
       - name: Enforce model-plugin safety (model_plugins.yml must never be tracked)
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh model-plugin
-      - name: Enforce docs links, agent catalog, and spec index
+      - name: Enforce docs links, agent catalog, spec index, and README sync
         run: |
-          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh docs-link agent-catalog spec-index
+          QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh docs-link agent-catalog spec-index readme-sync
       - name: Enforce source catalog (fields, index sync, credential-pointer safety)
         run: |
           QF_STAGE_ENFORCE=1 sh hooks/stages/run-stage.sh source-catalog

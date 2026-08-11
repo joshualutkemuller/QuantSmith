@@ -11,7 +11,7 @@
 # Quant/content gates: leakage backtest repro data-contract pipeline-contract
 #   alert-contract monitoring-coverage content-draft-pack
 #   (quant-specific checks; heuristic and advisory, run after the SDLC stages)
-# Repo gates: secret-scan docs-link agent-catalog spec-index
+# Repo gates: secret-scan docs-link agent-catalog spec-index readme-sync
 #   (security and documentation-integrity checks)
 # Knowledge gate: knowledge
 #   (validates configured knowledge-base source locations)
@@ -25,7 +25,7 @@
 
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
-ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract pipeline-contract alert-contract monitoring-coverage content-draft-pack secret-scan docs-link agent-catalog spec-index knowledge memory role-context data-provenance model-plugin source-catalog"
+ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract pipeline-contract alert-contract monitoring-coverage content-draft-pack secret-scan docs-link agent-catalog spec-index readme-sync knowledge memory role-context data-provenance model-plugin source-catalog"
 stages="$*"
 [ -z "$stages" ] && stages="$ALL"
 

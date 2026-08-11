@@ -62,6 +62,7 @@ each with a matching test module under `tests/`.
 | [0037-alert-delivery-remaining-providers](0037-alert-delivery-remaining-providers/) | Alert delivery — Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push executable providers, completing the adapter's Recommended Starting Set; structural severity gating + SMS length cap | `adapters/alert_delivery/{slack,teams,ticketing,pagerduty_opsgenie,sms_push}.py` (not `pipelines/`) | `test_alert_delivery_adapters.py` | Approved |
 | [0038-factor-risk-model](0038-factor-risk-model/) | Factor risk model — variance decomposition, Euler risk attribution, concentration, linear stress loss; operationalizes `instructions/risk_management.md` (`0031`) with a tested runtime | `factor_risk_model.py` | `test_factor_risk_model.py` | Approved |
 | [0039-ingestion-data-contract](0039-ingestion-data-contract/) | Ingestion data contract emission — validates a pulled row set against a declared schema/key/quality-rule contract and renders a `data_contract.md` populated with real, computed results; closes the worked-example gap `docs/handoff.md` had carried since `0006` | `ingestion_data_contract.py` | `test_ingestion_data_contract.py` | Approved |
+| [0040-readme-sync-gate](0040-readme-sync-gate/) | README index/runtime sync gate — verifies every spec with a tested runtime (a `test_*.py` module named in this index's Tests column) also appears in root `README.md`'s runtime table; the sync check `agent-catalog`/`spec-index` didn't cover | — (gate only) | `readme-sync` gate | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -86,4 +87,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0040`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0041`** (`0003`/`0005` belong to the local-only pack).

@@ -344,6 +344,17 @@ by the `knowledge` gate.
       results, phrased as findings "in the validated sample" rather than
       an unqualified guarantee. Item 8's worked-examples backlog is now
       fully closed.
+    - `0040` the README index/runtime sync gate
+      (`hooks/stages/readme-sync-check.sh`). `agent-catalog`/`spec-index`
+      already kept `agents/README.md`/`specs/README.md` from drifting as
+      agents/specs were added; this gate closes the third leg — a spec
+      whose `specs/README.md` row names a real, tested pytest module (its
+      Tests column) but whose ID is missing from root `README.md`'s own
+      runtime table. Wired into `run-stage.sh`, `hooks/README.md`, root
+      `README.md`'s gate table, and CI's docs-integrity enforcement step
+      alongside `docs-link`/`agent-catalog`/`spec-index`. The exact gap
+      this file's own Risks section names ("narrative docs ... need
+      periodic manual refresh") is now partially self-checking.
 
     **Recommended next:** conic/global/nonlinear optimizer forms once a
     dependency-free method or an optional solver dependency is chosen.

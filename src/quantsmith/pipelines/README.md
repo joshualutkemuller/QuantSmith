@@ -301,6 +301,33 @@ Tests: `tests/test_multi_period_rebalancing.py` (one test per acceptance criteri
 PYTHONPATH=src python3 -m pytest tests/test_multi_period_rebalancing.py -q
 ```
 
+## `factor_risk_model` — spec `0038-factor-risk-model`
+
+The worked risk-model example the SDK's own backlog had carried since `0006`
+shipped: a standard Barra-style factor risk decomposition, dependency-free.
+Consumes an already-estimated factor exposure matrix and factor covariance (it
+does not estimate a factor model, matching `portfolio_construction.py`'s own
+scope boundary around its covariance matrix input) and decomposes portfolio
+variance into factor and specific risk, attributes it to assets and factors via
+an Euler decomposition (the parts always sum exactly to the total, by
+construction), measures concentration, and estimates a **linear, first-order**
+stress loss under a supplied factor shock — never presented as a full
+repricing. Operationalizes `instructions/risk_management.md` (`0031`) with a
+tested runtime.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `decompose_variance` | REQ-001 | `factor_variance + specific_variance == total_variance` exactly. |
+| `marginal_contribution_to_risk` | REQ-002 | Per-asset contributions sum to total volatility; per-factor contributions sum to factor variance — both exactly (Euler identity). |
+| `risk_concentration` | REQ-003 | Effective number of bets from a set of risk contributions. |
+| `stress_loss` | REQ-004 | Linear factor-shock P&L estimate, explicitly not a full repricing. |
+
+Tests: `tests/test_factor_risk_model.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_factor_risk_model.py -q
+```
+
 ## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`
 
 The first BI-tool renderer from the `0014` expansion track. `dashboard_spec.py` is the

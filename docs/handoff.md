@@ -215,8 +215,12 @@ by the `knowledge` gate.
    `CHANGELOG.md` and a versioning policy are in place. Remaining optional step: the
    Copier `qf` sync CLI, and an optional PyPI release when there is demand.
 8. **More worked examples** — the forecast spec is done
-   (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
-   and an ingestion example that emits a data contract (see item 3).
+   (`specs/0006-ml-return-forecasting/`). **Risk-model spec done**
+   (`specs/0038-factor-risk-model/`, `factor_risk_model.py`): variance
+   decomposition, Euler risk attribution (assets and factors), risk
+   concentration, and a linear factor-shock stress loss, operationalizing
+   `instructions/risk_management.md` (`0031`) with a tested runtime. Still
+   open: an ingestion example that emits a data contract (see item 3).
 9. **Remaining backing instructions — done** (spec `0031`).
    `instructions/risk_management.md` (backs `agents/risk/`),
    `instructions/data_ingestion.md` (shared standard behind the three
@@ -319,9 +323,17 @@ by the `knowledge` gate.
       dry-run/transport/`DeliveryResult` wrapper duplicated between
       `email.py`/`webhook.py` into a shared `deliver_via` helper, verified
       behavior-preserving by `0032`'s own test suite passing unchanged.
+    - `0038` the factor risk model (`factor_risk_model.py`) — see item 8,
+      the dedicated tracking entry. Closes the standing "risk-model spec
+      end to end" worked-example gap and operationalizes
+      `instructions/risk_management.md` (`0031`) with a tested runtime;
+      every decomposition sums exactly to the total it decomposes, by
+      construction (Euler identity), not just by convention.
 
-    **Recommended next:** conic/global/nonlinear optimizer forms once a
-    dependency-free method or an optional solver dependency is chosen.
+    **Recommended next:** an ingestion example that emits a real
+    `data_contract.md` (item 8's other remaining gap), or conic/global/
+    nonlinear optimizer forms once a dependency-free method or an optional
+    solver dependency is chosen.
     `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via

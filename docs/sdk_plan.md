@@ -268,6 +268,14 @@ operations, data provenance):
   `instructions/macro_economic_analysis.md`; hands off to
   `trading_strategies/macro_multi_asset`, `portfolio_management/*`, and
   `risk` rather than duplicating them.
+- Risk-model worked example — done (spec `0038`, `factor_risk_model.py`).
+  A standard Barra-style factor risk decomposition: variance decomposition,
+  Euler risk attribution (assets and factors, sums exactly by
+  construction), risk concentration (effective number of bets), and a
+  linear factor-shock stress loss, explicitly not a full repricing.
+  Operationalizes `instructions/risk_management.md` (`0031`) with a tested
+  runtime. Remaining worked-example gap: an ingestion example that emits a
+  real `data_contract.md`.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

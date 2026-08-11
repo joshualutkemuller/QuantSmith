@@ -162,7 +162,9 @@ health (drift, calibration, alpha decay, regime shift) from a reference vs live 
 and emits `Observation`s; `alerting.evaluate_policies` turns those into alerts, and
 `alerting.route` deduplicates, suppresses, assigns owner/channel, and escalates.
 Detection and delivery stay separate — delivery is the `adapters/alert_delivery/`
-contract. Dependency-free and deterministic.
+contract, with `deliver_email`/`deliver_webhook` as its first executable providers
+(`0032`, `src/quantsmith/adapters/alert_delivery/`). Dependency-free and
+deterministic.
 
 | Component | Spec | What it guarantees |
 | --- | --- | --- |

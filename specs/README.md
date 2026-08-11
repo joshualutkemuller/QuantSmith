@@ -53,6 +53,9 @@ each with a matching test module under `tests/`.
 | [0028-financing-cost-analysis](0028-financing-cost-analysis/) | Financing cost analysis — cost-of-carry decomposition, financing-aware returns, understated-backtest flags, rate-shock sensitivity, capacity findings | `financing_cost_analysis.py` | `test_financing_cost_analysis.py` | Approved |
 | [0029-role-operations-agents-phase2](0029-role-operations-agents-phase2/) | Role operations agent expansion, Phase 2 (prototype accelerators: demo narrative, tough-question rehearsal, experiment ledger) | — (agent contracts) | catalog/docs gates | Approved |
 | [0030-role-operations-agents-phase3](0030-role-operations-agents-phase3/) | Role operations agent expansion, Phase 3 (governance-adjacent: model card, decision log, governance readiness, backtest pre-check, build handoff, alert triage) — roster complete | — (agent contracts) | catalog/docs gates | Approved |
+| [0031-remaining-backing-instructions](0031-remaining-backing-instructions/) | Remaining backing instructions — risk management, data ingestion (shared standard), reproducibility (operationalizes P4 for the `repro` gate) | — (standards only) | catalog/docs gates | Approved |
+| [0032-alert-delivery-providers](0032-alert-delivery-providers/) | Alert delivery executable providers — email and webhook, deterministic payload construction, redaction, and an injectable transport seam (no network code in the SDK) | `adapters/alert_delivery/` (not `pipelines/`) | `test_alert_delivery_adapters.py` | Approved |
+| [0033-economists-agents](0033-economists-agents/) | Economists agent expansion — indicator tracking, policy reads, regime classification, cross-asset translation, forward scenarios, and two report writers (brief + outlook) giving a macro backdrop to quant/PM workflows | — (agent contracts) | catalog/docs gates | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -65,8 +68,9 @@ traceability end to end. Copy its structure, not its content.
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
-- **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`.
+- **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/` (`0032` ships its first two executable providers, email and webhook).
 - **Securities financing:** `0022` asset-class mechanics (equities shorts) → `0023` securities lending workflow → `0028` financing cost analysis (`repo_financing`/`collateral_management` remain agent-contract only) → `backtest_review`/`risk`.
+- **Macro & economics:** `0027` source catalog (FRED/BLS/BEA/Census/EIA) → `0033` economists agents (indicators → policy → regime → cross-asset/scenario → brief/outlook reports) → `trading_strategies/macro_multi_asset`, `portfolio_management/allocation_policy`, `risk`.
 - **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents Phase 1 → `0025` data-provenance guardrail (real-data-first + synthetic-data disclosure, backing `0024`'s `rapid_scaffolder` and cross-referenced by `dashboard_design`/`data_storytelling`) → `0029` role-operations agents Phase 2 → `0030` role-operations agents Phase 3 (governance-adjacent: model card, decision log, governance readiness, backtest pre-check, build handoff, alert triage — hands off to `backtest_review`/`alert_router`/`incident_notification` rather than replacing them). Fourteen-agent roster complete, configurable via a local-only `role_context.yml`.
 
 ### Local-only specs
@@ -76,4 +80,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0031`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0034`** (`0003`/`0005` belong to the local-only pack).

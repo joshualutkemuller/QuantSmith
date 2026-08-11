@@ -98,10 +98,13 @@ by the `knowledge` gate.
    (`specs/0012-execution-scheduling/`), and the solver toolkit
    (`specs/0013-optimization-solvers/`: LP, MILP, min-cost flow, dynamic programming).
    The quant chain runs signal → forecast → portfolio → execution. Next: build
-   *application* specs on the new solvers — collateral/margin LP, cardinality-
-   constrained portfolio (MILP), funding-ladder min-cost flow, multi-period
-   rebalancing DP — and add conic/global/nonlinear forms when a dependency-free method
-   or an optional solver dependency is chosen.
+   *application* specs on the new solvers — cardinality-constrained portfolio (MILP),
+   funding-ladder min-cost flow, multi-period rebalancing DP — and add
+   conic/global/nonlinear forms when a dependency-free method or an optional solver
+   dependency is chosen. (Securities-financing LP work is deliberately out of scope:
+   that domain routes to an adopter's own models via
+   `agents/optimization/model_plugin_registration/`, spec `0026`, rather than the SDK
+   owning the optimization logic itself — see item 5.)
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
@@ -186,9 +189,13 @@ by the `knowledge` gate.
      `agents/alerts/alert_router/` and
      `agents/alerts/incident_notification/`.
 5. **P0 optimizer-agent workflow expansion (continued)** — the solver
-   toolkit (`0013`) has no financing-specific application spec yet;
-   collateral/margin LP or cardinality-constrained portfolio (MILP) would
-   be the first.
+   toolkit (`0013`) still has no application spec built on it;
+   cardinality-constrained portfolio (MILP) would be the first. A
+   securities-financing LP application is deliberately not planned here:
+   `repo_financing`/`collateral_management` stay agent-contract-only, and
+   that domain routes to an adopter's own optimization models via
+   `agents/optimization/model_plugin_registration/` (spec `0026`) instead
+   of the SDK owning securities-financing optimization logic itself.
 6. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
    layers: `pip install quantsmith` + using the runtimes, and copying the scaffold +
    wiring the gates, with per-project-type recipes.
@@ -199,14 +206,42 @@ by the `knowledge` gate.
 8. **More worked examples** — the forecast spec is done
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
-9. **Remaining backing instructions** — risk_management, data_ingestion,
-   reproducibility. (`pipeline_engineering`, `metrics_semantic_layer`,
-   `data_storytelling`, `monitoring`, `alerting`, `asset_class_mechanics`,
-   `role_operations`, and `data_provenance` are shipped.)
-10. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
-11. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+9. **Remaining backing instructions — done** (spec `0031`).
+   `instructions/risk_management.md` (backs `agents/risk/`),
+   `instructions/data_ingestion.md` (shared standard behind the three
+   `data_ingestion/*` agents, replacing three independently-restated
+   copies of the same rules), and `instructions/reproducibility.md`
+   (operationalizes P4 for the `repro` gate and `templates/docs/run_card.md`,
+   backing `implementation`/`testing_validation`) — all cross-referenced
+   from the agents they back. Every backing-standard gap called out in this
+   section historically is now closed: `pipeline_engineering`,
+   `metrics_semantic_layer`, `data_storytelling`, `monitoring`, `alerting`,
+   `asset_class_mechanics`, `role_operations`, `data_provenance`,
+   `risk_management`, `data_ingestion`, and `reproducibility` are all
+   shipped.
+10. **Economists agent group — done** (spec `0033`). Seven agents
+    (`macro_indicator_analyst`, `monetary_policy_analyst`,
+    `macro_regime_classifier`, `cross_asset_macro_linkages`,
+    `macro_scenario_analyst`, `macro_backdrop_summarizer`,
+    `economic_outlook_report_writer`) giving a quant/PM workflow a
+    grounded macro backdrop — indicators through policy through a
+    classified regime through cross-asset/scenario translation to a
+    recurring brief and a periodic outlook report. Reclaims
+    `agents/economists/`, a stray, unwired placeholder (a literal
+    `"placeholder"` `README.md`) left by the earlier parallel
+    `agent/portfolio-management-agents` merge. Backed by
+    `instructions/macro_economic_analysis.md` and
+    `templates/docs/macro_backdrop_report.md`; draws on
+    `sources/{fred,bls,bea,census,eia}.yml` (`0027`). Analysis and
+    synthesis only — hands off to `trading_strategies/macro_multi_asset`,
+    `portfolio_management/*`, and `risk` rather than replacing them, and
+    is explicitly distinguished from `monitoring/model_signal_monitoring`'s
+    regime-change detection (a different, operational question from
+    classifying what the current regime *is*).
+11. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
+12. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
     revisit enforcing `leakage`.
-12. **Shipped since this section was last written (specs `0019`–`0028`):**
+13. **Shipped since this section was last written (specs `0019`–`0028`):**
     - `0019` pipeline observability.
     - `0020`/`0021` the monitoring → alerting chain (`agents/monitoring/`,
       `agents/alerts/`, `adapters/alert_delivery/`).
@@ -233,14 +268,29 @@ by the `knowledge` gate.
     - `0029`/`0030` role-operations Phases 2 and 3 — see item 4, the
       dedicated tracking entry for this initiative. The fourteen-agent
       roster is now complete.
+    - `0031` the last three backing instructions
+      (`risk_management`/`data_ingestion`/`reproducibility`) — see item 9,
+      the dedicated tracking entry.
+    - `0032` the first two executable `adapters/alert_delivery/` providers
+      — email and webhook, following the adapter's own pre-existing
+      Recommended Starting Set. Deterministic payload construction and
+      redaction only; no network/SMTP/HTTP code lives in this SDK — a real
+      send requires an adopter-supplied `transport` callable and
+      `dry_run=False`, the same credential/execution boundary already drawn
+      for `credential_access` and the `0026` model-plugin dispatcher.
+      Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push.
+    - `0033` the `economists/` agent group — see item 10, the dedicated
+      tracking entry.
 
-    **Recommended next:** promote `repo_financing`/`collateral_management`
-    to tested runtimes if a concrete workflow needs to derive their inputs
-    (or leave them agent-contract-only — `financing_cost_analysis` doesn't
-    require it), an optimizer application spec on the `0013` solver
-    toolkit (e.g. collateral/margin LP), an executable dispatcher for
-    `0026` once a concrete invocation target exists, and continuing to
-    populate `sources/` as real sources come into use.
+    **Recommended next:** `repo_financing`/`collateral_management` stay
+    agent-contract-only by choice — this SDK routes to an adopter's own
+    optimization models via `agents/optimization/model_plugin_registration/`
+    (spec `0026`) rather than owning securities-financing LP/optimization
+    logic itself; an executable dispatcher for `0026` is worth building once
+    a concrete invocation target exists. Otherwise: the remaining
+    `adapters/alert_delivery/` providers (Slack, Teams, ticketing,
+    PagerDuty/Opsgenie, SMS/push), and continuing to populate `sources/` as
+    real sources come into use.
 
 ## Open Questions For The Owner
 

@@ -27,7 +27,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules. **Shipped**: agent + `instructions/alerting.md` + spec `specs/0020-alerting/` + tested runtime `src/quantsmith/pipelines/alerting.py` (`evaluate_policies`) | P1 | done |
 | `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection. **Shipped**: agent + `route` (spec `0020`); delivery via `adapters/alert_delivery/` | P1 | done |
 | `agents/alerts/incident_notification/` | Actionable notifications, acknowledgement/recovery lifecycle, evidence and runbook links. **Shipped**: agent (spec `0020`) | P1 | done |
-| Provider implementations for `adapters/alert_delivery/` | Executable email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear integrations behind the adapter contract | P1 | proposed |
+| Provider implementations for `adapters/alert_delivery/` | Executable email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear integrations behind the adapter contract. **Email + webhook shipped** (spec `0032`): deterministic payload construction, redaction, secret guard, injectable `transport` seam (`dry_run=True` default, no network code in the SDK itself). Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push | P1 | in-progress |
 | `agents/monitoring/pipeline_monitoring/` | DAG status, dependencies, freshness, latency, backlogs, retries, partial writes, idempotency, and SLOs. **Shipped**: agent (reads the `0019` run manifest) | P1 | done |
 | `agents/monitoring/model_signal_monitoring/` | Quality, calibration, feature drift, alpha decay, turnover/capacity, and regime change. **Shipped**: agent + `instructions/monitoring.md` + spec `specs/0021-signal-monitoring/` + tested runtime `src/quantsmith/pipelines/signal_monitoring.py` | P1 | done |
 | `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails. Agent shipped; executable cost runtime is a follow-up | P2 | in-progress |
@@ -38,6 +38,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `sources/` data source catalog | Centralized, per-source registry (APIs/DBs/feeds) with quality, point-in-time, and credential-pointer metadata. **Shipped**: schema template + gate + spec `specs/0027-source-catalog/`, populated with six public sources (FRED, BLS, EIA, BEA, Census, SEC EDGAR); wired into `data_contract.md`, `credential_access`, `data_ingestion` | P2 | in-progress |
 | `agents/securities_financing/financing_cost_analysis/` | All-in cost-of-carry decomposition, financing-aware returns, understated-backtest flags, rate-shock sensitivity, capacity findings. **Shipped**: tested runtime `src/quantsmith/pipelines/financing_cost_analysis.py` + spec `specs/0028-financing-cost-analysis/`, reconciling with `0023`'s securities-lending vocabulary by value. `repo_financing`/`collateral_management` remain agent-contract-only | P1 | done |
 | `agents/asset_classes/*` | Mechanics-only agents (equities, fixed income/rates/credit, FX, commodities, digital assets) feeding `trading_strategies/` and `securities_financing/` with point-in-time-correct market-structure inputs. **Shipped**: 5 agents + `instructions/asset_class_mechanics.md` + spec `specs/0022-asset-class-mechanics-agents/` | P1 | done |
+| `agents/economists/*` | Macro backdrop for quant/PM workflows: indicator tracking, policy reads, regime classification, cross-asset translation, forward scenarios, and two report writers (recurring brief + periodic outlook). **Shipped**: 7 agents + `instructions/macro_economic_analysis.md` + `templates/docs/macro_backdrop_report.md` + spec `specs/0033-economists-agents/`; reclaims a stray, unwired `agents/economists/` placeholder left by an earlier parallel merge. Draws on `sources/{fred,bls,bea,census,eia}.yml` (`0027`); hands off to `trading_strategies/macro_multi_asset`, `portfolio_management/*`, and `risk` rather than replacing them | P1 | done |
 | `agents/securities_financing/securities_lending/` runtime | Borrow-rate classification, LP inventory optimization, concentration risk. **Shipped**: promoted the existing `quant/agentic_quant/sec_lending_workflow.py` to a tested spec (`specs/0023-securities-lending-workflow/`), fixing a balance-sheet-cap bug in the greedy fallback along the way | P1 | done |
 | `instructions/data_provenance.md` + `templates/docs/synthetic_data_disclosure.md` | Real-data-first priority stack and complete synthetic-data disclosure for any agent-produced data/visual content. **Shipped**: standard + template + `data-provenance` gate, spec `specs/0025-data-provenance-guardrail/`; wired into `role_operations` and cross-referenced from `dashboard_design`/`data_storytelling` | P1 | done |
 
@@ -69,9 +70,9 @@ belong under profiles/adapters unless they require materially different behavior
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
-| `instructions/risk_management.md` | Standard behind the `risk` agent (exposure, tail, limits) | P2 | proposed |
-| `instructions/data_ingestion.md` | Standard behind `data_ingestion/*` (PIT capture, snapshots, schema validation) | P2 | proposed |
-| `instructions/reproducibility.md` | Operationalize P4 for the `repro` gate and run card | P2 | proposed |
+| `instructions/risk_management.md` | Standard behind the `risk` agent (exposure, concentration, tail/drawdown, stress, monitorable limits). **Shipped** (spec `0031`) | P2 | done |
+| `instructions/data_ingestion.md` | Shared standard behind `data_ingestion/*` (source-catalog lookup, credential resolution, snapshotting, PIT, load-time validation), replacing three independently-restated copies of the same rules. **Shipped** (spec `0031`) | P2 | done |
+| `instructions/reproducibility.md` | Operationalizes P4 for the `repro` gate and run card, stating the gate's actual (heuristic) mechanism honestly. **Shipped** (spec `0031`) | P2 | done |
 | `instructions/monitoring.md` | Standard behind `maintenance_monitoring` and the monitoring plan | P3 | proposed |
 | `instructions/pipeline_engineering.md` | DAG, idempotency, retry/backfill, environment, data-contract, lineage, and deployment standard | P1 | proposed |
 | `instructions/alerting.md` | Channel-neutral alert schema, severity, routing, suppression, acknowledgement, escalation, and privacy. **Shipped** (spec `0020`) | P1 | done |
@@ -139,6 +140,15 @@ belong under profiles/adapters unless they require materially different behavior
 - Model plugin adapter (spec `0026`) and the data source catalog (spec
   `0027`).
 - Financing cost analysis promoted to a tested runtime (spec `0028`).
+- The last three backing instructions — `risk_management`, `data_ingestion`
+  (a shared standard replacing three duplicated copies), and
+  `reproducibility` (spec `0031`).
+- The first two executable `adapters/alert_delivery/` providers — email and
+  webhook (spec `0032`), following the adapter's own pre-existing
+  Recommended Starting Set.
+- The `economists/` agent group (spec `0033`) — seven agents giving a
+  quant/PM workflow a grounded macro backdrop, reclaiming a stray
+  placeholder directory left by an earlier parallel merge.
 - A documentation audit and refresh pass: stale counts in `docs/handoff.md`
   and `docs/sdk_plan.md` corrected, a missing "Adapter" dictionary entry
   added, and a missing `adapters/data_access/external_apis/eia.md` profile

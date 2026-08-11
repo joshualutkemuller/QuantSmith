@@ -283,6 +283,8 @@ each. Uses the catalog as its routing table.
 
 **Securities financing** (`agents/securities_financing/`) — `securities_lending/`, `repo_financing/`, `collateral_management/`, `financing_cost_analysis/`: make financing a first-class part of strategy economics — borrow cost, short rebate, repo/funding, collateral and margin. `securities_lending/` has a tested runtime — GC/WARM/HTB classification, LP inventory optimization, concentration risk (spec `0023`). `financing_cost_analysis/` also has one — cost-of-carry decomposition, financing-aware returns, rate-shock sensitivity, capacity (spec `0028`); `repo_financing/` and `collateral_management/` remain agent-contract-only.
 
+**Economists** (`agents/economists/`) — `macro_indicator_analyst/`, `monetary_policy_analyst/`, `macro_regime_classifier/`, `cross_asset_macro_linkages/`, `macro_scenario_analyst/`, `macro_backdrop_summarizer/`, `economic_outlook_report_writer/`: give a quant or portfolio-management workflow a grounded macro backdrop — indicators through policy through a classified regime through cross-asset/scenario translation to a recurring brief and a periodic outlook report. Analysis and synthesis only; strategy design stays `trading_strategies/macro_multi_asset`'s job and live-model regime-change detection stays `monitoring/model_signal_monitoring`'s job. Draws on `sources/{fred,bls,bea,census,eia}.yml`; every figure traces to a supplied input or registered source, never invented (spec `0033`).
+
 **Formulaic alphas** (`agents/formulaic_alphas/`) — `alpha_construction/`, `alpha_combination/`, `alpha_evaluation/`: operationalize the methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — build tradable signals from an operator library, combine weakly-correlated alphas, and evaluate holding period, turnover, correlation, and capacity.
 
 </details>
@@ -324,6 +326,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`engineering_principles.md`](instructions/engineering_principles.md) — the constitution
 - [`spec_driven_development.md`](instructions/spec_driven_development.md) — the SDD method
 - [`point_in_time.md`](instructions/point_in_time.md) — leakage checklist
+- [`reproducibility.md`](instructions/reproducibility.md) — P4 operationalized; backs the `repro` gate
 - [`workflow_memory.md`](instructions/workflow_memory.md)
 - [`git_workflow.md`](instructions/git_workflow.md)
 - [`documentation.md`](instructions/documentation.md)
@@ -333,6 +336,7 @@ Reusable standards and behavioral rules that agents follow.
 **Quant & research**
 - [`quant_research.md`](instructions/quant_research.md)
 - [`data_quality.md`](instructions/data_quality.md)
+- [`risk_management.md`](instructions/risk_management.md)
 - [`backtesting.md`](instructions/backtesting.md)
 - [`model_development.md`](instructions/model_development.md) — how to build
 - [`model_validation.md`](instructions/model_validation.md) — how to validate
@@ -340,6 +344,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`portfolio_management.md`](instructions/portfolio_management.md)
 - [`asset_class_mechanics.md`](instructions/asset_class_mechanics.md)
 - [`securities_financing.md`](instructions/securities_financing.md)
+- [`macro_economic_analysis.md`](instructions/macro_economic_analysis.md)
 - [`formulaic_alphas.md`](instructions/formulaic_alphas.md)
 - [`optimization.md`](instructions/optimization.md)
 - [`model_plugin_integration.md`](instructions/model_plugin_integration.md)
@@ -352,6 +357,7 @@ Reusable standards and behavioral rules that agents follow.
 - [`metrics_semantic_layer.md`](instructions/metrics_semantic_layer.md)
 - [`data_storytelling.md`](instructions/data_storytelling.md)
 - [`pipeline_engineering.md`](instructions/pipeline_engineering.md)
+- [`data_ingestion.md`](instructions/data_ingestion.md)
 - [`monitoring.md`](instructions/monitoring.md)
 - [`alerting.md`](instructions/alerting.md)
 - [`knowledge_base.md`](instructions/knowledge_base.md)
@@ -443,6 +449,7 @@ the [spec index](specs/README.md).
 | [`0021`](specs/0021-signal-monitoring/) | Model/signal monitoring — drift, calibration, decay, regime | `signal_monitoring.py` |
 | [`0023`](specs/0023-securities-lending-workflow/) | Securities lending — borrow classification, LP inventory optimization, concentration risk | `quant/agentic_quant/sec_lending_workflow.py` *(not `pipelines/`; needs `numpy`)* |
 | [`0028`](specs/0028-financing-cost-analysis/) | Financing cost analysis — cost-of-carry decomposition, financing-aware returns, rate-shock sensitivity, capacity | `financing_cost_analysis.py` |
+| [`0032`](specs/0032-alert-delivery-providers/) | Alert delivery executable providers — email + webhook, deterministic payload/redaction, injectable transport | `adapters/alert_delivery/` |
 
 **Themed chains**
 
@@ -451,8 +458,9 @@ the [spec index](specs/README.md).
 - 🧮 **Optimization toolkit:** `0007` (QP) · `0013` (LP/MILP/flow/DP) · `0012` (control)
 - 📊 **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` pipeline → `0014` storytelling → `0015`/`0016`/`0018` dashboards → `0017` render adapters
 - 🏗️ **Data Engineer:** `0011` orchestration → `0019` observability
-- 🛰️ **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/`
+- 🛰️ **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/` (`0032`: email + webhook executable)
 - 💵 **Securities financing:** `0022` asset-class mechanics → `0023` securities lending → `0028` financing cost analysis → backtest/risk
+- 🌐 **Macro & economics:** `0027` source catalog → `0033` economists agents (indicators → policy → regime → cross-asset/scenario → brief/outlook) → `macro_multi_asset`, `portfolio_management`, `risk`
 
 ---
 

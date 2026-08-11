@@ -34,4 +34,5 @@ Types` section and a `Validation` section. When files are large, include a
 
 The file's expected schema and quality thresholds are acceptance criteria: encode
 them as `AC-*` and emit `templates/data/data_contract.md` so the
-`data-contract-check` hook and the testing stage can enforce them.
+`data-contract-check` hook and the testing stage can enforce them. Backed by
+the shared `instructions/data_ingestion.md` standard.

@@ -50,6 +50,11 @@ and, in particular:
   point-in-time rules, missingness) and a dataset card. Feeds the `data_quality`
   agent and the `data-contract-check` hook.
 
+Each agent's own `instructions.md` states its format-specific rules; the shared
+rules across all three (source-catalog lookup, credential resolution, snapshot
+capture, point-in-time, load-time validation) live once in
+`instructions/data_ingestion.md`.
+
 ## Where They Fit
 
 Ingestion agents supply the Planning and Design stages: they establish what data

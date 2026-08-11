@@ -232,11 +232,26 @@ operations, data provenance):
   checklist, a backtest pre-check, build-handoff writing, alert triage —
   sequenced last, higher stakes) both shipped; the fourteen-agent roster
   is complete.
-- Optimizer *application* specs on the `0013` solver toolkit: collateral/margin
-  LP, cardinality-constrained portfolio (MILP), funding-ladder min-cost flow,
-  multi-period rebalancing (DP).
-- Add remaining backing instructions: risk_management, data_ingestion,
-  reproducibility.
+- Optimizer *application* specs on the `0013` solver toolkit: funding-ladder
+  min-cost flow, multi-period rebalancing (DP). (Securities-financing LP work
+  specifically is deliberately out of scope — that domain routes to an
+  adopter's own models via `agents/optimization/model_plugin_registration/`,
+  spec `0026`, rather than the SDK owning the optimization logic.)
+- Remaining backing instructions — done: `risk_management`, `data_ingestion`
+  (a shared standard replacing three duplicated copies), `reproducibility`
+  (spec `0031`).
+- `adapters/alert_delivery/` executable providers — email and webhook done
+  (spec `0032`, deterministic payload/redaction, injectable transport, no
+  network code in the SDK). Remaining: Slack, Teams, ticketing,
+  PagerDuty/Opsgenie, SMS/push.
+- `agents/economists/` — done (spec `0033`). Seven agents giving a
+  quant/PM workflow a grounded macro backdrop (indicators → policy →
+  regime → cross-asset/scenario → brief/outlook reports), reclaiming a
+  stray, unwired placeholder left by the earlier parallel
+  `agent/portfolio-management-agents` merge. Backed by
+  `instructions/macro_economic_analysis.md`; hands off to
+  `trading_strategies/macro_multi_asset`, `portfolio_management/*`, and
+  `risk` rather than duplicating them.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

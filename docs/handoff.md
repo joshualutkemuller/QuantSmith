@@ -93,20 +93,21 @@ by the `knowledge` gate.
 ## What's Next (prioritized)
 
 1. **P0 optimizer-agent workflow expansion** — the optimization group now has runtimes
-   for the core mathematical forms plus three applications: convex QP
+   for the core mathematical forms plus four applications: convex QP
    (`specs/0007-portfolio-construction/`), a closed-form control
    (`specs/0012-execution-scheduling/`), the solver toolkit
    (`specs/0013-optimization-solvers/`: LP, MILP, min-cost flow, dynamic programming),
-   and **cardinality-constrained portfolio construction**
-   (`specs/0034-cardinality-constrained-portfolio/`, `cardinality_portfolio.py`) — the
-   first application actually built on the `0013` toolkit, composing `0013`'s MILP
-   (selects at most K names) with `0007`'s unmodified QP (sizes them), disclosed
-   explicitly as a two-stage heuristic rather than a joint MIQP solve. The quant chain
-   runs signal → forecast → portfolio → execution. Next: more *application* specs on
-   the solvers — funding-ladder min-cost flow, multi-period rebalancing DP — and
-   conic/global/nonlinear forms when a dependency-free method or an optional solver
-   dependency is chosen. (Securities-financing LP work is deliberately out of scope:
-   that domain routes to an adopter's own models via
+   **cardinality-constrained portfolio construction**
+   (`specs/0034-cardinality-constrained-portfolio/`, `cardinality_portfolio.py` —
+   composes `0013`'s MILP with `0007`'s unmodified QP, disclosed explicitly as a
+   two-stage heuristic rather than a joint MIQP solve), and the **funding ladder**
+   (`specs/0035-funding-ladder/`, `funding_ladder.py` — a bipartite
+   tenor-to-obligation network on `0013`'s `min_cost_flow`, a general
+   treasury/cash-funding tool, explicitly not securities-financing). The quant chain
+   runs signal → forecast → portfolio → execution. Next: multi-period rebalancing
+   (DP), and conic/global/nonlinear forms when a dependency-free method or an
+   optional solver dependency is chosen. (Securities-financing LP work is
+   deliberately out of scope: that domain routes to an adopter's own models via
    `agents/optimization/model_plugin_registration/`, spec `0026`, rather than the SDK
    owning the optimization logic itself — see item 5.)
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
@@ -193,9 +194,9 @@ by the `knowledge` gate.
      `agents/alerts/alert_router/` and
      `agents/alerts/incident_notification/`.
 5. **P0 optimizer-agent workflow expansion (continued) — cardinality-constrained
-   portfolio done** (spec `0034`); remaining candidates are funding-ladder
-   min-cost flow and multi-period rebalancing (DP). A securities-financing
-   LP application is deliberately not planned here:
+   portfolio and funding ladder done** (specs `0034`, `0035`); the remaining
+   candidate is multi-period rebalancing (DP). A securities-financing LP
+   application is deliberately not planned here:
    `repo_financing`/`collateral_management` stay agent-contract-only, and
    that domain routes to an adopter's own optimization models via
    `agents/optimization/model_plugin_registration/` (spec `0026`) instead
@@ -290,10 +291,15 @@ by the `knowledge` gate.
       backlog item (an application actually built on the `0013` solver
       toolkit) and corrects the stale collateral/margin-LP mention that
       previously stood in for it.
+    - `0035` the funding ladder (`funding_ladder.py`) — see item 1, the
+      dedicated tracking entry. The second application built on `0013`'s
+      toolkit (`min_cost_flow`), a general treasury/cash-funding tool
+      matching cash obligations to funding tenors at minimum cost;
+      explicitly not a securities-financing tool.
 
-    **Recommended next:** the remaining optimizer applications — funding-
-    ladder min-cost flow, multi-period rebalancing (DP) — or the remaining
-    `adapters/alert_delivery/` providers (Slack, Teams, ticketing,
+    **Recommended next:** multi-period rebalancing (DP) — the last
+    remaining optimizer application on the `0013` toolkit — or the
+    remaining `adapters/alert_delivery/` providers (Slack, Teams, ticketing,
     PagerDuty/Opsgenie, SMS/push). `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via

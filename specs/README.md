@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, and `0034` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`, and `0035` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -57,6 +57,7 @@ each with a matching test module under `tests/`.
 | [0032-alert-delivery-providers](0032-alert-delivery-providers/) | Alert delivery executable providers — email and webhook, deterministic payload construction, redaction, and an injectable transport seam (no network code in the SDK) | `adapters/alert_delivery/` (not `pipelines/`) | `test_alert_delivery_adapters.py` | Approved |
 | [0033-economists-agents](0033-economists-agents/) | Economists agent expansion — indicator tracking, policy reads, regime classification, cross-asset translation, forward scenarios, and two report writers (brief + outlook) giving a macro backdrop to quant/PM workflows | — (agent contracts) | catalog/docs gates | Approved |
 | [0034-cardinality-constrained-portfolio](0034-cardinality-constrained-portfolio/) | Cardinality-constrained portfolio construction — a two-stage heuristic composing `0013`'s MILP (select) and `0007`'s QP (size), long-only, honestly disclosed as non-joint-optimal | `cardinality_portfolio.py` | `test_cardinality_portfolio.py` | Approved |
+| [0035-funding-ladder](0035-funding-ladder/) | Funding ladder min-cost flow — matches cash obligations to funding tenors at minimum cost via `0013`'s `min_cost_flow`; general treasury/cash tool, not securities-financing | `funding_ladder.py` | `test_funding_ladder.py` | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -64,7 +65,7 @@ traceability end to end. Copy its structure, not its content.
 ### Chains & themes
 
 - **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution.
-- **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models), `0034` (cardinality-constrained portfolio — `0013`'s MILP composed with `0007`'s QP).
+- **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models), `0034` (cardinality-constrained portfolio — `0013`'s MILP composed with `0007`'s QP), `0035` (funding ladder — `0013`'s min-cost flow, general treasury/cash, not securities-financing).
 - **Data foundations:** `0027` source catalog (registry) → `data_contract.md` (per-dataset) → `agents/data_ingestion/` (ingestion) → `data_quality`/`point_in_time` (review).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
@@ -81,4 +82,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0035`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0036`** (`0003`/`0005` belong to the local-only pack).

@@ -256,6 +256,29 @@ Tests: `tests/test_cardinality_portfolio.py` (one test per acceptance criterion)
 PYTHONPATH=src python3 -m pytest tests/test_cardinality_portfolio.py -q
 ```
 
+## `funding_ladder` — spec `0035-funding-ladder`
+
+The first application built on `0013`'s `min_cost_flow`: a bipartite `SOURCE ->
+tenor -> obligation -> SINK` network that matches future cash obligations to
+available funding tenors (overnight, 1-week, 1-month, …) at minimum total cost. A
+tenor may only fund an obligation it can actually cover — the tenor's length must
+be at least the obligation's horizon — enforced by edge existence, not a post-hoc
+filter. Every obligation is fully funded or the result is `"infeasible"`; never a
+partial allocation presented as success. **General treasury/cash tool, not
+securities-financing** — no repo, securities-lending, or collateral mechanics (that
+stays agent-contract-only, routing to `model_plugin_registration`, `0026`). A
+static single-snapshot decision, not a rolling re-solve. Dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `solve_funding_ladder` | REQ-001 – REQ-005 | Full funding per obligation, eligibility via edge existence, tenor capacity respected, minimum total cost, explicit infeasibility. |
+
+Tests: `tests/test_funding_ladder.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_funding_ladder.py -q
+```
+
 ## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`
 
 The first BI-tool renderer from the `0014` expansion track. `dashboard_spec.py` is the

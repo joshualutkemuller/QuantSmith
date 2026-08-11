@@ -279,6 +279,28 @@ Tests: `tests/test_funding_ladder.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_funding_ladder.py -q
 ```
 
+## `multi_period_rebalancing` — spec `0036-multi-period-rebalancing`
+
+The third application built on `0013`'s toolkit, and the last solver in it to get
+one: a discretized single-position dynamic program on `solve_dp`. Trades off a
+transaction cost (per unit traded) against a tracking-error cost (per unit away
+from target) over a finite horizon, capped by a per-period `max_trade`. **A single
+discretized position dimension, not a general multi-asset problem** — `solve_dp`
+needs an enumerable state space, which a continuous multi-asset weight vector
+isn't. Unlike `0034`/`0035`, there is no infeasible outcome: "stay put" is always a
+valid action, so a well-formed problem always has a defined optimal policy.
+Dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `solve_multi_period_rebalancing` | REQ-001 – REQ-004 | `max_trade` enforced by action-set construction; full position path, per-period trades, and total cost reported; cost trade-off driven by caller-supplied rates. |
+
+Tests: `tests/test_multi_period_rebalancing.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_multi_period_rebalancing.py -q
+```
+
 ## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`
 
 The first BI-tool renderer from the `0014` expansion track. `dashboard_spec.py` is the

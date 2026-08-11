@@ -232,7 +232,11 @@ operations, data provenance):
   checklist, a backtest pre-check, build-handoff writing, alert triage —
   sequenced last, higher stakes) both shipped; the fourteen-agent roster
   is complete.
-- Optimizer *application* specs on the `0013` solver toolkit: funding-ladder
+- Optimizer *application* specs on the `0013` solver toolkit — the SDK's only
+  standing `P0` item. **Cardinality-constrained portfolio construction shipped**
+  (spec `0034`, `cardinality_portfolio.py`): a two-stage heuristic composing
+  `0013`'s MILP (selects at most K names) with `0007`'s unmodified QP (sizes
+  them), disclosed explicitly as not a joint MIQP solve. Remaining: funding-ladder
   min-cost flow, multi-period rebalancing (DP). (Securities-financing LP work
   specifically is deliberately out of scope — that domain routes to an
   adopter's own models via `agents/optimization/model_plugin_registration/`,

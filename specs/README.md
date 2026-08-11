@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`, and `0035` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, and `0034`–`0036` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -58,6 +58,8 @@ each with a matching test module under `tests/`.
 | [0033-economists-agents](0033-economists-agents/) | Economists agent expansion — indicator tracking, policy reads, regime classification, cross-asset translation, forward scenarios, and two report writers (brief + outlook) giving a macro backdrop to quant/PM workflows | — (agent contracts) | catalog/docs gates | Approved |
 | [0034-cardinality-constrained-portfolio](0034-cardinality-constrained-portfolio/) | Cardinality-constrained portfolio construction — a two-stage heuristic composing `0013`'s MILP (select) and `0007`'s QP (size), long-only, honestly disclosed as non-joint-optimal | `cardinality_portfolio.py` | `test_cardinality_portfolio.py` | Approved |
 | [0035-funding-ladder](0035-funding-ladder/) | Funding ladder min-cost flow — matches cash obligations to funding tenors at minimum cost via `0013`'s `min_cost_flow`; general treasury/cash tool, not securities-financing | `funding_ladder.py` | `test_funding_ladder.py` | Approved |
+| [0036-multi-period-rebalancing](0036-multi-period-rebalancing/) | Multi-period rebalancing — a discretized single-position DP via `0013`'s `solve_dp`, trading transaction cost against tracking-error cost over a horizon; closes out every `0013` solver having a shipped application | `multi_period_rebalancing.py` | `test_multi_period_rebalancing.py` | Approved |
+| [0037-alert-delivery-remaining-providers](0037-alert-delivery-remaining-providers/) | Alert delivery — Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push executable providers, completing the adapter's Recommended Starting Set; structural severity gating + SMS length cap | `adapters/alert_delivery/{slack,teams,ticketing,pagerduty_opsgenie,sms_push}.py` (not `pipelines/`) | `test_alert_delivery_adapters.py` | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -65,12 +67,12 @@ traceability end to end. Copy its structure, not its content.
 ### Chains & themes
 
 - **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution.
-- **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models), `0034` (cardinality-constrained portfolio — `0013`'s MILP composed with `0007`'s QP), `0035` (funding ladder — `0013`'s min-cost flow, general treasury/cash, not securities-financing).
+- **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models), `0034` (cardinality-constrained portfolio — `0013`'s MILP composed with `0007`'s QP), `0035` (funding ladder — `0013`'s min-cost flow, general treasury/cash, not securities-financing), `0036` (multi-period rebalancing — `0013`'s DP, a discretized single position over a horizon). Every `0013` solver now has a shipped application.
 - **Data foundations:** `0027` source catalog (registry) → `data_contract.md` (per-dataset) → `agents/data_ingestion/` (ingestion) → `data_quality`/`point_in_time` (review).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
-- **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/` (`0032` ships its first two executable providers, email and webhook).
+- **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/` (`0032` ships email + webhook; `0037` ships Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push — all seven providers now executable).
 - **Securities financing:** `0022` asset-class mechanics (equities shorts) → `0023` securities lending workflow → `0028` financing cost analysis (`repo_financing`/`collateral_management` remain agent-contract only) → `backtest_review`/`risk`.
 - **Macro & economics:** `0027` source catalog (FRED/BLS/BEA/Census/EIA) → `0033` economists agents (indicators → policy → regime → cross-asset/scenario → brief/outlook reports) → `trading_strategies/macro_multi_asset`, `portfolio_management/allocation_policy`, `risk`.
 - **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents Phase 1 → `0025` data-provenance guardrail (real-data-first + synthetic-data disclosure, backing `0024`'s `rapid_scaffolder` and cross-referenced by `dashboard_design`/`data_storytelling`) → `0029` role-operations agents Phase 2 → `0030` role-operations agents Phase 3 (governance-adjacent: model card, decision log, governance readiness, backtest pre-check, build handoff, alert triage — hands off to `backtest_review`/`alert_router`/`incident_notification` rather than replacing them). Fourteen-agent roster complete, configurable via a local-only `role_context.yml`.
@@ -82,4 +84,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0036`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0038`** (`0003`/`0005` belong to the local-only pack).

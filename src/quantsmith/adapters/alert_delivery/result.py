@@ -7,6 +7,7 @@ shape -- no new schema, just giving the already-documented contract a type.
 
 from __future__ import annotations
 
+import datetime
 from dataclasses import dataclass, field
 from typing import Callable, Dict, Optional, Tuple
 
@@ -163,3 +164,64 @@ class TransportError(Exception):
 
 
 Transport = Callable[[Dict[str, object]], Dict[str, object]]
+
+
+def now_utc_iso() -> str:
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+
+def deliver_via(
+    provider: str,
+    payload: Dict[str, object],
+    event: AlertDeliveryEvent,
+    transport: Optional[Transport],
+    dry_run: bool,
+) -> DeliveryResult:
+    """Shared dry-run/transport/``DeliveryResult`` wrapper for every provider.
+
+    ``dry_run=True`` (default): no I/O; ``status="skipped"``. ``dry_run=False``
+    requires ``transport`` (the adopter's own send function) and never performs
+    the network call itself -- this function only classifies the outcome.
+    """
+    timestamp = now_utc_iso()
+
+    if dry_run:
+        return DeliveryResult(
+            adapter_name="alert_delivery",
+            provider=provider,
+            status="skipped",
+            correlation_id=event.correlation_id,
+            dedupe_key=event.dedupe_key,
+            timestamp_utc=timestamp,
+            dry_run=True,
+        )
+
+    if transport is None:
+        raise ValueError("transport is required when dry_run=False")
+
+    try:
+        outcome = transport(payload)
+    except TransportError as exc:
+        return DeliveryResult(
+            adapter_name="alert_delivery",
+            provider=provider,
+            status="failed",
+            correlation_id=event.correlation_id,
+            dedupe_key=event.dedupe_key,
+            timestamp_utc=timestamp,
+            retryable=exc.retryable,
+            error_code=exc.error_code,
+            error_message_redacted=redact_text(str(exc), event.privacy),
+            dry_run=False,
+        )
+
+    return DeliveryResult(
+        adapter_name="alert_delivery",
+        provider=provider,
+        status="delivered",
+        correlation_id=event.correlation_id,
+        dedupe_key=event.dedupe_key,
+        timestamp_utc=timestamp,
+        provider_message_id=str(outcome.get("provider_message_id")) if outcome.get("provider_message_id") else None,
+        dry_run=False,
+    )

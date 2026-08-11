@@ -93,13 +93,17 @@ by the `knowledge` gate.
 ## What's Next (prioritized)
 
 1. **P0 optimizer-agent workflow expansion** — the optimization group now has runtimes
-   for the core mathematical forms plus two applications: convex QP
+   for the core mathematical forms plus three applications: convex QP
    (`specs/0007-portfolio-construction/`), a closed-form control
-   (`specs/0012-execution-scheduling/`), and the solver toolkit
-   (`specs/0013-optimization-solvers/`: LP, MILP, min-cost flow, dynamic programming).
-   The quant chain runs signal → forecast → portfolio → execution. Next: build
-   *application* specs on the new solvers — cardinality-constrained portfolio (MILP),
-   funding-ladder min-cost flow, multi-period rebalancing DP — and add
+   (`specs/0012-execution-scheduling/`), the solver toolkit
+   (`specs/0013-optimization-solvers/`: LP, MILP, min-cost flow, dynamic programming),
+   and **cardinality-constrained portfolio construction**
+   (`specs/0034-cardinality-constrained-portfolio/`, `cardinality_portfolio.py`) — the
+   first application actually built on the `0013` toolkit, composing `0013`'s MILP
+   (selects at most K names) with `0007`'s unmodified QP (sizes them), disclosed
+   explicitly as a two-stage heuristic rather than a joint MIQP solve. The quant chain
+   runs signal → forecast → portfolio → execution. Next: more *application* specs on
+   the solvers — funding-ladder min-cost flow, multi-period rebalancing DP — and
    conic/global/nonlinear forms when a dependency-free method or an optional solver
    dependency is chosen. (Securities-financing LP work is deliberately out of scope:
    that domain routes to an adopter's own models via
@@ -188,10 +192,10 @@ by the `knowledge` gate.
      escalates, resolves, or re-routes an alert, deferring all of that to
      `agents/alerts/alert_router/` and
      `agents/alerts/incident_notification/`.
-5. **P0 optimizer-agent workflow expansion (continued)** — the solver
-   toolkit (`0013`) still has no application spec built on it;
-   cardinality-constrained portfolio (MILP) would be the first. A
-   securities-financing LP application is deliberately not planned here:
+5. **P0 optimizer-agent workflow expansion (continued) — cardinality-constrained
+   portfolio done** (spec `0034`); remaining candidates are funding-ladder
+   min-cost flow and multi-period rebalancing (DP). A securities-financing
+   LP application is deliberately not planned here:
    `repo_financing`/`collateral_management` stay agent-contract-only, and
    that domain routes to an adopter's own optimization models via
    `agents/optimization/model_plugin_registration/` (spec `0026`) instead
@@ -281,15 +285,22 @@ by the `knowledge` gate.
       Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push.
     - `0033` the `economists/` agent group — see item 10, the dedicated
       tracking entry.
+    - `0034` cardinality-constrained portfolio construction — see item 1,
+      the dedicated tracking entry. Closes the SDK's only standing `P0`
+      backlog item (an application actually built on the `0013` solver
+      toolkit) and corrects the stale collateral/margin-LP mention that
+      previously stood in for it.
 
-    **Recommended next:** `repo_financing`/`collateral_management` stay
-    agent-contract-only by choice — this SDK routes to an adopter's own
-    optimization models via `agents/optimization/model_plugin_registration/`
-    (spec `0026`) rather than owning securities-financing LP/optimization
-    logic itself; an executable dispatcher for `0026` is worth building once
-    a concrete invocation target exists. Otherwise: the remaining
+    **Recommended next:** the remaining optimizer applications — funding-
+    ladder min-cost flow, multi-period rebalancing (DP) — or the remaining
     `adapters/alert_delivery/` providers (Slack, Teams, ticketing,
-    PagerDuty/Opsgenie, SMS/push), and continuing to populate `sources/` as
+    PagerDuty/Opsgenie, SMS/push). `repo_financing`/`collateral_management`
+    stay agent-contract-only by choice — this SDK routes to an adopter's
+    own optimization models via
+    `agents/optimization/model_plugin_registration/` (spec `0026`) rather
+    than owning securities-financing LP/optimization logic itself; an
+    executable dispatcher for `0026` is worth building once a concrete
+    invocation target exists. Also: continuing to populate `sources/` as
     real sources come into use.
 
 ## Open Questions For The Owner

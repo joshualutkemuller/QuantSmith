@@ -235,6 +235,27 @@ Tests: `tests/test_optimization_solvers.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_optimization_solvers.py -q
 ```
 
+## `cardinality_portfolio` — spec `0034-cardinality-constrained-portfolio`
+
+The first application built on the `0013` solver toolkit since `0007`/`0012`: a
+cardinality constraint (hold at most K names) that `0007`'s continuous QP can't
+express on its own. Composes two already-shipped solvers rather than inventing a
+third — `select_cardinality_support` (`solve_milp`, `0013`) picks *which* names,
+`cardinality_constrained_portfolio` sizes them via `solve_portfolio` (`0007`,
+unmodified) on the reduced dimension. **A documented two-stage heuristic, not a
+joint MIQP solve** — stated explicitly, not oversold. Long-only. Dependency-free.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `select_cardinality_support` | REQ-001, REQ-003, REQ-004, REQ-005 | At most `max_names` names selected by linear expected-return maximization; infeasibility reported explicitly; negative `lower` raises. |
+| `cardinality_constrained_portfolio` | REQ-002, REQ-003, REQ-004, REQ-005 | Reduced-dimension QP sizing with an exact zero at every unselected name; `min_weight_selected` enforced end to end. |
+
+Tests: `tests/test_cardinality_portfolio.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_cardinality_portfolio.py -q
+```
+
 ## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`
 
 The first BI-tool renderer from the `0014` expansion track. `dashboard_spec.py` is the

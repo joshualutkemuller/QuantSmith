@@ -214,13 +214,18 @@ by the `knowledge` gate.
    (versioned `quantsmith` package for the runtimes + template for the scaffold);
    `CHANGELOG.md` and a versioning policy are in place. Remaining optional step: the
    Copier `qf` sync CLI, and an optional PyPI release when there is demand.
-8. **More worked examples** — the forecast spec is done
-   (`specs/0006-ml-return-forecasting/`). **Risk-model spec done**
+8. **More worked examples — done.** The forecast spec is done
+   (`specs/0006-ml-return-forecasting/`). The risk-model spec is done
    (`specs/0038-factor-risk-model/`, `factor_risk_model.py`): variance
    decomposition, Euler risk attribution (assets and factors), risk
    concentration, and a linear factor-shock stress loss, operationalizing
-   `instructions/risk_management.md` (`0031`) with a tested runtime. Still
-   open: an ingestion example that emits a data contract (see item 3).
+   `instructions/risk_management.md` (`0031`) with a tested runtime. The
+   ingestion example is done (`specs/0039-ingestion-data-contract/`,
+   `ingestion_data_contract.py`): validates an already-pulled row set
+   against a declared schema/key/quality-rule contract and renders a
+   `data_contract.md` populated with real, computed results — a duplicate
+   key or missingness breach appears because it was actually found, never
+   because someone wrote it down.
 9. **Remaining backing instructions — done** (spec `0031`).
    `instructions/risk_management.md` (backs `agents/risk/`),
    `instructions/data_ingestion.md` (shared standard behind the three
@@ -329,21 +334,27 @@ by the `knowledge` gate.
       `instructions/risk_management.md` (`0031`) with a tested runtime;
       every decomposition sums exactly to the total it decomposes, by
       construction (Euler identity), not just by convention.
+    - `0039` ingestion data contract emission (`ingestion_data_contract.py`)
+      — see item 8, the dedicated tracking entry. Closes the standing
+      "ingestion example that emits a data contract" worked-example gap;
+      `validate_ingestion` checks a caller-supplied row set against a
+      declared contract (schema, keys, missingness), and
+      `render_data_contract` renders `templates/data/data_contract.md`'s
+      section structure populated entirely from those real, computed
+      results, phrased as findings "in the validated sample" rather than
+      an unqualified guarantee. Item 8's worked-examples backlog is now
+      fully closed.
 
-    **Recommended next:** an ingestion example that emits a real
-    `data_contract.md` (item 8's other remaining gap), or conic/global/
-    nonlinear optimizer forms once a dependency-free method or an optional
-    solver dependency is chosen.
+    **Recommended next:** conic/global/nonlinear optimizer forms once a
+    dependency-free method or an optional solver dependency is chosen.
     `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via
     `agents/optimization/model_plugin_registration/` (spec `0026`) rather
     than owning securities-financing LP/optimization logic itself; an
     executable dispatcher for `0026` is worth building once a concrete
-    invocation target exists. Otherwise: a risk-model worked example end
-    to end, an ingestion example that emits a real `data_contract.md`
-    (item 8's remaining gaps), or continuing to populate `sources/` as
-    real sources come into use.
+    invocation target exists. Otherwise: continuing to populate `sources/`
+    as real sources come into use.
 
 ## Open Questions For The Owner
 

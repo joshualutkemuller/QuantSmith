@@ -274,8 +274,15 @@ operations, data provenance):
   construction), risk concentration (effective number of bets), and a
   linear factor-shock stress loss, explicitly not a full repricing.
   Operationalizes `instructions/risk_management.md` (`0031`) with a tested
-  runtime. Remaining worked-example gap: an ingestion example that emits a
-  real `data_contract.md`.
+  runtime.
+- Ingestion data contract emission — done (spec `0039`,
+  `ingestion_data_contract.py`). `validate_ingestion` checks a
+  caller-supplied row set against a declared schema/key/quality-rule
+  contract, collecting every violation; `render_data_contract` renders
+  `templates/data/data_contract.md`'s section structure populated entirely
+  from those real, computed results, phrased as findings "in the
+  validated sample" rather than an unqualified guarantee. Closes the
+  worked-examples backlog in full.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

@@ -328,6 +328,31 @@ Tests: `tests/test_factor_risk_model.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_factor_risk_model.py -q
 ```
 
+## `ingestion_data_contract` — spec `0039-ingestion-data-contract`
+
+The worked ingestion example the SDK's own backlog had carried since `0006`
+shipped: given an already-pulled row set (this module does not fetch data
+itself — matching `agents/data_ingestion/*`'s advisory-brief scope) and a
+declared schema/key/quality-rule contract, `validate_ingestion` checks the
+rows against it, collecting every violation rather than stopping at the
+first, and `render_data_contract` renders a Markdown document matching
+`templates/data/data_contract.md`'s section structure, populated entirely
+from the real, computed results — a duplicate key or missingness breach
+appears because it was actually found, never because someone wrote it down.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `validate_ingestion` | REQ-001 – REQ-003 | Every schema violation, duplicate key, and missingness-rule result is collected from the actual rows, not assumed. |
+| `render_data_contract` | REQ-004 – REQ-005 | Six-section Markdown matching the template's structure; Grain & Keys / Missingness sections state what was actually found "in the validated sample," never a default statement. |
+
+Tests: `tests/test_ingestion_data_contract.py` (one test per acceptance
+criterion, including a direct check against
+`hooks/stages/data-contract-check.sh`'s own keyword regexes).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_ingestion_data_contract.py -q
+```
+
 ## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`
 
 The first BI-tool renderer from the `0014` expansion track. `dashboard_spec.py` is the

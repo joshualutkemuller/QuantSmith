@@ -95,7 +95,7 @@ belong under profiles/adapters unless they require materially different behavior
 | --- | --- | --- | --- |
 | Expand `docs/adoption_guide.md` | Full walkthrough with per-project-type recipes — **shipped** (covers the `quantsmith` package and the scaffold, gate wiring, and recipes) | P1 | done |
 | Copier-style sync CLI | Selective install + update per `docs/packaging.md` | P2 | proposed |
-| More worked examples | Forecast spec shipped (`specs/0006-ml-return-forecasting/`). **Risk-model spec shipped** (`specs/0038-factor-risk-model/`, `factor_risk_model.py`): variance decomposition, Euler risk attribution, concentration, linear stress loss, operationalizing `instructions/risk_management.md`. Still open: an ingestion example that emits a data contract | P2 | in-progress |
+| More worked examples | **Done.** Forecast spec shipped (`specs/0006-ml-return-forecasting/`). Risk-model spec shipped (`specs/0038-factor-risk-model/`, `factor_risk_model.py`): variance decomposition, Euler risk attribution, concentration, linear stress loss, operationalizing `instructions/risk_management.md`. Ingestion example shipped (`specs/0039-ingestion-data-contract/`, `ingestion_data_contract.py`): validates a pulled row set against a declared contract and renders a `data_contract.md` populated with real, computed results | P2 | done |
 | `CHANGELOG.md` + versioning policy | **Shipped** — Keep a Changelog format + a SemVer-style policy in `CHANGELOG.md`; `docs/packaging.md` updated to the active package phase | P2 | done |
 | Visual workflow diagram | A rendered diagram of `docs/workflows.md` | P3 | proposed |
 
@@ -168,6 +168,11 @@ belong under profiles/adapters unless they require materially different behavior
 - The factor risk model (spec `0038`) — variance decomposition, Euler risk
   attribution, concentration, and a linear factor-shock stress loss,
   closing the standing "risk-model spec end to end" worked-example gap.
+- Ingestion data contract emission (spec `0039`) — validates a pulled row
+  set against a declared schema/key/quality-rule contract and renders a
+  `data_contract.md` populated with real, computed results, closing the
+  standing "ingestion example that emits a data contract" worked-example
+  gap. Item 8's worked-examples backlog is now fully closed.
 - A documentation audit and refresh pass: stale counts in `docs/handoff.md`
   and `docs/sdk_plan.md` corrected, a missing "Adapter" dictionary entry
   added, and a missing `adapters/data_access/external_apis/eia.md` profile

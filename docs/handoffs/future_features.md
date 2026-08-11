@@ -27,7 +27,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/alerts/alert_policy/` | Threshold, anomaly, composite, and missing-event policies with severity, suppression, cooldown, and market-calendar rules. **Shipped**: agent + `instructions/alerting.md` + spec `specs/0020-alerting/` + tested runtime `src/quantsmith/pipelines/alerting.py` (`evaluate_policies`) | P1 | done |
 | `agents/alerts/alert_router/` | Ownership, deduplication, grouping, rate limits, escalation, and channel selection. **Shipped**: agent + `route` (spec `0020`); delivery via `adapters/alert_delivery/` | P1 | done |
 | `agents/alerts/incident_notification/` | Actionable notifications, acknowledgement/recovery lifecycle, evidence and runbook links. **Shipped**: agent (spec `0020`) | P1 | done |
-| Provider implementations for `adapters/alert_delivery/` | Executable email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear integrations behind the adapter contract. **Email + webhook shipped** (spec `0032`): deterministic payload construction, redaction, secret guard, injectable `transport` seam (`dry_run=True` default, no network code in the SDK itself). Remaining: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push | P1 | in-progress |
+| Provider implementations for `adapters/alert_delivery/` | Executable email, Slack, Teams, PagerDuty/Opsgenie, SMS/push, webhook, Jira/ServiceNow/Linear integrations behind the adapter contract. **All seven shipped**: email + webhook (spec `0032`), then Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push (spec `0037`) — completing the adapter's own Recommended Starting Set. Deterministic payload construction, redaction, secret guard, injectable `transport` seam (`dry_run=True` default, no network code in the SDK itself); `pagerduty_opsgenie`/`sms_push` structurally enforce their own severity-routing rules, `sms_push` also enforces a short-message length cap | P1 | done |
 | `agents/monitoring/pipeline_monitoring/` | DAG status, dependencies, freshness, latency, backlogs, retries, partial writes, idempotency, and SLOs. **Shipped**: agent (reads the `0019` run manifest) | P1 | done |
 | `agents/monitoring/model_signal_monitoring/` | Quality, calibration, feature drift, alpha decay, turnover/capacity, and regime change. **Shipped**: agent + `instructions/monitoring.md` + spec `specs/0021-signal-monitoring/` + tested runtime `src/quantsmith/pipelines/signal_monitoring.py` | P1 | done |
 | `agents/monitoring/infrastructure_cost_monitoring/` | Compute, memory, storage, API quota, market-data spend, and cost-per-run guardrails. Agent shipped; executable cost runtime is a follow-up | P2 | in-progress |
@@ -161,6 +161,10 @@ belong under profiles/adapters unless they require materially different behavior
   toolkit application (`solve_dp`): a discretized single-position DP
   trading transaction cost against tracking-error cost over a horizon.
   Every `0013` solver now has a shipped application.
+- The remaining five `adapters/alert_delivery/` providers — Slack, Teams,
+  ticketing, PagerDuty/Opsgenie, SMS/push (spec `0037`) — completing all
+  seven providers end to end, plus a `deliver_via` dedup refactor of the
+  original email/webhook providers (`0032`), verified behavior-preserving.
 - A documentation audit and refresh pass: stale counts in `docs/handoff.md`
   and `docs/sdk_plan.md` corrected, a missing "Adapter" dictionary entry
   added, and a missing `adapters/data_access/external_apis/eia.md` profile

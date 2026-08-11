@@ -251,10 +251,15 @@ operations, data provenance):
 - Remaining backing instructions — done: `risk_management`, `data_ingestion`
   (a shared standard replacing three duplicated copies), `reproducibility`
   (spec `0031`).
-- `adapters/alert_delivery/` executable providers — email and webhook done
-  (spec `0032`, deterministic payload/redaction, injectable transport, no
-  network code in the SDK). Remaining: Slack, Teams, ticketing,
-  PagerDuty/Opsgenie, SMS/push.
+- `adapters/alert_delivery/` executable providers — done. Email and
+  webhook (spec `0032`), then Slack, Teams, ticketing, PagerDuty/Opsgenie,
+  and SMS/push (spec `0037`) — all seven providers now executable,
+  completing the adapter's own Recommended Starting Set. Deterministic
+  payload/redaction, injectable transport, no network code in the SDK;
+  `pagerduty_opsgenie`/`sms_push` structurally enforce their own severity-
+  routing rules, `sms_push` also enforces a short-message length cap. The
+  `0032` email/webhook wrapper was factored into a shared `deliver_via`
+  helper alongside the five new providers, verified behavior-preserving.
 - `agents/economists/` — done (spec `0033`). Seven agents giving a
   quant/PM workflow a grounded macro backdrop (indicators → policy →
   regime → cross-asset/scenario → brief/outlook reports), reclaiming a

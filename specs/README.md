@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, and `0038` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, `0038`, and `0039` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -61,6 +61,7 @@ each with a matching test module under `tests/`.
 | [0036-multi-period-rebalancing](0036-multi-period-rebalancing/) | Multi-period rebalancing — a discretized single-position DP via `0013`'s `solve_dp`, trading transaction cost against tracking-error cost over a horizon; closes out every `0013` solver having a shipped application | `multi_period_rebalancing.py` | `test_multi_period_rebalancing.py` | Approved |
 | [0037-alert-delivery-remaining-providers](0037-alert-delivery-remaining-providers/) | Alert delivery — Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push executable providers, completing the adapter's Recommended Starting Set; structural severity gating + SMS length cap | `adapters/alert_delivery/{slack,teams,ticketing,pagerduty_opsgenie,sms_push}.py` (not `pipelines/`) | `test_alert_delivery_adapters.py` | Approved |
 | [0038-factor-risk-model](0038-factor-risk-model/) | Factor risk model — variance decomposition, Euler risk attribution, concentration, linear stress loss; operationalizes `instructions/risk_management.md` (`0031`) with a tested runtime | `factor_risk_model.py` | `test_factor_risk_model.py` | Approved |
+| [0039-ingestion-data-contract](0039-ingestion-data-contract/) | Ingestion data contract emission — validates a pulled row set against a declared schema/key/quality-rule contract and renders a `data_contract.md` populated with real, computed results; closes the worked-example gap `docs/handoff.md` had carried since `0006` | `ingestion_data_contract.py` | `test_ingestion_data_contract.py` | Approved |
 
 `0001-daily-momentum-signal/` is a filled-in reference showing the ID scheme and
 traceability end to end. Copy its structure, not its content.
@@ -69,7 +70,7 @@ traceability end to end. Copy its structure, not its content.
 
 - **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution → `0038` factor risk (decomposition, attribution, stress).
 - **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models), `0034` (cardinality-constrained portfolio — `0013`'s MILP composed with `0007`'s QP), `0035` (funding ladder — `0013`'s min-cost flow, general treasury/cash, not securities-financing), `0036` (multi-period rebalancing — `0013`'s DP, a discretized single position over a horizon). Every `0013` solver now has a shipped application.
-- **Data foundations:** `0027` source catalog (registry) → `data_contract.md` (per-dataset) → `agents/data_ingestion/` (ingestion) → `data_quality`/`point_in_time` (review).
+- **Data foundations:** `0027` source catalog (registry) → `data_contract.md` (per-dataset) → `agents/data_ingestion/` (ingestion) → `0039` ingestion data contract emission (validates real rows, renders a populated contract) → `data_quality`/`point_in_time` (review).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
 - **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
@@ -85,4 +86,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0039`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0040`** (`0003`/`0005` belong to the local-only pack).

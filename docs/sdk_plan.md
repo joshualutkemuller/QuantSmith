@@ -22,7 +22,7 @@ The SDK now has a working v1 built on a spec-driven engineering framework:
   `economists/`, `trading_strategies/`, `data_engineering/`, `asset_classes/`,
   `analytics/`, `knowledge/`, `secrets_management/`, `securities_financing/`,
   `alerts/`, `data_ingestion/`, `formulaic_alphas/`, and `monitoring/`.
-- **26 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
+- **27 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
   gates) driven by `run-stage.sh`; advisory by default, blocking under
   `QF_STAGE_ENFORCE=1`.
 - **33 instruction standards** and a prompt/template library covering specs, run
@@ -305,6 +305,14 @@ operations, data provenance):
   previously dormant `pipeline-contract` gate live. First of the three
   remaining `P1` `data_engineering` runtimes; `data_modeling` and
   `pipeline_deployment` remain.
+- Documented-count drift gate — done (spec `0043`,
+  `hooks/stages/doc-counts-check.sh`). Derives the true agent, gate, and
+  instruction-standard counts from the filesystem and flags every stated count
+  in `README.md`/`docs/handoff.md`/`docs/sdk_plan.md` that disagrees. Closes the
+  class of drift the entity-listing gates cannot see: all three counts had gone
+  stale simultaneously because no gate can check a number written in prose. It
+  reports its own coverage, so a pattern that stops matching is visible rather
+  than passing quietly.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

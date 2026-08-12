@@ -182,6 +182,13 @@ belong under profiles/adapters unless they require materially different behavior
   pairwise (RankNet-style) ranking-loss variant of `0006`, composing its
   labels/features/folds/evaluation unmodified; the sole remaining `P0`
   backlog line ("additional ML/DL examples") is now shipped.
+- The documented-count drift gate (spec `0043`,
+  `hooks/stages/doc-counts-check.sh`) — derives the true agent, gate, and
+  instruction-standard counts from the filesystem and flags stated counts
+  that disagree. Prompted by finding all three stale at once (agents
+  documented as 131/122 against 161, gates as 23/21 against 26,
+  instruction standards as 26 against 33) because no gate can check a
+  number written in prose.
 - The pipeline builder (spec `0042`, `pipeline_builder.py`) — the
   design-time layer ahead of `0011`'s runtime: compile a declared intent
   into a DAG validated by `0011`'s own toposort, review it against the

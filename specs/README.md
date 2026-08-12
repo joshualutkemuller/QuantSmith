@@ -30,6 +30,7 @@ each with a matching test module under `tests/`.
 | [0004-optimizer-ml-dl-agent-expansion](0004-optimizer-ml-dl-agent-expansion/) | Optimizer, ML, and DL agent expansion | — (agent contracts) | catalog/docs gates | Approved |
 | [0006-ml-return-forecasting](0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` | `test_return_forecasting.py` | Approved |
 | [0041-ranking-forecast](0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing `0006`'s labels/features/folds/evaluation unmodified | `ranking_forecast.py` | `test_ranking_forecast.py` | Approved |
+| [0043-doc-counts-gate](0043-doc-counts-gate/) | Documented-count drift gate — derives the true agent, gate, and instruction-standard counts from the filesystem and flags every stated count in the narrative docs that disagrees; the class of drift `agent-catalog`/`spec-index`/`readme-sync` cannot see, because it lives in prose | — (gate only) | `doc-counts` gate | Approved |
 | [0042-pipeline-builder](0042-pipeline-builder/) | Pipeline builder — compiles a declared source→transform→sink intent into a DAG validated by `0011`'s own toposort, reviews it against the pipeline-engineering checklist, and renders a `pipeline_manifest.md`; ships the repo's first manifest artifact, making the `pipeline-contract` gate live | `pipeline_builder.py` | `test_pipeline_builder.py` | Approved |
 | [0007-portfolio-construction](0007-portfolio-construction/) | Constrained portfolio construction (QP) | `portfolio_construction.py` | `test_portfolio_construction.py` | Approved |
 | [0008-metrics-semantic-layer](0008-metrics-semantic-layer/) | Metrics semantic layer | `metrics_semantic_layer.py` | `test_metrics_semantic_layer.py` | Approved |
@@ -89,4 +90,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0043`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0044`** (`0003`/`0005` belong to the local-only pack).

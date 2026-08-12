@@ -369,9 +369,32 @@ by the `knowledge` gate.
       explicitly (spec `RISK-003`) as a mechanism demonstration, not a
       backtested market claim.
 
+    - `0042` the pipeline builder (`pipeline_builder.py`) — the
+      design-time layer ahead of `0011`'s runtime, and the first of the
+      three remaining `P1` `data_engineering` items to get an executable
+      runtime. `compile_intent` validates a declared intent's graph **by
+      constructing an `0011` `Pipeline`**, so cycles, unknown
+      dependencies, and duplicate step names cannot be judged differently
+      at design time than at run time; `review_readiness` encodes
+      `instructions/pipeline_engineering.md`'s checklist as
+      severity-tagged findings, collecting all of them;
+      `render_pipeline_manifest` emits a
+      `templates/data/pipeline_manifest.md`-shaped document from the real
+      DAG and real findings; `to_pipeline` binds implementations back
+      into a runnable `0011` `Pipeline`. It reviews *declarations, not
+      implementations*, and says so — idempotency and test coverage are
+      claims until `0011` exercises them. The generated example at
+      `specs/0042-pipeline-builder/pipeline_manifest.md` is the
+      repository's first manifest artifact, so the `pipeline-contract`
+      gate now validates real content rather than reporting "no manifest
+      detected" on every run.
+
     **Recommended next:** conic/global/nonlinear optimizer forms once a
-    dependency-free method or an optional solver dependency is chosen, or
-    a listwise ranking loss once `0041`'s pairwise variant is trusted.
+    dependency-free method or an optional solver dependency is chosen, a
+    listwise ranking loss once `0041`'s pairwise variant is trusted, or
+    the two remaining `P1` `data_engineering` runtimes (`data_modeling`,
+    `pipeline_deployment` — the latter is the handoff edge `0042`
+    deliberately stops at).
     `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via

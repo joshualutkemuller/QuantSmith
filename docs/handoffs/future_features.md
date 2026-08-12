@@ -16,7 +16,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency. Shipped: agent + `instructions/pipeline_engineering.md` + spec `specs/0011-data-pipeline-orchestration/` + tested runtime `src/quantsmith/pipelines/data_pipeline.py` (DAG, contracts, idempotency, retries, backfill, run manifest) | P1 | done |
 | `agents/data_engineering/pipeline_observability/` | Data freshness, SLAs, lineage, data-downtime detection. Shipped: agent + spec `specs/0019-pipeline-observability/` + tested runtime `src/quantsmith/pipelines/pipeline_observability.py` (consumes the `0011` run manifest) | P2 | done |
 | `agents/data_engineering/data_governance/` | Catalog, lineage, access policy, ownership. Agent shipped; executable runtime as needed | P3 | in-progress |
-| `agents/data_engineering/pipeline_builder/` | Compile a source/transform/sink intent into a reviewable DAG, data contracts, schedules, retries, backfills, tests, ownership, and deployment plan. Agent shipped; executable runtime as needed | P1 | in-progress |
+| `agents/data_engineering/pipeline_builder/` | Compile a source/transform/sink intent into a reviewable DAG, data contracts, schedules, retries, backfills, tests, ownership, and deployment plan. **Shipped**: agent + spec `specs/0042-pipeline-builder/` + tested runtime `src/quantsmith/pipelines/pipeline_builder.py` (`compile_intent` validating via `0011`'s own toposort, `review_readiness`, `render_pipeline_manifest`, `to_pipeline`). Ships the repo's first pipeline-manifest artifact, so the `pipeline-contract` gate validates real content instead of no-opping | P1 | done |
 | `agents/data_engineering/pipeline_deployment/` | Environment promotion, dry runs, canaries, rollback, state migration, and scheduler-specific deployment adapters. Agent shipped; executable runtime as needed | P1 | in-progress |
 | `agents/analytics/metrics_semantic_layer/` | Canonical KPI/metric definitions (semantic layer) — the biggest data-analyst consistency win. Shipped: agent + `instructions/metrics_semantic_layer.md` + spec `specs/0008-metrics-semantic-layer/` + tested runtime `src/quantsmith/pipelines/metrics_semantic_layer.py` | P1 | done |
 | `agents/analytics/experimentation/` | A/B testing, power analysis, causal caveats. Shipped: agent + spec `specs/0009-experimentation/` + tested runtime `src/quantsmith/pipelines/experimentation.py` (power/sample-size, SRM guard, p-value/CI consistency, power-gated verdict). Follow-ups: continuous-metric (t-test), sequential/Bayesian, CUPED | P2 | done |
@@ -182,6 +182,13 @@ belong under profiles/adapters unless they require materially different behavior
   pairwise (RankNet-style) ranking-loss variant of `0006`, composing its
   labels/features/folds/evaluation unmodified; the sole remaining `P0`
   backlog line ("additional ML/DL examples") is now shipped.
+- The pipeline builder (spec `0042`, `pipeline_builder.py`) — the
+  design-time layer ahead of `0011`'s runtime: compile a declared intent
+  into a DAG validated by `0011`'s own toposort, review it against the
+  pipeline-engineering checklist, render a manifest, and bind
+  implementations back into a runnable `0011` `Pipeline`. Also ships the
+  repository's first pipeline-manifest artifact, making the previously
+  dormant `pipeline-contract` gate live.
 - A documentation audit and refresh pass: stale counts in `docs/handoff.md`
   and `docs/sdk_plan.md` corrected, a missing "Adapter" dictionary entry
   added, and a missing `adapters/data_access/external_apis/eia.md` profile

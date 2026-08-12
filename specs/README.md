@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, `0038`, `0039`, and `0041` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, `0038`, `0039`, `0041`, and `0042` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -30,6 +30,7 @@ each with a matching test module under `tests/`.
 | [0004-optimizer-ml-dl-agent-expansion](0004-optimizer-ml-dl-agent-expansion/) | Optimizer, ML, and DL agent expansion | — (agent contracts) | catalog/docs gates | Approved |
 | [0006-ml-return-forecasting](0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` | `test_return_forecasting.py` | Approved |
 | [0041-ranking-forecast](0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing `0006`'s labels/features/folds/evaluation unmodified | `ranking_forecast.py` | `test_ranking_forecast.py` | Approved |
+| [0042-pipeline-builder](0042-pipeline-builder/) | Pipeline builder — compiles a declared source→transform→sink intent into a DAG validated by `0011`'s own toposort, reviews it against the pipeline-engineering checklist, and renders a `pipeline_manifest.md`; ships the repo's first manifest artifact, making the `pipeline-contract` gate live | `pipeline_builder.py` | `test_pipeline_builder.py` | Approved |
 | [0007-portfolio-construction](0007-portfolio-construction/) | Constrained portfolio construction (QP) | `portfolio_construction.py` | `test_portfolio_construction.py` | Approved |
 | [0008-metrics-semantic-layer](0008-metrics-semantic-layer/) | Metrics semantic layer | `metrics_semantic_layer.py` | `test_metrics_semantic_layer.py` | Approved |
 | [0009-experimentation](0009-experimentation/) | Experiment (A/B test) analysis | `experimentation.py` | `test_experimentation.py` | Approved |
@@ -75,7 +76,7 @@ traceability end to end. Copy its structure, not its content.
 - **Data foundations:** `0027` source catalog (registry) → `data_contract.md` (per-dataset) → `agents/data_ingestion/` (ingestion) → `0039` ingestion data contract emission (validates real rows, renders a populated contract) → `data_quality`/`point_in_time` (review).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
   pipeline → `0014` storytelling & dashboards → `0015`/`0016` dashboard profiles (Power BI, Excel, React) → `0017` executable render adapters → `0018` remaining BI profiles (communication layer).
-- **Data Engineer:** `0011` pipeline orchestration → `0019` pipeline observability.
+- **Data Engineer:** `0042` pipeline builder (design-time: compile intent → readiness review → manifest) → `0011` pipeline orchestration (execution) → `0019` pipeline observability.
 - **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/` (`0032` ships email + webhook; `0037` ships Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push — all seven providers now executable).
 - **Securities financing:** `0022` asset-class mechanics (equities shorts) → `0023` securities lending workflow → `0028` financing cost analysis (`repo_financing`/`collateral_management` remain agent-contract only) → `backtest_review`/`risk`.
 - **Macro & economics:** `0027` source catalog (FRED/BLS/BEA/Census/EIA) → `0033` economists agents (indicators → policy → regime → cross-asset/scenario → brief/outlook reports) → `trading_strategies/macro_multi_asset`, `portfolio_management/allocation_policy`, `risk`.
@@ -88,4 +89,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0042`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0043`** (`0003`/`0005` belong to the local-only pack).

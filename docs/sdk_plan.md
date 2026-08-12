@@ -283,6 +283,16 @@ operations, data provenance):
   from those real, computed results, phrased as findings "in the
   validated sample" rather than an unqualified guarantee. Closes the
   worked-examples backlog in full.
+- README index/runtime sync gate — done (spec `0040`,
+  `hooks/stages/readme-sync-check.sh`). Closes the third doc-sync leg
+  `agent-catalog`/`spec-index` didn't cover: a spec whose `specs/README.md`
+  row names a real, tested pytest module but whose ID is missing from root
+  `README.md`'s own runtime table. Advisory locally, blocking in CI.
+- Ranking-loss forecasting — done (spec `0041`, `ranking_forecast.py`). A
+  pairwise (RankNet-style) ranking-loss variant of `0006`'s point-wise
+  baseline/challenger, composing `0006`'s labels/features/folds/evaluation
+  unmodified — changes only the training objective. Closes the SDK's sole
+  remaining `P0` backlog line ("additional ML/DL examples").
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

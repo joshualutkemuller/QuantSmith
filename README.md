@@ -435,6 +435,7 @@ the [spec index](specs/README.md).
 | --- | --- | --- |
 | [`0001`](specs/0001-daily-momentum-signal/) | Daily cross-sectional momentum signal *(reference)* | `momentum_signal.py` |
 | [`0006`](specs/0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` |
+| [`0041`](specs/0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing its labels/features/folds/evaluation unmodified | `ranking_forecast.py` |
 | [`0007`](specs/0007-portfolio-construction/) | Constrained portfolio construction (QP) | `portfolio_construction.py` |
 | [`0008`](specs/0008-metrics-semantic-layer/) | Metrics semantic layer | `metrics_semantic_layer.py` |
 | [`0009`](specs/0009-experimentation/) | Experiment (A/B test) analysis | `experimentation.py` |
@@ -459,7 +460,7 @@ the [spec index](specs/README.md).
 
 **Themed chains**
 
-- 🔬 **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution → `0038` factor risk
+- 🔬 **Quant research:** `0001` signal → `0006` forecast (`0041` ranking-loss variant) → `0007` portfolio → `0012` execution → `0038` factor risk
 - 📌 **Portfolio management:** mandate → universe → signal intake → allocation policy → construction oversight → implementation → monitored governance
 - 🧮 **Optimization toolkit:** `0007` (QP) · `0013` (LP/MILP/flow/DP) · `0012` (control) · `0034` (cardinality-constrained portfolio, composing `0013`+`0007`) · `0035` (funding ladder, `0013`'s min-cost flow) · `0036` (multi-period rebalancing, `0013`'s DP) — every `0013` solver now has a shipped application
 - 📊 **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` pipeline → `0014` storytelling → `0015`/`0016`/`0018` dashboards → `0017` render adapters

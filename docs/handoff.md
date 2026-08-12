@@ -355,9 +355,23 @@ by the `knowledge` gate.
       alongside `docs-link`/`agent-catalog`/`spec-index`. The exact gap
       this file's own Risks section names ("narrative docs ... need
       periodic manual refresh") is now partially self-checking.
+    - `0041` ranking-loss forecasting (`ranking_forecast.py`) — closes the
+      SDK's sole remaining `P0` backlog line ("additional ML/DL examples"
+      beyond `0006`'s point-wise baseline/challenger). `train_ranker`
+      trains a linear scorer with a pairwise (RankNet-style) ranking loss
+      over same-day pairs only, composing `0006`'s `build_labels`/
+      `FeatureStore`/`make_folds`/`evaluate`/`LinearModel` unmodified —
+      changes only the training objective, not the leakage-safe
+      machinery around it. `run_ranking_forecast` trains the ranker and
+      `0006`'s point-wise baseline on identical folds for direct
+      comparison; a fixed-seed synthetic fixture demonstrates the ranker
+      matching or beating the point-wise baseline's rank IC, disclosed
+      explicitly (spec `RISK-003`) as a mechanism demonstration, not a
+      backtested market claim.
 
     **Recommended next:** conic/global/nonlinear optimizer forms once a
-    dependency-free method or an optional solver dependency is chosen.
+    dependency-free method or an optional solver dependency is chosen, or
+    a listwise ranking loss once `0041`'s pairwise variant is trusted.
     `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via

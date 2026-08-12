@@ -5,7 +5,7 @@
 The SDK has a working v1: a **spec-driven engineering framework** over the six
 software-development stages, **161 agents** in `agents/` (plus the local-only
 root evening-content workflow pack, which is untracked and not counted here),
-**26 quality gates**, **33 instruction standards**, and CI that
+**27 quality gates**, **33 instruction standards**, and CI that
 enforces the deterministic gates. It remains primarily a scaffold to be copied
 into quant repos, with `evening_quant_content_twitter/` as the first runnable local
 workflow pack, `src/quantsmith/pipelines/` holding runnable, dependency-free
@@ -47,7 +47,7 @@ as the live count, not the number here)** — all on the four-file contract
 - Plus the root `evening_quant_content_twitter/` pack (local-only, untracked;
   content agents plus runtime/scheduler).
 
-**Gates (26)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
+**Gates (27)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
 `QF_STAGE_ENFORCE=1` blocks:
 
 - Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
@@ -56,7 +56,8 @@ as the live count, not the number here)** — all on the four-file contract
   `repro`, `data-contract`, `pipeline-contract`, `alert-contract`,
   `monitoring-coverage`, `content-draft-pack`, `data-provenance`.
 - Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `readme-sync`,
-  `knowledge`, `memory`, `role-context`, `model-plugin`, `source-catalog`.
+  `doc-counts`, `knowledge`, `memory`, `role-context`, `model-plugin`,
+  `source-catalog`.
 
 **Instructions (33)** — constitution, SDD method, point-in-time, and the domain
 standards; see `README.md`'s "Public Instructions" table for the current list
@@ -390,6 +391,20 @@ by the `knowledge` gate.
       repository's first manifest artifact, so the `pipeline-contract`
       gate now validates real content rather than reporting "no manifest
       detected" on every run.
+
+    - `0043` the documented-count drift gate
+      (`hooks/stages/doc-counts-check.sh`). `agent-catalog`, `spec-index`,
+      and `readme-sync` each check that an *entity* is listed somewhere;
+      none can check a number written in prose, which is how the agent,
+      gate, and instruction-standard counts in this file, `sdk_plan.md`,
+      and root `README.md` all went stale at once. The gate derives each
+      count from the filesystem — reusing `agent-catalog-check.sh`'s own
+      definition of a public agent, so the two cannot disagree — and
+      reports every stated count that differs. It also reports how many
+      claims it checked, so a pattern that stops matching is visible
+      rather than passing quietly. The Risks entry below about narrative
+      docs needing manual refresh is now materially narrower: the
+      countable part is mechanical.
 
     **Recommended next:** conic/global/nonlinear optimizer forms once a
     dependency-free method or an optional solver dependency is chosen, a

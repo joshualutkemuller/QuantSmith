@@ -159,6 +159,41 @@ Tests: `tests/test_analytics_pipeline.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_analytics_pipeline.py -q
 ```
 
+## `pipeline_builder` — spec `0042-pipeline-builder`
+
+The design-time layer that runs *before* `0011`'s runtime: it compiles a declared
+source→transform→sink intent into a validated DAG, reviews it against
+`instructions/pipeline_engineering.md`'s checklist, renders a reviewable
+`templates/data/pipeline_manifest.md`-shaped document, and hands a bound
+`Pipeline` back to `0011` once implementations exist.
+
+DAG validity is decided by **`0011`'s own toposort** — `compile_intent`
+constructs a real `Pipeline` with placeholder step bodies purely to borrow it,
+so cycles, unknown dependencies, and duplicate names cannot be judged
+differently here than at run time. That placeholder pipeline is never returned;
+`to_pipeline` is the only function that yields a runnable object.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `review_readiness` | REQ-002 | Every checklist violation is reported, severity-tagged `blocking` or `advisory` — not just the first. |
+| `compile_intent` | REQ-001 | Cycles, unknown deps, and duplicate names come back as blocking findings rather than exceptions, so a review sees all problems at once. |
+| `render_pipeline_manifest` | REQ-003, REQ-004 | Six template sections plus a disclosed `Readiness` section, populated from the real DAG and real findings. |
+| `to_pipeline` | REQ-005 | Binds implementations into a runnable `0011` `Pipeline`; refuses an unshippable or partly-implemented intent. |
+
+This module reviews **declarations, not implementations** — it cannot verify that
+a step is genuinely idempotent or genuinely tested, and the rendered manifest
+says so rather than presenting a claim as a fact.
+
+`specs/0042-pipeline-builder/pipeline_manifest.md` is a generated example and the
+repository's first manifest artifact, so `hooks/stages/pipeline-contract-check.sh`
+now validates real content instead of reporting "no manifest detected".
+
+Tests: `tests/test_pipeline_builder.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_pipeline_builder.py -q
+```
+
 ## `data_pipeline` — spec `0011-data-pipeline-orchestration`
 
 The first Data Engineer runtime: a deterministic DAG runner with the core

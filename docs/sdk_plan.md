@@ -293,6 +293,18 @@ operations, data provenance):
   baseline/challenger, composing `0006`'s labels/features/folds/evaluation
   unmodified — changes only the training objective. Closes the SDK's sole
   remaining `P0` backlog line ("additional ML/DL examples").
+- Pipeline builder — done (spec `0042`, `pipeline_builder.py`). The
+  design-time layer ahead of `0011`'s runtime: `compile_intent` validates a
+  declared intent's graph by constructing an `0011` `Pipeline` (so cycles and
+  unknown deps cannot be judged differently at design time than at run time),
+  `review_readiness` encodes `instructions/pipeline_engineering.md`'s checklist
+  as severity-tagged findings, `render_pipeline_manifest` emits a populated
+  manifest, and `to_pipeline` binds implementations back into a runnable `0011`
+  `Pipeline`. Reviews declarations, not implementations, and says so. Its
+  generated example is the repo's first pipeline-manifest artifact, making the
+  previously dormant `pipeline-contract` gate live. First of the three
+  remaining `P1` `data_engineering` runtimes; `data_modeling` and
+  `pipeline_deployment` remain.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

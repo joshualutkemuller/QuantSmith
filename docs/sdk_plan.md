@@ -14,18 +14,18 @@ The SDK now has a working v1 built on a spec-driven engineering framework:
   (`instructions/engineering_principles.md`), the SDD method
   (`instructions/spec_driven_development.md`), per-feature specs under `specs/`, and
   a worked example (`specs/0001-daily-momentum-signal/`).
-- **131 agents** in `agents/`, indexed by the catalog `agents/README.md` (the
+- **161 agents** in `agents/`, indexed by the catalog `agents/README.md` (the
   live count — this file is a roadmap, not the source of truth): an
   orchestrator, six lifecycle agents (one per SDLC stage), core domain agents, and
-  16 grouped categories including `optimization/`, `machine_learning/`,
-  `deep_learning/`, `data_ingestion/`, `data_engineering/`, `secrets_management/`,
-  `tooling/`, `knowledge/`, `trading_strategies/`, `asset_classes/`,
-  `securities_financing/`, `formulaic_alphas/`, `analytics/`, `monitoring/`,
-  `alerts/`, and `role_operations/`.
-- **23 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
+  18 grouped categories — `optimization/`, `machine_learning/`,
+  `deep_learning/`, `portfolio_management/`, `role_operations/`, `tooling/`,
+  `economists/`, `trading_strategies/`, `data_engineering/`, `asset_classes/`,
+  `analytics/`, `knowledge/`, `secrets_management/`, `securities_financing/`,
+  `alerts/`, `data_ingestion/`, `formulaic_alphas/`, and `monitoring/`.
+- **26 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
   gates) driven by `run-stage.sh`; advisory by default, blocking under
   `QF_STAGE_ENFORCE=1`.
-- **26 instruction standards** and a prompt/template library covering specs, run
+- **33 instruction standards** and a prompt/template library covering specs, run
   cards, data contracts, monitoring plans, alert policies, synthetic-data
   disclosure, and postmortems.
 - **`adapters/`** is a first-class SDK surface (6 groups: `alert_delivery/`,

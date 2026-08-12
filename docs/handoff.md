@@ -3,8 +3,9 @@
 ## Snapshot
 
 The SDK has a working v1: a **spec-driven engineering framework** over the six
-software-development stages, **131 agents** including the root evening-content
-workflow pack, **23 quality gates**, **26 instruction standards**, and CI that
+software-development stages, **161 agents** in `agents/` (plus the local-only
+root evening-content workflow pack, which is untracked and not counted here),
+**26 quality gates**, **33 instruction standards**, and CI that
 enforces the deterministic gates. It remains primarily a scaffold to be copied
 into quant repos, with `evening_quant_content_twitter/` as the first runnable local
 workflow pack, `src/quantsmith/pipelines/` holding runnable, dependency-free
@@ -28,7 +29,7 @@ it via stable IDs (`REQ`/`NFR`/`AC`/`RISK`/`T`).
 - `specs/NNNN-slug/{spec,plan,tasks}.md` from `templates/spec/`; worked example at
   `specs/0001-daily-momentum-signal/`.
 
-**Agents (131, verified by the `agent-catalog` gate — treat `agents/README.md`
+**Agents (161, verified by the `agent-catalog` gate — treat `agents/README.md`
 as the live count, not the number here)** — all on the four-file contract
 (`README`/`prompt`/`instructions`/`tasks`) with a `Spec-Driven Role`:
 
@@ -46,7 +47,7 @@ as the live count, not the number here)** — all on the four-file contract
 - Plus the root `evening_quant_content_twitter/` pack (local-only, untracked;
   content agents plus runtime/scheduler).
 
-**Gates (23)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
+**Gates (26)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
 `QF_STAGE_ENFORCE=1` blocks:
 
 - Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
@@ -54,9 +55,10 @@ as the live count, not the number here)** — all on the four-file contract
 - Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
   `repro`, `data-contract`, `pipeline-contract`, `alert-contract`,
   `monitoring-coverage`, `content-draft-pack`, `data-provenance`.
-- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `knowledge`, `role-context`.
+- Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `readme-sync`,
+  `knowledge`, `memory`, `role-context`, `model-plugin`, `source-catalog`.
 
-**Instructions (26)** — constitution, SDD method, point-in-time, and the domain
+**Instructions (33)** — constitution, SDD method, point-in-time, and the domain
 standards; see `README.md`'s "Public Instructions" table for the current list
 (this file lists categories, not every filename, to avoid drifting again).
 
@@ -414,7 +416,7 @@ by the `knowledge` gate.
 
 ## Risks
 
-- Breadth: 131 agents is useful only if each stays narrow and inspectable.
+- Breadth: 161 agents is useful only if each stays narrow and inspectable.
 - Heuristic gates (`leakage`, `backtest`, `secret-scan` fallback) can false-positive
   or miss; keep them advisory unless a repo's layout makes them reliable.
 - Docs can drift from the code; the `docs-link`, `agent-catalog`, and `spec-index` gates help, but

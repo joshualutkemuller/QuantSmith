@@ -64,8 +64,8 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 | 🧠 Plan research from a hypothesis | Spec-driven planning agents + traceable requirements |
 | 🔎 Catch leakage & time-alignment bugs | Point-in-time standards + `leakage`/`backtest` gates |
 | 📝 Document features, models, backtests | Templates, cards, and reproducible run artifacts |
-| 🤖 Reuse research workflows | 122 narrow, inspectable agent roles across the stack |
-| 🚦 Stop mistakes before commit/push | 21 quality gates, advisory by default, CI-enforceable |
+| 🤖 Reuse research workflows | 161 narrow, inspectable agent roles across the stack |
+| 🚦 Stop mistakes before commit/push | 26 quality gates, advisory by default, CI-enforceable |
 | 🗣️ Share a common vocabulary | An [agentic dictionary](agentic_dictionary.md) for the team |
 
 ---

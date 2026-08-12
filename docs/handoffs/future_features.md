@@ -10,7 +10,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
-| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. Runtime workflows shipped: `specs/0006-ml-return-forecasting/` (ML/DL), `specs/0007-portfolio-construction/` (QP), `specs/0013-optimization-solvers/` (LP/MILP/flow/DP), `specs/0034-cardinality-constrained-portfolio/` (MILP selects, `0007`'s QP sizes, a disclosed two-stage heuristic), `specs/0035-funding-ladder/` (bipartite tenor-to-obligation network on `0013`'s `min_cost_flow`; general treasury/cash, not securities-financing), and `specs/0036-multi-period-rebalancing/` (discretized single-position DP on `0013`'s `solve_dp`) — every `0013` solver now has a shipped application. Remaining: additional ML/DL examples | P0 | in-progress |
+| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. Runtime workflows shipped: `specs/0006-ml-return-forecasting/` (ML/DL), `specs/0007-portfolio-construction/` (QP), `specs/0013-optimization-solvers/` (LP/MILP/flow/DP), `specs/0034-cardinality-constrained-portfolio/` (MILP selects, `0007`'s QP sizes, a disclosed two-stage heuristic), `specs/0035-funding-ladder/` (bipartite tenor-to-obligation network on `0013`'s `min_cost_flow`; general treasury/cash, not securities-financing), `specs/0036-multi-period-rebalancing/` (discretized single-position DP on `0013`'s `solve_dp`) — every `0013` solver now has a shipped application — and `specs/0041-ranking-forecast/` (pairwise ranking-loss variant of `0006`, composing its labels/features/folds/evaluation unmodified). Optional follow-ups: a listwise ranking loss, an RL-flavored example | P0 | done |
 | `agents/portfolio_management/*` | End-to-end portfolio lifecycle agents for mandate, universe, signal intake, allocation policy, construction oversight, rebalance implementation, risk budgeting, compliance, attribution, liquidity/cash, tax/transition, monitoring, and governance. Shipped with shared standard `instructions/portfolio_management.md`; runtime specs can promote specific workflows as needed | P0 | done |
 | `agents/data_engineering/data_modeling/` | Dimensional/warehouse modeling: star/snowflake schemas, slowly-changing dimensions, grain. Agent shipped (spec `0019` group build-out); executable runtime as needed | P1 | in-progress |
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency. Shipped: agent + `instructions/pipeline_engineering.md` + spec `specs/0011-data-pipeline-orchestration/` + tested runtime `src/quantsmith/pipelines/data_pipeline.py` (DAG, contracts, idempotency, retries, backfill, run manifest) | P1 | done |
@@ -95,7 +95,7 @@ belong under profiles/adapters unless they require materially different behavior
 | --- | --- | --- | --- |
 | Expand `docs/adoption_guide.md` | Full walkthrough with per-project-type recipes — **shipped** (covers the `quantsmith` package and the scaffold, gate wiring, and recipes) | P1 | done |
 | Copier-style sync CLI | Selective install + update per `docs/packaging.md` | P2 | proposed |
-| More worked examples | Forecast spec shipped (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end and an ingestion example that emits a data contract | P2 | in-progress |
+| More worked examples | **Done.** Forecast spec shipped (`specs/0006-ml-return-forecasting/`). Risk-model spec shipped (`specs/0038-factor-risk-model/`, `factor_risk_model.py`): variance decomposition, Euler risk attribution, concentration, linear stress loss, operationalizing `instructions/risk_management.md`. Ingestion example shipped (`specs/0039-ingestion-data-contract/`, `ingestion_data_contract.py`): validates a pulled row set against a declared contract and renders a `data_contract.md` populated with real, computed results | P2 | done |
 | `CHANGELOG.md` + versioning policy | **Shipped** — Keep a Changelog format + a SemVer-style policy in `CHANGELOG.md`; `docs/packaging.md` updated to the active package phase | P2 | done |
 | Visual workflow diagram | A rendered diagram of `docs/workflows.md` | P3 | proposed |
 
@@ -165,6 +165,23 @@ belong under profiles/adapters unless they require materially different behavior
   ticketing, PagerDuty/Opsgenie, SMS/push (spec `0037`) — completing all
   seven providers end to end, plus a `deliver_via` dedup refactor of the
   original email/webhook providers (`0032`), verified behavior-preserving.
+- The factor risk model (spec `0038`) — variance decomposition, Euler risk
+  attribution, concentration, and a linear factor-shock stress loss,
+  closing the standing "risk-model spec end to end" worked-example gap.
+- Ingestion data contract emission (spec `0039`) — validates a pulled row
+  set against a declared schema/key/quality-rule contract and renders a
+  `data_contract.md` populated with real, computed results, closing the
+  standing "ingestion example that emits a data contract" worked-example
+  gap. Item 8's worked-examples backlog is now fully closed.
+- The README index/runtime sync gate (spec `0040`,
+  `hooks/stages/readme-sync-check.sh`) — closes the third leg
+  `agent-catalog`/`spec-index` didn't cover: a spec whose `specs/README.md`
+  row names a real, tested pytest module but whose ID is missing from root
+  `README.md`'s own runtime table.
+- Ranking-loss forecasting (spec `0041`, `ranking_forecast.py`) — a
+  pairwise (RankNet-style) ranking-loss variant of `0006`, composing its
+  labels/features/folds/evaluation unmodified; the sole remaining `P0`
+  backlog line ("additional ML/DL examples") is now shipped.
 - A documentation audit and refresh pass: stale counts in `docs/handoff.md`
   and `docs/sdk_plan.md` corrected, a missing "Adapter" dictionary entry
   added, and a missing `adapters/data_access/external_apis/eia.md` profile

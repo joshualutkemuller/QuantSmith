@@ -214,9 +214,18 @@ by the `knowledge` gate.
    (versioned `quantsmith` package for the runtimes + template for the scaffold);
    `CHANGELOG.md` and a versioning policy are in place. Remaining optional step: the
    Copier `qf` sync CLI, and an optional PyPI release when there is demand.
-8. **More worked examples** — the forecast spec is done
-   (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
-   and an ingestion example that emits a data contract (see item 3).
+8. **More worked examples — done.** The forecast spec is done
+   (`specs/0006-ml-return-forecasting/`). The risk-model spec is done
+   (`specs/0038-factor-risk-model/`, `factor_risk_model.py`): variance
+   decomposition, Euler risk attribution (assets and factors), risk
+   concentration, and a linear factor-shock stress loss, operationalizing
+   `instructions/risk_management.md` (`0031`) with a tested runtime. The
+   ingestion example is done (`specs/0039-ingestion-data-contract/`,
+   `ingestion_data_contract.py`): validates an already-pulled row set
+   against a declared schema/key/quality-rule contract and renders a
+   `data_contract.md` populated with real, computed results — a duplicate
+   key or missingness breach appears because it was actually found, never
+   because someone wrote it down.
 9. **Remaining backing instructions — done** (spec `0031`).
    `instructions/risk_management.md` (backs `agents/risk/`),
    `instructions/data_ingestion.md` (shared standard behind the three
@@ -319,19 +328,58 @@ by the `knowledge` gate.
       dry-run/transport/`DeliveryResult` wrapper duplicated between
       `email.py`/`webhook.py` into a shared `deliver_via` helper, verified
       behavior-preserving by `0032`'s own test suite passing unchanged.
+    - `0038` the factor risk model (`factor_risk_model.py`) — see item 8,
+      the dedicated tracking entry. Closes the standing "risk-model spec
+      end to end" worked-example gap and operationalizes
+      `instructions/risk_management.md` (`0031`) with a tested runtime;
+      every decomposition sums exactly to the total it decomposes, by
+      construction (Euler identity), not just by convention.
+    - `0039` ingestion data contract emission (`ingestion_data_contract.py`)
+      — see item 8, the dedicated tracking entry. Closes the standing
+      "ingestion example that emits a data contract" worked-example gap;
+      `validate_ingestion` checks a caller-supplied row set against a
+      declared contract (schema, keys, missingness), and
+      `render_data_contract` renders `templates/data/data_contract.md`'s
+      section structure populated entirely from those real, computed
+      results, phrased as findings "in the validated sample" rather than
+      an unqualified guarantee. Item 8's worked-examples backlog is now
+      fully closed.
+    - `0040` the README index/runtime sync gate
+      (`hooks/stages/readme-sync-check.sh`). `agent-catalog`/`spec-index`
+      already kept `agents/README.md`/`specs/README.md` from drifting as
+      agents/specs were added; this gate closes the third leg — a spec
+      whose `specs/README.md` row names a real, tested pytest module (its
+      Tests column) but whose ID is missing from root `README.md`'s own
+      runtime table. Wired into `run-stage.sh`, `hooks/README.md`, root
+      `README.md`'s gate table, and CI's docs-integrity enforcement step
+      alongside `docs-link`/`agent-catalog`/`spec-index`. The exact gap
+      this file's own Risks section names ("narrative docs ... need
+      periodic manual refresh") is now partially self-checking.
+    - `0041` ranking-loss forecasting (`ranking_forecast.py`) — closes the
+      SDK's sole remaining `P0` backlog line ("additional ML/DL examples"
+      beyond `0006`'s point-wise baseline/challenger). `train_ranker`
+      trains a linear scorer with a pairwise (RankNet-style) ranking loss
+      over same-day pairs only, composing `0006`'s `build_labels`/
+      `FeatureStore`/`make_folds`/`evaluate`/`LinearModel` unmodified —
+      changes only the training objective, not the leakage-safe
+      machinery around it. `run_ranking_forecast` trains the ranker and
+      `0006`'s point-wise baseline on identical folds for direct
+      comparison; a fixed-seed synthetic fixture demonstrates the ranker
+      matching or beating the point-wise baseline's rank IC, disclosed
+      explicitly (spec `RISK-003`) as a mechanism demonstration, not a
+      backtested market claim.
 
     **Recommended next:** conic/global/nonlinear optimizer forms once a
-    dependency-free method or an optional solver dependency is chosen.
+    dependency-free method or an optional solver dependency is chosen, or
+    a listwise ranking loss once `0041`'s pairwise variant is trusted.
     `repo_financing`/`collateral_management`
     stay agent-contract-only by choice — this SDK routes to an adopter's
     own optimization models via
     `agents/optimization/model_plugin_registration/` (spec `0026`) rather
     than owning securities-financing LP/optimization logic itself; an
     executable dispatcher for `0026` is worth building once a concrete
-    invocation target exists. Otherwise: a risk-model worked example end
-    to end, an ingestion example that emits a real `data_contract.md`
-    (item 8's remaining gaps), or continuing to populate `sources/` as
-    real sources come into use.
+    invocation target exists. Otherwise: continuing to populate `sources/`
+    as real sources come into use.
 
 ## Open Questions For The Owner
 

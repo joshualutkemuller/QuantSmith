@@ -49,6 +49,31 @@ Tests: `tests/test_return_forecasting.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_return_forecasting.py -q
 ```
 
+## `ranking_forecast` — spec `0041-ranking-forecast`
+
+A ranking-loss variant of `0006`: `0006`'s baseline/challenger train on
+point-wise regression loss, then get scored by cross-sectional rank IC — a
+mismatch with what a long/short selection process actually consumes.
+`train_ranker` changes only the training objective — a pairwise (RankNet-
+style) logistic ranking loss over same-day pairs only — while importing
+`0006`'s `build_labels`, `FeatureStore`, `make_folds`, `evaluate`, and
+`LinearModel` unmodified. `run_ranking_forecast` trains the ranker and
+`0006`'s point-wise baseline on identical folds for a direct comparison.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `train_ranker` | REQ-001, REQ-002 | Preference pairs are built only within a single decision day — cross-day comparison is structurally impossible; output is a drop-in `return_forecasting.LinearModel`. |
+| `run_ranking_forecast` | REQ-003, REQ-004 | Ranker and `0006`'s point-wise baseline trained/evaluated on identical folds; deterministic given a seed. |
+
+Tests: `tests/test_ranking_forecast.py` (one test per acceptance
+criterion). AC-006's comparison (ranker vs. point-wise baseline on a
+synthetic, rank-only-signal panel) demonstrates the mechanism on a fixed,
+reproducible fixture — not a backtested market claim.
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_ranking_forecast.py -q
+```
+
 ## `portfolio_construction` — spec `0007-portfolio-construction`
 
 Turns the `0006` forecast into portfolio weights by solving a constrained
@@ -299,6 +324,58 @@ Tests: `tests/test_multi_period_rebalancing.py` (one test per acceptance criteri
 
 ```sh
 PYTHONPATH=src python3 -m pytest tests/test_multi_period_rebalancing.py -q
+```
+
+## `factor_risk_model` — spec `0038-factor-risk-model`
+
+The worked risk-model example the SDK's own backlog had carried since `0006`
+shipped: a standard Barra-style factor risk decomposition, dependency-free.
+Consumes an already-estimated factor exposure matrix and factor covariance (it
+does not estimate a factor model, matching `portfolio_construction.py`'s own
+scope boundary around its covariance matrix input) and decomposes portfolio
+variance into factor and specific risk, attributes it to assets and factors via
+an Euler decomposition (the parts always sum exactly to the total, by
+construction), measures concentration, and estimates a **linear, first-order**
+stress loss under a supplied factor shock — never presented as a full
+repricing. Operationalizes `instructions/risk_management.md` (`0031`) with a
+tested runtime.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `decompose_variance` | REQ-001 | `factor_variance + specific_variance == total_variance` exactly. |
+| `marginal_contribution_to_risk` | REQ-002 | Per-asset contributions sum to total volatility; per-factor contributions sum to factor variance — both exactly (Euler identity). |
+| `risk_concentration` | REQ-003 | Effective number of bets from a set of risk contributions. |
+| `stress_loss` | REQ-004 | Linear factor-shock P&L estimate, explicitly not a full repricing. |
+
+Tests: `tests/test_factor_risk_model.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_factor_risk_model.py -q
+```
+
+## `ingestion_data_contract` — spec `0039-ingestion-data-contract`
+
+The worked ingestion example the SDK's own backlog had carried since `0006`
+shipped: given an already-pulled row set (this module does not fetch data
+itself — matching `agents/data_ingestion/*`'s advisory-brief scope) and a
+declared schema/key/quality-rule contract, `validate_ingestion` checks the
+rows against it, collecting every violation rather than stopping at the
+first, and `render_data_contract` renders a Markdown document matching
+`templates/data/data_contract.md`'s section structure, populated entirely
+from the real, computed results — a duplicate key or missingness breach
+appears because it was actually found, never because someone wrote it down.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `validate_ingestion` | REQ-001 – REQ-003 | Every schema violation, duplicate key, and missingness-rule result is collected from the actual rows, not assumed. |
+| `render_data_contract` | REQ-004 – REQ-005 | Six-section Markdown matching the template's structure; Grain & Keys / Missingness sections state what was actually found "in the validated sample," never a default statement. |
+
+Tests: `tests/test_ingestion_data_contract.py` (one test per acceptance
+criterion, including a direct check against
+`hooks/stages/data-contract-check.sh`'s own keyword regexes).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_ingestion_data_contract.py -q
 ```
 
 ## `dashboard_spec` + `powerbi_profile` — spec `0015-powerbi-dashboard-profile`

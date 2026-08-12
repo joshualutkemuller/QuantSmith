@@ -48,6 +48,7 @@ pattern-based; tune them to your repository.
 | Markdown link check | `docs-link-check.sh` | all docs |
 | Agent catalog sync | `agent-catalog-check.sh` | `agents/README.md` |
 | Spec index sync | `spec-index-check.sh` | `specs/README.md` |
+| README index/runtime sync | `readme-sync-check.sh` | `specs/README.md`, root `README.md` |
 | Source catalog sync | `source-catalog-check.sh` | `sources/README.md`, `templates/data/source_catalog_entry.yml` |
 | Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
 | Workflow memory check | `memory-check.sh` | `memory/`, `agents/knowledge/` |

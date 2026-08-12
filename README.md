@@ -416,7 +416,7 @@ QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec   # blocking (as CI runs it)
 | 🧭 Cross-cutting | `spec` |
 | 🔄 Per-stage | `planning` · `design` · `implementation` · `testing` · `deployment` · `maintenance` |
 | 📈 Quant / content | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `content-draft-pack` · `data-provenance` |
-| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `knowledge` · `role-context` · `model-plugin` · `source-catalog` |
+| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `readme-sync` · `knowledge` · `role-context` · `model-plugin` · `source-catalog` |
 
 > [!TIP]
 > Use `QF_RUN_TESTS=1` to let the testing stage run the suite, and
@@ -435,6 +435,7 @@ the [spec index](specs/README.md).
 | --- | --- | --- |
 | [`0001`](specs/0001-daily-momentum-signal/) | Daily cross-sectional momentum signal *(reference)* | `momentum_signal.py` |
 | [`0006`](specs/0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` |
+| [`0041`](specs/0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing its labels/features/folds/evaluation unmodified | `ranking_forecast.py` |
 | [`0007`](specs/0007-portfolio-construction/) | Constrained portfolio construction (QP) | `portfolio_construction.py` |
 | [`0008`](specs/0008-metrics-semantic-layer/) | Metrics semantic layer | `metrics_semantic_layer.py` |
 | [`0009`](specs/0009-experimentation/) | Experiment (A/B test) analysis | `experimentation.py` |
@@ -454,10 +455,12 @@ the [spec index](specs/README.md).
 | [`0034`](specs/0034-cardinality-constrained-portfolio/) | Cardinality-constrained portfolio construction — MILP selects, QP sizes (a documented two-stage heuristic on `0013` + `0007`) | `cardinality_portfolio.py` |
 | [`0035`](specs/0035-funding-ladder/) | Funding ladder — matches cash obligations to funding tenors at minimum cost via `0013`'s min-cost flow; general treasury/cash, not securities-financing | `funding_ladder.py` |
 | [`0036`](specs/0036-multi-period-rebalancing/) | Multi-period rebalancing — a discretized single-position DP via `0013`'s `solve_dp`, trading transaction cost against tracking-error cost over a horizon | `multi_period_rebalancing.py` |
+| [`0038`](specs/0038-factor-risk-model/) | Factor risk model — variance decomposition, Euler risk attribution, concentration, linear stress loss; operationalizes `instructions/risk_management.md` | `factor_risk_model.py` |
+| [`0039`](specs/0039-ingestion-data-contract/) | Ingestion data contract emission — validates a pulled row set against a declared schema/key/quality-rule contract, renders a `data_contract.md` populated with real computed results | `ingestion_data_contract.py` |
 
 **Themed chains**
 
-- 🔬 **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution
+- 🔬 **Quant research:** `0001` signal → `0006` forecast (`0041` ranking-loss variant) → `0007` portfolio → `0012` execution → `0038` factor risk
 - 📌 **Portfolio management:** mandate → universe → signal intake → allocation policy → construction oversight → implementation → monitored governance
 - 🧮 **Optimization toolkit:** `0007` (QP) · `0013` (LP/MILP/flow/DP) · `0012` (control) · `0034` (cardinality-constrained portfolio, composing `0013`+`0007`) · `0035` (funding ladder, `0013`'s min-cost flow) · `0036` (multi-period rebalancing, `0013`'s DP) — every `0013` solver now has a shipped application
 - 📊 **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` pipeline → `0014` storytelling → `0015`/`0016`/`0018` dashboards → `0017` render adapters
@@ -465,6 +468,7 @@ the [spec index](specs/README.md).
 - 🛰️ **Monitoring & alerting:** `0021` signal monitoring → `0020` alerting → `adapters/alert_delivery/` (`0032`: email + webhook; `0037`: Slack, Teams, ticketing, PagerDuty/Opsgenie, SMS/push — all seven executable)
 - 💵 **Securities financing:** `0022` asset-class mechanics → `0023` securities lending → `0028` financing cost analysis → backtest/risk
 - 🌐 **Macro & economics:** `0027` source catalog → `0033` economists agents (indicators → policy → regime → cross-asset/scenario → brief/outlook) → `macro_multi_asset`, `portfolio_management`, `risk`
+- 🗂️ **Data foundations:** `0027` source catalog → `data_contract.md` (per-dataset) → `agents/data_ingestion/` → `0039` ingestion data contract emission (validates real rows, renders a populated contract) → `data_quality`/`point_in_time`
 
 ---
 

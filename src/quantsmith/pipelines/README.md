@@ -49,6 +49,31 @@ Tests: `tests/test_return_forecasting.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_return_forecasting.py -q
 ```
 
+## `ranking_forecast` — spec `0041-ranking-forecast`
+
+A ranking-loss variant of `0006`: `0006`'s baseline/challenger train on
+point-wise regression loss, then get scored by cross-sectional rank IC — a
+mismatch with what a long/short selection process actually consumes.
+`train_ranker` changes only the training objective — a pairwise (RankNet-
+style) logistic ranking loss over same-day pairs only — while importing
+`0006`'s `build_labels`, `FeatureStore`, `make_folds`, `evaluate`, and
+`LinearModel` unmodified. `run_ranking_forecast` trains the ranker and
+`0006`'s point-wise baseline on identical folds for a direct comparison.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `train_ranker` | REQ-001, REQ-002 | Preference pairs are built only within a single decision day — cross-day comparison is structurally impossible; output is a drop-in `return_forecasting.LinearModel`. |
+| `run_ranking_forecast` | REQ-003, REQ-004 | Ranker and `0006`'s point-wise baseline trained/evaluated on identical folds; deterministic given a seed. |
+
+Tests: `tests/test_ranking_forecast.py` (one test per acceptance
+criterion). AC-006's comparison (ranker vs. point-wise baseline on a
+synthetic, rank-only-signal panel) demonstrates the mechanism on a fixed,
+reproducible fixture — not a backtested market claim.
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_ranking_forecast.py -q
+```
+
 ## `portfolio_construction` — spec `0007-portfolio-construction`
 
 Turns the `0006` forecast into portfolio weights by solving a constrained

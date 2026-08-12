@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, `0038`, and `0039` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, `0038`, `0039`, and `0041` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -29,6 +29,7 @@ each with a matching test module under `tests/`.
 | [0002-workflow-memory](0002-workflow-memory/) | Persistent workflow memory scaffold | `memory/` scaffold | `memory` gate | Approved |
 | [0004-optimizer-ml-dl-agent-expansion](0004-optimizer-ml-dl-agent-expansion/) | Optimizer, ML, and DL agent expansion | — (agent contracts) | catalog/docs gates | Approved |
 | [0006-ml-return-forecasting](0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` | `test_return_forecasting.py` | Approved |
+| [0041-ranking-forecast](0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing `0006`'s labels/features/folds/evaluation unmodified | `ranking_forecast.py` | `test_ranking_forecast.py` | Approved |
 | [0007-portfolio-construction](0007-portfolio-construction/) | Constrained portfolio construction (QP) | `portfolio_construction.py` | `test_portfolio_construction.py` | Approved |
 | [0008-metrics-semantic-layer](0008-metrics-semantic-layer/) | Metrics semantic layer | `metrics_semantic_layer.py` | `test_metrics_semantic_layer.py` | Approved |
 | [0009-experimentation](0009-experimentation/) | Experiment (A/B test) analysis | `experimentation.py` | `test_experimentation.py` | Approved |
@@ -69,7 +70,7 @@ traceability end to end. Copy its structure, not its content.
 
 ### Chains & themes
 
-- **Quant research:** `0001` signal → `0006` forecast → `0007` portfolio → `0012` execution → `0038` factor risk (decomposition, attribution, stress).
+- **Quant research:** `0001` signal → `0006` forecast (`0041` ranking-loss variant) → `0007` portfolio → `0012` execution → `0038` factor risk (decomposition, attribution, stress).
 - **Optimization toolkit:** `0007` (QP), `0013` (LP/MILP/flow/DP), `0012` (control), `0026` (plugin contract for prebuilt internal models), `0034` (cardinality-constrained portfolio — `0013`'s MILP composed with `0007`'s QP), `0035` (funding ladder — `0013`'s min-cost flow, general treasury/cash, not securities-financing), `0036` (multi-period rebalancing — `0013`'s DP, a discretized single position over a horizon). Every `0013` solver now has a shipped application.
 - **Data foundations:** `0027` source catalog (registry) → `data_contract.md` (per-dataset) → `agents/data_ingestion/` (ingestion) → `0039` ingestion data contract emission (validates real rows, renders a populated contract) → `data_quality`/`point_in_time` (review).
 - **Data Analyst:** `0008` metrics → `0009` experimentation → `0010` end-to-end
@@ -87,4 +88,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0041`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0042`** (`0003`/`0005` belong to the local-only pack).

@@ -101,14 +101,36 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
    - A **Dry Take**: one optional short sarcastic/ironic version or punchline grounded in the same verified facts. It should be usable as a quote-post, final thread line, caption, or standalone post.
 
 8. **Visual desk**
-   For each top idea provide the best visual form: actual chart, infographic, diagram, or meme.
-   - For data-driven claims, prefer an actual current-data chart when reliable data is available.
-   - Specify data source, variables, axes, labels, annotations, date/as-of time, and caveats.
-   - Clearly label conceptual/illustrative charts as conceptual.
-   - Never fabricate missing observations to complete a chart.
-   - Never visually imply precision beyond the underlying data.
-   - Provide concise alt text.
-   - Visuals should feel institutional/quantitative and modern, but must not imitate proprietary Bloomberg branding or trade dress.
+   For each top idea decide first whether a visual materially improves comprehension, credibility, or engagement. If not, explicitly return **No visual** rather than adding decorative media.
+
+   When a visual is warranted, resolve a mandatory `visual_style` before drafting or generating it. Use exactly one of these approved house presets unless the user explicitly requests another style:
+   - `terminal`
+   - `institutional-research`
+   - `minimalist-quant`
+   - `user-specified` — only when the user explicitly overrides the house presets.
+
+   Read `visual-styles.md` in this skill directory for the complete rendering rules, prompt seeds, anti-patterns, routing guidance, and validation checklist.
+
+   **Style router:**
+   - Route technical systems, AI infrastructure/compute, optimization, model internals, market plumbing, dense analytical tables, and technical diagrams to `terminal`.
+   - Route empirical market data, macro, rates, earnings, valuation, company comparisons, and sourced time-series/cross-sectional charts to `institutional-research`.
+   - Route a single equation, quantitative concept, one relationship, one surprising comparison, or educational quant insight to `minimalist-quant`.
+   - An explicit user style request overrides the router and becomes `user-specified`.
+   - If two presets are plausible, choose the one that best serves the thesis; do not blend them into an ungoverned fourth style.
+
+   **Visual execution contract:**
+   1. State `Visual style: <style-id>` in every visual brief.
+   2. Inherit the selected preset's canvas, typography, hierarchy, chart treatment, density, annotation, and anti-pattern rules in any image-generation or design prompt.
+   3. For data-driven claims, prefer an actual current-data chart when reliable data is available.
+   4. Specify data source, variables, axes, labels, annotations, date/as-of time, and caveats.
+   5. Show source/date in-image when feasible for data-based visuals.
+   6. Clearly label conceptual/illustrative charts as conceptual.
+   7. Never fabricate missing observations to complete a chart.
+   8. Never visually imply precision beyond the underlying data.
+   9. Provide concise alt text for every publication-ready visual.
+   10. Validate the final visual against the chosen preset before publication.
+
+   Across all presets, avoid generic AI gradients, chartjunk, glossy 3D effects, clip-art, gratuitous dashboards, fake terminal code, excessive neon/glow, decorative noise, and visual elements that compete with the quantitative thesis. Visuals should feel institutional/quantitative and modern, but must not imitate proprietary Bloomberg branding or trade dress.
 
 9. **Meme + dry-take desk**
    Generate 3–5 timely memes and 3–5 dry/sarcastic finance takes tied to current markets, AI, quant finance, or relevant pop culture.
@@ -124,6 +146,7 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
    - For each dry take, include the underlying verified fact/source so humor never outruns evidence.
    - Do not add AI watermarks or pretend a generated image is an authentic news photograph.
    - Any factual number used in humor is subject to the same verification rules as serious content.
+   - When a meme is custom-designed rather than based on a recognizable meme template, route its visual treatment through the same approved `visual_style` system where practical.
 
 10. **Verification gate — mandatory before publication-ready output**
    - Re-open or re-check the source for every numerical/current-event claim used in the top content, memes, and dry takes.
@@ -172,15 +195,17 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
 - When discussing AI investment, distinguish capex/adoption velocity from spend persistence and realized ROI.
 - When discussing dividends/capital allocation, focus on marginal ROIC versus cost of capital rather than treating dividends as inherently good or bad.
 - When discussing volatility, distinguish realized, implied, risk-neutral pricing, state uncertainty, and the volatility risk premium.
+- Every publication-ready visual must either declare an approved `visual_style` or explicitly say **No visual**.
+- Never silently invent an ad hoc visual house style when one of the approved presets applies.
 
 ## Required nightly report structure
 1. **Tonight's Quant Thesis** — one paragraph identifying the strongest unifying theme.
 2. **Ranked Content Board** — 10–15 ideas with format, scores, and evidence-quality rating.
-3. **Top 3–5 Publication-Ready Ideas** — finished copy plus visual/alt text/hashtags/score/rationale, Evidence line, and optional Dry Take.
+3. **Top 3–5 Publication-Ready Ideas** — finished copy plus visual/alt text/hashtags/score/rationale, Evidence line, and optional Dry Take. Every visual brief must include `Visual style: <style-id>` or **No visual**.
 4. **Meme + Dry-Take Desk** — 3–5 complete meme concepts plus 3–5 short sarcastic finance takes, each tied to verified facts.
 5. **Top 5 Posts To Publish Tomorrow**
 6. **Top 3 Threads**
-7. **Top 5 Visuals To Build**
+7. **Top 5 Visuals To Build** — include the selected `visual_style` for every item.
 8. **Top 3 Memes**
 9. **Top 3 Dry Takes**
 10. **Biggest Research Opportunity**
@@ -189,4 +214,4 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
 13. **Transparency Log** — include only if any [UNVERIFIED] claim materially affected research or any [HALLUCINATION DETECTED] event occurred; otherwise state "No detected hallucinations in publication-ready content."
 
 ## On-demand modes
-If the user asks for only a quote-post, reply, meme, sarcastic take, thread, chart, or single post, run the relevant research/challenge/claim-ledger/verification steps but return only the requested artifact. If a hallucination is detected during the process, disclose it before or after the artifact and do not silently propagate it.
+If the user asks for only a quote-post, reply, meme, sarcastic take, thread, chart, or single post, run the relevant research/challenge/claim-ledger/verification steps but return only the requested artifact. If the artifact includes a visual or visual brief, the visual-style router remains mandatory. If a hallucination is detected during the process, disclose it before or after the artifact and do not silently propagate it.

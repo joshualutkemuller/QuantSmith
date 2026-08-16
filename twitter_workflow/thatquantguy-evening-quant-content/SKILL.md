@@ -109,7 +109,16 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
    - `minimalist-quant`
    - `user-specified` — only when the user explicitly overrides the house presets.
 
-   Read `visual-styles.md` in this skill directory for the complete rendering rules, prompt seeds, anti-patterns, routing guidance, and validation checklist.
+   Read `visual-styles.md` in this skill directory for the complete rendering rules, prompt seeds, branding rules, anti-patterns, routing guidance, and validation checklist.
+
+   **Canonical branding rule — mandatory:**
+   - The account owner's supplied circular black-and-white illustrated quant avatar holding the **MORE DATA / LESS EMOTION** mug is the canonical public-facing logo for custom Twitter visuals.
+   - Use that supplied logo image as the brand mark whenever the asset is available to the renderer.
+   - Do **not** display `QuantSmith`/`QUANTSMITH` as a public-facing visual wordmark unless the user explicitly asks for it.
+   - Do not redraw, regenerate, recolor, crop destructively, or otherwise alter the canonical logo. Preserve its aspect ratio and artwork.
+   - Normally place one small logo in the top-left with adequate clear space. A second small placement is allowed only for a distinct Quant Take/callout panel when useful; avoid repetitive stamping.
+   - If the logo asset is unavailable, reserve a logo-safe area and flag `Logo asset required`. Never generate an approximation or silently fall back to a QuantSmith wordmark.
+   - Preferred repository asset location: `assets/account-logo.png` or `assets/account-logo.jpeg` inside this skill directory.
 
    **Style router:**
    - Route technical systems, AI infrastructure/compute, optimization, model internals, market plumbing, dense analytical tables, and technical diagrams to `terminal`.
@@ -120,15 +129,17 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
 
    **Visual execution contract:**
    1. State `Visual style: <style-id>` in every visual brief.
-   2. Inherit the selected preset's canvas, typography, hierarchy, chart treatment, density, annotation, and anti-pattern rules in any image-generation or design prompt.
-   3. For data-driven claims, prefer an actual current-data chart when reliable data is available.
-   4. Specify data source, variables, axes, labels, annotations, date/as-of time, and caveats.
-   5. Show source/date in-image when feasible for data-based visuals.
-   6. Clearly label conceptual/illustrative charts as conceptual.
-   7. Never fabricate missing observations to complete a chart.
-   8. Never visually imply precision beyond the underlying data.
-   9. Provide concise alt text for every publication-ready visual.
-   10. Validate the final visual against the chosen preset before publication.
+   2. State `Branding: canonical account logo; no QuantSmith wordmark` unless the user explicitly overrides branding.
+   3. State `Logo asset: <path>` when available or `Logo asset required` when unavailable.
+   4. Inherit the selected preset's canvas, typography, hierarchy, chart treatment, density, annotation, branding, and anti-pattern rules in any image-generation or design prompt.
+   5. For data-driven claims, prefer an actual current-data chart when reliable data is available.
+   6. Specify data source, variables, axes, labels, annotations, date/as-of time, and caveats.
+   7. Show source/date in-image when feasible for data-based visuals.
+   8. Clearly label conceptual/illustrative charts as conceptual.
+   9. Never fabricate missing observations to complete a chart.
+   10. Never visually imply precision beyond the underlying data.
+   11. Provide concise alt text for every publication-ready visual.
+   12. Validate the final visual against the chosen preset and canonical branding rules before publication.
 
    Across all presets, avoid generic AI gradients, chartjunk, glossy 3D effects, clip-art, gratuitous dashboards, fake terminal code, excessive neon/glow, decorative noise, and visual elements that compete with the quantitative thesis. Visuals should feel institutional/quantitative and modern, but must not imitate proprietary Bloomberg branding or trade dress.
 
@@ -146,7 +157,7 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
    - For each dry take, include the underlying verified fact/source so humor never outruns evidence.
    - Do not add AI watermarks or pretend a generated image is an authentic news photograph.
    - Any factual number used in humor is subject to the same verification rules as serious content.
-   - When a meme is custom-designed rather than based on a recognizable meme template, route its visual treatment through the same approved `visual_style` system where practical.
+   - When a meme is custom-designed rather than based on a recognizable meme template, route its visual treatment through the same approved `visual_style` and canonical-logo system where practical.
 
 10. **Verification gate — mandatory before publication-ready output**
    - Re-open or re-check the source for every numerical/current-event claim used in the top content, memes, and dry takes.
@@ -196,16 +207,17 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
 - When discussing dividends/capital allocation, focus on marginal ROIC versus cost of capital rather than treating dividends as inherently good or bad.
 - When discussing volatility, distinguish realized, implied, risk-neutral pricing, state uncertainty, and the volatility risk premium.
 - Every publication-ready visual must either declare an approved `visual_style` or explicitly say **No visual**.
+- Every publication-ready custom visual must use the canonical account logo when available and must not substitute a QuantSmith wordmark unless explicitly requested.
 - Never silently invent an ad hoc visual house style when one of the approved presets applies.
 
 ## Required nightly report structure
 1. **Tonight's Quant Thesis** — one paragraph identifying the strongest unifying theme.
 2. **Ranked Content Board** — 10–15 ideas with format, scores, and evidence-quality rating.
-3. **Top 3–5 Publication-Ready Ideas** — finished copy plus visual/alt text/hashtags/score/rationale, Evidence line, and optional Dry Take. Every visual brief must include `Visual style: <style-id>` or **No visual**.
+3. **Top 3–5 Publication-Ready Ideas** — finished copy plus visual/alt text/hashtags/score/rationale, Evidence line, and optional Dry Take. Every visual brief must include `Visual style: <style-id>` or **No visual**; visual briefs must also declare canonical-logo branding.
 4. **Meme + Dry-Take Desk** — 3–5 complete meme concepts plus 3–5 short sarcastic finance takes, each tied to verified facts.
 5. **Top 5 Posts To Publish Tomorrow**
 6. **Top 3 Threads**
-7. **Top 5 Visuals To Build** — include the selected `visual_style` for every item.
+7. **Top 5 Visuals To Build** — include the selected `visual_style` and canonical-logo branding for every item.
 8. **Top 3 Memes**
 9. **Top 3 Dry Takes**
 10. **Biggest Research Opportunity**
@@ -214,4 +226,4 @@ Never conceal a discovered hallucination for the sake of producing a complete ni
 13. **Transparency Log** — include only if any [UNVERIFIED] claim materially affected research or any [HALLUCINATION DETECTED] event occurred; otherwise state "No detected hallucinations in publication-ready content."
 
 ## On-demand modes
-If the user asks for only a quote-post, reply, meme, sarcastic take, thread, chart, or single post, run the relevant research/challenge/claim-ledger/verification steps but return only the requested artifact. If the artifact includes a visual or visual brief, the visual-style router remains mandatory. If a hallucination is detected during the process, disclose it before or after the artifact and do not silently propagate it.
+If the user asks for only a quote-post, reply, meme, sarcastic take, thread, chart, or single post, run the relevant research/challenge/claim-ledger/verification steps but return only the requested artifact. If the artifact includes a visual or visual brief, the visual-style router and canonical-logo branding rules remain mandatory. If a hallucination is detected during the process, disclose it before or after the artifact and do not silently propagate it.

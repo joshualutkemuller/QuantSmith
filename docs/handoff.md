@@ -406,7 +406,48 @@ by the `knowledge` gate.
       docs needing manual refresh is now materially narrower: the
       countable part is mechanical.
 
-    **Recommended next:** conic/global/nonlinear optimizer forms once a
+    - `0044` the backtest engine (`backtesting.py`) — the artifact this SDK
+      existed to govern and had never produced. `instructions/backtesting.md`,
+      `agents/backtest_review/`, `templates/docs/backtest_report.md`, and a
+      **CI-enforced** `backtest` gate were all in place while the gate
+      reported "no backtest report artifact detected" on every run. No
+      look-ahead is structural: `weights[i]` meets `returns[i + lag]` with
+      `lag >= 1` enforced, an indexing impossibility rather than an
+      assertion. Net of costs is the default (turnover-scaled transaction
+      cost, financing on short exposure only), and a probabilistic Sharpe
+      (Bailey & López de Prado) ships with every Sharpe rather than as an
+      optional extra. The generated example on **disclosed synthetic data**
+      is the repo's first backtest artifact; it reports a *negative* result
+      (Sharpe −0.69, PSR 0.167), which is the correct answer for random data
+      after costs and a fair demonstration that the engine is not tuned to
+      flatter. Its stated limit: the guarantee covers the simulation loop,
+      not the provenance of the weights it is handed.
+
+    - `0045` the FRED point-in-time panel adapter
+      (`fred_point_in_time.py`) — the input-side half of the gap `0044`
+      left open. `0044` guarantees its simulation loop does not look
+      ahead and says it cannot vouch for the weights it is handed; for a
+      macro backtest that is precisely where leakage lives, because
+      economic series are revised. This adapter reads
+      `gold_fred_point_in_time` and selects vintages by window
+      containment on `realtime_start`/`realtime_end`, so a revision
+      published later can never be returned for an earlier as-of date —
+      the property its decisive test pins directly (original value before
+      the revision, revised value after). Publication lag falls out of
+      the data rather than needing a parameter, and `is_missing` rows are
+      absent rather than zero, because a zero is a number a model will
+      happily trade on. Read-only, no API key: it consumes a SQLite file
+      the operator produced (P9).
+
+    **Next up — the real run.** With `0044` and `0045` in place, the
+    remaining step is a wiring exercise, blocked only on data:
+    `fred_local.db`, produced by the operator from
+    `joshualutkemuller/fred-bronze-to-gold-pipeline` via
+    `PYTHONPATH=src python -m fred_pipeline run --local --db-path fred_local.db`
+    with their own `FRED_API_KEY`. No Databricks needed — that repo has a
+    fully local mode. **Blocked on that file.**
+
+    **Otherwise:** conic/global/nonlinear optimizer forms once a
     dependency-free method or an optional solver dependency is chosen, a
     listwise ranking loss once `0041`'s pairwise variant is trusted, or
     the two remaining `P1` `data_engineering` runtimes (`data_modeling`,

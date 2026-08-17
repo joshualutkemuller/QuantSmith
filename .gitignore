@@ -6,9 +6,6 @@
 .idea/
 *.swp
 
-# Evening Quant Content Twitter maker only available on local
-evening_quant_content_twitter/
-
 # Python caches and environments
 __pycache__/
 *.py[cod]

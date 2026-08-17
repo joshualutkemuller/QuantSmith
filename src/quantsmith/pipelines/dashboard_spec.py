@@ -9,7 +9,7 @@ A ``DashboardSpec`` is a governed design: each ``Panel`` names a governed metric
 to a specific BI tool's payload; the spec itself is never tied to one tool.
 
 Spec ``0047`` added ``SCHEMA_VERSION`` and ``check_schema_compatibility`` so a consumer
-in a *separate repository* — such as QuantForge, the iOS companion — can refuse
+in a *separate repository* — can refuse
 a payload it does not understand and show stale data, rather than crash. For a client
 shipped through App Store review, "detect a breaking change by breaking" means days
 without a fix.

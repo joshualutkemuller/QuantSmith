@@ -45,7 +45,7 @@ Status values: `todo` | `in-progress` | `blocked` | `done`.
 - Extend `schema_version` to the run manifest, backtest report, and data
   contract payloads once a consumer exists for them (carried as an open
   question in `spec.md`).
-- **Consumer-side pieces**, which belong in [QuantForge](https://github.com/joshualutkemuller/QuantForge), not here:
+- **Consumer-side pieces**, which belong in the consuming repository, not here:
   a pip entry in its Dependabot config, and the contract test that
   decodes a `DashboardSpec` from the installed `quantsmith` — the latter
   being the real guard that `schema_version` alone cannot provide

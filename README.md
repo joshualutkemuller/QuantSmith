@@ -14,7 +14,7 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
 [![Agents: 161](https://img.shields.io/badge/Agents-161-6f42c1)](agents/README.md)
-[![Quality Gates: 28](https://img.shields.io/badge/Quality%20Gates-28-2ea44f)](hooks/README.md)
+[![Quality Gates: 28](https://img.shields.io/badge/Quality%20Gates-27-2ea44f)](hooks/README.md)
 [![Specs: 45](https://img.shields.io/badge/Specs-45-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
@@ -65,7 +65,7 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 | 🔎 Catch leakage & time-alignment bugs | Point-in-time standards + `leakage`/`backtest` gates |
 | 📝 Document features, models, backtests | Templates, cards, and reproducible run artifacts |
 | 🤖 Reuse research workflows | 161 narrow, inspectable agent roles across the stack |
-| 🚦 Stop mistakes before commit/push | 28 quality gates, advisory by default, CI-enforceable |
+| 🚦 Stop mistakes before commit/push | 27 quality gates, advisory by default, CI-enforceable |
 | 🗣️ Share a common vocabulary | An [agentic dictionary](agentic_dictionary.md) for the team |
 
 ---
@@ -179,7 +179,6 @@ quantsmith/
 - `agents/`, `adapters/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `examples/` are the intended public SDK surfaces.
 - `src/quantsmith/` contains executable runtime packages. Agent directories are role contracts and catalog entries, not long-term homes for Python modules.
 - The old app-specific assets have been removed from the working tree; the remaining seed files now describe the SDK workflow.
-- **QuantForge** — the read-only iOS monitoring companion built on these runtimes — lives in [its own repository](https://github.com/joshualutkemuller/QuantForge), along with its handoff and decision log. Spec `0047` holds the QuantSmith-side mechanisms that keep the two in sync.
 
 </details>
 
@@ -287,15 +286,6 @@ each. Uses the catalog as its routing table.
 **Economists** (`agents/economists/`) — `macro_indicator_analyst/`, `monetary_policy_analyst/`, `macro_regime_classifier/`, `cross_asset_macro_linkages/`, `macro_scenario_analyst/`, `macro_backdrop_summarizer/`, `economic_outlook_report_writer/`: give a quant or portfolio-management workflow a grounded macro backdrop — indicators through policy through a classified regime through cross-asset/scenario translation to a recurring brief and a periodic outlook report. Analysis and synthesis only; strategy design stays `trading_strategies/macro_multi_asset`'s job and live-model regime-change detection stays `monitoring/model_signal_monitoring`'s job. Draws on `sources/{fred,bls,bea,census,eia}.yml`; every figure traces to a supplied input or registered source, never invented (spec `0033`).
 
 **Formulaic alphas** (`agents/formulaic_alphas/`) — `alpha_construction/`, `alpha_combination/`, `alpha_evaluation/`: operationalize the methodology of *101 Formulaic Alphas* (Kakushadze, 2016) — build tradable signals from an operator library, combine weakly-correlated alphas, and evaluate holding period, turnover, correlation, and capacity.
-
-</details>
-
-<details>
-<summary><b>🌙 Evening content workflow pack</b> (local-only)</summary>
-
-<br/>
-
-`evening_quant_content_twitter/` — `content_orchestrator/`, `market_context_researcher/`, `quant_angle_generator/`, `x_post_packager/`, `visual_spec_agent/`, `meme_culture_agent/`, `claim_review_agent/`, `content_memory_agent/`: produce **non-posting** evening quant content draft packs with ranked ideas, posts, threads, visual specs, meme concepts, source notes, review findings, and memory updates. `runtime/evening_quant_pipeline.py` and `scheduler/cron.md` run the local pipeline and document the 10:30 PM scheduler profile.
 
 </details>
 
@@ -416,7 +406,7 @@ QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec   # blocking (as CI runs it)
 | --- | --- |
 | 🧭 Cross-cutting | `spec` |
 | 🔄 Per-stage | `planning` · `design` · `implementation` · `testing` · `deployment` · `maintenance` |
-| 📈 Quant / content | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `content-draft-pack` · `data-provenance` |
+| 📈 Quant | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `data-provenance` |
 | 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `readme-sync` · `doc-counts` · `quantsmith-version` · `knowledge` · `role-context` · `model-plugin` · `source-catalog` |
 
 > [!TIP]
@@ -437,7 +427,7 @@ the [spec index](specs/README.md).
 | [`0001`](specs/0001-daily-momentum-signal/) | Daily cross-sectional momentum signal *(reference)* | `momentum_signal.py` |
 | [`0006`](specs/0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` |
 | [`0041`](specs/0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing its labels/features/folds/evaluation unmodified | `ranking_forecast.py` |
-| [`0047`](specs/0047-downstream-contract/) | Downstream consumer contract — `DashboardSpec.schema_version` + compatibility check, release-notify workflow, and a copyable `quantsmith-version` gate for a separate consuming repo (QuantForge) | `dashboard_spec.py` *(extended)* |
+| [`0047`](specs/0047-downstream-contract/) | Downstream consumer contract — `DashboardSpec.schema_version` + compatibility check, release-notify workflow, and a copyable `quantsmith-version` gate for a separate consuming repository | `dashboard_spec.py` *(extended)* |
 | [`0046`](specs/0046-walk-forward/) | Walk-forward harness — purged/embargoed folds from `0006` refit per fold through `0044`'s engine; reports the out-of-sample fold distribution | `walk_forward.py` |
 | [`0045`](specs/0045-fred-point-in-time/) | FRED point-in-time panel adapter — vintage-correct reads of `gold_fred_point_in_time`, so a later revision cannot leak backwards | `fred_point_in_time.py` |
 | [`0044`](specs/0044-backtesting/) | Backtest engine — net-of-cost simulation, no look-ahead by construction, probabilistic Sharpe on every run | `backtesting.py` |
@@ -515,11 +505,6 @@ From inside `quantsmith`, run:
 | [`docs/handoff.md`](docs/handoff.md) | Continuation guide for the next implementer |
 | [`CHANGELOG.md`](CHANGELOG.md) | Release history and the versioning policy |
 | [`agentic_dictionary.md`](agentic_dictionary.md) | Definitions for the SDK vocabulary |
-
-The evening content pack is self-contained (and local-only) under
-`evening_quant_content_twitter/` with its own configurable workflow spec
-(`0003-evening-quant-content-workflow`) and runnable-pipeline spec
-(`0005-evening-quant-content-runnable-pipeline`).
 
 ---
 

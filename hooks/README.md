@@ -38,7 +38,6 @@ pattern-based; tune them to your repository.
 | Alert contract | `alert-contract-check.sh` | `templates/data/alert_policy.md`, `agents/alerts/` |
 | Monitoring coverage | `monitoring-coverage-check.sh` | `templates/docs/model_monitoring_plan.md`, `agents/monitoring/` |
 | Data provenance | `data-provenance-check.sh` | `templates/docs/synthetic_data_disclosure.md`, `instructions/data_provenance.md` |
-| Evening content draft pack | `content-draft-pack-check.sh` | `evening_quant_content_twitter/` |
 
 ### Repo Gates (security & docs integrity)
 
@@ -78,7 +77,6 @@ hooks/stages/run-stage.sh planning design
 hooks/stages/run-stage.sh spec
 
 # Run only the quant/content gates:
-hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pack
 ```
 
 ## Quant Gates
@@ -93,7 +91,6 @@ hooks/stages/run-stage.sh leakage backtest repro data-contract content-draft-pac
   lockfile, and seeded randomness in changed code.
 - **`data-contract-check.sh`** verifies a data contract declares schema, keys,
   point-in-time rules, and missingness rules.
-- **`content-draft-pack-check.sh`** verifies the evening quant content workflow
   pack, including config, draft-pack template, sample fixture, content agent
   contracts, scheduler profile, runtime smoke test, manual approval flag, and
   no-autopost boundary.

@@ -313,6 +313,22 @@ operations, data provenance):
   stale simultaneously because no gate can check a number written in prose. It
   reports its own coverage, so a pattern that stops matching is visible rather
   than passing quietly.
+- Backtest engine — done (spec `0044`, `backtesting.py`). Net-of-cost
+  simulation with no look-ahead by construction (`weights[i]` meets
+  `returns[i + lag]`, `lag >= 1` enforced), turnover-scaled transaction costs,
+  financing on short exposure, drawdown, and a probabilistic Sharpe computed on
+  every run. Closes the largest dormant-gate gap in the SDK: the CI-enforced
+  `backtest` gate had never validated anything. Explicitly the first half of a
+  two-step build — the second is a real point-in-time macro backtest over
+  `gold_fred_point_in_time` from the FRED bronze-to-gold pipeline, blocked on
+  an operator-held `FRED_API_KEY` (P9: never held here).
+- FRED point-in-time panel adapter — done (spec `0045`,
+  `fred_point_in_time.py`). Reads `gold_fred_point_in_time` from the FRED
+  bronze-to-gold pipeline's local SQLite output and selects vintages by window
+  containment on `realtime_start`/`realtime_end`, so a revision published later
+  cannot leak backwards into an earlier as-of date. Closes the input-side half
+  of the gap `0044` left open; the real run is blocked only on the operator
+  producing `fred_local.db`.
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

@@ -182,6 +182,21 @@ belong under profiles/adapters unless they require materially different behavior
   pairwise (RankNet-style) ranking-loss variant of `0006`, composing its
   labels/features/folds/evaluation unmodified; the sole remaining `P0`
   backlog line ("additional ML/DL examples") is now shipped.
+- The FRED point-in-time panel adapter (spec `0045`,
+  `fred_point_in_time.py`) — reads `gold_fred_point_in_time` from the FRED
+  bronze-to-gold pipeline's local SQLite output and selects vintages by
+  `realtime_start`/`realtime_end` window containment, so a revision
+  published later can never leak backwards into an earlier as-of date.
+  Closes the input-side half of the gap `0044` left open. The real run
+  still needs `fred_local.db` from the operator.
+- The backtest engine (spec `0044`, `backtesting.py`) — net-of-cost
+  simulation with no look-ahead by construction, turnover-scaled costs,
+  financing charged on shorts only, drawdown, and a probabilistic Sharpe
+  on every run. Ships the repo's first backtest artifact, so the
+  CI-enforced `backtest` gate validates real content instead of
+  no-opping. First half of a two-step build; the real point-in-time FRED
+  vertical slice is the second, blocked on an operator-held
+  `FRED_API_KEY`.
 - The documented-count drift gate (spec `0043`,
   `hooks/stages/doc-counts-check.sh`) — derives the true agent, gate, and
   instruction-standard counts from the filesystem and flags stated counts

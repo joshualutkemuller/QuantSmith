@@ -338,6 +338,13 @@ operations, data provenance):
   in-sample gap `0044`'s own report admitted to, and makes the pending FRED run
   defensible over a short macro sample. Selecting variants on fold results is
   explicitly out of scope: that needs a deflated Sharpe, the natural follow-up.
+- iOS companion initiative — design only, nothing built (`app/`). A read-only
+  monitoring companion over existing runtime outputs; the SDK's development-time
+  surfaces are explicitly out of scope. Phase 1 (a SwiftUI `DashboardSpec`
+  profile, the eighth target after `0015`/`0016`/`0018`) and Phase 3 (an APNs
+  provider beside the eight in `adapters/alert_delivery/`) extend patterns that
+  already exist. Phase 2 — a hosted read API — is blocked on an open decision
+  about whether this project starts owning a running service (`AD-003`).
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

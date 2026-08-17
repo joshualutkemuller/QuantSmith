@@ -164,6 +164,7 @@ quantsmith/
 ├── 🗂️ specs/                     # source-of-truth specifications
 ├── 🧾 templates/                 # repeatable artifacts (memos, cards, reports)
 ├── 🗃️ sources/                   # data source catalog (APIs, DBs, feeds)
+├── 📱 app/                       # iOS companion initiative (design only, nothing built)
 ├── 🧪 examples/
 └── 📚 docs/
 ```
@@ -179,6 +180,7 @@ quantsmith/
 - `agents/`, `adapters/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `examples/` are the intended public SDK surfaces.
 - `src/quantsmith/` contains executable runtime packages. Agent directories are role contracts and catalog entries, not long-term homes for Python modules.
 - The old app-specific assets have been removed from the working tree; the remaining seed files now describe the SDK workflow.
+- `app/` is a **design surface, not code** — the handoff, phase breakdown, and decision log for a read-only iOS monitoring companion. Nothing in it is built, and one architectural decision (`AD-003`, whether this project starts owning a running service) is deliberately left open. See [`app/README.md`](app/README.md).
 
 </details>
 

@@ -166,32 +166,6 @@ Standard: `instructions/portfolio_management.md`. Construction math routes to
 `optimization/portfolio_construction/`; execution scheduling routes to
 `optimization/execution_optimization/`.
 
-## Evening Content Workflow Pack
-
-The evening X/Twitter content agents moved out of the core `agents/` tree into the
-root-level `evening_quant_content_twitter/` workflow pack so the whole content
-surface can be ignored locally as one folder. That pack is now **local-only**
-(untracked from git; present on disk where it was set up), so the references below are
-paths within the pack rather than links. They still follow the same four-file agent
-contract.
-
-| Agent | Handles | Feeds mainly |
-| --- | --- | --- |
-| `evening_quant_content_twitter/agents/content/content_orchestrator/` | Config, topic budget, stage routing, ranking, draft-pack assembly, and delivery handoff | Orchestration, Reporting |
-| `evening_quant_content_twitter/agents/content/market_context_researcher/` | Current context, source notes, fact/reaction/speculation separation | Research, Data Ingestion |
-| `evening_quant_content_twitter/agents/content/quant_angle_generator/` | Quant-native, contrarian angles with mechanisms, scores, and risks | Research, Reporting |
-| `evening_quant_content_twitter/agents/content/x_post_packager/` | Short posts, quote-tweet replies, and thread drafts under platform constraints | Reporting |
-| `evening_quant_content_twitter/agents/content/visual_spec_agent/` | Chart, diagram, screenshot, and media specs with source/caveat requirements | Tooling, Reporting |
-| `evening_quant_content_twitter/agents/content/meme_culture_agent/` | Market-aware meme concepts with factual and reputational risk notes | Reporting |
-| `evening_quant_content_twitter/agents/content/claim_review_agent/` | Source support, labels, confidential-info review, and advice-language checks | Quality, Risk |
-| `evening_quant_content_twitter/agents/content/content_memory_agent/` | Prior themes, hooks, style, visual playbook, rejected framing, and memory updates | Knowledge, Memory |
-
-See `evening_quant_content_twitter/agents/content/README.md`,
-`evening_quant_content_twitter/specs/0003-evening-quant-content-workflow/`, and
-`evening_quant_content_twitter/specs/0005-evening-quant-content-runnable-pipeline/`
-for the workflow contracts (within the local-only pack).
-
-
 ## Optimization Agents (`optimization/`)
 
 Grouped in the `optimization/` category folder; these agents classify constrained decision problems, choose formulation families, review solver behavior, and hand work to specs/runtime only after objectives and constraints are explicit.

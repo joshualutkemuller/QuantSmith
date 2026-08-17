@@ -8,8 +8,7 @@
 
 ## Problem & Context
 
-[QuantForge](https://github.com/joshualutkemuller/QuantForge), an iOS companion in a **separate repository**, consumes
-QuantSmith. That turns three latent weaknesses into real ones:
+A client in a **separate repository** consumes QuantSmith. That turns three latent weaknesses into real ones:
 
 1. **`DashboardSpec` carries no schema version.** It is the contract a
    client renders, and seven profiles already build on it. A downstream
@@ -54,7 +53,7 @@ depends on it.
   the installed package, not against a remote index — gates in this SDK
   stay offline and deterministic.
 - **No versioning of other payloads** (run manifests, backtest reports,
-  data contracts). `DashboardSpec` is the contract QuantForge consumes;
+  data contracts). `DashboardSpec` is the contract a downstream client consumes;
   extending the scheme elsewhere is a later decision, not an assumption.
 - **No change to the SemVer policy itself.** `CHANGELOG.md` owns that;
   this spec supplies the mechanism the policy needs.

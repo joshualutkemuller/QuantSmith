@@ -3,12 +3,10 @@
 ## Snapshot
 
 The SDK has a working v1: a **spec-driven engineering framework** over the six
-software-development stages, **161 agents** in `agents/` (plus the local-only
-root evening-content workflow pack, which is untracked and not counted here),
-**28 quality gates**, **33 instruction standards**, and CI that
+software-development stages, **161 agents** in `agents/`,
+**27 quality gates**, **33 instruction standards**, and CI that
 enforces the deterministic gates. It remains primarily a scaffold to be copied
-into quant repos, with `evening_quant_content_twitter/` as the first runnable local
-workflow pack, `src/quantsmith/pipelines/` holding runnable, dependency-free
+into quant repos, with `src/quantsmith/pipelines/` holding runnable, dependency-free
 reference pipelines for most specs (see `specs/README.md`'s index for the current
 list), and `src/quantsmith/quant/agentic_quant/` holding a further runtime (spec
 `0023`) with `numpy`/optional-`scipy` dependencies. `adapters/` is a first-class
@@ -44,17 +42,15 @@ as the live count, not the number here)** — all on the four-file contract
   `role_operations/`, `monitoring/`, `alerts/`, `data_ingestion/`,
   `formulaic_alphas/` — see `agents/README.md` for per-group membership and
   counts, which change more often than this file is refreshed.
-- Plus the root `evening_quant_content_twitter/` pack (local-only, untracked;
-  content agents plus runtime/scheduler).
 
-**Gates (28)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
+**Gates (27)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
 `QF_STAGE_ENFORCE=1` blocks:
 
 - Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
   `testing`, `deployment`, `maintenance`.
-- Quant/content: `leakage`, `backtest` (incl. a financing theme for shorts),
+- Quant: `leakage`, `backtest` (incl. a financing theme for shorts),
   `repro`, `data-contract`, `pipeline-contract`, `alert-contract`,
-  `monitoring-coverage`, `content-draft-pack`, `data-provenance`.
+  `monitoring-coverage`, `data-provenance`.
 - Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `readme-sync`,
   `doc-counts`, `quantsmith-version`, `knowledge`, `memory`, `role-context`,
   `model-plugin`, `source-catalog`.
@@ -480,23 +476,6 @@ by the `knowledge` gate.
     executable dispatcher for `0026` is worth building once a concrete
     invocation target exists. Otherwise: continuing to populate `sources/`
     as real sources come into use.
-
-## QuantForge — iOS Companion (separate repository)
-
-The read-only iOS monitoring companion over QuantSmith's outputs lives in
-[its own repository](https://github.com/joshualutkemuller/QuantForge), together with its handoff, phase breakdown, and
-decision log. Those documents were moved out of this repo so the app's design
-lives with the app.
-
-QuantSmith keeps only what is genuinely SDK-side — the spec `0047` mechanisms
-that let the two repositories move independently: `DashboardSpec.schema_version`
-with `check_schema_compatibility`, `.github/workflows/release-notify.yml`, and
-the copyable `quantsmith-version` gate.
-
-One decision recorded there is deliberately open (`AD-003`): whether this
-project starts owning a running service. Every adapter today is a contract plus
-an injected `transport`, which is why the repo holds no credentials and can
-claim P9 cleanly; a hosted read API would break that posture.
 
 ## Open Questions For The Owner
 

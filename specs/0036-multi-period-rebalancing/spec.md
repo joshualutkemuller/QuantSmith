@@ -62,8 +62,7 @@ actually supports rather than the maximally general one.
   "stay at the current position" (zero trade) is always a valid action at
   every state, so a well-formed problem here always has a defined optimal
   policy — there is no analogous `"infeasible"` status to report.
-- No securities-financing modeling, consistent with the standing
-  direction already recorded for `0034`/`0035`.
+- No repo or collateral modeling; scope is portfolio rebalancing only.
 
 ## Requirements
 

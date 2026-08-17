@@ -25,12 +25,6 @@ MODES: Dict[str, WorkflowMode] = {
         preferred_metrics=["allocation", "exposure", "performance", "risk"],
         preferred_dimensions=["client", "asset_class", "strategy"],
     ),
-    "securities_lending_collateral": WorkflowMode(
-        name="securities_lending_collateral",
-        focus="Lending balances, collateral quality, utilization, and concentration",
-        preferred_metrics=["loan_balance", "collateral_value", "utilization", "haircut"],
-        preferred_dimensions=["counterparty", "collateral_type", "security"],
-    ),
     "sales_specialist": WorkflowMode(
         name="sales_specialist",
         focus="Revenue trends, conversion, and territory segmentation",
@@ -53,8 +47,6 @@ def resolve_mode(prompt: str, explicit_mode: str | None = None) -> WorkflowMode:
     lowered = prompt.lower()
     if "portfolio" in lowered:
         return MODES["portfolio_management"]
-    if "securities lending" in lowered or "collateral" in lowered:
-        return MODES["securities_lending_collateral"]
     if "sales" in lowered:
         return MODES["sales_specialist"]
     if "data scientist" in lowered or "eda" in lowered:

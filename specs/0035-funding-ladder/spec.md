@@ -20,15 +20,9 @@ application (a bipartite tenor-to-obligation network) and a genuinely
 common treasury/cash-management need distinct from what `0007`/`0034`
 already cover (portfolio construction, not funding).
 
-This is deliberately a **general treasury/cash-funding** tool, not a
-securities-financing one. Per the explicit direction already recorded in
-`docs/handoff.md`, this SDK does not build securities-financing
-optimization logic (repo/securities-lending economics) — that domain
-routes to an adopter's own models via `agents/optimization/
-model_plugin_registration/` (spec `0026`). A funding ladder over
+This is a **general treasury/cash-funding** tool. A funding ladder over
 obligation dates and tenor capacities/rates applies broadly (any entity
-managing a cash-outflow schedule against available funding lines) and
-does not model repo, collateral, or securities-lending mechanics.
+managing a cash-outflow schedule against available funding lines).
 
 ## Goals
 
@@ -50,10 +44,8 @@ does not model repo, collateral, or securities-lending mechanics.
 
 ## Non-Goals
 
-- No securities-financing modeling (repo, securities lending, collateral/
-  haircut mechanics) — that stays agent-contract-only and routes to
-  `agents/optimization/model_plugin_registration/` per the standing
-  direction; this spec's "funding" is general treasury cash management.
+- No repo, securities-lending, or collateral/haircut mechanics; this spec's
+  "funding" is general treasury cash management.
 - No rate curve modeling or term-structure interpolation; each tenor's
   rate is supplied directly as an input, not derived.
 - No dynamic/rolling multi-period control (deciding *when* to re-observe
@@ -107,7 +99,7 @@ modification to that module.
 
 | ID | Risk | Impact | Mitigation |
 | --- | --- | --- | --- |
-| RISK-001 | A caller mistakes this for a securities-financing tool (repo/collateral economics) given the domain adjacency. | Scope creep expectation; a user asks it to model something it was deliberately never built to model. | Stated explicitly and repeatedly (Problem & Context, Non-Goals) as general treasury/cash funding, not securities financing; the module docstring restates the boundary. |
+| RISK-001 | A caller expects the tool to model repo or collateral economics given the domain adjacency. | Scope creep expectation; a user asks it to model something it was deliberately never built to model. | The tool is scoped to general treasury/cash funding; the module docstring states the boundary. |
 | RISK-002 | The static, single-snapshot scope (no rolling re-solve as time/rates change) is mistaken for a full treasury management system. | A user expects the tool to handle rate changes or re-optimization over time on its own. | Stated as a Non-Goal; the function signature itself only accepts one snapshot of tenors/obligations, making the scope structurally visible, not just documented. |
 | RISK-003 | An infeasible ladder (insufficient eligible capacity) is misread as "no funding available at all" rather than "not enough eligible capacity for this specific obligation mix." | A user doesn't know which obligation or tenor to address to restore feasibility. | AC-006's infeasibility report is a stated status on the whole solve; a follow-up (not in this slice) could add per-obligation infeasibility diagnostics if a concrete workflow needs finer-grained feedback — noted as an open question rather than silently assumed unnecessary. |
 

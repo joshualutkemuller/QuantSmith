@@ -12,7 +12,7 @@ narrow four-file public agents (`equities/`, `fixed_income_rates/`, `fx/`,
 `commodities/`, `digital_assets/`). Add the backing instruction standard
 `instructions/asset_class_mechanics.md`. Update the agent catalog, spec index, and
 top-level README so the group is discoverable and routable alongside
-`trading_strategies/` and `securities_financing/`.
+`trading_strategies/`.
 
 ## Architecture & Components
 
@@ -20,7 +20,6 @@ top-level README so the group is discoverable and routable alongside
 quant_analyst (router) / workflow_orchestrator
   -> asset_classes/<class>          # market-structure & data mechanics, point-in-time
        -> trading_strategies/<archetype>   # strategy design & review
-       -> securities_financing/<agent>     # financing pricing (shorts, repo, collateral)
        -> data_quality | risk               # lineage/quality and exposure review
   -> lifecycle agents: planning_requirements -> design_architecture ->
      implementation -> testing_validation

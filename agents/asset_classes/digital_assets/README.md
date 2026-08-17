@@ -37,7 +37,7 @@ bias.
 - A funding-rate mechanics treatment for perpetuals: calculation method, mark vs
   index price, point-in-time funding history.
 - On-chain settlement, oracle, and smart-contract risk named where relevant.
-- A named handoff to `trading_strategies/`, `securities_financing/`, or `risk`.
+- A named handoff to `trading_strategies/` or `risk`.
 
 ## Example Requests
 

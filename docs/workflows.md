@@ -60,39 +60,6 @@ design_architecture (plan) → implementation (build) → testing_validation (ve
 - Gates: `implementation`, `leakage`, `repro`, `testing`, `backtest`.
 - Reproducibility is captured in a run card (`templates/docs/run_card.md`).
 
-### Securities Lending & Financing
-
-Lending-desk data → classified borrow rates, optimized inventory, and a
-concentration-risk-flagged report; financing costs feed backtest and risk review.
-
-```text
-asset_classes/equities (shorts mechanics) → securities_financing/securities_lending
-  → securities_financing/financing_cost_analysis → backtest_review → risk
-```
-
-- Standard: `instructions/securities_financing.md`, `instructions/asset_class_mechanics.md`.
-- Gates: `spec`, `repro`, `secret-scan`; the `backtest` gate's financing theme prices
-  shorts realistically.
-- Group workflow (agent-contract steps, all three financing agents feed into
-  `financing_cost_analysis`): [Securities
-  Financing](../agents/securities_financing/README.md#group-workflow).
-- Worked example: `specs/0023-securities-lending-workflow/` runs the lending-desk
-  chain end to end — universe construction → GC/WARM/HTB borrow-rate
-  classification → LP inventory optimization under a balance-sheet cap →
-  counterparty/single-name concentration risk → optional ML demand forecast and
-  anomaly detection → report
-  (`src/quantsmith/quant/agentic_quant/sec_lending_workflow.py`; CLI:
-  `quantsmith-sec-lending`).
-- Worked example: `specs/0028-financing-cost-analysis/` closes the chain's
-  quant bridge — per-position cost-of-carry decomposition (borrow fee,
-  rebate, funding, margin) → financing-aware returns → understated-backtest
-  flags → rate-shock sensitivity → GC/WARM/HTB-keyed capacity findings
-  (`src/quantsmith/pipelines/financing_cost_analysis.py`, dependency-free;
-  reconciles with `0023`'s rate/classification vocabulary by value).
-  `repo_financing` and `collateral_management` remain agent-contract-only —
-  `financing_cost_analysis` accepts their financing legs as structured
-  input rather than requiring either to have a runtime first.
-
 ### Data Analyst
 
 Business question → validated, communicated answer.
@@ -297,7 +264,6 @@ mini-map:
 | [Formulaic Alpha](../agents/formulaic_alphas/README.md#group-workflow) | Construct → combine → evaluate |
 | [Knowledge Management](../agents/knowledge/README.md#group-workflow) | Ingest → curate → retrieve or persist |
 | [Data Ingestion](../agents/data_ingestion/README.md#group-workflow) | Ingest → validate → emit data contract |
-| [Securities Financing](../agents/securities_financing/README.md#group-workflow) | Model financing inputs → all-in cost → backtest and risk |
 | [Secrets Management](../agents/secrets_management/README.md#group-workflow) | Store → access → rotate, with scanning throughout |
 | [Analytics](../agents/analytics/README.md#group-workflow) | Define metrics → design/read out experiments; feeds dashboards and reports |
 

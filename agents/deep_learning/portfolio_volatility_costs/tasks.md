@@ -22,5 +22,5 @@
 
 ## Handoff
 
-- Send cost assumptions to `backtest_review`, `risk`, and securities-financing agents.
+- Send cost assumptions to `backtest_review` and `risk`.
 - Add acceptance criteria before implementation proceeds.

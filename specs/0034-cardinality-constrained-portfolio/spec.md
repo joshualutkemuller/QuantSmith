@@ -64,10 +64,9 @@ joint global optimality.
   linear expected return only; turnover-awareness (via `w_prev`/
   `lambda_to`) still applies in the sizing stage, reusing `0007`'s
   existing turnover penalty unchanged.
-- No securities-financing LP application. As already corrected in
-  `docs/handoff.md`, that domain routes to an adopter's own models via
-  `agents/optimization/model_plugin_registration/` (spec `0026`), not the
-  SDK's own solver toolkit.
+- No repo or collateral optimization; the optimization domain routes to an
+  adopter's own models via `agents/optimization/model_plugin_registration/`
+  (spec `0026`), not the SDK's own solver toolkit.
 
 ## Requirements
 

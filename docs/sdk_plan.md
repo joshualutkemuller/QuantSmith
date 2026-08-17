@@ -20,7 +20,7 @@ The SDK now has a working v1 built on a spec-driven engineering framework:
   18 grouped categories — `optimization/`, `machine_learning/`,
   `deep_learning/`, `portfolio_management/`, `role_operations/`, `tooling/`,
   `economists/`, `trading_strategies/`, `data_engineering/`, `asset_classes/`,
-  `analytics/`, `knowledge/`, `secrets_management/`, `securities_financing/`,
+  `analytics/`, `knowledge/`, `secrets_management/`,
   `alerts/`, `data_ingestion/`, `formulaic_alphas/`, and `monitoring/`.
 - **27 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
   gates) driven by `run-stage.sh`; advisory by default, blocking under
@@ -220,12 +220,9 @@ The original backlog (domain agents, the hook suite, CI link/contract checks,
 the adoption guide, packaging, `CHANGELOG.md`, the monitoring → alerting
 production spine) is now built — see `docs/handoff.md`'s "What's Next" for the
 live, maintained list. What remains, as of the most recent slice
-(specs `0022`–`0025`: asset-class mechanics, securities lending, role
+(specs `0022`, `0024`, `0025`: asset-class mechanics, role
 operations, data provenance):
 
-- Close out `agents/securities_financing/`: `repo_financing` and
-  `collateral_management` remain agent-contract-only by choice;
-  `financing_cost_analysis` shipped as a tested runtime (spec `0028`).
 - `role_operations/` — done. Phase 2 (spec `0029`: demo packaging,
   tough-question rehearsal, experiment ledger) and Phase 3 (spec `0030`:
   model-card drafting, audit-trail keeping, governance-readiness
@@ -240,14 +237,11 @@ operations, data provenance):
   **Funding ladder** (spec `0035`, `funding_ladder.py`): a bipartite
   tenor-to-obligation network on `0013`'s `min_cost_flow`, matching cash
   obligations to funding tenors at minimum cost — a general treasury/cash
-  tool, explicitly not securities-financing. **Multi-period rebalancing**
+  tool. **Multi-period rebalancing**
   (spec `0036`, `multi_period_rebalancing.py`): a discretized single-position
   DP on `0013`'s `solve_dp`, trading transaction cost against tracking-error
   cost over a horizon — unlike `0034`/`0035` it has no "infeasible" outcome,
-  since "stay put" is always a valid action. (Securities-financing LP work
-  specifically is deliberately out of scope — that domain routes to an
-  adopter's own models via `agents/optimization/model_plugin_registration/`,
-  spec `0026`, rather than the SDK owning the optimization logic.)
+  since "stay put" is always a valid action.
 - Remaining backing instructions — done: `risk_management`, `data_ingestion`
   (a shared standard replacing three duplicated copies), `reproducibility`
   (spec `0031`).

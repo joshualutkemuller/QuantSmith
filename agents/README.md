@@ -33,7 +33,7 @@ stages.
 | Agent | Supplies | Feeds mainly |
 | --- | --- | --- |
 | `research_analyst/` | Hypothesis → research plan, assumptions, go/no-go | Planning |
-| `quant_analyst/` | End-to-end quant workflow routing across research, data, modeling, financing, risk, and runtime handoff | Planning, Design, Implementation |
+| `quant_analyst/` | End-to-end quant workflow routing across research, data, modeling, risk, and runtime handoff | Planning, Design, Implementation |
 | `data_quality/` | Lineage, joins, timestamps, missingness, leakage review | Planning, Design |
 | `feature_engineering/` | Point-in-time features, normalization-leakage review, stability | Design, Implementation |
 | `modeling/` | Model selection, leakage-free validation, error analysis | Design, Testing |
@@ -188,7 +188,6 @@ Grouped in the `optimization/` category folder; these agents classify constraine
 | `optimization/routing_scheduling/` | Routing, scheduling, order batching, job/crew allocation, market windows, and latency-aware placement. |
 | `optimization/inventory_supply_chain/` | Replenishment, allocation, service levels, safety stock, and multi-echelon supply decisions. |
 | `optimization/portfolio_construction/` | Portfolio weights, factor/risk constraints, turnover, tax lots, capacity, and rebalancing. |
-| `optimization/collateral_margin_optimization/` | Eligibility, haircuts, margin, cheapest-to-deliver, substitutions, liquidity buffers, and regulation. |
 | `optimization/execution_optimization/` | Trading schedules, participation, venue choice, order slicing, impact, slippage, and fill-risk trade-offs. |
 | `optimization/resource_capacity_optimization/` | Compute, staffing, capital, balance-sheet, quota, cloud, API, and throughput allocation. |
 | `optimization/pricing_revenue_optimization/` | Bid/ask, rebates, fee schedules, markdowns, elasticity, acceptance probabilities, and revenue risk. |
@@ -307,17 +306,17 @@ risk concerns.
 
 Grouped in the `asset_classes/` category folder (see
 [`asset_classes/README.md`](asset_classes/README.md)); mechanics-only agents, one
-per asset class, that hand `trading_strategies/` and `securities_financing/` clean,
-point-in-time-correct market-structure and data inputs instead of duplicating
-mechanics guidance inside every archetype.
+per asset class, that hand `trading_strategies/` clean, point-in-time-correct
+market-structure and data inputs instead of duplicating mechanics guidance inside
+every archetype.
 
 | Agent | Handles | Typical strategy handoff |
 | --- | --- | --- |
-| `asset_classes/equities/` | Venues/sessions, corporate-action adjustment, point-in-time index membership, short-sale mechanics, settlement | `trading_strategies/momentum_trend`, `mean_reversion_statarb`, `value_factor`, `event_driven_arbitrage`; `securities_financing/securities_lending` |
+| `asset_classes/equities/` | Venues/sessions, corporate-action adjustment, point-in-time index membership, short-sale mechanics, settlement | `trading_strategies/momentum_trend`, `mean_reversion_statarb`, `value_factor`, `event_driven_arbitrage` |
 | `asset_classes/fixed_income_rates/` | Day-count/accrual conventions, clean vs dirty price, point-in-time curve construction, credit spreads/ratings, on-the-run status | `trading_strategies/carry`, `macro_multi_asset`, `event_driven_arbitrage`; `optimization/` |
 | `asset_classes/fx/` | Spot/forward/swap conventions, settlement/value dates, fixing-window risk, regional session structure | `trading_strategies/carry`, `macro_multi_asset` |
 | `asset_classes/commodities/` | Futures curve shape, roll mechanics and roll yield, physical delivery vs cash settlement, storage/carry cost, seasonality | `trading_strategies/carry`, `momentum_trend`, `macro_multi_asset` |
-| `asset_classes/digital_assets/` | Venue fragmentation, custody/counterparty risk, perpetual-funding mechanics, 24/7 session structure, on-chain/oracle risk | `trading_strategies/market_making_microstructure`, `momentum_trend`; `securities_financing/collateral_management` |
+| `asset_classes/digital_assets/` | Venue fragmentation, custody/counterparty risk, perpetual-funding mechanics, 24/7 session structure, on-chain/oracle risk | `trading_strategies/market_making_microstructure`, `momentum_trend` |
 
 ## Economists Agents (`economists/`)
 
@@ -341,29 +340,6 @@ duplicated here. Backed by `instructions/macro_economic_analysis.md` and
 | `economists/macro_scenario_analyst/` | A regime → forward stress scenarios with quantified indicator paths | `risk`, `backtest_review` |
 | `economists/macro_backdrop_summarizer/` | All of the above → a concise, recurring macro brief | `research_analyst`, `modeling`, `portfolio_management/*` |
 | `economists/economic_outlook_report_writer/` | All of the above → a longer periodic outlook report | `portfolio_management/*`, IC-facing review |
-
-## Securities Financing Agents (`securities_financing/`)
-
-Grouped in the `securities_financing/` category folder; they make financing a
-first-class part of a strategy's economics — borrow, funding, collateral, and their
-costs and risks.
-
-| Agent | Handles | Feeds mainly |
-| --- | --- | --- |
-| `securities_financing/securities_lending/` | Stock loan/borrow: locates, GC vs specials, rebate, recalls, buy-ins, corporate actions | Testing |
-| `securities_financing/repo_financing/` | Repo/reverse repo funding, rates, term, haircuts, roll and counterparty risk | Testing |
-| `securities_financing/collateral_management/` | Eligibility, haircuts, margin, collateral optimization, rehypothecation, regulatory impact | Deployment |
-| `securities_financing/financing_cost_analysis/` | All-in cost of carry, borrow/rebate/funding netting, financing-aware backtesting | Testing |
-
-`securities_lending/` has a tested runtime (spec `0023-securities-lending-workflow`):
-`src/quantsmith/quant/agentic_quant/sec_lending_workflow.py` — universe
-construction, GC/WARM/HTB classification, LP inventory optimization, and
-concentration risk; run via `quantsmith-sec-lending`. `financing_cost_analysis/`
-also has a tested runtime (spec `0028-financing-cost-analysis`):
-`src/quantsmith/pipelines/financing_cost_analysis.py` — cost-of-carry
-decomposition, financing-aware returns, understated-backtest flags,
-rate-shock sensitivity, and capacity findings, reconciling with
-`securities_lending`'s rate/classification vocabulary by value.
 
 ## Formulaic Alpha Agents (`formulaic_alphas/`)
 

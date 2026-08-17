@@ -37,8 +37,8 @@ Status values: `todo` | `in-progress` | `blocked` | `done`.
 ## Follow-ups
 
 - Decide whether runtime demo/test fixtures using synthetic data by design
-  (e.g. `sec_lending.py`'s `_build_synthetic()`) need a disclosure artifact
-  too, or whether their existing docstring/README labeling is sufficient.
+  need a disclosure artifact too, or whether their existing docstring/README
+  labeling is sufficient.
 - Consider extending `dashboard_design`/`data_storytelling` beyond the
   one-line cross-reference if a concrete workflow surfaces a gap the
   existing "numbers from a governed source" rule doesn't cover.

@@ -10,7 +10,7 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 
 | Feature | What it adds | Priority | Status |
 | --- | --- | --- | --- |
-| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. Runtime workflows shipped: `specs/0006-ml-return-forecasting/` (ML/DL), `specs/0007-portfolio-construction/` (QP), `specs/0013-optimization-solvers/` (LP/MILP/flow/DP), `specs/0034-cardinality-constrained-portfolio/` (MILP selects, `0007`'s QP sizes, a disclosed two-stage heuristic), `specs/0035-funding-ladder/` (bipartite tenor-to-obligation network on `0013`'s `min_cost_flow`; general treasury/cash, not securities-financing), `specs/0036-multi-period-rebalancing/` (discretized single-position DP on `0013`'s `solve_dp`) — every `0013` solver now has a shipped application — and `specs/0041-ranking-forecast/` (pairwise ranking-loss variant of `0006`, composing its labels/features/folds/evaluation unmodified). Optional follow-ups: a listwise ranking loss, an RL-flavored example | P0 | done |
+| `agents/optimization/*`, `agents/machine_learning/*`, `agents/deep_learning/*` | Highest-priority optimizer-agent expansion plus ML/DL specialist surfaces for stringing finance, operations, and technology workflows into specs and runtime handoffs. Runtime workflows shipped: `specs/0006-ml-return-forecasting/` (ML/DL), `specs/0007-portfolio-construction/` (QP), `specs/0013-optimization-solvers/` (LP/MILP/flow/DP), `specs/0034-cardinality-constrained-portfolio/` (MILP selects, `0007`'s QP sizes, a disclosed two-stage heuristic), `specs/0035-funding-ladder/` (bipartite tenor-to-obligation network on `0013`'s `min_cost_flow`; general treasury/cash tool), `specs/0036-multi-period-rebalancing/` (discretized single-position DP on `0013`'s `solve_dp`) — every `0013` solver now has a shipped application — and `specs/0041-ranking-forecast/` (pairwise ranking-loss variant of `0006`, composing its labels/features/folds/evaluation unmodified). Optional follow-ups: a listwise ranking loss, an RL-flavored example | P0 | done |
 | `agents/portfolio_management/*` | End-to-end portfolio lifecycle agents for mandate, universe, signal intake, allocation policy, construction oversight, rebalance implementation, risk budgeting, compliance, attribution, liquidity/cash, tax/transition, monitoring, and governance. Shipped with shared standard `instructions/portfolio_management.md`; runtime specs can promote specific workflows as needed | P0 | done |
 | `agents/data_engineering/data_modeling/` | Dimensional/warehouse modeling: star/snowflake schemas, slowly-changing dimensions, grain. Agent shipped (spec `0019` group build-out); executable runtime as needed | P1 | in-progress |
 | `agents/data_engineering/pipeline_orchestration/` | dbt-style models, DAGs, scheduling, incremental loads, backfills, idempotency. Shipped: agent + `instructions/pipeline_engineering.md` + spec `specs/0011-data-pipeline-orchestration/` + tested runtime `src/quantsmith/pipelines/data_pipeline.py` (DAG, contracts, idempotency, retries, backfill, run manifest) | P1 | done |
@@ -35,10 +35,8 @@ full `specs/NNNN-slug/` when work starts (see `docs/handoffs/README.md`).
 | `agents/role_operations/*` | 14-agent roster absorbing a quant/data-science lead's operational toil (meetings, status, scaffolding, research scans, demo prep, governance docs) so more time goes to model scoping and research. **Phase 1 shipped** (spec `0024`): `meeting_to_action`, `status_rollup`, `rapid_scaffolder`, `prior_art_scanner`, configurable via a local-only `role_context.yml` (never committed; `role-context` gate). Data-provenance guardrail also shipped (spec `0025`). **Phase 2 shipped** (spec `0029`): `demo_narrative_packager`, `tough_question_rehearsal`, `experiment_ledger`. **Phase 3 shipped** (spec `0030`): `model_card_drafter`, `audit_trail_keeper`, `governance_readiness_checklist`, `second_look_backtest_reviewer`, `build_handoff_writer`, `alert_triage` — added `templates/docs/decision_log.md`; the two handoff-style agents defer to (never replace) `agents/backtest_review/` and `agents/alerts/alert_router/`/`incident_notification/`. Roster complete | P1 | done |
 | `agents/optimization/model_plugin_registration/` | Register an already-built internal optimization model so `optimization/` agents can route to and review it, without the SDK holding its logic. **Shipped**: agent + `adapters/model_plugin/` contract + spec `specs/0026-model-plugin-adapter/`. Remaining: an executable dispatcher once a concrete invocation target exists | P2 | in-progress |
 | `sources/` data source catalog | Centralized, per-source registry (APIs/DBs/feeds) with quality, point-in-time, and credential-pointer metadata. **Shipped**: schema template + gate + spec `specs/0027-source-catalog/`, populated with six public sources (FRED, BLS, EIA, BEA, Census, SEC EDGAR); wired into `data_contract.md`, `credential_access`, `data_ingestion` | P2 | in-progress |
-| `agents/securities_financing/financing_cost_analysis/` | All-in cost-of-carry decomposition, financing-aware returns, understated-backtest flags, rate-shock sensitivity, capacity findings. **Shipped**: tested runtime `src/quantsmith/pipelines/financing_cost_analysis.py` + spec `specs/0028-financing-cost-analysis/`, reconciling with `0023`'s securities-lending vocabulary by value. `repo_financing`/`collateral_management` remain agent-contract-only | P1 | done |
-| `agents/asset_classes/*` | Mechanics-only agents (equities, fixed income/rates/credit, FX, commodities, digital assets) feeding `trading_strategies/` and `securities_financing/` with point-in-time-correct market-structure inputs. **Shipped**: 5 agents + `instructions/asset_class_mechanics.md` + spec `specs/0022-asset-class-mechanics-agents/` | P1 | done |
+| `agents/asset_classes/*` | Mechanics-only agents (equities, fixed income/rates/credit, FX, commodities, digital assets) feeding `trading_strategies/` and `risk` with point-in-time-correct market-structure inputs. **Shipped**: 5 agents + `instructions/asset_class_mechanics.md` + spec `specs/0022-asset-class-mechanics-agents/` | P1 | done |
 | `agents/economists/*` | Macro backdrop for quant/PM workflows: indicator tracking, policy reads, regime classification, cross-asset translation, forward scenarios, and two report writers (recurring brief + periodic outlook). **Shipped**: 7 agents + `instructions/macro_economic_analysis.md` + `templates/docs/macro_backdrop_report.md` + spec `specs/0033-economists-agents/`; reclaims a stray, unwired `agents/economists/` placeholder left by an earlier parallel merge. Draws on `sources/{fred,bls,bea,census,eia}.yml` (`0027`); hands off to `trading_strategies/macro_multi_asset`, `portfolio_management/*`, and `risk` rather than replacing them | P1 | done |
-| `agents/securities_financing/securities_lending/` runtime | Borrow-rate classification, LP inventory optimization, concentration risk. **Shipped**: promoted the existing `quant/agentic_quant/sec_lending_workflow.py` to a tested spec (`specs/0023-securities-lending-workflow/`), fixing a balance-sheet-cap bug in the greedy fallback along the way | P1 | done |
 | `instructions/data_provenance.md` + `templates/docs/synthetic_data_disclosure.md` | Real-data-first priority stack and complete synthetic-data disclosure for any agent-produced data/visual content. **Shipped**: standard + template + `data-provenance` gate, spec `specs/0025-data-provenance-guardrail/`; wired into `role_operations` and cross-referenced from `dashboard_design`/`data_storytelling` | P1 | done |
 
 ## Technology & Tooling
@@ -128,17 +126,13 @@ belong under profiles/adapters unless they require materially different behavior
   added the adoption guide).
 - Monitoring → alerting chain (`agents/monitoring/`, `agents/alerts/`,
   `adapters/alert_delivery/`; specs `0019`–`0021`).
-- Asset-class mechanics agents, securities-lending runtime, and financing-cost-
-  analysis runtime (specs `0022`, `0023`, `0028`) — the securities-financing
-  chain end to end except `repo_financing`/`collateral_management`, which
-  remain agent-contract-only by choice.
+- Asset-class mechanics agents (spec `0022`).
 - Role-operations agent roster, all three phases, plus the
   data-provenance guardrail (specs `0024`, `0025`, `0029`, `0030`) —
   fourteen agents complete; see the dedicated "Agents" table row for
   detail.
 - Model plugin adapter (spec `0026`) and the data source catalog (spec
   `0027`).
-- Financing cost analysis promoted to a tested runtime (spec `0028`).
 - The last three backing instructions — `risk_management`, `data_ingestion`
   (a shared standard replacing three duplicated copies), and
   `reproducibility` (spec `0031`).
@@ -154,8 +148,7 @@ belong under profiles/adapters unless they require materially different behavior
   two-stage heuristic rather than a from-scratch MIQP solver.
 - The funding ladder (spec `0035`) — a second `0013`-toolkit application
   (`min_cost_flow`), matching cash obligations to funding tenors at
-  minimum cost; a general treasury/cash tool, explicitly not
-  securities-financing.
+  minimum cost; a general treasury/cash tool.
 - Multi-period rebalancing (spec `0036`) — the third and last `0013`-
   toolkit application (`solve_dp`): a discretized single-position DP
   trading transaction cost against tracking-error cost over a horizon.

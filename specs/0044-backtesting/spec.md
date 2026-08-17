@@ -133,11 +133,10 @@ repository (P9).
 - Assumption: weights are target portfolio weights per period, and
   returns are simple period returns aligned to the same index.
 - Assumption: a linear turnover cost plus a short-financing charge is the
-  right cost floor for a first engine; `0028` already owns richer
-  financing analysis and can be composed later.
-- Open question: should the engine consume `0028`'s
-  `financing_cost_analysis` directly for borrow rates rather than a flat
-  annual rate, once a real short book is simulated?
+  right cost floor for a first engine; richer financing analysis can be
+  composed later.
+- Open question: should the engine consume per-name borrow rates rather
+  than a flat annual rate, once a real short book is simulated?
 
 ## Exceptions
 

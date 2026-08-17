@@ -22,11 +22,10 @@ factor-shock scenario to estimate stress loss — the exact kind of
 quantified scenario `economists/macro_scenario_analyst` (spec `0033`)
 already produces and this model can now actually consume.
 
-This closes the loop the same way `0028` (`financing_cost_analysis`)
-closed it for `securities_financing/`: an existing backing standard
-(`risk_management.md`) with no runtime behind it gets one, dependency-free
-and tested, following `portfolio_construction.py`'s (`0007`) own
-plain-list-of-lists matrix vocabulary rather than introducing `numpy`.
+This closes the loop for an existing backing standard (`risk_management.md`)
+with no runtime behind it: it gets one, dependency-free and tested, following
+`portfolio_construction.py`'s (`0007`) own plain-list-of-lists matrix vocabulary
+rather than introducing `numpy`.
 
 ## Goals
 

@@ -27,7 +27,6 @@ dev = [
 
 [project.scripts]
 quantsmith-agentic-quant = "quantsmith.quant.agentic_quant.main:main"
-quantsmith-sec-lending = "quantsmith.quant.agentic_quant.cli.sec_lending:main"
 quantsmith-rebalancer = "quantsmith.quant.agentic_quant.cli.rebalancer:main"
 quantsmith-sp500 = "quantsmith.quant.agentic_quant.cli.sp500:main"
 

@@ -4,7 +4,7 @@
 
 The Equities Market Mechanics Agent handles the market-structure and data
 mechanics specific to listed equities: venues, sessions, corporate actions, index
-membership, short-sale mechanics, and settlement. It hands a strategy or financing
+membership, short-sale mechanics, and settlement. It hands a strategy or risk
 agent clean, point-in-time-correct inputs instead of letting instrument mechanics
 become a silent source of leakage or bias.
 
@@ -13,8 +13,7 @@ become a silent source of leakage or bias.
 - A signal or backtest uses equity price/volume series that need corporate-action
   adjustment.
 - A universe needs point-in-time index membership (not today's constituents).
-- A strategy shorts equities and needs locate/hard-to-borrow mechanics scoped
-  (before handing to `securities_financing`).
+- A strategy shorts equities and needs locate/hard-to-borrow mechanics scoped.
 - Venue fragmentation (primary exchange vs ATS/dark pools), auctions, halts, or
   tick/lot conventions affect execution or signal timing.
 
@@ -35,14 +34,14 @@ become a silent source of leakage or bias.
   survivorship).
 - Short-sale mechanics scoped for handoff: locate requirement, Reg SHO relevance,
   hard-to-borrow flag.
-- A named handoff to `trading_strategies/`, `securities_financing/`, or `risk`.
+- A named handoff to `trading_strategies/` or `risk`.
 
 ## Example Requests
 
 - "Review this momentum universe for point-in-time index membership."
 - "Check whether this backtest's price series is correctly split/dividend-adjusted."
 - "Scope the short-sale/locate mechanics for this pairs-trade candidate before
-  financing review."
+  risk review."
 
 ## Required Review Themes
 
@@ -50,6 +49,5 @@ become a silent source of leakage or bias.
 - Point-in-time index membership; no future reconstitution look-ahead.
 - Venue/session structure: continuous vs auction, primary exchange vs ATS/dark pool.
 - Settlement lag (T+1 US / T+2 elsewhere) relative to signal decision time.
-- Short-sale mechanics scoped for `securities_financing` (locate, Reg SHO,
-  hard-to-borrow).
+- Short-sale mechanics scoped (locate, Reg SHO, hard-to-borrow).
 - Halts, circuit breakers, and tick/lot conventions where they affect execution.

@@ -25,4 +25,4 @@ Use Markdown sections: `Scaling Formula`, `Cost Model`, `Turnover Review`, `Sens
 
 ## Spec-Driven Role
 
-Encode the cost model, volatility target, leverage boundaries, turnover limits, and after-cost acceptance thresholds in the spec. Route financing-specific assumptions to securities-financing agents and implementation assumptions to backtest and risk review.
+Encode the cost model, volatility target, leverage boundaries, turnover limits, and after-cost acceptance thresholds in the spec. Route implementation assumptions to backtest and risk review.

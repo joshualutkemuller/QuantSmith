@@ -16,8 +16,7 @@ and `data_storytelling` already require numbers to trace to a governed
 source, but nowhere was there an explicit priority stack (real data before
 synthetic) or a disclosure mechanism for when synthetic data is used —
 despite synthetic/seeded data appearing throughout the SDK's own reference
-runtimes (e.g. `sec_lending.py`'s synthetic universe, several `pipelines/`
-test fixtures). A reviewer had no single, checked artifact to consult for
+runtimes (e.g. several `pipelines/` test fixtures). A reviewer had no single, checked artifact to consult for
 "where in this report is the data not real."
 
 ## Goals
@@ -42,11 +41,10 @@ test fixtures). A reviewer had no single, checked artifact to consult for
   for synthetic-data *language* in generated artifacts, not statistical
   evidence that data is fabricated — same honestly-scoped limitation as the
   `leakage` gate.
-- No retroactive audit of existing runtimes' synthetic-data fallbacks (e.g.
-  `sec_lending.py`'s `_build_synthetic()`); those are documented, labeled
-  demo/test paths, not the "content produced for a decision" case this
-  guardrail targets. Extending disclosure requirements to runtime demo
-  fixtures is a candidate follow-up, not this slice.
+- No retroactive audit of existing runtimes' synthetic-data fallbacks; those
+  are documented, labeled demo/test paths, not the "content produced for a
+  decision" case this guardrail targets. Extending disclosure requirements to
+  runtime demo fixtures is a candidate follow-up, not this slice.
 - No change to `agents/analytics/dashboard_design` or `data_storytelling`
   beyond a one-line cross-reference each; a fuller rework of those groups'
   provenance handling is out of scope here.
@@ -98,9 +96,9 @@ the existing `hooks/stages/` scripts, adding no new tooling dependency.
   extends naturally); `dashboard_design`/`data_storytelling` get a
   lightweight cross-reference rather than a full rework in this slice.
 - Open question: should the disclosure requirement eventually extend to
-  runtime demo/test fixtures that use synthetic data by design (e.g.
-  `sec_lending.py`), or is labeling them "synthetic demo mode" in their own
-  docstrings/READMEs sufficient given they are not decision-facing content?
+  runtime demo/test fixtures that use synthetic data by design, or is
+  labeling them "synthetic demo mode" in their own docstrings/READMEs
+  sufficient given they are not decision-facing content?
 
 ## Exceptions
 

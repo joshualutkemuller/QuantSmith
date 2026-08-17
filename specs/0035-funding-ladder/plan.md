@@ -57,7 +57,7 @@ external schema. `solve_funding_ladder` is the only public entry point.
 | --- | --- | --- |
 | P4 Correct by construction | yes | Eligibility (tenor length vs. obligation horizon) is enforced by edge existence, not a post-hoc filter — an ineligible allocation is structurally impossible, not just checked for after the fact. |
 | P10 Honest reporting | yes | A partially-fundable ladder is never presented as solved; `required_flow` plus per-obligation sink-capacity forces full funding or an explicit `"infeasible"` status. |
-| P8 No silent trade-offs | yes | RISK-001 through RISK-003 are named in the spec, each with a stated mitigation; the general-treasury-not-securities-financing boundary is stated repeatedly, not left implicit. |
+| P8 No silent trade-offs | yes | RISK-001 through RISK-003 are named in the spec, each with a stated mitigation; the general-treasury scope is stated clearly, not left implicit. |
 | P5 Reversibility | yes | New, additive module; `optimization_solvers.py` is unmodified. |
 
 ## Traceability Matrix

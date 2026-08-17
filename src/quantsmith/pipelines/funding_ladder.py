@@ -6,12 +6,10 @@ one: ``min_cost_flow`` (``optimization_solvers.py``, spec 0013) solves a biparti
 obligations to a set of available funding tenors (overnight, 1-week, 1-month, …) at
 minimum total cost. ``optimization_solvers.py`` is not modified.
 
-This is a **general treasury/cash-funding** tool, not a securities-financing one.
-It does not model repo, securities-lending, or collateral/haircut mechanics --
-that domain stays agent-contract-only and routes to an adopter's own models via
-``agents/optimization/model_plugin_registration/`` (spec 0026), per this SDK's
-standing direction. It is also a single, static snapshot decision, not a rolling
-simulation that re-solves as time or rates change (see spec 0035's Non-Goals).
+This is a **general treasury/cash-funding** tool. It does not model repo or
+collateral/haircut mechanics. It is also a single, static snapshot decision, not
+a rolling simulation that re-solves as time or rates change (see spec 0035's
+Non-Goals).
 """
 
 from __future__ import annotations

@@ -1,10 +1,9 @@
-"""ML pipeline agents for quant and securities lending workflows.
+"""ML pipeline agents for quant workflows.
 
 Provides a composable set of agents for:
-  - Feature engineering from market / lending data
+  - Feature engineering from market data
   - Model training (sklearn compatible)
   - Walk-forward backtesting / evaluation
-  - Borrow-demand forecasting (sec lending specific)
   - Anomaly detection for risk monitoring
 
 All agents follow the same Blackboard protocol as the rest of the pipeline.
@@ -330,78 +329,14 @@ class WalkForwardBacktestAgent:
 
 
 # ---------------------------------------------------------------------------
-# Agent 4 – Borrow demand forecasting (sec-lending specific)
-# ---------------------------------------------------------------------------
-
-class BorrowDemandForecastAgent:
-    """Predicts near-term borrow demand for securities in the lending universe.
-
-    Uses borrow-rate history (rate trend, utilization trend, rate volatility)
-    as features to forecast whether demand will increase.  Writes
-    ``borrow_demand_forecast`` as a list of per-ticker dicts.
-
-    Operates in heuristic mode when sklearn is not available.
-    """
-
-    def __init__(self, horizon_days: int = 5) -> None:
-        if horizon_days < 1:
-            raise ValueError("horizon_days must be at least 1")
-        self.name = "borrow_demand_forecast_agent"
-        self._horizon = horizon_days
-
-    def run(self, blackboard: Blackboard) -> None:
-        blackboard.require("sec_lending_universe")
-        from .sec_lending import SecLendingUniverse
-
-        universe: SecLendingUniverse = blackboard["sec_lending_universe"]
-        secs = universe.securities
-
-        forecasts = []
-        for sec in secs:
-            # Heuristic features: rate trend, utilization, volatility
-            rate_trend = sec.rate_bps - sec.rate_30d_avg  # positive = rising
-            util = sec.utilization
-            rate_vol = sec.rate_30d_vol
-
-            # Demand score: higher util + rising rates → higher forecast
-            demand_score = util * 0.5 + (rate_trend / max(sec.rate_30d_avg, 1)) * 0.3
-            demand_score += min(rate_vol / max(sec.rate_bps, 1), 0.5) * 0.2
-
-            # Scale to current availability × util as base demand
-            base_demand = sec.availability * sec.utilization
-            predicted_demand = base_demand * (1 + demand_score * self._horizon / 252)
-
-            confidence = (
-                "HIGH" if util > 0.80 and rate_trend > 0
-                else "MEDIUM" if util > 0.50
-                else "LOW"
-            )
-
-            forecasts.append(
-                {
-                    "ticker": sec.ticker,
-                    "cusip": sec.cusip,
-                    "predicted_demand": max(0, predicted_demand),
-                    "demand_score": round(float(demand_score), 4),
-                    "confidence": confidence,
-                    "classification": sec.classification,
-                }
-            )
-
-        # Sort by demand score descending
-        forecasts.sort(key=lambda x: x["demand_score"], reverse=True)
-        blackboard["borrow_demand_forecast"] = forecasts
-
-
-# ---------------------------------------------------------------------------
-# Agent 5 – Anomaly detection for risk monitoring
+# Agent 4 – Anomaly detection for risk monitoring
 # ---------------------------------------------------------------------------
 
 class AnomalyDetectionAgent:
-    """Detects statistical anomalies in returns or borrow-rate data.
+    """Detects statistical anomalies in returns data.
 
     Uses z-score based detection on the most recent window.  Flags assets
-    whose returns or borrow rates fall outside `n_sigma` standard deviations.
+    whose returns fall outside `n_sigma` standard deviations.
     Writes ``anomaly_flags`` to the blackboard.
     """
 
@@ -433,24 +368,6 @@ class AnomalyDetectionAgent:
                                 "ticker": ticker,
                                 "z_score": round(float(z), 2),
                                 "latest_return": round(float(latest[i]), 4),
-                            }
-                        )
-
-        # Borrow rate anomalies (from sec lending universe)
-        from .sec_lending import SecLendingUniverse
-
-        universe: Optional[SecLendingUniverse] = blackboard.get("sec_lending_universe")
-        if universe is not None:
-            for sec in universe.securities:
-                if sec.rate_30d_vol > 0:
-                    z = (sec.rate_bps - sec.rate_30d_avg) / sec.rate_30d_vol
-                    if abs(z) > self._n_sigma:
-                        flags["rate_anomalies"].append(
-                            {
-                                "ticker": sec.ticker,
-                                "z_score": round(float(z), 2),
-                                "current_rate_bps": sec.rate_bps,
-                                "avg_rate_bps": round(sec.rate_30d_avg, 1),
                             }
                         )
 

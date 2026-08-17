@@ -7,13 +7,12 @@ or data quirks of a specific asset class — equities, fixed income & credit, FX
 commodities, or digital assets. It is the shared standard behind the
 `agents/asset_classes/` group. The goal is that instrument- and market-specific
 mechanics (settlement, conventions, corporate actions, roll, sessions, curve
-construction) are handled correctly and point-in-time, so the strategy, financing,
+construction) are handled correctly and point-in-time, so the strategy
 and risk agents that build on top inherit accurate inputs instead of silent bugs.
 
 This group is deliberately **mechanics-only**. It does not design or review trading
-strategies (see `agents/trading_strategies/`) or price financing (see
-`agents/securities_financing/`); it hands both clean, well-understood market
-structure and data to build on.
+strategies (see `agents/trading_strategies/`); it hands clean, well-understood market
+structure and data for downstream agents to build on.
 
 ## Required Inputs
 
@@ -31,7 +30,7 @@ structure and data to build on.
   membership, curve nodes, ratings, corporate actions).
 - Named data quirks and the adjustment or handling required (e.g. split/dividend
   adjustment, day-count convention, roll date, funding-rate mark).
-- Explicit handoff to the strategy, financing, or risk agent that needs the output.
+- Explicit handoff to the strategy or risk agent that needs the output.
 
 ## Standards
 
@@ -61,7 +60,7 @@ structure and data to build on.
   look-ahead risk?
 - Are fixing windows, funding-rate marks, or curve-construction methods explicit?
 - Is custody, counterparty, or delivery risk named where it applies?
-- Does the output identify which downstream agent (strategy, financing, risk) it
+- Does the output identify which downstream agent (strategy, risk) it
   hands off to, rather than making strategy or sizing calls itself?
 
 ## Common Failure Modes
@@ -83,5 +82,4 @@ Convention and point-in-time treatment become testable `AC-*`/`NFR-*` ("prices a
 split/dividend-adjusted with method X", "index membership is point-in-time");
 custody, counterparty, delivery, and roll risk become `RISK-*`. Point-in-time
 handling is enforced by `instructions/point_in_time.md`. The group feeds
-`agents/trading_strategies/`, `agents/securities_financing/`, `data_quality`, and
-`risk` — it does not replace them.
+`agents/trading_strategies/`, `data_quality`, and `risk` — it does not replace them.

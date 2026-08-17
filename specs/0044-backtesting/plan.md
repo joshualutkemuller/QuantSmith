@@ -11,7 +11,7 @@ One new module, `src/quantsmith/pipelines/backtesting.py`, standard
 library only. It consumes a weight path and a return path and produces
 per-period and summary results plus a rendered report. No existing module
 is modified; `0007`/`0041` produce the weights, `0012` owns execution
-realism, `0028` owns richer financing.
+realism.
 
 ## Architecture & Components
 
@@ -108,7 +108,7 @@ aligned weights and returns.
 | Cost model | Linear in turnover plus short financing | A market-impact model (square-root law) | Impact belongs to `0012`, which already owns execution scheduling; duplicating a worse copy here would let two modules disagree. The simplification is disclosed (RISK-001), not hidden. |
 | Sharpe reporting | PSR computed on every run | Sharpe alone, PSR optional | A Sharpe without a sample-length and higher-moment correction is the standard way backtests mislead. Making it non-optional is the point of the engine. |
 | Dependency | Standard library | Adopt numpy now | The workload this is built for (dozens of FRED series) is well inside stdlib range. Adopting a dependency ahead of a workload that needs it would decide the architectural fork by accident rather than deliberately (RISK-004). |
-| Financing rate | Flat annual bps | Compose `0028`'s `financing_cost_analysis` | `0028` needs a per-name borrow classification this slice has no source for; a flat floor is honest and composable later (carried as an open question). |
+| Financing rate | Flat annual bps | Per-name borrow rate lookup | A per-name borrow classification has no data source in this slice; a flat floor is honest and composable later (carried as an open question). |
 
 ## Validation Strategy
 
@@ -130,5 +130,5 @@ existing module changes behaviour.
 
 ## Open Questions
 
-- Should the engine consume `0028`'s `financing_cost_analysis` for borrow
-  rates once a real short book is simulated? (Carried from `spec.md`.)
+- Should the engine consume per-name borrow rates once a real short book is
+  simulated? (Carried from `spec.md`.)

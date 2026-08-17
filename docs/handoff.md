@@ -8,8 +8,8 @@ software-development stages, **161 agents** in `agents/`,
 enforces the deterministic gates. It remains primarily a scaffold to be copied
 into quant repos, with `src/quantsmith/pipelines/` holding runnable, dependency-free
 reference pipelines for most specs (see `specs/README.md`'s index for the current
-list), and `src/quantsmith/quant/agentic_quant/` holding a further runtime (spec
-`0023`) with `numpy`/optional-`scipy` dependencies. `adapters/` is a first-class
+list), and `src/quantsmith/quant/agentic_quant/` holding a further runtime
+with `numpy`/optional-`scipy` dependencies. `adapters/` is a first-class
 SDK surface (6 groups) — the provider boundary between agent decisions and
 external systems (delivery, scheduling, storage, data access, model runtimes).
 
@@ -38,7 +38,7 @@ as the live count, not the number here)** — all on the four-file contract
   `backtest_review`, `risk`, `git_release`.
 - Groups (largest first): `optimization/`, `deep_learning/`, `machine_learning/`,
   `tooling/`, `data_engineering/`, `trading_strategies/`, `asset_classes/`,
-  `secrets_management/`, `securities_financing/`, `knowledge/`, `analytics/`,
+  `secrets_management/`, `knowledge/`, `analytics/`,
   `role_operations/`, `monitoring/`, `alerts/`, `data_ingestion/`,
   `formulaic_alphas/` — see `agents/README.md` for per-group membership and
   counts, which change more often than this file is refreshed.
@@ -102,18 +102,14 @@ by the `knowledge` gate.
    two-stage heuristic rather than a joint MIQP solve), the **funding ladder**
    (`specs/0035-funding-ladder/`, `funding_ladder.py` — a bipartite
    tenor-to-obligation network on `0013`'s `min_cost_flow`, a general
-   treasury/cash-funding tool, explicitly not securities-financing), and
+   general treasury/cash-funding tool), and
    **multi-period rebalancing** (`specs/0036-multi-period-rebalancing/`,
    `multi_period_rebalancing.py` — a discretized single-position DP on `0013`'s
    `solve_dp`, trading transaction cost against tracking-error cost over a
    horizon; unlike `0034`/`0035` it has no "infeasible" outcome, since "stay put"
    is always a valid action). The quant chain runs signal → forecast → portfolio
    → execution. Next: conic/global/nonlinear solver forms when a dependency-free
-   method or an optional solver dependency is chosen. (Securities-financing LP
-   work is deliberately out of scope: that domain routes to an adopter's own
-   models via `agents/optimization/model_plugin_registration/`, spec `0026`,
-   rather than the SDK
-   owning the optimization logic itself — see item 5.)
+   method or an optional solver dependency is chosen.
 2. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
@@ -200,12 +196,7 @@ by the `knowledge` gate.
 5. **P0 optimizer-agent workflow expansion (continued) — done.** All three
    applications (cardinality-constrained portfolio, funding ladder,
    multi-period rebalancing — specs `0034`, `0035`, `0036`) are shipped;
-   every solver in the `0013` toolkit now has one. A securities-financing
-   LP application remains deliberately not planned:
-   `repo_financing`/`collateral_management` stay agent-contract-only, and
-   that domain routes to an adopter's own optimization models via
-   `agents/optimization/model_plugin_registration/` (spec `0026`) instead
-   of the SDK owning securities-financing optimization logic itself.
+   every solver in the `0013` toolkit now has one.
 6. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
    layers: `pip install quantsmith` + using the runtimes, and copying the scaffold +
    wiring the gates, with per-project-type recipes.
@@ -260,14 +251,11 @@ by the `knowledge` gate.
 11. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
 12. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
     revisit enforcing `leakage`.
-13. **Shipped since this section was last written (specs `0019`–`0028`):**
+13. **Shipped since this section was last written (specs `0019`–`0027`, `0029`–`0039`):**
     - `0019` pipeline observability.
     - `0020`/`0021` the monitoring → alerting chain (`agents/monitoring/`,
       `agents/alerts/`, `adapters/alert_delivery/`).
-    - `0022` asset-class mechanics agents, feeding `trading_strategies/` and
-      `securities_financing/`.
-    - `0023` the securities-lending workflow promoted to a tested runtime,
-      with a balance-sheet-cap correctness fix found along the way.
+    - `0022` asset-class mechanics agents, feeding `trading_strategies/` and `risk`.
     - `0024`/`0025` role-operations Phase 1 + the data-provenance guardrail
       — see item 4, the dedicated tracking entry for this initiative.
     - `0026` the model plugin adapter — register an already-built internal
@@ -279,11 +267,6 @@ by the `knowledge` gate.
       `credential_access`, and `data_ingestion`; populated with six public
       sources (FRED, BLS, EIA, BEA, Census, SEC EDGAR), with a matching
       `adapters/data_access/external_apis/eia.md` profile added.
-    - `0028` financing cost analysis promoted to a tested, dependency-free
-      runtime — cost-of-carry decomposition, financing-aware returns,
-      understated-backtest flags, rate-shock sensitivity, and
-      classification-keyed capacity findings, reconciling with `0023`'s
-      rate/classification vocabulary by value (no `numpy` dependency added).
     - `0029`/`0030` role-operations Phases 2 and 3 — see item 4, the
       dedicated tracking entry for this initiative. The fourteen-agent
       roster is now complete.
@@ -308,8 +291,7 @@ by the `knowledge` gate.
     - `0035` the funding ladder (`funding_ladder.py`) — see item 1, the
       dedicated tracking entry. The second application built on `0013`'s
       toolkit (`min_cost_flow`), a general treasury/cash-funding tool
-      matching cash obligations to funding tenors at minimum cost;
-      explicitly not a securities-financing tool.
+      matching cash obligations to funding tenors at minimum cost.
     - `0036` multi-period rebalancing (`multi_period_rebalancing.py`) —
       see item 1, the dedicated tracking entry. The third and last
       application on the `0013` toolkit (`solve_dp`): a discretized
@@ -468,12 +450,7 @@ by the `knowledge` gate.
     the two remaining `P1` `data_engineering` runtimes (`data_modeling`,
     `pipeline_deployment` — the latter is the handoff edge `0042`
     deliberately stops at).
-    `repo_financing`/`collateral_management`
-    stay agent-contract-only by choice — this SDK routes to an adopter's
-    own optimization models via
-    `agents/optimization/model_plugin_registration/` (spec `0026`) rather
-    than owning securities-financing LP/optimization logic itself; an
-    executable dispatcher for `0026` is worth building once a concrete
+    An executable dispatcher for `0026` is worth building once a concrete
     invocation target exists. Otherwise: continuing to populate `sources/`
     as real sources come into use.
 

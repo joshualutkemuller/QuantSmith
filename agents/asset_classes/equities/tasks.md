@@ -25,4 +25,4 @@ survivorship.
 Input: a strategy or backtest that shorts equities.
 
 Output: locate, Reg SHO, and hard-to-borrow flags scoped for handoff to
-`securities_financing/securities_lending`.
+`risk`.

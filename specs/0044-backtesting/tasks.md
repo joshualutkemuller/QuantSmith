@@ -50,8 +50,7 @@ Status values: `todo` | `in-progress` | `blocked` | `done`.
   `realtime_start` / `realtime_end` vintages for a genuinely
   point-in-time macro backtest. Blocked on a `FRED_API_KEY` held by the
   operator — never by this repository (P9).
-- Compose `0028`'s `financing_cost_analysis` for per-name borrow rates
-  instead of a flat annual rate, once a real short book is simulated
-  (carried as an open question in `spec.md`).
+- Compose per-name borrow rates instead of a flat annual rate, once a real
+  short book is simulated (carried as an open question in `spec.md`).
 - Revisit the numpy decision if and when a workload needs a large
   cross-section over long history (RISK-004).

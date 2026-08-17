@@ -1,22 +1,17 @@
 # Agentic Quant Framework
 
-This repository contains an agentic AI framework for quantitative finance,
-designed for quants supporting **securities lending teams and trading desks**.
+This repository contains an agentic AI framework for quantitative finance.
 Primary languages: Python (core) + SQL (data layer).
 
-The framework consists of three integrated components:
+The framework consists of two integrated components:
 
 1. **Portfolio construction** — classic mean-variance optimization in
    [`mean_variance.py`](../mean_variance.py) plus an agentic pipeline in
    [`agentic_quant`](.) (data → signal → risk → optimize → report).
-2. **Securities lending workflow** — borrow-rate analysis, LP-based inventory
-   optimization, counterparty/concentration risk, and ML demand forecasting,
-   all backed by a SQL integration layer that works with SQLite, PostgreSQL,
-   and SQL Server.
-3. **ML pipeline** — feature engineering, model training, walk-forward
+2. **ML pipeline** — feature engineering, model training, walk-forward
    backtesting, and anomaly detection, composable with any workflow above.
 
-All three share the same **Blackboard / AgentPipeline** pattern so they can
+Both share the same **Blackboard / AgentPipeline** pattern so they can
 be mixed, chained, or run independently.
 
 ---
@@ -29,131 +24,8 @@ skills, coding conventions, and the four canonical workflow patterns:
 
 | Pattern | Use case |
 |---------|----------|
-| Securities Lending Daily Report | Borrow-rate analytics, inventory opt, risk flags |
-| Portfolio + Sec Lending (combined) | Full trading desk support |
 | ML Signal Research | Feature engineering, model training, backtest |
 | Risk Monitoring | Anomaly detection only |
-
----
-
-## Securities Lending Workflow (new)
-
-### Quick start (synthetic demo — no database required)
-
-```bash
-pip install numpy scipy
-quantsmith-sec-lending
-```
-
-The demo seeds an in-memory SQLite database with synthetic borrow rates,
-lending positions, and recall data, then runs the full pipeline: universe
-construction → borrow-rate analysis → LP inventory optimization → risk checks
-→ ML demand forecast → report.
-
-### Running against a real database
-
-```python
-from quantsmith.quant.agentic_quant import run_sec_lending_workflow
-from quantsmith.quant.agentic_quant.sql_data import SQLiteDataSource  # or PostgreSQL / SQL Server
-
-src = SQLiteDataSource("path/to/lending.db")
-report = run_sec_lending_workflow(sql_source=src)
-print(report)
-```
-
-For PostgreSQL:
-```python
-import os
-from quantsmith.quant.agentic_quant.sql_data import PostgreSQLDataSource
-
-src = PostgreSQLDataSource(
-    host=os.environ["PG_HOST"],
-    dbname=os.environ["PG_DB"],
-    user=os.environ["PG_USER"],
-    password=os.environ["PG_PASS"],
-)
-report = run_sec_lending_workflow(sql_source=src)
-```
-
-For SQL Server (common in institutional environments) via pyodbc:
-```python
-import os
-from quantsmith.quant.agentic_quant.sql_data import SQLServerDataSource
-
-src = SQLServerDataSource(
-    dsn=(
-        "DRIVER={ODBC Driver 18 for SQL Server};"
-        f"SERVER={os.environ['MSSQL_HOST']};"
-        f"DATABASE={os.environ['MSSQL_DB']};"
-        "Trusted_Connection=yes;"
-    )
-)
-```
-
-### Command-line options
-
-```bash
-quantsmith-sec-lending --help
-
-# Key flags:
-#   --db PATH              SQLite file (default: in-memory demo)
-#   --max-book 500000000   Balance-sheet limit ($500M)
-#   --max-cp-concentration 0.20  Counterparty concentration limit
-#   --no-ml               Skip ML forecast and anomaly detection
-#   --combined            Run portfolio + sec lending together
-#   --tickers AAPL,MSFT,NVDA  Tickers for portfolio side
-```
-
-### Customising the pipeline
-
-```python
-from quantsmith.quant.agentic_quant import (
-    build_sec_lending_pipeline,
-    SecLendingUniverseAgent,
-    BorrowRateAnalysisAgent,
-    InventoryOptimizationAgent,
-    SecLendingRiskAgent,
-    SecLendingReportAgent,
-)
-
-pipeline = build_sec_lending_pipeline(
-    max_book_size=500_000_000,
-    max_cp_concentration=0.20,
-    squeeze_util_threshold=0.80,
-    include_ml_forecast=False,
-)
-board = pipeline.run()
-print(board["sec_lending_report"])
-
-# Access structured data directly
-universe = board["sec_lending_universe"]
-for sec in universe.securities:
-    if sec.classification == "HTB":
-        print(f"{sec.ticker}: {sec.rate_bps:.0f} bps, util={sec.utilization:.1%}")
-
-opt = board["inventory_optimization"]
-print(f"Optimal daily fee: ${opt.total_expected_fee:,.2f}")
-print(f"Solver: {opt.solver_status}")
-```
-
-### Inventory optimization (LP)
-
-The `InventoryOptimizationAgent` maximises fee revenue subject to a
-balance-sheet limit using `scipy.optimize.linprog` (HiGHS solver) with a
-greedy fallback when scipy is unavailable.
-
-```python
-from quantsmith.quant.agentic_quant import InventoryOptimizationAgent, build_sec_lending_pipeline
-
-pipeline = build_sec_lending_pipeline(
-    max_book_size=2_000_000_000,   # $2B limit
-    max_cp_concentration=0.15,     # tighter counterparty limits
-)
-board = pipeline.run()
-result = board["inventory_optimization"]
-for alloc in result.allocations[:10]:
-    print(f"{alloc.ticker}: {alloc.allocated_qty:,} shares → ${alloc.expected_fee:,.2f}/day")
-```
 
 ---
 
@@ -198,55 +70,18 @@ agent = ModelTrainingAgent(
 )
 ```
 
-### Borrow demand forecasting
-
-```python
-from quantsmith.quant.agentic_quant import BorrowDemandForecastAgent, build_sec_lending_pipeline
-
-pipeline = build_sec_lending_pipeline(include_ml_forecast=True)
-board = pipeline.run()
-for forecast in board["borrow_demand_forecast"][:5]:
-    print(f"{forecast['ticker']}: {forecast['predicted_demand']:,.0f} shares "
-          f"({forecast['confidence']})")
-```
-
 ### Anomaly detection
 
 ```python
 from quantsmith.quant.agentic_quant import AnomalyDetectionAgent
 
-# Detects z-score outliers in returns and borrow rates
+# Detects z-score outliers in returns
 agent = AnomalyDetectionAgent(lookback=21, n_sigma=2.5)
 ```
 
 ---
 
-## Combined Portfolio + Securities Lending
-
-Run both workflows through a single blackboard pass:
-
-```python
-from quantsmith.quant.agentic_quant import build_combined_quant_pipeline
-
-pipeline = build_combined_quant_pipeline(
-    portfolio_tickers=["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA"],
-    target_return=0.12,
-    max_book_size=500_000_000,
-)
-board = pipeline.run()
-print(board["report"])           # portfolio report
-print(board["sec_lending_report"])  # sec lending report
-```
-
-Or from the command line:
-
-```bash
-quantsmith-sec-lending --combined --tickers AAPL,MSFT,NVDA,TSLA
-```
-
----
-
-## Portfolio Construction (existing)
+## Portfolio Construction
 
 ### Quick start
 

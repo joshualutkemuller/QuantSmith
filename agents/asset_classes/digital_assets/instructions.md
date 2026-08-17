@@ -40,5 +40,4 @@ fragmentation risk stated", "funding calculated point-in-time"); custody,
 counterparty, oracle, and smart-contract risk become `RISK-*`. Backed by
 `instructions/asset_class_mechanics.md` and `instructions/point_in_time.md`.
 Hands off to `trading_strategies/market_making_microstructure`,
-`trading_strategies/momentum_trend`, `securities_financing/collateral_management`,
-and `risk`.
+`trading_strategies/momentum_trend`, and `risk`.

@@ -27,8 +27,7 @@ are a documented leakage/bias surface in the constitution and
   commodities, digital assets.
 - Keep each agent scoped to market structure and data mechanics — settlement,
   sessions, conventions, corporate actions/roll, curve/rating construction, custody
-  — and explicitly out of strategy design (owned by `trading_strategies/`) and
-  financing pricing (owned by `securities_financing/`).
+  — and explicitly out of strategy design (owned by `trading_strategies/`).
 - Add a backing instruction standard, `instructions/asset_class_mechanics.md`.
 - Update the agent catalog, spec index, and top-level README so the group is
   discoverable and routable.
@@ -49,7 +48,7 @@ are a documented leakage/bias surface in the constitution and
 | ID | Requirement | Priority |
 | --- | --- | --- |
 | REQ-001 | The system shall provide a `agents/asset_classes/` category folder with a group README describing scope and routing. | must |
-| REQ-002 | The system shall provide one four-file agent per covered asset class (equities, fixed income/rates/credit, FX, commodities, digital assets), each scoped to market-structure/data mechanics and not to strategy design or financing pricing. | must |
+| REQ-002 | The system shall provide one four-file agent per covered asset class (equities, fixed income/rates/credit, FX, commodities, digital assets), each scoped to market-structure/data mechanics and not to strategy design. | must |
 | REQ-003 | The system shall provide a backing instruction standard, `instructions/asset_class_mechanics.md`, shared by the group. | must |
 | REQ-004 | The agent catalog (`agents/README.md`), spec index (`specs/README.md`), and top-level `README.md` shall list the new group and its agents. | must |
 
@@ -59,14 +58,14 @@ are a documented leakage/bias surface in the constitution and
 | --- | --- | --- |
 | NFR-001 | Agent contract consistency | Every new public agent has `README.md`, `prompt.md`, `instructions.md`, and `tasks.md`, each with a `Spec-Driven Role` section in `instructions.md`. |
 | NFR-002 | Repository hygiene | `agent-catalog`, `docs-link`, `spec`, `spec-index`, and whitespace checks pass. |
-| NFR-003 | Scope boundary | Agent docs state explicitly that strategy design and financing pricing remain owned by `trading_strategies/` and `securities_financing/`, not duplicated here. |
+| NFR-003 | Scope boundary | Agent docs state explicitly that strategy design remains owned by `trading_strategies/`, not duplicated here. |
 
 ## Acceptance Criteria
 
 | ID | Given / When / Then | Covers |
 | --- | --- | --- |
 | AC-001 | Given the repo's agents directory, when the agent-catalog gate runs, then every new `agents/asset_classes/*` agent is listed in `agents/README.md`. | REQ-002, REQ-004, NFR-001 |
-| AC-002 | Given the new agent contracts, when each `instructions.md` is read, then it names the mechanics-only scope and a handoff to `trading_strategies/` and/or `securities_financing/`. | REQ-002, NFR-003 |
+| AC-002 | Given the new agent contracts, when each `instructions.md` is read, then it names the mechanics-only scope and a handoff to `trading_strategies/` and/or `risk`. | REQ-002, NFR-003 |
 | AC-003 | Given `specs/README.md`, when the spec-index gate runs, then `0022-asset-class-mechanics-agents` is checked against the index. | REQ-004, NFR-002 |
 | AC-004 | Given the documentation set, when `docs-link` and `spec` gates run, then all new/changed docs pass with no broken links or traceability orphans. | NFR-002 |
 
@@ -81,7 +80,7 @@ builder) under `src/quantsmith/` if a concrete workflow needs one.
 
 | ID | Risk | Impact | Mitigation |
 | --- | --- | --- | --- |
-| RISK-001 | The new group's scope overlaps with `trading_strategies/` or `securities_financing/`, causing duplicated or conflicting guidance. | Confusing routing; agents give inconsistent advice on the same concern. | Each agent's `instructions.md` states the mechanics-only boundary explicitly and names the downstream handoff instead of making strategy or financing calls. |
+| RISK-001 | The new group's scope overlaps with `trading_strategies/`, causing duplicated or conflicting guidance. | Confusing routing; agents give inconsistent advice on the same concern. | Each agent's `instructions.md` states the mechanics-only boundary explicitly and names the downstream handoff instead of making strategy calls. |
 | RISK-002 | Five asset classes is an incomplete taxonomy (e.g. no dedicated credit-derivatives or private-markets agent). | A request outside the five classes has no clear owner. | The group README's "Taxonomy Note" states the scope is judgment-based and documents how to add a class when its mechanics are genuinely distinct. |
 | RISK-003 | Docs imply live data/pricing capability that does not exist. | Users may expect an executable mechanics service. | State runtime implementation is out of scope in this slice; outputs are advisory briefs, not live data. |
 

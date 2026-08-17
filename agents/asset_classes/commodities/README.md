@@ -35,7 +35,7 @@ source of leakage or bias.
   yield/cost it implies.
 - A curve-shape (contango/backwardation) and storage/convenience-yield view.
 - Physical-delivery risk scoped near expiry, where relevant.
-- A named handoff to `trading_strategies/`, `securities_financing/`, or `risk`.
+- A named handoff to `trading_strategies/` or `risk`.
 
 ## Example Requests
 

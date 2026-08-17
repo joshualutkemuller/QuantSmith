@@ -34,7 +34,6 @@ before the plugged-in model runs in place of a built-in solver, and
 | `routing_scheduling/` | Covers vehicle/job/crew scheduling, order routing, latency-aware placement, batching, and calendar/market-window constraints. |
 | `inventory_supply_chain/` | Optimizes stock, replenishment, allocation, service levels, safety stock, and multi-echelon supply decisions. |
 | `portfolio_construction/` | Handles portfolio weights, constraints, factor exposure, turnover, tracking error, tax lots, capacity, and rebalancing. |
-| `collateral_margin_optimization/` | Covers eligibility, haircuts, margin, cheapest-to-deliver collateral, substitutions, liquidity buffers, and regulatory constraints. |
 | `execution_optimization/` | Optimizes trading schedules, participation, venue choice, order slicing, market impact, slippage, and fill-risk trade-offs. |
 | `resource_capacity_optimization/` | Handles compute, staffing, capital, balance sheet, quota, API, cloud, and throughput allocation under constraints. |
 | `pricing_revenue_optimization/` | Covers bid/ask, rebates, fee schedules, markdowns, elasticity, acceptance probabilities, and revenue-vs-risk trade-offs. |

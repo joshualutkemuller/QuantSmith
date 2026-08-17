@@ -138,7 +138,7 @@ Repeated testing or selection over many ideas, features, periods, or configurati
 
 ## Transaction Costs
 
-Costs incurred to trade or rebalance a strategy. These may include commissions, fees, bid-ask spread, market impact, borrow cost, and financing.
+Costs incurred to trade or rebalance a strategy. These may include commissions, fees, bid-ask spread, and market impact.
 
 ## Slippage
 
@@ -256,6 +256,3 @@ The recorded origin of a knowledge item or dataset — source, author, date, ver
 
 A tradable signal expressed as an explicit formula over market inputs, composed from an operator library (`rank`, `ts_rank`, `correlation`, `delta`, `decay_linear`, `indneutralize`, …). See `instructions/formulaic_alphas.md`.
 
-## Financing-Aware Backtest
-
-A backtest that nets the cost of borrowing and funding — borrow fee, short rebate, repo/funding, margin — from returns. Short and long-short backtests that ignore financing overstate their edge; checked by the `backtest` gate's financing theme.

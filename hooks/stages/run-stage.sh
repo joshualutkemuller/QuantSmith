@@ -12,7 +12,8 @@
 #   alert-contract monitoring-coverage content-draft-pack
 #   (quant-specific checks; heuristic and advisory, run after the SDLC stages)
 # Repo gates: secret-scan docs-link agent-catalog spec-index readme-sync doc-counts
-#   (security and documentation-integrity checks)
+#   quantsmith-version
+#   (security, documentation-integrity, and consumer-pin checks)
 # Knowledge gate: knowledge
 #   (validates configured knowledge-base source locations)
 # Memory gate: memory
@@ -25,7 +26,7 @@
 
 DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
-ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract pipeline-contract alert-contract monitoring-coverage content-draft-pack secret-scan docs-link agent-catalog spec-index readme-sync doc-counts knowledge memory role-context data-provenance model-plugin source-catalog"
+ALL="spec planning design implementation testing deployment maintenance leakage backtest repro data-contract pipeline-contract alert-contract monitoring-coverage content-draft-pack secret-scan docs-link agent-catalog spec-index readme-sync doc-counts quantsmith-version knowledge memory role-context data-provenance model-plugin source-catalog"
 stages="$*"
 [ -z "$stages" ] && stages="$ALL"
 

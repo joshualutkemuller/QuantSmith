@@ -5,7 +5,7 @@
 The SDK has a working v1: a **spec-driven engineering framework** over the six
 software-development stages, **161 agents** in `agents/` (plus the local-only
 root evening-content workflow pack, which is untracked and not counted here),
-**27 quality gates**, **33 instruction standards**, and CI that
+**28 quality gates**, **33 instruction standards**, and CI that
 enforces the deterministic gates. It remains primarily a scaffold to be copied
 into quant repos, with `evening_quant_content_twitter/` as the first runnable local
 workflow pack, `src/quantsmith/pipelines/` holding runnable, dependency-free
@@ -47,7 +47,7 @@ as the live count, not the number here)** — all on the four-file contract
 - Plus the root `evening_quant_content_twitter/` pack (local-only, untracked;
   content agents plus runtime/scheduler).
 
-**Gates (27)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
+**Gates (28)** in `hooks/stages/`, driven by `run-stage.sh`; advisory by default,
 `QF_STAGE_ENFORCE=1` blocks:
 
 - Cross-cutting: `spec`. Per stage: `planning`, `design`, `implementation`,
@@ -56,8 +56,8 @@ as the live count, not the number here)** — all on the four-file contract
   `repro`, `data-contract`, `pipeline-contract`, `alert-contract`,
   `monitoring-coverage`, `content-draft-pack`, `data-provenance`.
 - Repo: `secret-scan`, `docs-link`, `agent-catalog`, `spec-index`, `readme-sync`,
-  `doc-counts`, `knowledge`, `memory`, `role-context`, `model-plugin`,
-  `source-catalog`.
+  `doc-counts`, `quantsmith-version`, `knowledge`, `memory`, `role-context`,
+  `model-plugin`, `source-catalog`.
 
 **Instructions (33)** — constitution, SDD method, point-in-time, and the domain
 standards; see `README.md`'s "Public Instructions" table for the current list
@@ -481,10 +481,11 @@ by the `knowledge` gate.
     invocation target exists. Otherwise: continuing to populate `sources/`
     as real sources come into use.
 
-## iOS Companion Initiative (design only)
+## QuantForge — iOS Companion (design only)
 
-`app/` holds the handoff, phase breakdown, and decision log for a
-**read-only iOS monitoring companion** — macro indicators and regime,
+`app/` holds the handoff, phase breakdown, and decision log for
+**QuantForge**, a read-only iOS monitoring companion planned as its own
+repository — macro indicators and regime,
 portfolio risk, backtest results, and alerts. Nothing is built.
 
 Three things worth knowing without opening it:

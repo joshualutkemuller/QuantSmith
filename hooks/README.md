@@ -50,6 +50,7 @@ pattern-based; tune them to your repository.
 | Spec index sync | `spec-index-check.sh` | `specs/README.md` |
 | README index/runtime sync | `readme-sync-check.sh` | `specs/README.md`, root `README.md` |
 | Documented-count drift | `doc-counts-check.sh` | root `README.md`, `docs/handoff.md`, `docs/sdk_plan.md` |
+| QuantSmith consumer pin | `quantsmith-version-check.sh` | a consuming repo's `requirements*.txt` / `pyproject.toml` (copy this gate there) |
 | Source catalog sync | `source-catalog-check.sh` | `sources/README.md`, `templates/data/source_catalog_entry.yml` |
 | Knowledge source check | `knowledge-check.sh` | `agents/knowledge/` |
 | Workflow memory check | `memory-check.sh` | `memory/`, `agents/knowledge/` |

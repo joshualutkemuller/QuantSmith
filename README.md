@@ -13,9 +13,9 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 [![CI](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml/badge.svg)](https://github.com/joshualutkemuller/QuantSmith/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Approach: Spec-Driven](https://img.shields.io/badge/Approach-Spec--Driven-ff6f00)](instructions/spec_driven_development.md)
-[![Agents: 135](https://img.shields.io/badge/Agents-135-6f42c1)](agents/README.md)
-[![Quality Gates: 25](https://img.shields.io/badge/Quality%20Gates-25-2ea44f)](hooks/README.md)
-[![Specs: 27](https://img.shields.io/badge/Specs-27-0969da)](specs/README.md)
+[![Agents: 161](https://img.shields.io/badge/Agents-161-6f42c1)](agents/README.md)
+[![Quality Gates: 28](https://img.shields.io/badge/Quality%20Gates-28-2ea44f)](hooks/README.md)
+[![Specs: 45](https://img.shields.io/badge/Specs-45-0969da)](specs/README.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](.github/GIT_GUIDELINES.md)
 
 <br/>
@@ -65,7 +65,7 @@ signal and model **reproducible, leakage-safe, and traceable to a spec**.
 | 🔎 Catch leakage & time-alignment bugs | Point-in-time standards + `leakage`/`backtest` gates |
 | 📝 Document features, models, backtests | Templates, cards, and reproducible run artifacts |
 | 🤖 Reuse research workflows | 161 narrow, inspectable agent roles across the stack |
-| 🚦 Stop mistakes before commit/push | 27 quality gates, advisory by default, CI-enforceable |
+| 🚦 Stop mistakes before commit/push | 28 quality gates, advisory by default, CI-enforceable |
 | 🗣️ Share a common vocabulary | An [agentic dictionary](agentic_dictionary.md) for the team |
 
 ---
@@ -164,7 +164,6 @@ quantsmith/
 ├── 🗂️ specs/                     # source-of-truth specifications
 ├── 🧾 templates/                 # repeatable artifacts (memos, cards, reports)
 ├── 🗃️ sources/                   # data source catalog (APIs, DBs, feeds)
-├── 📱 app/                       # iOS companion initiative (design only, nothing built)
 ├── 🧪 examples/
 └── 📚 docs/
 ```
@@ -180,7 +179,7 @@ quantsmith/
 - `agents/`, `adapters/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `examples/` are the intended public SDK surfaces.
 - `src/quantsmith/` contains executable runtime packages. Agent directories are role contracts and catalog entries, not long-term homes for Python modules.
 - The old app-specific assets have been removed from the working tree; the remaining seed files now describe the SDK workflow.
-- `app/` is a **design surface, not code** — the handoff, phase breakdown, and decision log for a read-only iOS monitoring companion. Nothing in it is built, and one architectural decision (`AD-003`, whether this project starts owning a running service) is deliberately left open. See [`app/README.md`](app/README.md).
+- **QuantForge** — the read-only iOS monitoring companion built on these runtimes — lives in [its own repository](https://github.com/joshualutkemuller/QuantForge), along with its handoff and decision log. Spec `0047` holds the QuantSmith-side mechanisms that keep the two in sync.
 
 </details>
 
@@ -418,7 +417,7 @@ QF_STAGE_ENFORCE=1 hooks/stages/run-stage.sh spec   # blocking (as CI runs it)
 | 🧭 Cross-cutting | `spec` |
 | 🔄 Per-stage | `planning` · `design` · `implementation` · `testing` · `deployment` · `maintenance` |
 | 📈 Quant / content | `leakage` · `backtest` · `repro` · `data-contract` · `pipeline-contract` · `alert-contract` · `monitoring-coverage` · `content-draft-pack` · `data-provenance` |
-| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `readme-sync` · `doc-counts` · `knowledge` · `role-context` · `model-plugin` · `source-catalog` |
+| 🗃️ Repo | `secret-scan` · `docs-link` · `agent-catalog` · `spec-index` · `readme-sync` · `doc-counts` · `quantsmith-version` · `knowledge` · `role-context` · `model-plugin` · `source-catalog` |
 
 > [!TIP]
 > Use `QF_RUN_TESTS=1` to let the testing stage run the suite, and
@@ -438,6 +437,7 @@ the [spec index](specs/README.md).
 | [`0001`](specs/0001-daily-momentum-signal/) | Daily cross-sectional momentum signal *(reference)* | `momentum_signal.py` |
 | [`0006`](specs/0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` |
 | [`0041`](specs/0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing its labels/features/folds/evaluation unmodified | `ranking_forecast.py` |
+| [`0047`](specs/0047-downstream-contract/) | Downstream consumer contract — `DashboardSpec.schema_version` + compatibility check, release-notify workflow, and a copyable `quantsmith-version` gate for a separate consuming repo (QuantForge) | `dashboard_spec.py` *(extended)* |
 | [`0046`](specs/0046-walk-forward/) | Walk-forward harness — purged/embargoed folds from `0006` refit per fold through `0044`'s engine; reports the out-of-sample fold distribution | `walk_forward.py` |
 | [`0045`](specs/0045-fred-point-in-time/) | FRED point-in-time panel adapter — vintage-correct reads of `gold_fred_point_in_time`, so a later revision cannot leak backwards | `fred_point_in_time.py` |
 | [`0044`](specs/0044-backtesting/) | Backtest engine — net-of-cost simulation, no look-ahead by construction, probabilistic Sharpe on every run | `backtesting.py` |

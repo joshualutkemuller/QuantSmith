@@ -30,6 +30,7 @@ each with a matching test module under `tests/`.
 | [0004-optimizer-ml-dl-agent-expansion](0004-optimizer-ml-dl-agent-expansion/) | Optimizer, ML, and DL agent expansion | — (agent contracts) | catalog/docs gates | Approved |
 | [0006-ml-return-forecasting](0006-ml-return-forecasting/) | Cross-sectional short-horizon return forecasting | `return_forecasting.py` | `test_return_forecasting.py` | Approved |
 | [0041-ranking-forecast](0041-ranking-forecast/) | Cross-sectional ranking forecast — a pairwise (RankNet-style) ranking-loss variant of `0006`, composing `0006`'s labels/features/folds/evaluation unmodified | `ranking_forecast.py` | `test_ranking_forecast.py` | Approved |
+| [0047-downstream-contract](0047-downstream-contract/) | Downstream consumer contract — `DashboardSpec.schema_version` + `check_schema_compatibility`, a release-notify workflow dispatching to downstream repositories, and a copyable `quantsmith-version` gate flagging a consumer's unpinned or drifted dependency; makes SemVer real before a second repo depends on it | `dashboard_spec.py` (extended) | `test_dashboard_contract.py` | Approved |
 | [0046-walk-forward](0046-walk-forward/) | Walk-forward backtest harness — composes `0006`'s purged/embargoed `make_folds` with `0044`'s engine, refitting per fold and evaluating on held-out periods; reports the fold distribution (dispersion, positive fraction) rather than one in-sample number | `walk_forward.py` | `test_walk_forward.py` | Approved |
 | [0045-fred-point-in-time](0045-fred-point-in-time/) | FRED point-in-time panel adapter — reads `gold_fred_point_in_time` from the FRED bronze-to-gold pipeline's local SQLite output and answers vintage-correct questions via `realtime_start`/`realtime_end`, so a revision published later can never leak backwards into an earlier as-of date | `fred_point_in_time.py` | `test_fred_point_in_time.py` | Approved |
 | [0044-backtesting](0044-backtesting/) | Backtest engine — net-of-cost simulation with no look-ahead by construction (`weights[i]` meets `returns[i+lag]`, `lag >= 1`), turnover-scaled costs, financing on shorts, drawdown, and a probabilistic Sharpe on every run; ships the repo's first backtest artifact, making the CI-enforced `backtest` gate live | `backtesting.py` | `test_backtesting.py` | Approved |
@@ -93,4 +94,4 @@ and carries its own `0003-evening-quant-content-workflow` and
 `0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
 pack is present on disk.
 
-**Next free spec number: `0047`** (`0003`/`0005` belong to the local-only pack).
+**Next free spec number: `0048`** (`0003`/`0005` belong to the local-only pack).

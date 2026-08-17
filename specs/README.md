@@ -87,11 +87,4 @@ traceability end to end. Copy its structure, not its content.
 - **Macro & economics:** `0027` source catalog (FRED/BLS/BEA/Census/EIA) → `0033` economists agents (indicators → policy → regime → cross-asset/scenario → brief/outlook reports) → `trading_strategies/macro_multi_asset`, `portfolio_management/allocation_policy`, `risk`.
 - **Cross-cutting:** `0002` workflow memory; `0004` agent expansion; `0022` asset-class mechanics agents (feed `trading_strategies/` and `securities_financing/`); `0024` role-operations agents Phase 1 → `0025` data-provenance guardrail (real-data-first + synthetic-data disclosure, backing `0024`'s `rapid_scaffolder` and cross-referenced by `dashboard_design`/`data_storytelling`) → `0029` role-operations agents Phase 2 → `0030` role-operations agents Phase 3 (governance-adjacent: model card, decision log, governance readiness, backtest pre-check, build handoff, alert triage — hands off to `backtest_review`/`alert_router`/`incident_notification` rather than replacing them). Fourteen-agent roster complete, configurable via a local-only `role_context.yml`.
 
-### Local-only specs
-
-The evening content pack (`evening_quant_content_twitter/`) is untracked (local-only)
-and carries its own `0003-evening-quant-content-workflow` and
-`0005-evening-quant-content-runnable-pipeline`, validated by the `spec` gate when the
-pack is present on disk.
-
 **Next free spec number: `0048`** (`0003`/`0005` belong to the local-only pack).

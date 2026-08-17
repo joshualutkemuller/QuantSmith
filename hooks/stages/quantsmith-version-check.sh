@@ -5,7 +5,7 @@
 # quant repo), checks that its declared `quantsmith` dependency is pinned and
 # matches the installed package. A floating dependency on a package whose
 # DashboardSpec contract a client renders is itself a finding -- see spec
-# 0047. Copy this gate into a consuming repository (for example QuantForge).
+# 0047. Copy this gate into a consuming repository.
 #
 # Offline and deterministic by design: it compares against the INSTALLED
 # package, never a remote index, so the gate cannot become flaky or

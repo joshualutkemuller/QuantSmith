@@ -1,7 +1,7 @@
 name: Release Notify
 
 # Tells downstream repositories that a new QuantSmith version exists, so a
-# consumer (QuantForge, the iOS companion repository) can open a bump PR
+# consumer can open a bump PR
 # and run its own contract tests against it.
 #
 # This NOTIFIES ONLY. It never opens or merges anything itself: auto-updating

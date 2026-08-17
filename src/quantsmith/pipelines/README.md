@@ -159,6 +159,42 @@ Tests: `tests/test_analytics_pipeline.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_analytics_pipeline.py -q
 ```
 
+## `walk_forward` — spec `0046-walk-forward`
+
+Closes the gap `0044`'s own report admitted to: *"this report covers a single
+simulated path … results here are in-sample unless that was applied upstream."*
+The pieces already existed and had never been composed — `0006`'s `make_folds`
+produces purged, embargoed splits, `0044`'s `run_backtest` measures a path net
+of costs.
+
+For each fold the harness calls a caller-supplied
+`fit_predict(train_periods, test_periods)` **once**, then evaluates the returned
+weights on that fold's held-out periods only. The headline is the *distribution
+across folds* — Sharpe dispersion, best and worst fold, the positive fraction —
+because a single pooled number hides whether a result came from one lucky
+stretch.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| Fold construction | REQ-001 | Delegated to `make_folds`; a second implementation could disagree with `0006` about what is purged, which is the one thing this harness must not get wrong. |
+| `walk_forward_backtest` | REQ-002, REQ-003 | Refit per fold, evaluation on held-out periods only, and the engine's rebalance lag preserved across fold slicing. |
+| Fold distribution | REQ-004, REQ-005 | Per-fold Sharpe and return, dispersion, best/worst, positive fraction, plus a pooled out-of-sample series with its probabilistic Sharpe. |
+
+**The limit of the guarantee:** the harness controls fold construction,
+refit-per-fold, and held-out evaluation. It hands `fit_predict` index sequences
+only, but cannot stop that callable closing over global data and peeking. Same
+honest boundary as `0044` and `0045`.
+
+**Deliberately not included:** selecting a variant on these fold results is
+multiple testing through the back door. That needs a deflated Sharpe
+correction, left as a follow-up rather than half-built here.
+
+Tests: `tests/test_walk_forward.py` (one test per acceptance criterion).
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_walk_forward.py -q
+```
+
 ## `fred_point_in_time` — spec `0045-fred-point-in-time`
 
 Closes the gap `0044` left open. The backtest engine guarantees its own loop

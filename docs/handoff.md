@@ -439,7 +439,26 @@ by the `knowledge` gate.
       happily trade on. Read-only, no API key: it consumes a SQLite file
       the operator produced (P9).
 
-    **Next up — the real run.** With `0044` and `0045` in place, the
+    - `0046` the walk-forward backtest harness (`walk_forward.py`) —
+      closes the gap `0044`'s own rendered report admitted to ("results
+      here are in-sample unless that was applied upstream"), which is the
+      first thing `agents/backtest_review/` discounts. The pieces already
+      existed and had never been composed: `0006`'s `make_folds` produces
+      purged, embargoed splits and `0044`'s `run_backtest` measures a
+      path. Fold construction is **delegated**, not reimplemented — a
+      second implementation could disagree with `0006` about what is
+      purged. `fit_predict` is called once per fold on training periods
+      only, and its weights are evaluated on that fold's held-out periods
+      with the rebalance lag preserved across the slice. The headline is
+      the fold *distribution* (Sharpe dispersion, best/worst, positive
+      fraction), not a single pooled number that could hide one lucky
+      stretch. The generated example is again honestly negative — 20% of
+      folds positive, pooled probabilistic Sharpe 0.041 — which is the
+      right answer for a trailing-mean tilt on random data after costs.
+      Variant selection on fold results is an explicit Non-Goal: that
+      needs a deflated Sharpe, the named follow-up.
+
+    **Next up — the real run.** With `0044`, `0045`, and `0046` in place, the
     remaining step is a wiring exercise, blocked only on data:
     `fred_local.db`, produced by the operator from
     `joshualutkemuller/fred-bronze-to-gold-pipeline` via
@@ -461,6 +480,32 @@ by the `knowledge` gate.
     executable dispatcher for `0026` is worth building once a concrete
     invocation target exists. Otherwise: continuing to populate `sources/`
     as real sources come into use.
+
+## iOS Companion Initiative (design only)
+
+`app/` holds the handoff, phase breakdown, and decision log for a
+**read-only iOS monitoring companion** — macro indicators and regime,
+portfolio risk, backtest results, and alerts. Nothing is built.
+
+Three things worth knowing without opening it:
+
+- **Most of the SDK is deliberately excluded** (`AD-001`). The agent
+  contracts, gates, spec flow, hooks, and CI operate on a repository;
+  there is no mobile use case, and the exclusion is written down so the
+  scope cannot expand silently.
+- **Web-first validation comes before any native work** (`AD-002`), using
+  the Streamlit scaffolder that already exists (`0018`). Stopping there is
+  a legitimate outcome — a native app is warranted only by push, offline
+  access, or App Store distribution.
+- **One decision is deliberately open** (`AD-003`): whether this project
+  starts owning a running service. Every adapter today is a contract plus
+  an injected `transport`, which is exactly why the repo holds no
+  credentials and can claim P9 cleanly. A hosted read API breaks that
+  posture, so it is recorded as an architectural fork rather than drifted
+  into — with two alternatives (published static artifacts, or a local
+  file sync like `0045`'s) that preserve the current design.
+
+See `app/README.md`, `app/handoff.md`, `app/decision_log.md`.
 
 ## Open Questions For The Owner
 

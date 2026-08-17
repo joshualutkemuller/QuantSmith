@@ -329,6 +329,22 @@ operations, data provenance):
   cannot leak backwards into an earlier as-of date. Closes the input-side half
   of the gap `0044` left open; the real run is blocked only on the operator
   producing `fred_local.db`.
+- Walk-forward backtest harness — done (spec `0046`, `walk_forward.py`).
+  Composes `0006`'s purged, embargoed `make_folds` with `0044`'s engine:
+  `fit_predict` is called once per fold on training periods only, and the
+  resulting weights are evaluated on that fold's held-out periods. Reports the
+  fold distribution — Sharpe dispersion, best/worst fold, positive fraction —
+  plus a pooled out-of-sample series and its probabilistic Sharpe. Closes the
+  in-sample gap `0044`'s own report admitted to, and makes the pending FRED run
+  defensible over a short macro sample. Selecting variants on fold results is
+  explicitly out of scope: that needs a deflated Sharpe, the natural follow-up.
+- iOS companion initiative — design only, nothing built (`app/`). A read-only
+  monitoring companion over existing runtime outputs; the SDK's development-time
+  surfaces are explicitly out of scope. Phase 1 (a SwiftUI `DashboardSpec`
+  profile, the eighth target after `0015`/`0016`/`0018`) and Phase 3 (an APNs
+  provider beside the eight in `adapters/alert_delivery/`) extend patterns that
+  already exist. Phase 2 — a hosted read API — is blocked on an open decision
+  about whether this project starts owning a running service (`AD-003`).
 - Optional gates: `ingestion-snapshot`, a stricter notebook-output gate; revisit
   enforcing the heuristic `leakage` gate.
 - Done: a plugin/adapter contract so an adopter's already-built internal

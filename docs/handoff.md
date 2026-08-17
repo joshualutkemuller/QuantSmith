@@ -406,7 +406,34 @@ by the `knowledge` gate.
       docs needing manual refresh is now materially narrower: the
       countable part is mechanical.
 
-    **Recommended next:** conic/global/nonlinear optimizer forms once a
+    - `0044` the backtest engine (`backtesting.py`) — the artifact this SDK
+      existed to govern and had never produced. `instructions/backtesting.md`,
+      `agents/backtest_review/`, `templates/docs/backtest_report.md`, and a
+      **CI-enforced** `backtest` gate were all in place while the gate
+      reported "no backtest report artifact detected" on every run. No
+      look-ahead is structural: `weights[i]` meets `returns[i + lag]` with
+      `lag >= 1` enforced, an indexing impossibility rather than an
+      assertion. Net of costs is the default (turnover-scaled transaction
+      cost, financing on short exposure only), and a probabilistic Sharpe
+      (Bailey & López de Prado) ships with every Sharpe rather than as an
+      optional extra. The generated example on **disclosed synthetic data**
+      is the repo's first backtest artifact; it reports a *negative* result
+      (Sharpe −0.69, PSR 0.167), which is the correct answer for random data
+      after costs and a fair demonstration that the engine is not tuned to
+      flatter. Its stated limit: the guarantee covers the simulation loop,
+      not the provenance of the weights it is handed.
+
+    **Next up — the real vertical slice.** `0044` was built as the first
+    half of a two-step plan; the second is a genuinely point-in-time macro
+    backtest over `gold_fred_point_in_time` from
+    `joshualutkemuller/fred-bronze-to-gold-pipeline`, whose
+    `realtime_start` / `realtime_end` columns carry FRED's true vintages.
+    That repo runs fully locally to a SQLite file
+    (`python -m fred_pipeline run --local --db-path fred_local.db`), so no
+    Databricks is needed — but it requires a `FRED_API_KEY` held by the
+    operator, never by this repository (P9). **Blocked on that key.**
+
+    **Otherwise:** conic/global/nonlinear optimizer forms once a
     dependency-free method or an optional solver dependency is chosen, a
     listwise ranking loss once `0041`'s pairwise variant is trusted, or
     the two remaining `P1` `data_engineering` runtimes (`data_modeling`,

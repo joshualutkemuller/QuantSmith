@@ -22,7 +22,7 @@ The SDK now has a working v1 built on a spec-driven engineering framework:
   `economists/`, `trading_strategies/`, `data_engineering/`, `asset_classes/`,
   `analytics/`, `knowledge/`, `secrets_management/`, `securities_financing/`,
   `alerts/`, `data_ingestion/`, `formulaic_alphas/`, and `monitoring/`.
-- **27 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
+- **28 quality gates** in `hooks/stages/` (SDLC stages, quant gates, and repo
   gates) driven by `run-stage.sh`; advisory by default, blocking under
   `QF_STAGE_ENFORCE=1`.
 - **33 instruction standards** and a prompt/template library covering specs, run
@@ -338,8 +338,9 @@ operations, data provenance):
   in-sample gap `0044`'s own report admitted to, and makes the pending FRED run
   defensible over a short macro sample. Selecting variants on fold results is
   explicitly out of scope: that needs a deflated Sharpe, the natural follow-up.
-- iOS companion initiative — design only, nothing built (`app/`). A read-only
-  monitoring companion over existing runtime outputs; the SDK's development-time
+- QuantForge, the iOS companion — design only, nothing built (`app/`), planned as
+  a separate repository. A read-only monitoring companion over existing runtime
+  outputs; the SDK's development-time
   surfaces are explicitly out of scope. Phase 1 (a SwiftUI `DashboardSpec`
   profile, the eighth target after `0015`/`0016`/`0018`) and Phase 3 (an APNs
   provider beside the eight in `adapters/alert_delivery/`) extend patterns that

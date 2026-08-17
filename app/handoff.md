@@ -1,19 +1,19 @@
-# Handoff: iOS Companion Initiative
+# Handoff: QuantForge (iOS Companion)
 
 - **Owner:** Josh
 - **Author:** Claude
 - **Status:** Design agreed, nothing built
 - **Last updated:** 2026-08-12
 
-> A comprehensive handoff for turning QuantSmith's computed outputs into a
-> native iOS companion. It states the scope, the boundary of what does and
+> A comprehensive handoff for **QuantForge**, a native iOS companion over
+> QuantSmith's computed outputs, planned as a separate repository. It states the scope, the boundary of what does and
 > does not translate, the phase order, and the one architectural decision
 > that must be settled before Phase 2 can start. Written to be actionable
 > without re-deriving the reasoning from a conversation.
 
 ## 1. Context
 
-QuantSmith is a spec-driven engineering scaffold: 161 agent contracts, 27
+QuantSmith is a spec-driven engineering scaffold: 161 agent contracts, 28
 quality gates, 33 instruction standards, and a set of dependency-free
 Python reference runtimes under `src/quantsmith/pipelines/`. It is
 copied into quant repositories and driven by agents at development time.
@@ -28,7 +28,7 @@ app"* — and the honest answer begins with a subtraction.
 | Surface | Why it does not translate |
 | --- | --- |
 | `agents/` (161 contracts) | Prompt/instruction contracts consumed by an agent runtime operating on a repository. A phone is not where they run. |
-| `hooks/stages/` (27 gates) | Shell scripts that inspect a working tree and a git diff. No working tree on iOS. |
+| `hooks/stages/` (28 gates) | Shell scripts that inspect a working tree and a git diff. No working tree on iOS. |
 | `specs/`, spec-driven flow | Authoring and traceability of `REQ`/`AC`/`T` IDs — a desk activity, not a mobile one. |
 | `.githooks/`, CI | Commit-time and merge-time enforcement. |
 | `templates/`, `prompts/` | Source material for authoring, not for consumption on a phone. |
@@ -138,6 +138,44 @@ This is a genuine fork, comparable to the deferred numpy question in
 `0044`, and it should be decided deliberately rather than drifted into.
 The options and their consequences are recorded in
 [`decision_log.md`](decision_log.md) as `AD-003`, left open.
+
+## 6b. Keeping the QuantForge repository in sync
+
+QuantForge lives in its own repository, so three mechanisms now exist on
+the QuantSmith side, shipped as spec `0047`:
+
+- **`DashboardSpec.schema_version`** (`MAJOR.MINOR`, currently `1.0`) plus
+  `check_schema_compatibility`. A differing major is rejected; a newer
+  minor is accepted with a caveat, so an SDK minor release does not break
+  every client until it upgrades. The client refuses a payload it cannot
+  render and shows stale data instead of crashing — which matters when a
+  fix has to clear App Store review.
+- **`.github/workflows/release-notify.yml`** — on a version tag,
+  dispatches a `quantsmith-release` event to repositories listed in
+  `vars.DOWNSTREAM_REPOS`, using `secrets.DOWNSTREAM_DISPATCH_TOKEN`. It
+  **notifies only**; opening and merging the bump PR is the consumer's
+  side. Inert until both are configured.
+- **`hooks/stages/quantsmith-version-check.sh`** — copy into the app repo.
+  Flags a `quantsmith` dependency that is unpinned, or pinned to a version
+  other than the installed one. Offline and deterministic; it compares
+  against the installed package, never a remote index.
+
+**Two limits worth stating.** `schema_version` is a *declaration*, not a
+derivation — bumping it is manual, so a breaking change shipped without a
+bump is undetectable from this side. And the version gate only helps a
+repository that actually installs the package; a pure-artifact consumer
+is covered by `schema_version` on the payload instead.
+
+**The consumer-side pieces belong in the app repository, not here:** a
+pip entry in its Dependabot config, and a contract test that decodes a
+real `DashboardSpec` from the installed `quantsmith`. That test is the
+honest guard the declaration alone cannot provide.
+
+**What this obliges of the SDK.** Once a second repository depends on it,
+SemVer stops being a documentation claim and becomes something owed to a
+consumer. The package is at `0.1.0` — which by SemVer convention promises
+no stability — so publishing (`docs/packaging.md`) and a considered
+version floor should land before the app repo is created, not after.
 
 ## 7. Risks
 

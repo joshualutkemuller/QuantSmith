@@ -182,6 +182,11 @@ belong under profiles/adapters unless they require materially different behavior
   pairwise (RankNet-style) ranking-loss variant of `0006`, composing its
   labels/features/folds/evaluation unmodified; the sole remaining `P0`
   backlog line ("additional ML/DL examples") is now shipped.
+- The downstream consumer contract (spec `0047`) — `schema_version` on
+  `DashboardSpec` with a compatibility check, a release-notify workflow,
+  and a copyable `quantsmith-version` gate. Makes SemVer something a
+  separate app repository can rely on rather than a documentation claim,
+  and lands before that repo exists rather than after.
 - The walk-forward backtest harness (spec `0046`, `walk_forward.py`) —
   composes `0006`'s purged/embargoed `make_folds` with `0044`'s engine,
   refitting per fold and evaluating on held-out periods, and reports the

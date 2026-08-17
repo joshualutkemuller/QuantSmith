@@ -1,4 +1,4 @@
-# Decision Log: iOS Companion Initiative
+# Decision Log: QuantForge
 
 > A durable, **append-only** record of material decisions, alternatives
 > considered, rationale, and consequences (see `agentic_dictionary.md`'s
@@ -8,20 +8,20 @@
 > (constitution P10, honest reporting).
 
 - **Owner:** Josh
-- **Scope:** The iOS companion initiative described in [`handoff.md`](handoff.md)
+- **Scope:** QuantForge, the iOS companion described in [`handoff.md`](handoff.md)
 
 ## Entries
 
 Copy the block below for each new decision. Newest entry last, oldest
 first — do not reorder past entries.
 
-### AD-001: The companion is read-only monitoring, not the SDK on a phone
+### AD-001: QuantForge is read-only monitoring, not the SDK on a phone
 
 - **Date:** 2026-08-12
 - **Decision maker(s):** Josh, Claude
 - **Status:** decided
 
-**Decision:** The iOS companion surfaces computed outputs — macro
+**Decision:** QuantForge surfaces computed outputs — macro
 indicators and regime, portfolio risk, backtest results, and alerts. The
 agent contracts, quality gates, spec-driven workflow, git hooks, and CI
 are explicitly excluded.

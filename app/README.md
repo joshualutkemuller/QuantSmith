@@ -1,9 +1,14 @@
-# `app/` — iOS Companion Initiative
+# `app/` — QuantForge
 
-The design surface for a **native iOS monitoring companion** built on
-QuantSmith's existing runtimes. Nothing here is built yet: this directory
-holds the handoff, the architecture decision, and the phase breakdown so
-the work can start from a settled scope rather than a conversation.
+**QuantForge** is a native iOS monitoring companion built on QuantSmith's
+existing runtimes, and will live in its **own repository** of that name.
+This directory is its design surface: the handoff, the architecture
+decision, and the phase breakdown, so the work can start from a settled
+scope rather than a conversation. Nothing is built yet.
+
+QuantSmith remains the source of the contracts and computed outputs
+QuantForge renders; spec `0047` is what lets the two repositories move
+independently without silently breaking each other.
 
 ## Status
 

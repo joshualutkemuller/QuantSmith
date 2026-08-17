@@ -182,6 +182,11 @@ belong under profiles/adapters unless they require materially different behavior
   pairwise (RankNet-style) ranking-loss variant of `0006`, composing its
   labels/features/folds/evaluation unmodified; the sole remaining `P0`
   backlog line ("additional ML/DL examples") is now shipped.
+- The walk-forward backtest harness (spec `0046`, `walk_forward.py`) —
+  composes `0006`'s purged/embargoed `make_folds` with `0044`'s engine,
+  refitting per fold and evaluating on held-out periods, and reports the
+  out-of-sample fold distribution rather than one in-sample number.
+  Closes the gap `0044`'s own report admitted to.
 - The FRED point-in-time panel adapter (spec `0045`,
   `fred_point_in_time.py`) — reads `gold_fred_point_in_time` from the FRED
   bronze-to-gold pipeline's local SQLite output and selects vintages by

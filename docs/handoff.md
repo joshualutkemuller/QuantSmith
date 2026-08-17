@@ -439,7 +439,26 @@ by the `knowledge` gate.
       happily trade on. Read-only, no API key: it consumes a SQLite file
       the operator produced (P9).
 
-    **Next up — the real run.** With `0044` and `0045` in place, the
+    - `0046` the walk-forward backtest harness (`walk_forward.py`) —
+      closes the gap `0044`'s own rendered report admitted to ("results
+      here are in-sample unless that was applied upstream"), which is the
+      first thing `agents/backtest_review/` discounts. The pieces already
+      existed and had never been composed: `0006`'s `make_folds` produces
+      purged, embargoed splits and `0044`'s `run_backtest` measures a
+      path. Fold construction is **delegated**, not reimplemented — a
+      second implementation could disagree with `0006` about what is
+      purged. `fit_predict` is called once per fold on training periods
+      only, and its weights are evaluated on that fold's held-out periods
+      with the rebalance lag preserved across the slice. The headline is
+      the fold *distribution* (Sharpe dispersion, best/worst, positive
+      fraction), not a single pooled number that could hide one lucky
+      stretch. The generated example is again honestly negative — 20% of
+      folds positive, pooled probabilistic Sharpe 0.041 — which is the
+      right answer for a trailing-mean tilt on random data after costs.
+      Variant selection on fold results is an explicit Non-Goal: that
+      needs a deflated Sharpe, the named follow-up.
+
+    **Next up — the real run.** With `0044`, `0045`, and `0046` in place, the
     remaining step is a wiring exercise, blocked only on data:
     `fred_local.db`, produced by the operator from
     `joshualutkemuller/fred-bronze-to-gold-pipeline` via

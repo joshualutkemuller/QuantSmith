@@ -50,7 +50,7 @@ scan_entity() {
   done
 }
 
-for doc in README.md docs/handoff.md docs/sdk_plan.md app/handoff.md; do
+for doc in README.md docs/handoff.md docs/sdk_plan.md; do
   if [ ! -f "$doc" ]; then
     qf_info "$doc not present; skipped."
     continue

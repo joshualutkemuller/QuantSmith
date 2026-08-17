@@ -8,8 +8,8 @@
 
 ## Problem & Context
 
-`app/`'s handoff plans **QuantForge**, an iOS companion in a **separate
-repository** that consumes QuantSmith. That turns three latent weaknesses into real ones:
+[QuantForge](https://github.com/joshualutkemuller/QuantForge), an iOS companion in a **separate repository**, consumes
+QuantSmith. That turns three latent weaknesses into real ones:
 
 1. **`DashboardSpec` carries no schema version.** It is the contract a
    client renders, and seven profiles already build on it. A downstream
@@ -54,7 +54,7 @@ depends on it.
   the installed package, not against a remote index — gates in this SDK
   stay offline and deterministic.
 - **No versioning of other payloads** (run manifests, backtest reports,
-  data contracts). `DashboardSpec` is the contract `app/` consumes;
+  data contracts). `DashboardSpec` is the contract QuantForge consumes;
   extending the scheme elsewhere is a later decision, not an assumption.
 - **No change to the SemVer policy itself.** `CHANGELOG.md` owns that;
   this spec supplies the mechanism the policy needs.
@@ -70,7 +70,7 @@ depends on it.
 | REQ-005 | The release-notify workflow shall skip cleanly when no downstream repositories or no dispatch token are configured, rather than failing the release. | must |
 | REQ-006 | `quantsmith-version-check.sh` shall detect a declared `quantsmith` dependency in a consuming repository and flag it when unpinned, or when pinned to a version other than the installed one. | must |
 | REQ-007 | The gate shall report "not a consumer; skipped" in a repository that declares no `quantsmith` dependency — including QuantSmith itself. | must |
-| REQ-008 | `hooks/stages/run-stage.sh`, `hooks/README.md`, root `README.md`'s gate table, and `app/handoff.md` shall document the new gate and workflow. | must |
+| REQ-008 | `hooks/stages/run-stage.sh`, `hooks/README.md`, and root `README.md`'s gate table shall document the new gate and workflow. | must |
 
 ## Non-Functional Requirements
 
@@ -108,7 +108,7 @@ API with a repository-provided token.
 | ID | Risk | Impact | Mitigation |
 | --- | --- | --- | --- |
 | RISK-001 | Adding a field to a frozen dataclass could break a call site that constructs `DashboardSpec` positionally with trailing arguments. | Downstream breakage from a change meant to prevent it. | The field is appended last with a default, and AC-001/AC-002 verify existing construction and all seven renderers unchanged. The irony of breaking compatibility with a compatibility spec is exactly why this is tested rather than assumed. |
-| RISK-002 | `schema_version` gives a *false* sense of safety: bumping it is a manual act, so a breaking change shipped without a bump is undetectable. | A consumer trusts a version that did not move. | Stated plainly in the module docstring and `app/handoff.md`: the version is a declaration, not a derivation. The honest guard is the consumer-side contract test, which this spec enables but cannot enforce from here. |
+| RISK-002 | `schema_version` gives a *false* sense of safety: bumping it is a manual act, so a breaking change shipped without a bump is undetectable. | A consumer trusts a version that did not move. | Stated plainly in the module docstring: the version is a declaration, not a derivation. The honest guard is the consumer-side contract test, which this spec enables but cannot enforce from here. |
 | RISK-003 | The dispatch workflow needs a token with permission on another repository, which is a credential this project has never held. | A new secret to manage, and a new blast radius. | Scoped to `repository_dispatch` only, read from repository secrets, never embedded, and the workflow skips when absent (REQ-005). It notifies; it cannot merge. |
 | RISK-004 | The version gate compares against the *installed* package, so a consumer that never installs `quantsmith` gets no signal. | A silent pass in a repo that only reads JSON artifacts. | Documented as a limitation: the gate covers code consumers. A pure-artifact consumer is guarded by `schema_version` on the payload instead, which is the layer that actually applies to it. |
 

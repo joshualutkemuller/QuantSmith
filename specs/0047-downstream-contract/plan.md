@@ -85,7 +85,7 @@ its exit code and findings, like every other `hooks/stages/*-check.sh`.
 | REQ-002, REQ-003 | `check_schema_compatibility`, `Compatibility` | T-001 |
 | REQ-004, REQ-005 | `release-notify.yml` | T-002 |
 | REQ-006, REQ-007 | `quantsmith-version-check.sh` | T-003 |
-| REQ-008 | `run-stage.sh`, `hooks/README.md`, root `README.md`, `app/handoff.md` | T-004 |
+| REQ-008 | `run-stage.sh`, `hooks/README.md`, root `README.md` | T-004 |
 | NFR-001 | Existing renderer tests pass unchanged | T-005 |
 | NFR-002, NFR-003 | Stdlib + POSIX sh; secrets-only token | T-001 – T-003 |
 | NFR-004 | Validation gates | T-005 |

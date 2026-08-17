@@ -481,6 +481,32 @@ by the `knowledge` gate.
     invocation target exists. Otherwise: continuing to populate `sources/`
     as real sources come into use.
 
+## iOS Companion Initiative (design only)
+
+`app/` holds the handoff, phase breakdown, and decision log for a
+**read-only iOS monitoring companion** — macro indicators and regime,
+portfolio risk, backtest results, and alerts. Nothing is built.
+
+Three things worth knowing without opening it:
+
+- **Most of the SDK is deliberately excluded** (`AD-001`). The agent
+  contracts, gates, spec flow, hooks, and CI operate on a repository;
+  there is no mobile use case, and the exclusion is written down so the
+  scope cannot expand silently.
+- **Web-first validation comes before any native work** (`AD-002`), using
+  the Streamlit scaffolder that already exists (`0018`). Stopping there is
+  a legitimate outcome — a native app is warranted only by push, offline
+  access, or App Store distribution.
+- **One decision is deliberately open** (`AD-003`): whether this project
+  starts owning a running service. Every adapter today is a contract plus
+  an injected `transport`, which is exactly why the repo holds no
+  credentials and can claim P9 cleanly. A hosted read API breaks that
+  posture, so it is recorded as an architectural fork rather than drifted
+  into — with two alternatives (published static artifacts, or a local
+  file sync like `0045`'s) that preserve the current design.
+
+See `app/README.md`, `app/handoff.md`, `app/decision_log.md`.
+
 ## Open Questions For The Owner
 
 - Copyable scaffold, Python package, or CLI/copier? (Directionally answered in

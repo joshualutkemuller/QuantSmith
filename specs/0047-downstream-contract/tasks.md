@@ -19,7 +19,7 @@
 | T-001 | Add `SCHEMA_VERSION`, the `schema_version` field, `Compatibility`, and `check_schema_compatibility` to `dashboard_spec.py`; add `__version__` to the package. | REQ-001, REQ-002, REQ-003, NFR-001, NFR-002 | done | Field appended last with a default so positional construction is unaffected (RISK-001). |
 | T-002 | Add `.github/workflows/release-notify.yml`. | REQ-004, REQ-005, NFR-003 | done | Dispatches `quantsmith-release` on a `v*` tag; skips cleanly when the token or repo list is unset. |
 | T-003 | Add `hooks/stages/quantsmith-version-check.sh`. | REQ-006, REQ-007, NFR-002 | done | Flags a missing pin, a floating dependency, or a pin that differs from the installed version; skips in a non-consumer repo. |
-| T-004 | Wire `run-stage.sh`, `hooks/README.md`, root `README.md`, `app/handoff.md`, and the gate counts. | REQ-008 | done | Adding a gate moves the documented count 27 → 28; `doc-counts` enforces this. |
+| T-004 | Wire `run-stage.sh`, `hooks/README.md`, root `README.md`, and the gate counts. | REQ-008 | done | Adding a gate moves the documented count 27 → 28; `doc-counts` enforces this. |
 | T-005 | Write `tests/test_dashboard_contract.py` and run validation gates. | NFR-001, NFR-004 | done | Existing renderer tests are deliberately left untouched — that is the backward-compatibility evidence. |
 
 Status values: `todo` | `in-progress` | `blocked` | `done`.
@@ -45,7 +45,7 @@ Status values: `todo` | `in-progress` | `blocked` | `done`.
 - Extend `schema_version` to the run manifest, backtest report, and data
   contract payloads once a consumer exists for them (carried as an open
   question in `spec.md`).
-- **Consumer-side pieces**, which belong in the app repository, not here:
+- **Consumer-side pieces**, which belong in [QuantForge](https://github.com/joshualutkemuller/QuantForge), not here:
   a pip entry in its Dependabot config, and the contract test that
   decodes a `DashboardSpec` from the installed `quantsmith` — the latter
   being the real guard that `schema_version` alone cannot provide

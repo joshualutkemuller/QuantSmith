@@ -338,9 +338,9 @@ operations, data provenance):
   in-sample gap `0044`'s own report admitted to, and makes the pending FRED run
   defensible over a short macro sample. Selecting variants on fold results is
   explicitly out of scope: that needs a deflated Sharpe, the natural follow-up.
-- QuantForge, the iOS companion — design only, nothing built (`app/`), planned as
-  a separate repository. A read-only monitoring companion over existing runtime
-  outputs; the SDK's development-time
+- QuantForge, the iOS companion — design and documents now live in [their own
+  repository](https://github.com/joshualutkemuller/QuantForge); QuantSmith keeps only the spec `0047` mechanisms that keep the
+  two in sync. A read-only monitoring companion over existing runtime outputs; the SDK's development-time
   surfaces are explicitly out of scope. Phase 1 (a SwiftUI `DashboardSpec`
   profile, the eighth target after `0015`/`0016`/`0018`) and Phase 3 (an APNs
   provider beside the eight in `adapters/alert_delivery/`) extend patterns that

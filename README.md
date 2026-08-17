@@ -164,7 +164,6 @@ quantsmith/
 ├── 🗂️ specs/                     # source-of-truth specifications
 ├── 🧾 templates/                 # repeatable artifacts (memos, cards, reports)
 ├── 🗃️ sources/                   # data source catalog (APIs, DBs, feeds)
-├── 📱 app/                       # QuantForge iOS companion (design only, separate repo)
 ├── 🧪 examples/
 └── 📚 docs/
 ```
@@ -180,7 +179,7 @@ quantsmith/
 - `agents/`, `adapters/`, `hooks/`, `instructions/`, `prompts/`, `templates/`, and `examples/` are the intended public SDK surfaces.
 - `src/quantsmith/` contains executable runtime packages. Agent directories are role contracts and catalog entries, not long-term homes for Python modules.
 - The old app-specific assets have been removed from the working tree; the remaining seed files now describe the SDK workflow.
-- `app/` is a **design surface, not code** — the handoff, phase breakdown, and decision log for **QuantForge**, a read-only iOS monitoring companion that will live in its own repository. Nothing in it is built, and one architectural decision (`AD-003`, whether this project starts owning a running service) is deliberately left open. See [`app/README.md`](app/README.md).
+- **QuantForge** — the read-only iOS monitoring companion built on these runtimes — lives in [its own repository](https://github.com/joshualutkemuller/QuantForge), along with its handoff and decision log. Spec `0047` holds the QuantSmith-side mechanisms that keep the two in sync.
 
 </details>
 

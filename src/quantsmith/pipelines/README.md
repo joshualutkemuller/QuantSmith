@@ -159,6 +159,39 @@ Tests: `tests/test_analytics_pipeline.py` (one test per acceptance criterion).
 PYTHONPATH=src python3 -m pytest tests/test_analytics_pipeline.py -q
 ```
 
+## `fred_point_in_time` — spec `0045-fred-point-in-time`
+
+Closes the gap `0044` left open. The backtest engine guarantees its own loop
+does not look ahead and says plainly that it cannot vouch for the weights it is
+handed — and for a macro backtest that is exactly where leakage lives, because
+economic series are **revised**. Reading today's revised GDP while pretending to
+trade in 2015 uses a number that did not exist then.
+
+This adapter reads `gold_fred_point_in_time` from the local SQLite output of
+`joshualutkemuller/fred-bronze-to-gold-pipeline`, whose `realtime_start` /
+`realtime_end` columns bound the window during which a value *was* the
+published figure. Ask for a series as of a date before a later revision and you
+get what was actually published then.
+
+| Component | Spec | What it guarantees |
+| --- | --- | --- |
+| `load_observations` | REQ-001, REQ-006 | Read-only load; a missing file, table, or column raises rather than returning a silently empty panel. |
+| `as_of_value` | REQ-002 | Vintage selected by window containment — a revision published after the as-of date can never be returned. |
+| `as_of_snapshot` | REQ-003, REQ-004 | Latest observation *known* by the as-of date; publication lag falls out of the data, and `is_missing` rows are absent rather than zero. |
+| `build_panel` / `panel_to_returns` | REQ-005 | An as-of-indexed panel, with observation dates alongside values so staleness is visible; returns drop straight into `run_backtest`. |
+
+**Boundaries:** no API key and no fetching — this reads a file the operator
+produced, so the `FRED_API_KEY` never enters this repository (P9). And leak-free
+inputs are not a leak-free signal: a caller can still build a look-ahead signal
+from honest data, which stays `instructions/point_in_time.md`'s concern.
+
+Tests: `tests/test_fred_point_in_time.py` — the fixture mirrors the upstream
+DDL exactly, so a schema drift surfaces there.
+
+```sh
+PYTHONPATH=src python3 -m pytest tests/test_fred_point_in_time.py -q
+```
+
 ## `backtesting` — spec `0044-backtesting`
 
 The artifact quant research exists to produce, and the one this SDK governed

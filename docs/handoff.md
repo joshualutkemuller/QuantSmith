@@ -477,6 +477,42 @@ by the `knowledge` gate.
     invocation target exists. Otherwise: continuing to populate `sources/`
     as real sources come into use.
 
+14. **P1 Generalization & Team Onboarding — making QuantSmith self-serve across
+    domains.** QuantSmith is now a comprehensive framework (161 agents, 45 specs,
+    27 gates, 33 standards); the next phase is reducing discovery friction and
+    enabling team-intuitive adoption without deep codebase reading.
+    - **P0 Phase 1a: Role profiles** (`roles/{portfolio_manager,risk_manager,quant_researcher,data_engineer,compliance_officer}.md`):
+      Define personas with their workflows, agents, specs, and handoff points. A
+      new Portfolio Manager reads `roles/portfolio_manager.md` and learns which
+      agents apply, which specs they own, which gates matter. Replaces the treasure
+      hunt through `agents/README.md`.
+    - **P0 Phase 1b: Domain starter kits** (`templates/domains/{equities,fixed_income,multi_asset,derivatives}/`):
+      Copy-paste templates with pre-wired agents, specs, and instructions for each
+      asset class. New equities team forks `templates/domains/equities/` → 80% of
+      their agent catalog and specs are ready. Reduces onboarding from weeks to
+      days.
+    - **Phase 2: Workflow discovery** (`docs/workflow_discovery.md`):
+      A decision tree (3 questions: Goal? Stage? Timeline?) that routes users to the
+      right orchestrator without reading 161 agent READMEs. Pairs with workflow
+      patterns below.
+    - **Phase 3: Cross-domain composition patterns** (`patterns/{portfolio_plus_hedge,macro_asset_allocation,signal_plus_model_plus_portfolio}.md`):
+      Document 5–10 common multi-domain workflows (equities + options, multi-asset
+      with macro, signal → forecast → portfolio) with agent chaining, handoff
+      boundaries, and expected outputs. Teams reuse patterns rather than designing
+      from first principles.
+    - **Phase 4: Extensibility by recipe** (`docs/extending_quantsmith/{add_asset_class,add_signal_type,add_risk_model,add_gate}.md`):
+      Step-by-step walkthroughs showing how to add a new domain/agent/spec/gate
+      without breaking existing ones, with concrete examples. Enables downstream
+      teams to extend rather than fork-and-modify.
+    - **Phase 5: Consumer upgrade path & versioning** (`docs/consumer_adoption.md`):
+      Document the full lifecycle for external repos: fork → pin → customize →
+      upgrade → contribute back, with schema_version compatibility checking (from
+      spec `0047`). Enables multi-team adoption and central maintenance.
+    - **Phase 6: Instrumentation & observability** (agent call logging):
+      Track which agents, workflows, gates, and domain patterns are used by which
+      teams; failure rates, completion times, and handoff quality. Informs next
+      iterations and prioritization.
+
 ## Open Questions For The Owner
 
 - Copyable scaffold, Python package, or CLI/copier? (Directionally answered in
@@ -500,3 +536,10 @@ by the `knowledge` gate.
 - `docs/adoption_guide.md` is complete enough that a fresh repo can install the SDK.
 - The packaging decision has a chosen path with first steps taken.
 - A second end-to-end worked example exists beyond the momentum signal.
+- **Generalization phase (item 14) — foundations in place:**
+  - `roles/` directory populated with at least three personas (Portfolio Manager, Quant Researcher, Risk Manager).
+  - `templates/domains/equities/` starter kit complete and validated by a new team's onboarding.
+  - `docs/workflow_discovery.md` decision tree operational and tested on 5+ team requests.
+  - At least two composition patterns extracted and documented in `patterns/`.
+  - First extensibility recipe written (e.g., `docs/extending_quantsmith/add_asset_class.md`).
+  - Logging instrumentation added to `agents/workflow_orchestrator/` to track agent calls and gate results.

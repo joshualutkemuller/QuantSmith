@@ -35,23 +35,41 @@ class Record:
     scope: str                  # "dataset:x" | "table:x" | "field:x"
     type: str                   # schema|quirk|pattern|pitfall|decision|metric|performance
     statement: str
-    evidence: Mapping[str, str] # source_run, optional sample_query — never data
+    evidence: tuple[Mapping[str, str], ...]  # source_run + optional sample_query
     confidence: str             # low|medium|high
-    corroboration_count: int
+    corroboration_count: int    # as DECLARED in the file
     first_seen: date
     last_confirmed: date
     status: str                 # active|stale|superseded|retired
     pit_scope: str
     access_level: str           # inherited from the manifest when absent
     author: str | None          # NEW (0048) — handle, never an email
+    superseded_by: str | None   # NEW (0048) — required when status=superseded
+    coexists: tuple[str, ...]   # NEW (0048) — deliberate contradiction exemption
     source_file: str            # provenance for findings; not a memory field
     source_line: int
+
+    @property
+    def corroboration_derived(self) -> int:
+        return len({e["source_run"] for e in self.evidence if "source_run" in e})
 ```
 
-`author` is appended and optional, so every file `0002` committed parses
-unchanged (NFR-003). A record without one is a finding (REQ-010), not an error —
-the existing store predates the field, and failing on it would make the gate
-unusable on day one.
+Every new field is appended and optional, so every file `0002` committed parses
+unchanged (NFR-003). A record without an author is a finding (REQ-010), not an
+error — the existing store predates the field, and failing on it would make the
+gate unusable on day one.
+
+`evidence` becomes a tuple, but the parser accepts `0002`'s single-mapping form
+and wraps it (REQ-014, AC-022), so no committed file needs editing.
+
+**Declared and derived corroboration are kept side by side rather than one
+replacing the other.** `corroboration_count` stays as written; `corroboration_derived`
+counts distinct `source_run` values. Validation compares them (REQ-015). This is
+the `0047` lesson applied: a number a human typed is a claim, and a claim that
+cannot be checked against anything is exactly how `schema_version` could have
+gone stale unnoticed. Here it *is* checkable, so it is checked — and the
+committed store fails the check on day one (RISK-008), which is the gate
+working, not the gate being wrong.
 
 `Finding` reuses the shape the other gates' runtimes use: `severity`, `code`,
 `message`, `record_id`, `source_file`, `source_line`.
@@ -76,26 +94,82 @@ load" instead of "this field means something else now". The committed store is
 the parser's fixture set, so the subset is pinned by real files rather than by
 an author's imagination.
 
-## Point-in-time filtering (REQ-003, RISK-004)
+## Point-in-time filtering (REQ-003, REQ-016, RISK-004, RISK-006)
 
-`pit_scope` is free text today. Two forms appear in the committed store:
+**A memory store is itself look-ahead.** Knowledge recorded in 2026 did not
+exist in 2020; serving it to a 2020 backtest leaks the future. This is the
+subtlest leak in the whole design, and a single `first_seen <= as_of` rule gets
+it wrong in *both* directions. The `type` field already carries the distinction:
 
-| `pit_scope` | Meaning | Behaviour under `as_of` |
-| --- | --- | --- |
-| `<= run date`, `<= decision date` | Learned from data available at the time | Included when `first_seen <= as_of` |
-| `original vintage only` | Depends on unrevised vintage data | **Excluded** from point-in-time queries |
-| anything else | Unknown | **Excluded**, and reported as a validation finding |
+| `type` | Nature | Rule under `as_of` | Why |
+| --- | --- | --- | --- |
+| `schema`, `quirk`, `pitfall` | Mechanical facts about how the data is built | **Always admissible** | "Join on `security_id`, tickers get reused" was true in 2005; you merely hadn't written it down. Excluding it makes a backtest re-learn it or get it wrong — a worse outcome with no leakage benefit. |
+| `pattern`, `metric`, `performance` | Claims about what worked | `last_confirmed <= as_of` | These encode outcomes. Bound on `last_confirmed`, not `first_seen`: **corroboration is where the future enters a record.** A pattern first seen in 2018 but confirmed through 2026 is a 2026 artifact. |
+| `decision` | A choice made at a point in time | `first_seen <= as_of` | A decision is an event; it existed from the moment it was made. |
+
+A record must clear this rule **and** the `pit_scope` rule (REQ-016):
+
+| `pit_scope` | Behaviour under `as_of` |
+| --- | --- |
+| `<= run date`, `<= decision date` | Admissible |
+| `original vintage only` | **Excluded** — depends on unrevised vintage data |
+| anything else | **Excluded**, and reported as a validation finding |
 
 Unrecognised means excluded, never included. A missing record makes a workflow
-ask again; a leaked record makes a backtest lie, and P4 forbids that. The
-asymmetry is deliberate and is the reason the default is exclusion.
+ask again; a leaked record makes a backtest lie, and P4 forbids that. Because
+the two rules are independent and both must pass, `pit_scope` being free text
+cannot admit a record that the type rule excludes — the weaker check cannot
+override the stronger one.
+
+The strictness in row two is knowingly conservative: a pattern whose statement
+never actually changed between 2018 and 2026 is excluded anyway, because
+without record versioning there is no way to tell. That is the honest trade,
+and record versioning (a Non-Goal here) is what would replace exclusion with
+serving the contemporaneous version instead.
+
+## Contradiction and supersession (REQ-012, REQ-013, RISK-007)
+
+`instructions/workflow_memory.md` says "a contradiction flags it" and "no silent
+overwrite — contradictions are resolved to `superseded`, not deleted". Neither is
+implementable today: nothing looks for contradictions, and `status: superseded`
+has nothing to point at. `superseded_by` closes the second half, and makes the
+first half resolvable rather than merely reportable.
+
+**Detection is structural, not semantic.** Two `active` records sharing `scope`
+and `type` occupy the same slot: one field, one kind of claim, two live
+statements. That is detectable with a dict and no model in the loop. What it
+cannot do is decide whether they actually conflict — `field:volume` may
+legitimately carry three distinct quirks.
+
+So the finding is `info` severity and reads as *adjudicate this pair*, not
+*this is broken*. Two properties keep it from becoming noise:
+
+- **It is self-quieting.** Resolving a pair by marking one `superseded` removes
+  it from the `active` set, so the pair is never reported again. Each pair costs
+  one adjudication, ever.
+- **`coexists` is an explicit exemption.** A pair that is deliberately both live
+  names the other id, and the finding stops. Silencing is a reviewable line in
+  the file, not achieved by deleting a record — which is exactly the "no silent
+  overwrite" property the standard asks for.
+
+Supersession validation: `status: superseded` requires `superseded_by`; the
+target must resolve to a record that exists; and the graph must be acyclic
+(A superseded by B superseded by A is two records both claiming to be obsolete,
+leaving no current answer). All three are AC-021.
 
 ## Ranking and rendering (REQ-004, RISK-005)
 
 Records are ranked by, in order: `confidence` (high > medium > low),
-`corroboration_count` descending, `last_confirmed` descending, then `id`
+**`corroboration_derived`** descending, `last_confirmed` descending, then `id`
 ascending as a total-order tiebreak — so the ordering is deterministic
 (NFR-002) rather than dependent on filesystem or dict iteration order.
+
+Ranking on the derived count rather than the declared one is the point: the
+declared number is a claim, and retrieval order should not be settable by typing
+a larger integer. `confidence` remains human-set and therefore still gameable —
+REQ-015 constrains it by flagging `high` on a single evidence entry, but it is
+a check, not a derivation. Stated plainly so nobody mistakes the ranking for a
+measurement of usefulness (RISK-005).
 
 `render_context` emits one line per record — id, scope, type, statement,
 confidence, `last_confirmed` — and fills up to `budget_chars`, then appends

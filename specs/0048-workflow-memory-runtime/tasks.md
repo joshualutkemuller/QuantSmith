@@ -13,6 +13,10 @@
   the `quantsmith` package is not installed.
 - Every `AC-*` has a named test; the pseudonymous-not-anonymous limit is stated
   in the code, not only in the spec.
+- A point-in-time query never returns a record the type rule excludes, whatever
+  `pit_scope` says — the weaker check cannot override the stronger one.
+- Derived values are derived: retrieval order depends on `corroboration_derived`,
+  never on the declared integer a contributor typed.
 
 ## Task List
 
@@ -20,16 +24,20 @@
 | --- | --- | --- | --- | --- |
 | T-001 | Subset YAML parser + `Record`/`Store`/`Finding` dataclasses; `load_store`. | REQ-001, NFR-001, NFR-005 | todo | Raise `MemoryParseError(file, line, reason)` outside the subset — never guess (RISK-001). Committed store is the fixture. |
 | T-002 | `query` with scope/type/confidence/status filters and deterministic ordering. | REQ-002, NFR-002 | todo | Total order: confidence, corroboration, `last_confirmed`, then `id`. |
-| T-003 | Point-in-time filtering by `pit_scope`. | REQ-003 | todo | Unrecognised `pit_scope` ⇒ **excluded** and reported (RISK-004). Exclusion is the safe failure; inclusion leaks. |
+| T-003 | Point-in-time filtering: the type-based temporal rule plus the `pit_scope` rule, both of which must pass. | REQ-003, REQ-016 | todo | Mechanical types timeless; predictive bound on `last_confirmed` (corroboration is where the future enters); `decision` on `first_seen`. Unrecognised `pit_scope` ⇒ **excluded** and reported. Exclusion is the safe failure; inclusion leaks (RISK-004, RISK-006). |
 | T-004 | `render_context` with a character budget, rank-ordered fill, and an explicit omitted count. | REQ-004 | todo | Budget is characters, not tokens — no tokenizer in this module. Show `last_confirmed` on every line. |
 | T-005 | `validate`: required fields, enum values, duplicate ids, date order, author pattern. | REQ-005, REQ-009, REQ-010 | todo | This is what replaces grepping for the string `first_seen`. Missing author is a finding, not an error. |
 | T-006 | `check_decay` against each store's `freshness_days`. | REQ-006 | todo | Reads the value `manifest.yaml` has always declared and nothing has ever read. |
 | T-007 | `resolve_author` chain + pseudonymous handle derivation; `identity.yml` gitignored. | REQ-007, REQ-008, NFR-004 | todo | Env override short-circuits before any subprocess. Hex output cannot contain `@` — that is the guard, not convention. |
 | T-008 | `store_version` content hash. | REQ-011 | todo | For `templates/docs/run_card.md`'s "memory version used". |
+| T-013 | `evidence` accepts `0002`'s single-mapping form or a list; add `corroboration_derived`. | REQ-014 | todo | Wrapping the singular form is what keeps NFR-003 true — no committed file is edited. |
+| T-014 | Unsupported-confidence check: declared `corroboration_count` > derived, or `confidence: high` on one evidence entry. | REQ-015 | todo | The committed store fails this on `MEM-0001` by design (RISK-008). Loading still succeeds; only validation reports. |
+| T-015 | `superseded_by` + `coexists` fields; supersession validation (required when superseded, resolves, acyclic). | REQ-013 | todo | `status: superseded` currently has nothing to point at, so the standard's "no silent overwrite" is unenforceable. |
+| T-016 | Contradiction candidates: two `active` records sharing `scope` + `type`, unless exempted via `coexists`. | REQ-012 | todo | `info` severity — adjudicate, not broken. Self-quieting: marking one `superseded` removes the pair permanently (RISK-007). Depends on T-015. |
 | T-009 | CLI entry (`python -m quantsmith.pipelines.workflow_memory --validate --decay`). | REQ-005, REQ-006 | todo | The seam `memory-check.sh` calls. |
 | T-010 | Wire `memory-check.sh` to prefer the runtime, keeping the grep path as fallback. | REQ-005, REQ-006 | todo | Gate must degrade gracefully in a copied scaffold with no package. |
 | T-011 | `tests/test_workflow_memory.py` — one test per AC. | NFR-002, NFR-003, NFR-005 | todo | Malformed fixtures in `tmp_path`; never commit broken YAML. |
-| T-012 | Wire catalogs and docs: `specs/README.md`, root `README.md` runtime table, `src/quantsmith/pipelines/README.md`, `instructions/workflow_memory.md` (author field + pseudonymity), `agents/knowledge/*` (point at the runtime). | REQ-001 | todo | `doc-counts`, `spec-index`, and `readme-sync` all enforce parts of this. |
+| T-012 | Wire catalogs and docs: `specs/README.md`, root `README.md` runtime table, `src/quantsmith/pipelines/README.md`, `instructions/workflow_memory.md` (author + pseudonymity, `superseded_by`, `coexists`, list-form `evidence`, the type-based PIT rule), `agents/knowledge/*` (point at the runtime). | REQ-001 | todo | `doc-counts`, `spec-index`, and `readme-sync` all enforce parts of this. The standard is `0002`'s and gains fields here — update it rather than letting the runtime and the standard diverge. |
 
 Status values: `todo` | `in-progress` | `blocked` | `done`.
 
@@ -52,15 +60,29 @@ Status values: `todo` | `in-progress` | `blocked` | `done`.
 | AC-013 | `test_email_author_flagged_and_agrees_with_pii_scan_AC_013` | todo |
 | AC-014 | `test_store_version_changes_with_content_AC_014` | todo |
 | AC-015 | `test_unsupported_yaml_raises_with_location_AC_015` | todo |
+| AC-016 | `test_mechanical_type_is_timeless_AC_016` | todo |
+| AC-017 | `test_predictive_type_bounded_by_last_confirmed_AC_017` | todo |
+| AC-018 | `test_decision_bounded_by_first_seen_AC_018` | todo |
+| AC-019 | `test_contradiction_candidate_flagged_AC_019` | todo |
+| AC-020 | `test_coexists_and_supersession_silence_pair_AC_020` | todo |
+| AC-021 | `test_supersession_missing_dangling_and_cyclic_AC_021` | todo |
+| AC-022 | `test_evidence_singular_and_list_forms_AC_022` | todo |
+| AC-023 | `test_committed_store_unsupported_confidence_AC_023` | todo |
 
 ## Sequencing
 
 T-001 gates everything — nothing can be queried, validated, or rendered until
-records parse. T-002→T-004 complete the read path and are the first point at
-which the store delivers value. T-005/T-006 convert the gate from
-string-matching to record validation. T-007 is independent of T-001–T-006 and
-can proceed in parallel. T-009/T-010 are the wiring; T-012 is the catalog sweep
-the docs gates enforce.
+records parse, and T-013's `evidence` handling belongs with it since it changes
+what a parsed record looks like. T-002→T-004 complete the read path and are the
+first point at which the store delivers value. T-005/T-006 plus T-014→T-016
+convert the gate from string-matching to record validation; T-016 depends on
+T-015, since a contradiction is only resolvable once supersession can be
+expressed. T-007 is independent of everything else and can proceed in parallel.
+T-009/T-010 are the wiring; T-012 is the catalog sweep the docs gates enforce.
+
+Do T-013 and T-015 **before** T-001 ships rather than after: both add fields to
+the record, and retrofitting a dataclass that tests and a gate already depend on
+costs more than including them now.
 
 ## Follow-ups (explicitly not this spec)
 
@@ -72,8 +94,23 @@ the docs gates enforce.
 - **Approval workflow** — `status` transitions with a `reviewed_by` handle,
   routed through a second agent. This spec supplies the identity that workflow
   routes to; it does not build the workflow.
-- **Organisation scale** — multi-team namespacing, contradiction detection
-  between stores, and impact scoring ("what did this record earn us?").
+- **Retrieval logging** — record which record ids were served to which run, in
+  the `run_card.md` slot that already exists. Nothing today measures whether
+  retrieval helped, which leaves the spec's own premise ("extract value")
+  unevidenced. It also unlocks two things otherwise impossible: pruning records
+  never retrieved in a year (without it a store only grows, and eventually costs
+  more to search than it saves) and ranking on observed usefulness instead of
+  self-asserted `confidence`.
+- **Capture as a byproduct of existing gates** — `backtest`, `leakage`, and
+  `data-contract` already emit structured findings with a run attached. A
+  leakage finding about a dataset *is* a `pitfall` record about that dataset.
+  Drafting candidate records from gate output makes capture a side effect of
+  work people already do; an agent that asks people to write records reliably
+  produces five and then silence.
+- **Semantic contradiction detection** — REQ-012 finds records sharing a slot;
+  deciding whether two statements actually conflict needs a model in the loop.
+- **Organisation scale** — multi-team namespacing, cross-store contradiction
+  detection, and impact scoring ("what did this record earn us?").
 - **`access_level` enforcement inside `query`** rather than reporting, once a
   caller exists that carries a level to enforce against (`spec.md`, Open
   Questions).

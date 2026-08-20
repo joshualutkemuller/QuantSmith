@@ -37,3 +37,21 @@ agents.zip
 # committed, placeholders-only template.
 /model_plugins.yml
 /model_plugins.yaml
+
+# Local knowledge-source manifest (agents/knowledge/) -- instructions/knowledge_base.md
+# tells an adopter to copy the template here and "set real paths", so a filled-in
+# copy names internal repositories and filesystem locations; never commit it.
+# Anchored to the repo root so it does not also hide
+# templates/knowledge/knowledge_sources.yml, the committed, placeholders-only
+# template. Same pattern as role_context.yml and model_plugins.yml above.
+/knowledge_sources.yml
+/knowledge_sources.yaml
+
+# Local data artifacts -- the operator produces these from their own accounts
+# (e.g. fred_local.db via the FRED pipeline with their own API key). They are
+# data, not scaffold, and can be large; the SDK ships code that reads them, never
+# the files themselves.
+*.db
+*.sqlite
+*.sqlite3
+*.parquet

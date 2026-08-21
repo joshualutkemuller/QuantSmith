@@ -61,6 +61,13 @@ postmortem, handoff memo, production readiness), `templates/data/data_contract.m
 repositories declared in `knowledge_sources.yml` (subfolders as domains), validated
 by the `knowledge` gate.
 
+**Scheduled workflow operations** — spec `0024-workflow-scheduling-operations`
+defines the agentic control plane for cron/jobs/scripts/Python/workflows: a schedule
+registry, scheduler-adapter validation, execution ledger, manual task reminders,
+daily status reports, failure routing, and memory handoff for recurring operational
+learnings. It builds on `adapters/schedulers/`, `0019-pipeline-observability`,
+`0020-alerting`, and `0002-workflow-memory`.
+
 ## Conventions To Preserve
 
 - A public agent is any directory containing `prompt.md` (any depth under `agents/`)
@@ -83,7 +90,17 @@ by the `knowledge` gate.
 
 ## What's Next (prioritized)
 
-1. **P0 optimizer-agent workflow expansion** — the optimization group now has runtimes
+1. **P0 scheduled workflow operations control plane** — new spec
+   `0024-workflow-scheduling-operations/` covers cron jobs, Python scripts/modules,
+   QuantSmith pipelines, and agentic workflows as deployable scheduled jobs. The
+   planned slice is a registry → scheduler adapter dry-run/deploy → dispatcher →
+   execution ledger → daily status report loop, with manual task reminders and
+   failure/overdue routing into alerting. This is the missing operating layer for
+   recurring desk workflows: "what ran, what completed, what failed, what needs a
+   human, what runs next, and what should be learned for next time." First runtime
+   target should be local and dependency-free (`workflow_scheduling.py` plus tests),
+   then adapters can deploy to cron/GitHub Actions/Airflow/Dagster/Prefect.
+2. **P0 optimizer-agent workflow expansion** — the optimization group now has runtimes
    for the core mathematical forms plus two applications: convex QP
    (`specs/0007-portfolio-construction/`), a closed-form control
    (`specs/0012-execution-scheduling/`), and the solver toolkit
@@ -93,12 +110,12 @@ by the `knowledge` gate.
    constrained portfolio (MILP), funding-ladder min-cost flow, multi-period
    rebalancing DP — and add conic/global/nonlinear forms when a dependency-free method
    or an optional solver dependency is chosen.
-2. **Machine-learning and deep-learning workflow expansion** — the first runtime
+3. **Machine-learning and deep-learning workflow expansion** — the first runtime
    workflow is shipped as `specs/0006-ml-return-forecasting/` (ML build chain end to
    end with a DL challenger, plus a runnable reference pipeline and tests). Next: add
    more ML/DL worked examples (ranking, RL, forecasting variants) as the desk needs
    them.
-3. **Data-engineering & data-analyst spec + runtime coverage** — closing the biggest
+4. **Data-engineering & data-analyst spec + runtime coverage** — closing the biggest
    structural gap, role by role.
    - **Data Analyst — analysis + communication layers shipped.** Governed analysis:
      `metrics_semantic_layer/` (spec `0008`), `experimentation/` (spec `0009`), and the
@@ -137,21 +154,21 @@ by the `knowledge` gate.
      `data_governance`) get executable runtimes only when a concrete workflow needs
      one. The `src/quantsmith/agentic_code_tools/*` modules (SQL, EDA, prep, BI) remain
      runtime not tied to any spec. Backlog detail in `docs/handoffs/future_features.md`.
-4. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
+5. **Adoption guide** — done. `docs/adoption_guide.md` is a full walkthrough of both
    layers: `pip install quantsmith` + using the runtimes, and copying the scaffold +
    wiring the gates, with per-project-type recipes.
-5. **Packaging** — done (package phase active). `docs/packaging.md` records the hybrid
+6. **Packaging** — done (package phase active). `docs/packaging.md` records the hybrid
    (versioned `quantsmith` package for the runtimes + template for the scaffold);
    `CHANGELOG.md` and a versioning policy are in place. Remaining optional step: the
    Copier `qf` sync CLI, and an optional PyPI release when there is demand.
-6. **More worked examples** — the forecast spec is done
+7. **More worked examples** — the forecast spec is done
    (`specs/0006-ml-return-forecasting/`); still open: a risk-model spec end to end
    and an ingestion example that emits a data contract (see item 3).
-7. **Remaining backing instructions** — risk_management, data_ingestion,
+8. **Remaining backing instructions** — risk_management, data_ingestion,
    reproducibility, monitoring. (`pipeline_engineering`, `metrics_semantic_layer`, and
    `data_storytelling` are shipped.)
-8. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
-9. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
+9. **`CHANGELOG.md`** — done (Keep a Changelog + a SemVer-style versioning policy).
+10. **Optional gates** — `ingestion-snapshot`; a stricter notebook-output gate;
    revisit enforcing `leakage`.
 
 ## Open Questions For The Owner

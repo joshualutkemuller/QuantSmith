@@ -18,7 +18,7 @@ specs/
 
 ## Index
 
-Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, `0038`, `0039`, `0041`, `0042`, `0044`–`0049`, `0055`–`0059`, `0061` have dependency-free reference runtimes under
+Specs `0001`, `0006`–`0013`, `0015`, `0016`, `0018`–`0021`, `0028`, `0034`–`0036`, `0038`, `0039`, `0041`, `0042`, `0044`–`0049`, `0054`–`0059`, `0061` have dependency-free reference runtimes under
 `src/quantsmith/pipelines/` (catalogued in
 [`../src/quantsmith/pipelines/README.md`](../src/quantsmith/pipelines/README.md)),
 each with a matching test module under `tests/`.
@@ -41,6 +41,7 @@ each with a matching test module under `tests/`.
 | [0061-quant-model-factory](0061-quant-model-factory/) | Quant Model Factory — multi-agent parallel model-development lanes with `best_of_n`, `all_required`, and `first_to_pass` convergence modes; each lane is scored by a shared `ConvergenceGate` (Sharpe, drawdown, return); an append-only JSONL `FactoryLedger` records every run for full auditability; caller-injected lane executor keeps the runtime import-cycle-free | `quant_factory.py` | `test_quant_factory.py` | Approved |
 | [0052-mcp-adapter-contract](0052-mcp-adapter-contract/) | MCP adapter contract + knowledge resources server — stdlib-only JSON-RPC 2.0 adapter contract for all three knowledge-domain MCP servers (resources/0052, memory-graph/0053, RAG/0054); implements the `resources` primitive for `knowledge_sources.yml` entries with `caller_clearance` enforcement, credential scan, path-traversal protection, and the `knowledge://` URI scheme unblocking 0053/0054/0056 T-003 | `adapters/mcp_servers/` *(not `pipelines/`)* | `test_mcp_servers.py` | Draft |
 | [0053-memory-graph-mcp-server](0053-memory-graph-mcp-server/) | Memory-graph MCP server — wires the `knowledge://memory/<scope>/<record_id>` authority to the 0048 workflow-memory runtime; `caller_clearance` enforced; existence masking for restricted/missing records; no I/O in the adapter | `adapters/mcp_servers/memory_resources.py` | `test_mcp_servers.py` | Draft |
+| [0054-mcp-rag-server](0054-mcp-rag-server/) | MCP RAG server — TF-IDF search (stdlib only) over the knowledge store with per-access-tier filtering and cited passages; extends the 0052 contract with `resources/search`; existence masking on `resources/read`; deterministic sort `(-score, uri)` | `adapters/mcp_servers/rag_resources.py` | `test_rag_resources.py` | Draft |
 | [0046-walk-forward](0046-walk-forward/) | Walk-forward backtest harness — composes `0006`'s purged/embargoed `make_folds` with `0044`'s engine, refitting per fold and evaluating on held-out periods; reports the fold distribution (dispersion, positive fraction) rather than one in-sample number | `walk_forward.py` | `test_walk_forward.py` | Approved |
 | [0045-fred-point-in-time](0045-fred-point-in-time/) | FRED point-in-time panel adapter — reads `gold_fred_point_in_time` from the FRED bronze-to-gold pipeline's local SQLite output and answers vintage-correct questions via `realtime_start`/`realtime_end`, so a revision published later can never leak backwards into an earlier as-of date | `fred_point_in_time.py` | `test_fred_point_in_time.py` | Approved |
 | [0044-backtesting](0044-backtesting/) | Backtest engine — net-of-cost simulation with no look-ahead by construction (`weights[i]` meets `returns[i+lag]`, `lag >= 1`), turnover-scaled costs, financing on shorts, drawdown, and a probabilistic Sharpe on every run; ships the repo's first backtest artifact, making the CI-enforced `backtest` gate live | `backtesting.py` | `test_backtesting.py` | Approved |
@@ -104,7 +105,7 @@ traceability end to end. Copy its structure, not its content.
 
 **Next free spec number: `0062`** (`0003`/`0005` belong to the local-only pack).
 `0050`–`0054` are **reserved** — `0052` (MCP adapter contract + resources
-server) and `0053` (memory-graph MCP server) are now written; `0050`,
-`0051`, `0054` are not yet written. See the *Planned specs* table in
+server), `0053` (memory-graph MCP server), and `0054` (MCP RAG server) are now
+written; `0050` and `0051` are not yet written. See the *Planned specs* table in
 [`../docs/handoff.md`](../docs/handoff.md) for what each covers and what it
 depends on.

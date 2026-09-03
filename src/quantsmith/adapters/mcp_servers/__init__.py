@@ -12,4 +12,8 @@ Public surface::
 
 See ``adapters/mcp_servers/adapter_contract.md`` for the full contract and
 ``specs/0052-mcp-adapter-contract/`` for requirements and acceptance criteria.
+
+Spec 0054 (``rag_resources.py``) extends the contract with ``resources/search``:
+TF-IDF ranking (stdlib only) over caller-injected ``RagRecord`` objects, with
+per-access-tier clearance filtering and sentence-level passage excerpts.
 """

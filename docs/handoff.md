@@ -143,7 +143,7 @@ nobody noticed.
 | `0051` | **Conformance levels** — make `QF_CONFORMANCE_LEVEL` verified rather than declared | `0050` config contract | item 16 |
 | `0052` | **MCP adapter contract + resources server** — `adapters/mcp_servers/`, serving `knowledge_sources.yml` over the resources primitive | none (reuses the existing manifest) | item 17 |
 | `0053` | **MCP memory-graph server** — tools over `0048`'s store, with `as_of` honouring the type-aware point-in-time rule | `0048` `T-002`/`T-004`; ideally `0049` | item 17 |
-| `0054` | **MCP RAG server** — vector search with per-access-tier indexes and cited passages | `0052` contract | item 17 |
+| `0054` | **MCP RAG server** — TF-IDF search with per-access-tier indexes and cited passages | `0052` contract | item 17 — **Done** (`rag_resources.py`, `test_rag_resources.py`) |
 
 **Next free spec number: `0060`.** Reserving a number here does not create the
 directory; run `./scripts/new-spec.sh` (or copy `templates/spec/`) when the work
